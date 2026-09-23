@@ -29,7 +29,7 @@
     background-repeat: no-repeat;
   }
   a { color: inherit; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
   .gold { background: linear-gradient(180deg, var(--gold-a), var(--gold-b) 55%, var(--gold-c));
           -webkit-background-clip: text; background-clip: text; color: transparent; }
 
@@ -55,28 +55,77 @@
   .btn.gold-btn { color: #1b150c; background: linear-gradient(180deg, var(--gold-a), var(--gold-b) 60%, var(--gold-c));
                   box-shadow: 0 10px 30px rgba(214,184,130,.22), inset 0 1px 0 rgba(255,255,255,.5); }
   .btn.glass { color: var(--text); border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+  .btn.glass:hover { border-color: rgba(214,184,130,.35); background: rgba(255,255,255,.06); }
+  .btn.gold-btn { position: relative; overflow: hidden; }
+  .btn.gold-btn:after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
+                        background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+                        transform: skewX(-18deg); transition: none; }
+  .btn.gold-btn:hover:after { left: 130%; transition: left .8s ease; }
+  .btn.gold-btn:hover { box-shadow: 0 14px 40px rgba(214,184,130,.32), inset 0 1px 0 rgba(255,255,255,.5); }
+
+  /* проявление при прокрутке */
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .rv.in { opacity: 1; transform: none; }
+
+  /* подсветка карточки за курсором */
+  .card { position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+  .card:before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+                 background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(214,184,130,.10), transparent 60%); }
+  .card:hover:before { opacity: 1; }
+  .card:hover { border-color: rgba(214,184,130,.28); }
+  .shot { transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
+  .shot:hover { transform: translateY(-4px); box-shadow: 0 26px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(214,184,130,.2); }
+
+  /* золотая рамка тарифа «Навсегда» — медленно бежит по кругу */
+  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  .price.best { border-color: transparent; }
+  .price.best:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+                      background: conic-gradient(from var(--ang), rgba(214,184,130,.15), var(--gold-a), rgba(214,184,130,.15) 35%,
+                                  rgba(214,184,130,.15) 60%, var(--gold-b), rgba(214,184,130,.15));
+                      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                      -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite; }
+  @keyframes spin { to { --ang: 360deg; } }
+  hr.sep { border: 0; height: 1px; margin: 0; background: linear-gradient(90deg, transparent, rgba(214,184,130,.25), transparent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1; transform: none; transition: none; }
+    .screen .sun, .bokeh i, .screen .bar-v i, .price.best:after, .live:before { animation: none; }
+  }
   .btn svg { width: 18px; height: 18px; }
 
   /* первый экран */
-  .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  .hero { padding-top: 72px; padding-bottom: 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
   .overline { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-b); }
   h1 { font-size: clamp(38px, 5.2vw, 64px); line-height: 1.04; margin: 14px 0 18px; letter-spacing: -.02em; }
   .lead { color: var(--text2); font-size: 18px; max-width: 540px; }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 14px; }
   .fine { color: var(--text3); font-size: 13px; }
 
-  /* демо субтитров */
+  /* зерно, как в окнах программы */
+  body:after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .045;
+               background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* демо субтитров — та же сцена, что в предпросмотре Tolk */
   .screen { position: relative; aspect-ratio: 16/10; border-radius: 22px; overflow: hidden;
-            border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(0,0,0,.55);
-            background: radial-gradient(120% 80% at 70% 70%, rgba(214,184,130,.22), transparent 55%),
-                        linear-gradient(180deg, #17161a 0%, #1d1b1f 55%, #0f0e10 100%); }
-  .screen:before { content: ""; position: absolute; left: -10%; right: -10%; bottom: 22%; height: 30%;
-                   background: radial-gradient(60% 100% at 50% 100%, #26232a, transparent 70%); }
-  .screen:after { content: ""; position: absolute; inset: auto 0 0 0; height: 30%;
-                  background: linear-gradient(180deg, transparent, #0b0a0c); }
+            border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.02) inset;
+            background: linear-gradient(180deg, #121115 0%, #1b191d 48%, #231f22 62%, #0e0d10 100%); }
+  .screen .sun { position: absolute; left: 50%; top: 56%; width: 70%; aspect-ratio: 2/1; transform: translate(-50%, -50%);
+                 background: radial-gradient(closest-side, rgba(233,196,140,.42), rgba(214,168,110,.14) 55%, transparent);
+                 filter: blur(6px); animation: breathe 7s ease-in-out infinite; }
+  @keyframes breathe { 50% { opacity: .78; transform: translate(-50%, -50%) scale(1.04); } }
+  .screen svg.hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 52%; }
+  .bokeh i { position: absolute; border-radius: 50%; background: rgba(241,226,191,.55);
+             box-shadow: 0 0 10px rgba(241,226,191,.6); animation: drift linear infinite; opacity: 0; }
+  @keyframes drift { 0% { transform: translateY(10px); opacity: 0; } 15%, 80% { opacity: var(--o, .5); }
+                     100% { transform: translateY(-60px); opacity: 0; } }
+  .screen .bar-v { position: absolute; left: 4%; right: 4%; bottom: 3.2%; height: 3px; border-radius: 3px;
+                   background: rgba(255,255,255,.12); z-index: 3; overflow: hidden; }
+  .screen .bar-v i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--gold-c), var(--gold-a));
+                     animation: play 38s linear infinite; }
+  @keyframes play { to { width: 100%; } }
   .win { position: absolute; top: 14px; left: 16px; display: flex; gap: 6px; z-index: 2; }
   .win i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.14); }
-  .sub { position: absolute; left: 7%; right: 7%; bottom: 9%; z-index: 3; padding: 14px 18px 16px;
+  .sub { position: absolute; left: 7%; right: 7%; bottom: 11%; z-index: 3; padding: 14px 18px 16px;
          border-radius: 14px; background: rgba(13,13,16,.78); border: 1px solid rgba(255,255,255,.08);
          backdrop-filter: blur(6px); box-shadow: 0 12px 34px rgba(0,0,0,.5); min-height: 96px; }
   .sub .o { color: var(--text3); font-size: 14px; min-height: 22px; }
@@ -102,13 +151,13 @@
   .ico svg { width: 20px; height: 20px; }
 
   .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
-  .shot img { display: block; width: 100%; height: auto; }
+  .shot { margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 1.49; object-fit: contain; background: #000; }
   .shot figcaption { padding: 12px 16px; color: var(--text2); font-size: 14px; border-top: 1px solid var(--line); }
 
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
   .step { position: relative; padding-top: 58px; }
-  .step:before { counter-increment: s; content: counter(s); position: absolute; top: 22px; left: 24px;
+  .step:after { counter-increment: s; content: counter(s); position: absolute; top: 22px; left: 24px;
                  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
                  font-weight: 700; font-size: 14px; color: #1b150c;
                  background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); }
@@ -147,7 +196,7 @@
     nav { display: none; }
   }
   @media (max-width: 620px) {
-    .wrap { padding: 0 16px; }
+    .wrap { padding-left: 16px; padding-right: 16px; }
     .grid, .steps, .shots, .prices, .req { grid-template-columns: 1fr; }
     section { padding: 52px 0; }
     .langs button { padding: 6px 7px; }
@@ -187,9 +236,20 @@
       <div class="fine" data-i="hero_fine"></div>
     </div>
     <div class="screen" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="bokeh" id="bokeh"></div>
+      <svg class="hills" viewBox="0 0 800 260" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b272c"/><stop offset="1" stop-color="#141216"/></linearGradient>
+          <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1a1e"/><stop offset="1" stop-color="#0c0b0d"/></linearGradient>
+        </defs>
+        <path d="M0 120 C120 70 220 110 330 88 C450 64 560 118 660 92 C730 74 780 86 800 80 L800 260 L0 260Z" fill="url(#h1)"/>
+        <path d="M0 170 C140 130 260 168 380 150 C520 128 620 176 800 146 L800 260 L0 260Z" fill="url(#h2)"/>
+      </svg>
       <div class="win"><i></i><i></i><i></i></div>
       <div class="live">LIVE</div>
       <div class="sub"><div class="o" id="demo-o"></div><div class="t" id="demo-t"></div></div>
+      <div class="bar-v"><i></i></div>
     </div>
   </div>
 
@@ -222,6 +282,7 @@
     </div>
   </section>
 
+  <hr class="sep">
   <section id="how">
     <div class="wrap">
       <div class="overline" data-i="h_over"></div>
@@ -234,6 +295,7 @@
     </div>
   </section>
 
+  <hr class="sep">
   <section id="pricing">
     <div class="wrap">
       <div class="overline" style="text-align:center" data-i="p_over"></div>
@@ -271,10 +333,12 @@
     </div>
   </section>
 
+  <hr class="sep">
   <section id="faq">
     <div class="wrap" style="max-width:820px">
       <div class="overline" data-i="q_over"></div>
       <h2 data-i="q_h2"></h2>
+      <details><summary data-i="q7"></summary><p data-i="a7"></p></details>
       <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
       <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
       <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
@@ -310,17 +374,17 @@ const DOWNLOAD = "https://github.com/sethosint/tolk-releases/releases/latest/dow
 const T = {
   ru: {
     nav_features: "Возможности", nav_how: "Как это работает", nav_pricing: "Цены", nav_faq: "Вопросы",
-    hero_over: "Субтитры для всего, что звучит",
+    hero_over: "Лекции · конференции · созвоны",
     hero_h1a: "Живой перевод", hero_h1b: "любой речи на экране",
-    hero_lead: "Tolk слушает созвоны, видео, стримы и игры и показывает субтитры с переводом поверх всех окон — прямо по ходу речи. Понимает сленг, сам настраивается под ваш компьютер.",
+    hero_lead: "Tolk слушает лекции, конференции, созвоны и видео и показывает субтитры с переводом поверх всех окон — прямо по ходу речи. Словацкий, английский и ещё десятки языков. Сам настраивается под ваш компьютер.",
     cta_download: "Скачать для Windows", cta_prices: "Цены",
     hero_fine: "Windows 10 и 11 · установка за минуту · оплата прямо в программе",
     f_over: "Возможности", f_h2: "Переводит так, как говорят люди",
     f_sub: "Никаких ключей, кнопок и настроек: включили — и видите перевод.",
     f1_t: "Поверх всех окон", f1_p: "Классические субтитры внизу экрана или лента сбоку. Размер, стиль и прозрачность — как вам удобно.",
     f2_t: "Правда в реальном времени", f2_p: "Перевод появляется по ходу фразы и только дописывается — текст не прыгает и не переписывается.",
-    f3_t: "Понимает сленг", f3_p: "Нейросеть Tolk AI переводит живую речь, мемы и шутки по смыслу, а не слово в слово. Свои имена и словечки — в словарь.*",
-    f4_t: "Любая программа", f4_p: "Весь звук компьютера, микрофон или только одно приложение — браузер, Discord, игра, плеер.",
+    f3_t: "Понимает смысл", f3_p: "Нейросеть Tolk AI переводит по смыслу, а не слово в слово: учебные термины (zápočet — зачёт), «ложных друзей» словацкого, сленг и шутки. Свои термины и имена — в словарь.*",
+    f4_t: "Онлайн и в аудитории", f4_p: "Zoom, Teams, Meet, Discord, браузер — весь звук компьютера или одно приложение. Лекция вживую — через микрофон ноутбука.",
     f5_t: "Сам под ваше железо", f5_p: "При первом запуске Tolk замеряет видеокарту и процессор и выбирает лучшую точность и скорость.",
     f6_t: "Звук не уходит с компьютера", f6_p: "Речь распознаётся прямо у вас. Для перевода отправляется только текст — и то, если нужно.",
     s_over: "Как выглядит", s_h2: "Красиво и без лишнего",
@@ -351,28 +415,31 @@ const T = {
     q4: "Какие языки?",
     a4: "Распознаёт речь на десятках языков и переводит на 30+. Интерфейс — на русском, украинском, словацком и английском.",
     q5: "Сленг, имена, игры — переведёт правильно?",
-    a5: "Нейросеть Tolk AI переводит по смыслу. А свои имена, ники и словечки можно добавить в словарь — Tolk будет их узнавать и переводить как нужно.",
+    a5: "Нейросеть Tolk AI переводит по смыслу. А свои термины, имена и словечки можно добавить в словарь — Tolk будет их узнавать и переводить как нужно.",
+    q7: "Подойдёт для лекций и конференций на словацком?",
+    a7: "Да, это главный сценарий. Онлайн-лекция или конференция — выберите звук компьютера или нужную программу (Zoom, Teams, браузер). Лекция в аудитории — микрофон ноутбука. Поставьте язык речи «Словацкий»: распознавание станет точнее и быстрее. Названия предметов и термины курса добавьте в словарь.",
     q6: "Что с приватностью?",
     a6: "Звук никуда не отправляется: речь распознаётся на вашем компьютере. Для перевода уходит только распознанный текст.",
     fin_a: "Смотрите и понимайте", fin_b: "на любом языке",
     foot_tg: "Поддержка — Telegram @sethosint", foot_versions: "Все версии",
-    demo: [["No cap, that last round was insane.", "Без шуток, последний раунд был просто безумный."],
+    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Это точно будет на экзамене, так что запишите."],
+           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Зачёт получите, если сдадите оба задания вовремя."],
            ["Thanks for joining the call, let's get started.", "Спасибо, что подключились, давайте начнём."],
-           ["Honestly, this update slaps.", "Честно, это обновление — огонь."]],
+           ["No cap, that last round was insane.", "Без шуток, последний раунд был просто безумный."]],
   },
   uk: {
     nav_features: "Можливості", nav_how: "Як це працює", nav_pricing: "Ціни", nav_faq: "Питання",
-    hero_over: "Субтитри для всього, що звучить",
+    hero_over: "Лекції · конференції · дзвінки",
     hero_h1a: "Живий переклад", hero_h1b: "будь-якого мовлення на екрані",
-    hero_lead: "Tolk слухає дзвінки, відео, стріми та ігри й показує субтитри з перекладом поверх усіх вікон — просто під час мовлення. Розуміє сленг, сам налаштовується під ваш комп'ютер.",
+    hero_lead: "Tolk слухає лекції, конференції, дзвінки й відео та показує субтитри з перекладом поверх усіх вікон — просто під час мовлення. Словацька, англійська й ще десятки мов. Сам налаштовується під ваш комп'ютер.",
     cta_download: "Завантажити для Windows", cta_prices: "Ціни",
     hero_fine: "Windows 10 і 11 · встановлення за хвилину · оплата просто в програмі",
     f_over: "Можливості", f_h2: "Перекладає так, як говорять люди",
     f_sub: "Жодних ключів, кнопок і налаштувань: увімкнули — і бачите переклад.",
     f1_t: "Поверх усіх вікон", f1_p: "Класичні субтитри внизу екрана або стрічка збоку. Розмір, стиль і прозорість — як вам зручно.",
     f2_t: "Справді в реальному часі", f2_p: "Переклад з'являється під час фрази й тільки дописується — текст не стрибає і не переписується.",
-    f3_t: "Розуміє сленг", f3_p: "Нейромережа Tolk AI перекладає живе мовлення, меми й жарти за змістом, а не слово в слово. Свої імена й словечка — у словник.*",
-    f4_t: "Будь-яка програма", f4_p: "Весь звук комп'ютера, мікрофон або лише один застосунок — браузер, Discord, гра, плеєр.",
+    f3_t: "Розуміє зміст", f3_p: "Нейромережа Tolk AI перекладає за змістом, а не слово в слово: навчальні терміни (zápočet — залік), «хибних друзів» словацької, сленг і жарти. Свої терміни й імена — у словник.*",
+    f4_t: "Онлайн і в аудиторії", f4_p: "Zoom, Teams, Meet, Discord, браузер — весь звук комп'ютера або один застосунок. Лекція наживо — через мікрофон ноутбука.",
     f5_t: "Сам під ваше залізо", f5_p: "Під час першого запуску Tolk заміряє відеокарту й процесор і вибирає найкращу точність і швидкість.",
     f6_t: "Звук не залишає комп'ютер", f6_p: "Мовлення розпізнається просто у вас. Для перекладу надсилається лише текст — і то, якщо потрібно.",
     s_over: "Як виглядає", s_h2: "Гарно й без зайвого",
@@ -403,28 +470,31 @@ const T = {
     q4: "Які мови?",
     a4: "Розпізнає мовлення десятками мов і перекладає на 30+. Інтерфейс — українською, російською, словацькою та англійською.",
     q5: "Сленг, імена, ігри — перекладе правильно?",
-    a5: "Нейромережа Tolk AI перекладає за змістом. А свої імена, ніки й словечка можна додати до словника — Tolk упізнаватиме їх і перекладатиме як треба.",
+    a5: "Нейромережа Tolk AI перекладає за змістом. А свої терміни, імена й словечка можна додати до словника — Tolk упізнаватиме їх і перекладатиме як треба.",
+    q7: "Підійде для лекцій і конференцій словацькою?",
+    a7: "Так, це головний сценарій. Онлайн-лекція чи конференція — оберіть звук комп'ютера або потрібну програму (Zoom, Teams, браузер). Лекція в аудиторії — мікрофон ноутбука. Поставте мову мовлення «Словацька»: розпізнавання стане точнішим і швидшим. Назви предметів і терміни курсу додайте до словника.",
     q6: "Що з приватністю?",
     a6: "Звук нікуди не надсилається: мовлення розпізнається на вашому комп'ютері. Для перекладу йде лише розпізнаний текст.",
     fin_a: "Дивіться й розумійте", fin_b: "будь-якою мовою",
     foot_tg: "Підтримка — Telegram @sethosint", foot_versions: "Усі версії",
-    demo: [["No cap, that last round was insane.", "Без жартів, останній раунд був просто шалений."],
+    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Це точно буде на іспиті, тож запишіть."],
+           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Залік отримаєте, якщо здасте обидва завдання вчасно."],
            ["Thanks for joining the call, let's get started.", "Дякую, що долучилися, почнімо."],
-           ["Honestly, this update slaps.", "Чесно, це оновлення — вогонь."]],
+           ["No cap, that last round was insane.", "Без жартів, останній раунд був просто шалений."]],
   },
   sk: {
     nav_features: "Možnosti", nav_how: "Ako to funguje", nav_pricing: "Ceny", nav_faq: "Otázky",
-    hero_over: "Titulky pre všetko, čo znie",
+    hero_over: "Prednášky · konferencie · hovory",
     hero_h1a: "Živý preklad", hero_h1b: "akejkoľvek reči na obrazovke",
-    hero_lead: "Tolk počúva hovory, videá, streamy a hry a zobrazuje titulky s prekladom nad všetkými oknami — priamo počas reči. Rozumie slangu a sám sa nastaví podľa vášho počítača.",
+    hero_lead: "Tolk počúva prednášky, konferencie, hovory a videá a zobrazuje titulky s prekladom nad všetkými oknami — priamo počas reči. Angličtina, slovenčina a desiatky ďalších jazykov. Sám sa nastaví podľa vášho počítača.",
     cta_download: "Stiahnuť pre Windows", cta_prices: "Ceny",
     hero_fine: "Windows 10 a 11 · inštalácia za minútu · platba priamo v programe",
     f_over: "Možnosti", f_h2: "Prekladá tak, ako ľudia hovoria",
     f_sub: "Žiadne kľúče, tlačidlá ani nastavovanie: zapnete — a vidíte preklad.",
     f1_t: "Nad všetkými oknami", f1_p: "Klasické titulky dole na obrazovke alebo pás na boku. Veľkosť, štýl a priehľadnosť podľa vás.",
     f2_t: "Naozaj v reálnom čase", f2_p: "Preklad sa objavuje počas vety a iba sa dopisuje — text neskáče a neprepisuje sa.",
-    f3_t: "Rozumie slangu", f3_p: "Neurónová sieť Tolk AI prekladá živú reč, memy a vtipy podľa zmyslu, nie slovo po slove. Vlastné mená a výrazy — do slovníka.*",
-    f4_t: "Akýkoľvek program", f4_p: "Celý zvuk počítača, mikrofón alebo len jedna aplikácia — prehliadač, Discord, hra, prehrávač.",
+    f3_t: "Rozumie zmyslu", f3_p: "Neurónová sieť Tolk AI prekladá podľa zmyslu, nie slovo po slove: odborné termíny, idiómy, slang aj vtipy. Vlastné termíny a mená — do slovníka.*",
+    f4_t: "Online aj v posluchárni", f4_p: "Zoom, Teams, Meet, Discord, prehliadač — celý zvuk počítača alebo jedna aplikácia. Prednáška naživo — cez mikrofón notebooku.",
     f5_t: "Sám podľa vášho hardvéru", f5_p: "Pri prvom spustení Tolk zmeria grafickú kartu a procesor a zvolí najlepšiu presnosť a rýchlosť.",
     f6_t: "Zvuk neopúšťa počítač", f6_p: "Reč sa rozpoznáva priamo u vás. Na preklad sa posiela iba text — a aj to len ak treba.",
     s_over: "Ako to vyzerá", s_h2: "Pekne a bez zbytočností",
@@ -455,28 +525,30 @@ const T = {
     q4: "Aké jazyky?",
     a4: "Rozpozná reč v desiatkach jazykov a prekladá do 30+. Rozhranie — slovensky, ukrajinsky, rusky a anglicky.",
     q5: "Slang, mená, hry — preloží správne?",
-    a5: "Neurónová sieť Tolk AI prekladá podľa zmyslu. Vlastné mená, prezývky a výrazy môžete pridať do slovníka — Tolk ich spozná a preloží, ako treba.",
+    a5: "Neurónová sieť Tolk AI prekladá podľa zmyslu. Vlastné termíny, mená a výrazy môžete pridať do slovníka — Tolk ich spozná a preloží, ako treba.",
+    q7: "Hodí sa na prednášky a konferencie?",
+    a7: "Áno, na to je stavaný. Online prednáška či konferencia — zvoľte zvuk počítača alebo konkrétny program (Zoom, Teams, prehliadač). Prednáška v posluchárni — mikrofón notebooku. Nastavte jazyk reči, napríklad angličtinu: rozpoznávanie bude presnejšie a rýchlejšie. Názvy predmetov a termíny pridajte do slovníka.",
     q6: "A súkromie?",
     a6: "Zvuk sa nikam neposiela: reč sa rozpoznáva vo vašom počítači. Na preklad ide iba rozpoznaný text.",
     fin_a: "Pozerajte a rozumejte", fin_b: "v akomkoľvek jazyku",
     foot_tg: "Podpora — Telegram @sethosint", foot_versions: "Všetky verzie",
-    demo: [["No cap, that last round was insane.", "Bez preháňania, posledné kolo bolo úplne šialené."],
+    demo: [["This will definitely be on the exam, so write it down.", "Toto bude určite na skúške, tak si to zapíšte."],
            ["Thanks for joining the call, let's get started.", "Vďaka, že ste sa pripojili, poďme na to."],
-           ["Honestly, this update slaps.", "Úprimne, táto aktualizácia je bomba."]],
+           ["No cap, that last round was insane.", "Bez preháňania, posledné kolo bolo úplne šialené."]],
   },
   en: {
     nav_features: "Features", nav_how: "How it works", nav_pricing: "Pricing", nav_faq: "FAQ",
-    hero_over: "Subtitles for everything you hear",
+    hero_over: "Lectures · conferences · calls",
     hero_h1a: "Live translation", hero_h1b: "of any speech on your screen",
-    hero_lead: "Tolk listens to calls, videos, streams and games and shows translated subtitles over every window — as people speak. It gets slang and tunes itself to your PC.",
+    hero_lead: "Tolk listens to lectures, conferences, calls and videos and shows translated subtitles over every window — as people speak. Slovak, English and dozens of other languages. It tunes itself to your PC.",
     cta_download: "Download for Windows", cta_prices: "Pricing",
     hero_fine: "Windows 10 & 11 · one-minute install · pay right inside the app",
     f_over: "Features", f_h2: "Translates the way people actually talk",
     f_sub: "No keys, no knobs, no setup: turn it on and read the translation.",
     f1_t: "Over every window", f1_p: "Classic subtitles at the bottom or a side feed. Size, style and opacity your way.",
     f2_t: "Truly real-time", f2_p: "The translation appears as the sentence goes and only ever grows — no jumping, no rewriting.",
-    f3_t: "Gets slang", f3_p: "The Tolk AI neural network translates live speech, memes and jokes by meaning, not word for word. Add your own names and words to the glossary.*",
-    f4_t: "Any app", f4_p: "All computer audio, the microphone or just one app — browser, Discord, a game, a player.",
+    f3_t: "Gets the meaning", f3_p: "The Tolk AI neural network translates by meaning, not word for word: course terms, false friends, slang and jokes. Add your own terms and names to the glossary.*",
+    f4_t: "Online and in the room", f4_p: "Zoom, Teams, Meet, Discord, a browser — all computer audio or one app. A live lecture — through your laptop mic.",
     f5_t: "Tuned to your hardware", f5_p: "On first launch Tolk benchmarks your GPU and CPU and picks the best accuracy and speed.",
     f6_t: "Audio stays on your PC", f6_p: "Speech is recognized locally. Only text is sent for translation — and only when needed.",
     s_over: "Look inside", s_h2: "Beautiful and clutter-free",
@@ -507,14 +579,16 @@ const T = {
     q4: "Which languages?",
     a4: "Recognizes speech in dozens of languages and translates into 30+. The interface is in English, Ukrainian, Slovak and Russian.",
     q5: "Slang, names, games — will it get them right?",
-    a5: "Tolk AI translates by meaning. You can also add your own names, nicknames and words to the glossary — Tolk will recognize them and translate them your way.",
+    a5: "Tolk AI translates by meaning. You can also add your own terms, names and words to the glossary — Tolk will recognize them and translate them your way.",
+    q7: "Is it good for lectures and conferences in Slovak?",
+    a7: "Yes, that's what it's built for. Online lecture or conference — pick computer audio or the app (Zoom, Teams, a browser). A lecture in the room — your laptop mic. Set the speech language to Slovak for faster, more accurate recognition. Add course names and terms to the glossary.",
     q6: "What about privacy?",
     a6: "Audio never leaves your computer: speech is recognized locally. Only the recognized text is sent for translation.",
     fin_a: "Watch and understand", fin_b: "in any language",
     foot_tg: "Support — Telegram @sethosint", foot_versions: "All versions",
-    demo: [["Sin mentir, esa última ronda fue una locura.", "No cap, that last round was insane."],
+    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "This will definitely be on the exam, so write it down."],
            ["Danke, dass ihr dabei seid, lasst uns anfangen.", "Thanks for joining, let's get started."],
-           ["La verdad, esta actualización está brutal.", "Honestly, this update slaps."]],
+           ["Sin mentir, esa última ronda fue una locura.", "No cap, that last round was insane."]],
   },
 };
 
@@ -577,6 +651,38 @@ function demo() {
   }
   play();
 }
+
+// огоньки в сцене
+(function () {
+  const box = document.getElementById("bokeh");
+  if (!box) return;
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement("i");
+    const size = 2 + Math.random() * 5;
+    s.style.cssText = `left:${Math.random() * 100}%;top:${20 + Math.random() * 55}%;width:${size}px;height:${size}px;` +
+      `animation-duration:${9 + Math.random() * 10}s;animation-delay:${-Math.random() * 18}s;--o:${0.2 + Math.random() * 0.5};` +
+      (size > 5 ? "filter:blur(2px);" : "");
+    box.appendChild(s);
+  }
+})();
+
+// проявление при прокрутке
+(function () {
+  const els = document.querySelectorAll("section h2, section .overline, section .sub-h, .card, .shot, .pay, .final h2");
+  els.forEach((el) => el.classList.add("rv"));
+  if (!("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: 0.12 });
+  els.forEach((el, i) => { el.style.transitionDelay = (i % 3) * 70 + "ms"; io.observe(el); });
+})();
+
+// подсветка карточек за курсором
+document.querySelectorAll(".card").forEach((c) => c.addEventListener("pointermove", (e) => {
+  const r = c.getBoundingClientRect();
+  c.style.setProperty("--mx", (e.clientX - r.left) + "px");
+  c.style.setProperty("--my", (e.clientY - r.top) + "px");
+}));
 
 document.querySelectorAll("a.dl").forEach((a) => { a.href = DOWNLOAD; });
 document.querySelectorAll("#langs button").forEach((b) => b.addEventListener("click", () => apply(b.dataset.l)));
