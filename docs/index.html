@@ -250,6 +250,20 @@
                       background: conic-gradient(from var(--ang), rgba(214,184,130,.15), var(--gold-a), rgba(214,184,130,.15) 35%, rgba(214,184,130,.15) 60%, var(--gold-b), rgba(214,184,130,.15));
                       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite; }
   @keyframes spin { to { --ang: 360deg; } }
+  .trial { position: relative; display: inline-flex; align-items: center; gap: 12px; margin: 22px 0 4px; padding: 6px 18px 6px 6px;
+           border-radius: 999px; background: rgba(214,184,130,.06); color: var(--text2); font-size: 14px; text-decoration: none;
+           transition: transform .5s var(--spring), background .4s; }
+  .trial:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+                 background: conic-gradient(from var(--ang), rgba(214,184,130,.12), var(--gold-a), rgba(214,184,130,.12) 30%, rgba(214,184,130,.12) 65%, var(--gold-b), rgba(214,184,130,.12));
+                 -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 5s linear infinite; }
+  .trial:hover { transform: translateY(-2px); background: rgba(214,184,130,.1); }
+  .trial .t30 { position: relative; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none;
+                font: 700 15px/1 inherit; color: var(--gold-a); background: radial-gradient(circle at 50% 35%, rgba(243,228,194,.16), rgba(0,0,0,.2)); }
+  .trial .t30:before { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 2px;
+                       background: conic-gradient(from var(--ang), var(--gold-a), rgba(214,184,130,.1) 70%, var(--gold-a));
+                       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 2.6s linear infinite; }
+  .trial b { color: var(--text); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .trial:after, .trial .t30:before { animation: none; } }
   .pay { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .pay span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 11px; border: 1px solid var(--line); color: var(--text2); font-size: 14px; background: rgba(255,255,255,.02); }
   .note { color: var(--text3); font-size: 13.5px; margin: 18px auto 0; max-width: 760px; text-align: center; }
@@ -417,6 +431,7 @@
         <a class="btn gold-btn dl magnet" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg><span data-i="cta_download"></span></a>
         <a class="btn glass magnet" href="#pricing" data-i="cta_prices"></a>
       </div>
+      <a class="trial dl" href="#"><span class="t30">30</span><span data-ih="trial_pill"></span></a>
       <div class="fine" data-i="hero_fine"></div>
     </div>
     <div class="stage" id="stage">
@@ -578,6 +593,7 @@
     <span>© Tolk</span>
     <a href="https://t.me/sethosint" target="_blank" rel="noopener" data-i="foot_tg"></a>
     <a href="https://github.com/sethosint/tolk-releases/releases" target="_blank" rel="noopener" data-i="foot_versions"></a>
+    <a href="privacy.html" data-i="foot_privacy"></a>
   </div>
 </footer>
 
@@ -595,15 +611,15 @@ const TG = "https://t.me/sethosint";
 
 // Тарифы на случай, если магазин не ответил (настоящие — загружаются из магазина)
 const FALLBACK = {
-  month_h: 6.67,
+  month_h: 24,
   plans: [
-    { id: "week", price: "1.5", currency: "EUR", days: 7, ai_h: 1.56, per_month: 6.43 },
-    { id: "month", price: "5", currency: "EUR", days: 31, ai_h: 6.67, per_month: 5 },
-    { id: "quarter", price: "13", currency: "EUR", days: 92, ai_h: 6.67, per_month: 4.33 },
-    { id: "half", price: "24", currency: "EUR", days: 183, ai_h: 6.67, per_month: 4 },
-    { id: "year", price: "42", currency: "EUR", days: 366, ai_h: 6.67, per_month: 3.5, best: true }],
-  topups: [{ id: "h5", hours: 5, price: "1.5", currency: "EUR" }, { id: "h15", hours: 15, price: "4", currency: "EUR" },
-           { id: "h40", hours: 40, price: "9", currency: "EUR" }],
+    { id: "week", price: "1.5", currency: "EUR", days: 7, ai_h: 6, per_month: 6.43 },
+    { id: "month", price: "5", currency: "EUR", days: 31, ai_h: 24, per_month: 5 },
+    { id: "quarter", price: "13", currency: "EUR", days: 92, ai_h: 24, per_month: 4.33 },
+    { id: "half", price: "24", currency: "EUR", days: 183, ai_h: 24, per_month: 4 },
+    { id: "year", price: "42", currency: "EUR", days: 366, ai_h: 24, per_month: 3.5, best: true }],
+  topups: [{ id: "h6", hours: 6, price: "1.5", currency: "EUR" }, { id: "h24", hours: 24, price: "4", currency: "EUR" },
+           { id: "h60", hours: 60, price: "8", currency: "EUR" }],
   methods: [],
 };
 
@@ -646,7 +662,7 @@ const T = {
     hours_title: "+%s Tolk AI", hours_sub: "не сгорают до конца подписки", per_hour: "%s за час",
     hours_feats: ["Добавятся к вашему ключу", "Действуют до конца подписки", "Переезжают при продлении"],
     h: "ч", m: "мин",
-    p_note: "Когда часы Tolk AI закончились, перевод не останавливается: Tolk переводит через Google или ваш бесплатный ключ DeepL. Часы обновляются каждые 30 дней, докупленные не сгорают.",
+    p_note: "24 часа нейросети на каждые 30 дней — это все пары за месяц. Кончились раньше — пополните часы в пару кликов: добавятся сразу и не сгорают, а перевод тем временем не останавливается.",
     pay_card: "Банковская карта", pay_stars: "Звёзды Telegram",
     so_over: "Скоро", so_h2: "Что появится в Tolk", so_sub: "Уже в работе — придут сами, с автообновлением.", soon: "Скоро",
     so1_t: "Озвучка перевода", so1_p: "Tolk читает перевод голосом и приглушает оригинал — как дубляж в кино.",
@@ -660,7 +676,8 @@ const T = {
     q_over: "Вопросы", q_h2: "Частые вопросы",
     faq: [
       ["Подойдёт для лекций и конференций на словацком?", "Да, это главный сценарий. Онлайн-лекция или конференция — выберите вкладку браузера или программу (Zoom, Teams). Лекция в аудитории — микрофон ноутбука. Поставьте язык речи «Словацкий» — распознавание станет точнее и быстрее. Названия предметов и термины курса добавьте в словарь."],
-      ["Сколько часов нейросети я получу?", "В любом тарифе — 6 ч 40 мин живого перевода нейросетью Tolk AI в месяц: это примерно 5–6 лекций со всеми паузами. Сколько осталось — видно в профиле. Не хватит — докупите часы на сайте или в Tolk, либо подключите свой бесплатный ключ DeepL. Перевод не останавливается никогда."],
+      ["Сколько часов нейросети я получу?", "В любом тарифе — 24 часа живого перевода нейросетью Tolk AI на каждые 30 дней (в недельном — 6 часов): этого хватает на все пары. Сколько использовано — видно в профиле: часы и проценты. Не хватит — пополните часы на сайте или прямо в Tolk, они добавятся сразу после оплаты. Перевод не останавливается никогда."],
+      ["Можно попробовать бесплатно?", "Да — 30 минут перевода нейросетью бесплатно, без оплаты и регистрации. Скачайте Tolk и в окне активации нажмите «Попробовать бесплатно». Понравится — выберите тариф, от 1,5 € в неделю."],
       ["Купил на сайте — что дальше?", "Вам придёт код активации вида TOLK-XXXX-XXXX-XXXX. Скачайте Tolk и вставьте код в окне активации — подписка привяжется к вашему компьютеру. Код на часы вводится в «Профиль → Ввести код»."],
       ["Как переводить только одну вкладку браузера?", "В Tolk откройте «Перевод и звук → Расширение для вкладок» и подключите расширение (около минуты). Потом нажимайте значок Tolk на нужной вкладке — Tolk сразу переводит только её. Работает в Chrome, Edge, Opera, Yandex, Brave, Vivaldi и Firefox."],
       ["Windows пишет «Система Windows защитила ваш компьютер» — это нормально?", "Да. Так Windows реагирует на новые программы без платной цифровой подписи. Нажмите «Подробнее» → «Выполнить в любом случае»."],
@@ -668,7 +685,7 @@ const T = {
       ["Какие языки?", "Распознаёт речь на 90+ языках и переводит на 30+. Интерфейс — на русском, украинском, словацком и английском."],
       ["Что с приватностью?", "Звук никуда не отправляется: речь распознаётся на вашем компьютере. Для перевода уходит только распознанный текст."]],
     fin_a: "Смотрите и понимайте", fin_b: "на любом языке",
-    foot_tg: "Поддержка — Telegram @sethosint", foot_versions: "Все версии",
+    foot_tg: "Поддержка — Telegram @sethosint", foot_versions: "Все версии", foot_privacy: "Конфиденциальность", trial_pill: "<b>30 минут бесплатно</b> — без оплаты и регистрации",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Это точно будет на экзамене, так что запишите."],
            ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Зачёт получите, если сдадите оба задания вовремя."],
            ["Thanks for joining the call, let's get started.", "Спасибо, что подключились, давайте начнём."],
@@ -725,7 +742,7 @@ const T = {
     hours_title: "+%s Tolk AI", hours_sub: "не згорають до кінця підписки", per_hour: "%s за годину",
     hours_feats: ["Додадуться до вашого ключа", "Діють до кінця підписки", "Переходять при продовженні"],
     h: "год", m: "хв",
-    p_note: "Коли години Tolk AI закінчилися, переклад не зупиняється: Tolk перекладає через Google або ваш безкоштовний ключ DeepL. Години оновлюються кожні 30 днів, докуплені не згорають.",
+    p_note: "24 години нейромережі на кожні 30 днів — це всі пари за місяць. Закінчилися раніше — поповніть години у два кліки: додадуться одразу й не згорають, а переклад тим часом не зупиняється.",
     pay_card: "Банківська картка", pay_stars: "Зірки Telegram",
     so_over: "Незабаром", so_h2: "Що з'явиться в Tolk", so_sub: "Уже в роботі — прийдуть самі, з автооновленням.", soon: "Незабаром",
     so1_t: "Озвучення перекладу", so1_p: "Tolk читає переклад голосом і приглушує оригінал — як дубляж у кіно.",
@@ -739,7 +756,8 @@ const T = {
     q_over: "Питання", q_h2: "Часті питання",
     faq: [
       ["Підійде для лекцій і конференцій словацькою?", "Так, це головний сценарій. Онлайн-лекція чи конференція — оберіть вкладку браузера або програму (Zoom, Teams). Лекція в аудиторії — мікрофон ноутбука. Поставте мову мовлення «Словацька» — розпізнавання стане точнішим і швидшим. Назви предметів і терміни курсу додайте до словника."],
-      ["Скільки годин нейромережі я отримаю?", "У будь-якому тарифі — 6 год 40 хв живого перекладу нейромережею Tolk AI на місяць: це приблизно 5–6 лекцій з усіма паузами. Скільки лишилося — видно в профілі. Не вистачить — докупіть години на сайті чи в Tolk або підключіть свій безкоштовний ключ DeepL. Переклад не зупиняється ніколи."],
+      ["Скільки годин нейромережі я отримаю?", "У будь-якому тарифі — 24 години живого перекладу нейромережею Tolk AI на кожні 30 днів (у тижневому — 6 годин): цього вистачає на всі пари. Скільки використано — видно в профілі: години й відсотки. Не вистачить — поповніть години на сайті або просто в Tolk, вони додадуться одразу після оплати. Переклад не зупиняється ніколи."],
+      ["Можна спробувати безкоштовно?", "Так — 30 хвилин перекладу нейромережею безкоштовно, без оплати й реєстрації. Завантажте Tolk і у вікні активації натисніть «Спробувати безкоштовно». Сподобається — оберіть тариф, від 1,5 € на тиждень."],
       ["Купив на сайті — що далі?", "Вам прийде код активації вигляду TOLK-XXXX-XXXX-XXXX. Завантажте Tolk і вставте код у вікні активації — підписка прив'яжеться до вашого комп'ютера. Код на години вводиться в «Профіль → Ввести код»."],
       ["Як перекладати лише одну вкладку браузера?", "У Tolk відкрийте «Переклад і звук → Розширення для вкладок» і підключіть розширення (близько хвилини). Потім натискайте значок Tolk на потрібній вкладці — Tolk одразу перекладає лише її. Працює в Chrome, Edge, Opera, Yandex, Brave, Vivaldi і Firefox."],
       ["Windows пише «Систему Windows захищено» — це нормально?", "Так. Так Windows реагує на нові програми без платного цифрового підпису. Натисніть «Докладніше» → «Усе одно запустити»."],
@@ -747,7 +765,7 @@ const T = {
       ["Які мови?", "Розпізнає мовлення 90+ мовами й перекладає на 30+. Інтерфейс — українською, російською, словацькою та англійською."],
       ["Що з приватністю?", "Звук нікуди не надсилається: мовлення розпізнається на вашому комп'ютері. Для перекладу йде лише розпізнаний текст."]],
     fin_a: "Дивіться й розумійте", fin_b: "будь-якою мовою",
-    foot_tg: "Підтримка — Telegram @sethosint", foot_versions: "Усі версії",
+    foot_tg: "Підтримка — Telegram @sethosint", foot_versions: "Усі версії", foot_privacy: "Конфіденційність", trial_pill: "<b>30 хвилин безкоштовно</b> — без оплати й реєстрації",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Це точно буде на іспиті, тож запишіть."],
            ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Залік отримаєте, якщо здасте обидва завдання вчасно."],
            ["Thanks for joining the call, let's get started.", "Дякую, що долучилися, почнімо."],
@@ -804,7 +822,7 @@ const T = {
     hours_title: "+%s Tolk AI", hours_sub: "nepropadnú do konca predplatného", per_hour: "%s za hodinu",
     hours_feats: ["Pridajú sa k vášmu kľúču", "Platia do konca predplatného", "Pri predĺžení sa presunú"],
     h: "h", m: "min",
-    p_note: "Keď sa hodiny Tolk AI minú, preklad sa nezastaví: Tolk prekladá cez Google alebo váš bezplatný kľúč DeepL. Hodiny sa obnovujú každých 30 dní, dokúpené nepropadnú.",
+    p_note: "24 hodín neurónovej siete na každých 30 dní — to sú všetky prednášky za mesiac. Minuli sa skôr? Doplňte hodiny na pár kliknutí: pridajú sa hneď a nepropadajú, a preklad sa medzitým nezastaví.",
     pay_card: "Platobná karta", pay_stars: "Hviezdy Telegram",
     so_over: "Čoskoro", so_h2: "Čo pribudne v Tolku", so_sub: "Už na tom pracujeme — prídu samy s automatickou aktualizáciou.", soon: "Čoskoro",
     so1_t: "Dabing prekladu", so1_p: "Tolk číta preklad nahlas a stlmí originál — ako dabing vo filme.",
@@ -818,7 +836,8 @@ const T = {
     q_over: "Otázky", q_h2: "Časté otázky",
     faq: [
       ["Hodí sa na prednášky a konferencie?", "Áno, na to je stavaný. Online prednáška či konferencia — vyberte kartu prehliadača alebo program (Zoom, Teams). Prednáška v posluchárni — mikrofón notebooku. Nastavte jazyk reči, napríklad angličtinu — rozpoznávanie bude presnejšie a rýchlejšie. Názvy predmetov a termíny pridajte do slovníka."],
-      ["Koľko hodín neurónovej siete dostanem?", "V každom pláne 6 h 40 min živého prekladu neurónovou sieťou Tolk AI mesačne — približne 5–6 prednášok so všetkými pauzami. Koľko zostáva, vidno v profile. Ak nebude stačiť, dokúpte hodiny na stránke či v Tolku, alebo pripojte vlastný bezplatný kľúč DeepL. Preklad sa nikdy nezastaví."],
+      ["Koľko hodín neurónovej siete dostanem?", "V každom pláne 24 hodín živého prekladu neurónovou sieťou Tolk AI na každých 30 dní (v týždennom 6 hodín): stačí to na všetky prednášky. Koľko ste využili, vidno v profile — hodiny aj percentá. Ak nebude stačiť, doplňte hodiny na stránke alebo priamo v Tolku, pridajú sa hneď po zaplatení. Preklad sa nikdy nezastaví."],
+      ["Dá sa to vyskúšať zadarmo?", "Áno — 30 minút prekladu neurónovou sieťou zadarmo, bez platby a registrácie. Stiahnite Tolk a v okne aktivácie kliknite na „Vyskúšať zadarmo“. Ak sa vám zapáči, vyberte si plán od 1,5 € týždenne."],
       ["Kúpil som na stránke — čo ďalej?", "Dostanete aktivačný kód v tvare TOLK-XXXX-XXXX-XXXX. Stiahnite Tolk a kód vložte v okne aktivácie — predplatné sa naviaže na váš počítač. Kód na hodiny sa zadáva v „Profil → Zadať kód“."],
       ["Ako prekladať len jednu kartu prehliadača?", "V Tolku otvorte „Preklad a zvuk → Rozšírenie pre karty“ a pripojte rozšírenie (asi minúta). Potom klikajte na ikonu Tolk na požadovanej karte — Tolk hneď prekladá len ju. Funguje v Chrome, Edge, Opere, Yandex, Brave, Vivaldi a Firefoxe."],
       ["Windows píše „Systém Windows ochránil váš počítač“ — je to v poriadku?", "Áno. Tak Windows reaguje na nové programy bez plateného digitálneho podpisu. Kliknite na „Ďalšie informácie“ → „Spustiť aj tak“."],
@@ -826,7 +845,7 @@ const T = {
       ["Aké jazyky?", "Rozpozná reč v 90+ jazykoch a prekladá do 30+. Rozhranie — slovensky, ukrajinsky, rusky a anglicky."],
       ["A súkromie?", "Zvuk sa nikam neposiela: reč sa rozpoznáva vo vašom počítači. Na preklad ide iba rozpoznaný text."]],
     fin_a: "Pozerajte a rozumejte", fin_b: "v akomkoľvek jazyku",
-    foot_tg: "Podpora — Telegram @sethosint", foot_versions: "Všetky verzie",
+    foot_tg: "Podpora — Telegram @sethosint", foot_versions: "Všetky verzie", foot_privacy: "Ochrana súkromia", trial_pill: "<b>30 minút zadarmo</b> — bez platby a registrácie",
     demo: [["This will definitely be on the exam, so write it down.", "Toto bude určite na skúške, tak si to zapíšte."],
            ["Thanks for joining the call, let's get started.", "Vďaka, že ste sa pripojili, poďme na to."],
            ["No cap, that last round was insane.", "Bez preháňania, posledné kolo bolo úplne šialené."]],
@@ -882,7 +901,7 @@ const T = {
     hours_title: "+%s Tolk AI", hours_sub: "don't expire until your subscription ends", per_hour: "%s per hour",
     hours_feats: ["Added to your key", "Valid until your subscription ends", "Move over when you renew"],
     h: "h", m: "min",
-    p_note: "When your Tolk AI hours run out, translation doesn't stop: Tolk translates via Google or your free DeepL key. Hours renew every 30 days; bought hours don't expire.",
+    p_note: "24 hours of AI every 30 days — enough for every lecture in a month. Ran out early? Top up in a couple of clicks: hours are added right away and never expire, and translation keeps going meanwhile.",
     pay_card: "Bank card", pay_stars: "Telegram Stars",
     so_over: "Coming soon", so_h2: "What's coming to Tolk", so_sub: "Already in the works — they'll arrive with an automatic update.", soon: "Soon",
     so1_t: "Voice-over translation", so1_p: "Tolk reads the translation aloud and lowers the original — like dubbing in a film.",
@@ -896,7 +915,8 @@ const T = {
     q_over: "FAQ", q_h2: "Frequently asked questions",
     faq: [
       ["Is it good for lectures and conferences in Slovak?", "Yes, that's what it's built for. Online lecture or conference — pick a browser tab or an app (Zoom, Teams). A lecture in the room — your laptop mic. Set the speech language to Slovak for faster, more accurate recognition. Add course names and terms to the glossary."],
-      ["How many neural network hours do I get?", "Every plan includes 6 h 40 min of live Tolk AI translation a month — about 5–6 lectures with all the pauses. Your profile shows what's left. Need more? Buy hours here or in Tolk, or connect your own free DeepL key. Translation never stops."],
+      ["How many neural network hours do I get?", "Every plan includes 24 hours of live Tolk AI translation every 30 days (the weekly plan — 6 hours): enough for all your lectures. Your profile shows what's used, in hours and percent. Need more? Top up here or right in Tolk — the hours are added right after payment. Translation never stops."],
+      ["Can I try it for free?", "Yes — 30 minutes of AI translation for free, no payment and no sign-up. Download Tolk and click \"Try it free\" in the activation window. Like it? Plans start at €1.5 a week."],
       ["I bought on the website — what now?", "You get an activation code like TOLK-XXXX-XXXX-XXXX. Download Tolk and paste the code in the activation window — the subscription binds to your computer. An hours code goes into “Profile → Enter a code”."],
       ["How do I translate just one browser tab?", "In Tolk, open “Translation & sound → Extension for tabs” and connect the extension (about a minute). Then click the Tolk icon on the tab you need — Tolk translates only that tab. Works in Chrome, Edge, Opera, Yandex, Brave, Vivaldi and Firefox."],
       ["Windows says “Windows protected your PC” — is that OK?", "Yes. That's how Windows treats new apps without a paid code-signing certificate. Click “More info” → “Run anyway”."],
@@ -904,7 +924,7 @@ const T = {
       ["Which languages?", "Recognizes speech in 90+ languages and translates into 30+. The interface is in English, Ukrainian, Slovak and Russian."],
       ["What about privacy?", "Audio never leaves your computer: speech is recognized locally. Only the recognized text is sent for translation."]],
     fin_a: "Watch and understand", fin_b: "in any language",
-    foot_tg: "Support — Telegram @sethosint", foot_versions: "All versions",
+    foot_tg: "Support — Telegram @sethosint", foot_versions: "All versions", foot_privacy: "Privacy", trial_pill: "<b>30 minutes free</b> — no payment, no sign-up",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "This will definitely be on the exam, so write it down."],
            ["Danke, dass ihr dabei seid, lasst uns anfangen.", "Thanks for joining, let's get started."],
            ["Sin mentir, esa última ronda fue una locura.", "No cap, that last round was insane."]],
@@ -966,6 +986,7 @@ function apply(l) {
   lang = l;
   document.documentElement.lang = l;
   $$("[data-i]").forEach((el) => { if (typeof d()[el.dataset.i] === "string") el.textContent = d()[el.dataset.i]; });
+  $$("[data-ih]").forEach((el) => { el.innerHTML = d()[el.dataset.ih] || ""; });     // свои строки с <b> — не из ввода
   $$("#langs button").forEach((b) => b.classList.toggle("on", b.dataset.l === l));
   document.title = `Tolk — ${d().hero_h1a.toLowerCase()} ${d().hero_h1b}`;
   store("tolk-lang", l);
@@ -1049,7 +1070,7 @@ async function fetchCatalog() {
 
 function planCard(p) {
   const days = p.days || 0, name = (d().plan_names || {})[p.id] || p.title;
-  const ai = days && days < 28 ? fmt(d().ai_week, hours(p.ai_h)) : fmt(d().ai_line, hours(catalog.month_h || 6.67));
+  const ai = days && days < 28 ? fmt(d().ai_week, hours(p.ai_h)) : fmt(d().ai_line, hours(catalog.month_h || 24));
   const per = days >= 60 && p.per_month ? fmt(d().per_month, money(p.per_month, p.currency)) : "";
   return `<div class="card price ${p.best ? "best" : ""} rv">
     <div class="name">${esc(name)}${p.best ? `<span class="badge">${esc(d().best)}</span>` : ""}</div>

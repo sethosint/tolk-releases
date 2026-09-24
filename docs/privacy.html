@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolk — конфиденциальность · Privacy</title>
+<meta name="description" content="Как Tolk и расширение Tolk для браузера обращаются с данными. How Tolk and the Tolk browser extension handle data.">
+<link rel="icon" href="img/favicon.png">
+<style>
+  :root { color-scheme: dark;
+    --bg: #0a0a0c; --line: rgba(255,255,255,.08); --text: #f5f1e8; --text2: #b9b4aa; --text3: #7d786f;
+    --gold-a: #f3e4c2; --gold-b: #d6b882; --gold-c: #a9824c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(214,184,130,.10), transparent 60%), var(--bg);
+         color: var(--text); font: 16px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 56px 20px 80px; }
+  a { color: var(--gold-b); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 600; font-size: 18px; }
+  .brand img { width: 28px; height: 28px; }
+  .langs a { margin-left: 14px; font-size: 14px; text-decoration: none; }
+  .overline { font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-b); }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; margin: 10px 0 8px; font-weight: 600; }
+  .upd { color: var(--text3); font-size: 14px; margin: 0 0 36px; }
+  h2 { font-size: 20px; margin: 34px 0 8px; font-weight: 600; }
+  p, li { color: var(--text2); }
+  ul { padding-left: 20px; }
+  .box { border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; background: rgba(255,255,255,.03); margin: 24px 0; }
+  .box p { margin: 0; color: var(--text); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 64px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="./"><img src="img/icon.png" alt="">Tolk</a>
+    <div class="langs"><a href="#ru">Русский</a><a href="#en">English</a></div>
+  </div>
+
+  <section id="ru" lang="ru">
+    <div class="overline">Конфиденциальность</div>
+    <h1>Как Tolk обращается с данными</h1>
+    <p class="upd">Обновлено 24 сентября 2026 года</p>
+    <div class="box"><p>Звук никогда не покидает ваш компьютер. Для перевода отправляется только распознанный текст — и он
+      нигде не сохраняется. Мы не продаём данные, не показываем рекламу и не следим за вами.</p></div>
+
+    <h2>Расширение «Tolk — перевод вкладки»</h2>
+    <ul>
+      <li>Работает, только когда вы сами нажимаете значок Tolk на вкладке. Повторное нажатие — выключить.</li>
+      <li>Звук этой вкладки передаётся только программе Tolk на этом же компьютере (адрес 127.0.0.1) и нигде не сохраняется.</li>
+      <li>Расширение ничего не отправляет в интернет, не собирает историю посещений, личные данные и статистику,
+        не использует рекламу и не загружает код с серверов.</li>
+      <li>Разрешения: в Chrome, Edge и других Chromium-браузерах — захват звука вкладки (tabCapture), фоновый документ
+        для обработки звука (offscreen) и хранение номера включённой вкладки на время сеанса (storage); в Firefox —
+        доступ к вкладке, на которой вы нажали значок (activeTab, scripting).</li>
+    </ul>
+
+    <h2>Программа Tolk</h2>
+    <ul>
+      <li>Речь распознаётся на вашем компьютере. Звук никуда не отправляется.</li>
+      <li>Для перевода распознанные фрагменты текста (несколько слов и короткий контекст перед ними) по защищённому
+        соединению уходят на сервер Tolk, а он передаёт их нейросети-переводчику (через OpenRouter). Если нейросеть
+        недоступна, фрагмент переводит Google Переводчик. Тексты на сервере Tolk не сохраняются.</li>
+      <li>Сервер Tolk хранит только то, что нужно для подписки: ключ лицензии, обезличенный код компьютера, тариф,
+        сколько часов Tolk AI использовано, и сведения о покупках (тариф, дата, способ оплаты, код комментария).</li>
+      <li>Оплату звёздами Telegram проводит Telegram. Переводы на карту и в криптовалюте продавец проверяет вручную по коду
+        в комментарии.</li>
+      <li>Статистика в профиле (время перевода, число слов) хранится только на вашем компьютере.</li>
+    </ul>
+
+    <h2>Сайт</h2>
+    <p>Сайт не использует cookies для слежки и аналитику. В браузере сохраняются только выбранный язык и незавершённая
+      покупка. Шрифты загружаются с Google Fonts, тарифы — с сервера Tolk.</p>
+
+    <h2>Связь</h2>
+    <p>Вопросы и удаление данных о покупках — Telegram <a href="https://t.me/sethosint">@sethosint</a>.</p>
+  </section>
+
+  <hr>
+
+  <section id="en" lang="en">
+    <div class="overline">Privacy</div>
+    <h1>How Tolk handles your data</h1>
+    <p class="upd">Updated September 24, 2026</p>
+    <div class="box"><p>Audio never leaves your computer. Only recognized text is sent for translation, and it is not
+      stored anywhere. We don't sell data, show ads or track you.</p></div>
+
+    <h2>The “Tolk — live tab translation” extension</h2>
+    <ul>
+      <li>It works only when you click the Tolk icon on a tab. Click again to turn it off.</li>
+      <li>That tab's sound goes only to the Tolk app on the same computer (127.0.0.1) and is not stored.</li>
+      <li>The extension sends nothing to the internet, collects no browsing history, personal data or analytics,
+        shows no ads and loads no remote code.</li>
+      <li>Permissions: in Chrome, Edge and other Chromium browsers — tab audio capture (tabCapture), an offscreen document
+        to process the audio (offscreen) and remembering the active tab for the session (storage); in Firefox — access to
+        the tab where you clicked the icon (activeTab, scripting).</li>
+    </ul>
+
+    <h2>The Tolk app</h2>
+    <ul>
+      <li>Speech is recognized on your computer. Audio is never sent anywhere.</li>
+      <li>For translation, recognized text fragments (a few words plus a short preceding context) are sent over an encrypted
+        connection to the Tolk server, which passes them to an AI translation model (via OpenRouter). If the AI is
+        unavailable, Google Translate translates the fragment. The Tolk server does not store these texts.</li>
+      <li>The Tolk server keeps only what the subscription needs: the license key, an anonymous computer code, the plan,
+        how many Tolk AI hours were used, and purchase records (plan, date, payment method, comment code).</li>
+      <li>Telegram Stars payments are processed by Telegram. Card and crypto transfers are checked manually by the seller
+        using the comment code.</li>
+      <li>Profile statistics (translation time, word count) are stored only on your computer.</li>
+    </ul>
+
+    <h2>Website</h2>
+    <p>The website uses no tracking cookies or analytics. Your browser keeps only your language choice and an unfinished
+      purchase. Fonts load from Google Fonts, prices from the Tolk server.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or deleting your purchase data — Telegram <a href="https://t.me/sethosint">@sethosint</a>.</p>
+  </section>
+</div>
+</body>
+</html>
