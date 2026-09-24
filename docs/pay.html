@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Оплата Tolk</title>
+<meta name="description" content="Оплата подписки Tolk и часов нейросети: monobank, USDT, TON, звёзды Telegram.">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#07070a">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+  body { min-height: 100vh; }
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .sky i { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; animation: drift 22s ease-in-out infinite alternate; }
+  .sky i:nth-child(1) { width: 60vw; height: 60vw; left: -18vw; top: -26vw; background: radial-gradient(circle, rgba(217,187,133,.22), transparent 65%); }
+  .sky i:nth-child(2) { width: 50vw; height: 50vw; right: -20vw; top: 20vh; background: radial-gradient(circle, rgba(120,90,220,.12), transparent 65%); animation-duration: 28s; }
+  .sky i:nth-child(3) { width: 45vw; height: 45vw; left: 30vw; bottom: -30vw; background: radial-gradient(circle, rgba(169,130,76,.16), transparent 65%); animation-duration: 34s; }
+  @keyframes drift { to { transform: translate(6vw, 5vh) scale(1.12); } }
+
+  .page { padding: 108px 0 80px; }
+  .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 34px; }
+  .head h1 { font-size: clamp(38px, 5.4vw, 66px); }
+  .head p { margin: 12px 0 0; max-width: 560px; }
+  .secure { display: inline-flex; align-items: center; gap: 10px; color: var(--text3); font-size: 13.5px; }
+  .secure svg { width: 18px; height: 18px; color: var(--gold-b); }
+
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 26px; align-items: start; }
+  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } .summary { order: -1; } }
+
+  .panel { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+    border: 1px solid var(--line); border-radius: 28px; padding: clamp(22px, 3vw, 36px); backdrop-filter: blur(18px);
+    box-shadow: 0 40px 120px -40px rgba(0,0,0,.8); }
+  .panel:before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; padding: 1px;
+    background: linear-gradient(160deg, rgba(246,231,198,.28), transparent 30%, transparent 70%, rgba(169,130,76,.25));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+
+  /* шаги */
+  .stepper { display: flex; gap: 6px; margin-bottom: 30px; }
+  .stepper div { flex: 1; min-width: 0; }
+  .stepper i { display: block; height: 3px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; position: relative; }
+  .stepper i:after { content: ""; position: absolute; inset: 0; transform: scaleX(0); transform-origin: left;
+    background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); transition: transform .9s var(--out); }
+  .stepper .on i:after, .stepper .done i:after { transform: scaleX(1); }
+  .stepper span { display: block; margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--text3);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .4s; }
+  .stepper .on span { color: var(--text); }
+  .stepper .done span { color: var(--gold-b); }
+  @media (max-width: 560px) { .stepper span { font-size: 10.5px; letter-spacing: .02em; } }
+
+  .step { display: none; }
+  .step.show { display: block; animation: stepin .7s var(--out) both; }
+  @keyframes stepin { from { opacity: 0; transform: translateX(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+  .step h3 { font-size: 26px; letter-spacing: -.025em; margin-bottom: 6px; }
+  .step .sub { color: var(--text2); margin: 0 0 22px; }
+
+  .app-banner { display: flex; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 16px; margin-bottom: 24px;
+    background: linear-gradient(90deg, rgba(217,187,133,.13), rgba(217,187,133,.04)); border: 1px solid rgba(217,187,133,.3); font-size: 14px; }
+  .app-banner b { color: var(--gold-a); }
+  .app-banner .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(127,212,168,.6); animation: ping 2.2s infinite; flex: none; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(127,212,168,0); } 100% { box-shadow: 0 0 0 0 rgba(127,212,168,0); } }
+
+  .seg { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(0,0,0,.3); border: 1px solid var(--line); margin-bottom: 20px; position: relative; }
+  .seg button { position: relative; z-index: 1; border: 0; background: none; color: var(--text2); font: 700 14px var(--sans); padding: 10px 20px; border-radius: 999px; cursor: pointer; transition: color .3s; }
+  .seg button.on { color: #1a1309; }
+  .seg .knob { position: absolute; top: 4px; bottom: 4px; border-radius: 999px; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); transition: left .55s var(--out), width .55s var(--out); }
+
+  .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .item, .method { position: relative; text-align: left; cursor: pointer; border-radius: 20px; padding: 18px; background: rgba(0,0,0,.28);
+    border: 1px solid var(--line2); color: var(--text); font: inherit; transition: transform .45s var(--out), border-color .35s, background .35s, box-shadow .45s; }
+  .item:hover, .method:hover { transform: translateY(-3px); border-color: rgba(217,187,133,.4); box-shadow: 0 24px 50px -24px rgba(0,0,0,.8); }
+  .item.sel, .method.sel { border-color: rgba(217,187,133,.9); background: linear-gradient(180deg, rgba(217,187,133,.13), rgba(217,187,133,.03));
+    box-shadow: 0 0 0 4px rgba(217,187,133,.12), 0 26px 60px -26px rgba(217,187,133,.4); }
+  .item .nm { font-weight: 800; font-size: 17px; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
+  .item .badge { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #1a1309; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); border-radius: 999px; padding: 3px 8px; }
+  .item .pr { font-size: 30px; font-weight: 800; letter-spacing: -.03em; margin-top: 10px; }
+  .item .pm { color: var(--text3); font-size: 13px; }
+  .item .hrs { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--text2); }
+  .item .hrs b { color: var(--gold-a); font-weight: 800; }
+  .item .tick, .method .tick { position: absolute; right: 14px; top: 14px; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line2);
+    display: grid; place-items: center; transition: all .35s var(--out); }
+  .sel .tick { background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); border-color: transparent; }
+  .sel .tick:after { content: ""; width: 9px; height: 5px; border-left: 2px solid #1a1309; border-bottom: 2px solid #1a1309; transform: translate(0, -1px) rotate(-45deg); }
+
+  .methods { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .method { display: flex; gap: 14px; align-items: center; padding: 16px 44px 16px 16px; }
+  .method .ic { width: 52px; height: 52px; flex: none; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 24px -8px rgba(0,0,0,.7); transition: transform .5s var(--spring); }
+  .method:hover .ic { transform: rotate(-6deg) scale(1.06); }
+  .method .ic svg { width: 100%; height: 100%; display: block; }
+  .method .t { font-weight: 800; font-size: 15.5px; }
+  .method .n { color: var(--text3); font-size: 12.5px; }
+  .method .p { margin-top: 4px; font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
+  .method .p small { color: var(--text3); font-weight: 600; font-size: 12px; margin-left: 6px; }
+  .method.off { opacity: .45; pointer-events: none; }
+  .rate { margin-top: 14px; color: var(--text3); font-size: 12.5px; display: flex; gap: 8px; align-items: center; }
+  .rate i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); animation: ping 2.4s infinite; }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 28px; }
+  .actions .grow { flex: 1; }
+  .link { background: none; border: 0; color: var(--text2); font: 600 14px var(--sans); cursor: pointer; padding: 8px 4px; }
+  .link:hover { color: var(--gold-a); }
+
+  /* реквизиты */
+  .pay-sum { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 4px 0 20px; }
+  .pay-sum .big { font-size: clamp(40px, 6vw, 58px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .pay-sum .eq { color: var(--text3); font-size: 15px; }
+  .lines { display: grid; gap: 10px; }
+  .line { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 16px;
+    background: rgba(0,0,0,.3); border: 1px solid var(--line); }
+  .line .k { color: var(--text3); font-size: 12.5px; font-weight: 600; }
+  .line .v { font: 600 16px var(--mono); letter-spacing: .02em; word-break: break-all; }
+  .copy { flex: none; border: 1px solid var(--line2); background: rgba(255,255,255,.05); color: var(--text); font: 700 12.5px var(--sans);
+    padding: 9px 13px; border-radius: 11px; cursor: pointer; transition: all .3s var(--out); }
+  .copy:hover { border-color: rgba(217,187,133,.6); color: var(--gold-a); }
+  .copy.ok { background: rgba(127,212,168,.14); border-color: rgba(127,212,168,.5); color: var(--ok); }
+  .code-box { margin-top: 14px; padding: 20px; border-radius: 20px; text-align: center; border: 1px dashed rgba(217,187,133,.55);
+    background: radial-gradient(120% 140% at 50% 0%, rgba(217,187,133,.12), transparent 60%); }
+  .code-box .k { color: var(--text2); font-size: 13px; }
+  .code-box .c { font: 700 44px var(--mono); letter-spacing: .28em; margin: 6px 0 4px; padding-left: .28em; }
+  .hint { color: var(--text2); font-size: 14px; margin: 16px 0 0; }
+
+  /* квитанция */
+  .drop { position: relative; display: grid; place-items: center; text-align: center; gap: 10px; min-height: 210px; padding: 28px; border-radius: 22px; cursor: pointer;
+    background: rgba(0,0,0,.28); border: 1.5px dashed rgba(217,187,133,.45); transition: all .35s var(--out); }
+  .drop:hover, .drop.over { border-color: var(--gold-a); background: rgba(217,187,133,.07); transform: scale(1.01); }
+  .drop svg.up { width: 46px; height: 46px; color: var(--gold-b); transition: transform .5s var(--spring); }
+  .drop:hover svg.up { transform: translateY(-5px); }
+  .drop b { font-size: 16px; }
+  .drop small { color: var(--text3); }
+  .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .preview { display: none; gap: 14px; align-items: center; padding: 14px; border-radius: 18px; background: rgba(0,0,0,.3); border: 1px solid var(--line); margin-top: 12px; animation: stepin .5s var(--out); }
+  .preview.show { display: flex; }
+  .preview .th { width: 64px; height: 64px; border-radius: 12px; background: #222 center/cover; flex: none; display: grid; place-items: center; font-weight: 800; color: var(--gold-b); }
+  .preview .nm { font-weight: 700; word-break: break-all; }
+  .preview .sz { color: var(--text3); font-size: 13px; }
+  textarea { width: 100%; margin-top: 14px; min-height: 64px; resize: vertical; background: rgba(0,0,0,.3); color: var(--text); border: 1px solid var(--line2);
+    border-radius: 16px; padding: 14px 16px; font: 500 15px var(--sans); outline: none; transition: border-color .3s, box-shadow .3s; }
+  textarea:focus { border-color: rgba(217,187,133,.65); box-shadow: 0 0 0 4px rgba(217,187,133,.1); }
+  .err-msg { color: var(--err); font-size: 14px; min-height: 20px; margin-top: 12px; }
+
+  /* ожидание и готово */
+  .wait { text-align: center; padding: 18px 0 8px; }
+  .orb { position: relative; width: 132px; height: 132px; margin: 6px auto 26px; }
+  .orb i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(217,187,133,.5); animation: ring 2.6s var(--out) infinite; }
+  .orb i:nth-child(2) { animation-delay: .85s; } .orb i:nth-child(3) { animation-delay: 1.7s; }
+  @keyframes ring { from { transform: scale(.45); opacity: 1; } to { transform: scale(1.25); opacity: 0; } }
+  .orb b { position: absolute; inset: 34px; border-radius: 50%; background: conic-gradient(from 0deg, var(--gold-c), var(--gold-a), var(--gold-c));
+    animation: spin 3s linear infinite; box-shadow: 0 0 60px rgba(217,187,133,.45); }
+  .orb b:after { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--bg2); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .done-mark { width: 104px; height: 104px; margin: 4px auto 24px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 35% 30%, var(--gold-a), var(--gold-b) 50%, var(--gold-c)); box-shadow: 0 30px 80px -20px rgba(217,187,133,.7); animation: pop .9s var(--spring) both; }
+  .done-mark svg { width: 46px; height: 46px; stroke: #1a1309; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw .8s .35s var(--out) forwards; }
+  @keyframes pop { from { transform: scale(.2); opacity: 0; } }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .voucher { font: 700 clamp(22px, 4vw, 32px) var(--mono); letter-spacing: .08em; color: var(--gold-a); margin: 10px 0 14px; word-break: break-all; }
+  ol.how { text-align: left; max-width: 460px; margin: 22px auto 0; padding: 0; list-style: none; counter-reset: s; }
+  ol.how li { counter-increment: s; display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; color: var(--text2); }
+  ol.how li:before { content: counter(s); flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 13px;
+    color: #1a1309; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); }
+  .spark { position: fixed; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 90; animation: fly 1.4s var(--out) forwards; }
+  @keyframes fly { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+
+  /* сводка */
+  .summary { position: sticky; top: 96px; }
+  .summary .panel { padding: 26px; }
+  .sum-top { display: flex; gap: 14px; align-items: center; }
+  .sum-top .logo { width: 48px; height: 48px; border-radius: 14px; }
+  .sum-top .k { color: var(--text3); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .sum-top .v { font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+  .sum-rows { margin: 20px 0 0; display: grid; gap: 12px; }
+  .sum-rows div { display: flex; justify-content: space-between; gap: 10px; color: var(--text2); font-size: 14.5px; }
+  .sum-rows b { color: var(--text); text-align: right; }
+  .sum-total { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; }
+  .sum-total span { color: var(--text2); }
+  .sum-total b { font-size: 28px; letter-spacing: -.03em; }
+  .perks { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .perks li { display: flex; gap: 10px; font-size: 13.5px; color: var(--text2); }
+  .perks li:before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%;
+    background: radial-gradient(circle, var(--gold-b) 35%, transparent 38%), rgba(217,187,133,.14); }
+  .methods-row { display: flex; gap: 8px; margin-top: 22px; }
+  .methods-row span { width: 34px; height: 34px; border-radius: 10px; overflow: hidden; display: block; }
+  .methods-row svg { width: 100%; height: 100%; display: block; }
+  .skeleton { height: 150px; border-radius: 20px; background: linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.07), rgba(255,255,255,.03)); background-size: 200% 100%; animation: sk 1.4s linear infinite; }
+  @keyframes sk { to { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="curtain" aria-hidden="true"><i></i></div>
+
+<header class="nav solid">
+  <div class="wrap">
+    <a class="brand" href="./" data-go><img src="img/icon.png" alt="">Tolk</a>
+    <div class="grow"></div>
+    <div class="langs" id="langs"><button data-l="ru">RU</button><button data-l="uk">UA</button><button data-l="sk">SK</button><button data-l="en">EN</button></div>
+    <a class="btn btn-glass btn-sm" href="./" data-go data-i="back"></a>
+  </div>
+</header>
+
+<main class="page">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="overline" data-i="over"></div>
+        <h1 style="margin-top:14px"><span data-i="h1a"></span> <span class="serif gold" data-i="h1b"></span></h1>
+        <p class="lead" data-i="lead"></p>
+      </div>
+      <div class="secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span data-i="secure"></span></div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="stepper" id="stepper"></div>
+        <div class="app-banner" id="appbanner" hidden><span class="dot"></span><span id="appbanner-t" style="flex:1"></span><a class="link" id="notme" href="pay.html" data-i="not_me" style="white-space:nowrap"></a></div>
+
+        <section class="step" id="s-item">
+          <h3 data-i="s1_h"></h3><p class="sub" data-i="s1_p"></p>
+          <div class="seg" id="tabs"><span class="knob"></span><button data-tab="plans" data-i="tab_plans"></button><button data-tab="hours" data-i="tab_hours"></button></div>
+          <div class="items" id="items"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+          <div class="actions"><div class="grow"></div><button class="btn btn-gold" id="to-method"><span data-i="next"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+        </section>
+
+        <section class="step" id="s-method">
+          <h3 data-i="s2_h"></h3><p class="sub" data-i="s2_p"></p>
+          <div class="methods" id="methods"></div>
+          <div class="rate" id="rate"><i></i><span></span></div>
+          <div class="err-msg" id="order-err"></div>
+          <div class="actions"><button class="link" data-back="item" data-i="prev"></button><div class="grow"></div>
+            <button class="btn btn-gold" id="to-pay"><span data-i="to_pay"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+        </section>
+
+        <section class="step" id="s-pay">
+          <h3 data-i="s3_h"></h3>
+          <div class="pay-sum"><div class="big gold" id="pay-sum"></div><div class="eq" id="pay-eq"></div><button class="copy" id="copy-sum" data-i="copy"></button></div>
+          <div id="manual">
+            <div class="lines" id="lines"></div>
+            <div class="code-box"><div class="k" data-i="code_k"></div><div class="c" id="pay-code"></div><button class="copy" id="copy-code" data-i="copy"></button></div>
+            <p class="hint" id="pay-hint"></p>
+            <div class="actions"><div class="grow"></div><button class="btn btn-gold" id="to-receipt"><span data-i="paid"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+          </div>
+          <div id="stars" hidden>
+            <p class="hint" data-i="stars_p" style="margin-top:0"></p>
+            <div class="actions"><a class="btn btn-gold" id="stars-btn" target="_blank" rel="noopener"><span data-i="stars_btn"></span></a>
+              <button class="btn btn-glass" id="stars-wait" data-i="stars_wait"></button></div>
+          </div>
+        </section>
+
+        <section class="step" id="s-receipt">
+          <h3 data-i="s4_h"></h3><p class="sub" data-i="s4_p"></p>
+          <label class="drop" id="drop">
+            <svg class="up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0l-5 5m5-5l5 5"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+            <b data-i="drop"></b><small data-i="drop_s"></small>
+            <input type="file" id="file" accept="image/png,image/jpeg,image/webp,image/heic,application/pdf">
+          </label>
+          <div class="preview" id="preview"><div class="th" id="th"></div><div style="flex:1;min-width:0"><div class="nm" id="fname"></div><div class="sz" id="fsize"></div></div><button class="copy" id="fclear">✕</button></div>
+          <textarea id="note" maxlength="300"></textarea>
+          <div class="err-msg" id="rec-err"></div>
+          <div class="actions"><button class="link" data-back="pay" data-i="prev"></button><div class="grow"></div>
+            <button class="btn btn-gold" id="send"><span data-i="send"></span></button></div>
+        </section>
+
+        <section class="step" id="s-wait">
+          <div class="wait"><div class="orb"><i></i><i></i><i></i><b></b></div>
+            <h3 data-i="wait_h"></h3><p class="sub" data-i="wait_p" style="max-width:460px;margin:8px auto 0"></p></div>
+        </section>
+
+        <section class="step" id="s-done">
+          <div class="wait"><div class="done-mark"><svg viewBox="0 0 48 48"><path d="M12 25l8 8 16-17"/></svg></div>
+            <h3 data-i="done_h"></h3><p class="sub" id="done-p" style="max-width:480px;margin:8px auto 0"></p>
+            <div id="done-code" hidden><div class="voucher" id="voucher"></div><button class="copy" id="copy-voucher" data-i="copy"></button></div>
+            <ol class="how" id="how"></ol>
+            <div class="actions" style="justify-content:center"><a class="btn btn-gold" id="dl" hidden><span data-i="download"></span></a>
+              <button class="btn btn-glass" id="again" data-i="again"></button></div></div>
+        </section>
+
+        <section class="step" id="s-rejected">
+          <div class="wait"><h3 data-i="rej_h"></h3><p class="sub" data-i="rej_p" style="max-width:460px;margin:8px auto 0"></p>
+            <div class="actions" style="justify-content:center"><a class="btn btn-gold" href="https://t.me/sethosint" target="_blank" rel="noopener" data-i="write_tg"></a>
+              <button class="btn btn-glass" data-i="again" data-again></button></div></div>
+        </section>
+      </div>
+
+      <aside class="summary">
+        <div class="panel">
+          <div class="sum-top"><img class="logo" src="img/icon.png" alt=""><div><div class="k" data-i="sum_k"></div><div class="v" id="sum-title">—</div></div></div>
+          <div class="sum-rows"><div><span data-i="sum_period"></span><b id="sum-period">—</b></div><div><span data-i="sum_hours"></span><b id="sum-hours">—</b></div>
+            <div><span data-i="sum_method"></span><b id="sum-method">—</b></div></div>
+          <div class="sum-total"><span data-i="sum_total"></span><b class="gold" id="sum-total">—</b></div>
+          <ul class="perks" id="perks"></ul>
+          <div class="methods-row" id="mrow"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© Tolk</span><a href="./" data-go data-i="f_home"></a><a href="privacy.html" data-i="f_privacy"></a><a href="https://t.me/sethosint" target="_blank" rel="noopener" data-i="f_tg"></a></div></footer>
+
+<script src="assets/icons.js"></script>
+<script>
+const T = {
+  ru: {
+    back: "На главную", not_me: "Не мой компьютер", over: "Оплата", h1a: "Tolk для вас —", h1b: "за пару минут", lead: "Выберите срок, оплатите удобным способом и приложите квитанцию. Продавец подтвердит оплату — обычно за несколько минут.",
+    secure: "Оплату проверяет продавец · данные карты не нужны",
+    steps: ["Тариф", "Способ", "Оплата", "Квитанция", "Готово"],
+    app_plan: "Покупка для компьютера <b>%s</b> — ключ придёт в программу сам, вводить ничего не нужно.",
+    app_hours: "Часы добавятся к ключу компьютера <b>%s</b> — в программе сразу, сами.",
+    s1_h: "Что покупаете", s1_p: "Все тарифы — полный Tolk. Отличается только срок: чем дольше, тем дешевле месяц.",
+    tab_plans: "Подписка", tab_hours: "Часы нейросети", best: "Выгоднее всего",
+    per: { week: "7 дней", month: "31 день", quarter: "3 месяца", half: "6 месяцев", year: "12 месяцев" },
+    pm: "≈ %s в месяц", hrs_plan: "<b>%s</b> нейросети за весь срок", hrs_week: "<b>%s</b> нейросети на неделю", hrs_pack: "Не сгорают · добавятся к ключу",
+    h: "ч", next: "Дальше", prev: "Назад",
+    s2_h: "Как удобнее оплатить", s2_p: "Цена пересчитывается по живому курсу — в валюте выбранного способа.",
+    rate: "Курс обновлён %s · гривна — monobank, крипта — CoinGecko", rate_now: "только что", rate_min: "%s мин назад", unavailable: "курс временно недоступен",
+    to_pay: "Перейти к оплате",
+    s3_h: "Переведите точную сумму", code_k: "Код для комментария к переводу",
+    hint_manual: "Обязательно укажите код в комментарии — по нему продавец найдёт ваш платёж.", copy: "Копировать", copied: "Скопировано",
+    paid: "Я оплатил — приложить квитанцию",
+    stars_p: "Оплата звёздами проходит в боте магазина: откройте его, оплатите счёт — и возвращайтесь, всё подтвердится само.",
+    stars_btn: "Открыть бота в Telegram", stars_wait: "Я оплатил в Telegram",
+    s4_h: "Квитанция или скрин", s4_p: "Скрин из банка или криптокошелька с суммой и временем. Уйдёт только продавцу.",
+    drop: "Перетащите файл сюда или нажмите", drop_s: "JPG, PNG, WEBP, HEIC или PDF · до 8 МБ",
+    note_ph: "Номер транзакции или комментарий — необязательно", send: "Отправить продавцу", sending: "Отправляем…",
+    need: "Приложите квитанцию или напишите номер транзакции.", big: "Файл больше 8 МБ — сожмите или сделайте скрин.", type: "Нужна картинка или PDF.",
+    wait_h: "Проверяем оплату", wait_p: "Продавец сверяет перевод. Страницу можно закрыть — результат сохранится здесь и придёт в программу.",
+    done_h: "Готово! Спасибо за покупку",
+    done_app: "Tolk уже активировался на вашем компьютере — откройте программу и переводите.",
+    done_hours: "Часы нейросети уже добавлены к вашему ключу.",
+    done_code: "Ваш код активации — сохраните его:", done_hcode: "Ваш код на часы нейросети:",
+    how_code: ["Скачайте и установите Tolk.", "В окне активации вставьте этот код.", "Готово — подписка привяжется к вашему компьютеру."],
+    how_hcode: ["Откройте Tolk → «Профиль».", "Нажмите «Ввести код» и вставьте этот код.", "Часы сразу добавятся к подписке."],
+    download: "Скачать Tolk", again: "Ещё покупка",
+    rej_h: "Оплата не найдена", rej_p: "Продавец не увидел перевода. Если деньги ушли — напишите в Telegram и приложите квитанцию.", write_tg: "Написать в Telegram",
+    err: "Магазин сейчас недоступен. Попробуйте чуть позже.", many: "Слишком много заказов за сегодня — попробуйте завтра.", rate_err: "Курс для этого способа сейчас недоступен — выберите другой.",
+    sum_k: "Ваш заказ", sum_period: "Срок", sum_hours: "Нейросеть", sum_method: "Способ", sum_total: "К оплате",
+    perks: ["Все языки и стили субтитров", "Вкладки браузера и любые программы", "Продление — с даты окончания", "Обновления бесплатно"],
+    f_home: "Главная", f_privacy: "Конфиденциальность", f_tg: "Поддержка в Telegram", forever: "навсегда",
+  },
+  uk: {
+    back: "На головну", not_me: "Не мій комп'ютер", over: "Оплата", h1a: "Tolk для вас —", h1b: "за кілька хвилин", lead: "Оберіть термін, оплатіть зручним способом і додайте квитанцію. Продавець підтвердить оплату — зазвичай за кілька хвилин.",
+    secure: "Оплату перевіряє продавець · дані картки не потрібні",
+    steps: ["Тариф", "Спосіб", "Оплата", "Квитанція", "Готово"],
+    app_plan: "Купівля для комп'ютера <b>%s</b> — ключ прийде в програму сам, нічого вводити не треба.",
+    app_hours: "Години додадуться до ключа комп'ютера <b>%s</b> — у програмі одразу, самі.",
+    s1_h: "Що купуєте", s1_p: "Усі тарифи — повний Tolk. Відрізняється лише термін: що довше, то дешевший місяць.",
+    tab_plans: "Підписка", tab_hours: "Години нейромережі", best: "Найвигідніше",
+    per: { week: "7 днів", month: "31 день", quarter: "3 місяці", half: "6 місяців", year: "12 місяців" },
+    pm: "≈ %s на місяць", hrs_plan: "<b>%s</b> нейромережі за весь термін", hrs_week: "<b>%s</b> нейромережі на тиждень", hrs_pack: "Не згорають · додадуться до ключа",
+    h: "год", next: "Далі", prev: "Назад",
+    s2_h: "Як зручніше оплатити", s2_p: "Ціна перераховується за живим курсом — у валюті обраного способу.",
+    rate: "Курс оновлено %s · гривня — monobank, крипта — CoinGecko", rate_now: "щойно", rate_min: "%s хв тому", unavailable: "курс тимчасово недоступний",
+    to_pay: "Перейти до оплати",
+    s3_h: "Перекажіть точну суму", code_k: "Код для коментаря до переказу",
+    hint_manual: "Обов'язково вкажіть код у коментарі — за ним продавець знайде ваш платіж.", copy: "Копіювати", copied: "Скопійовано",
+    paid: "Я оплатив — додати квитанцію",
+    stars_p: "Оплата зірками проходить у боті магазину: відкрийте його, оплатіть рахунок — і повертайтеся, все підтвердиться саме.",
+    stars_btn: "Відкрити бота в Telegram", stars_wait: "Я оплатив у Telegram",
+    s4_h: "Квитанція або скрін", s4_p: "Скрін із банку чи криптогаманця із сумою та часом. Побачить лише продавець.",
+    drop: "Перетягніть файл сюди або натисніть", drop_s: "JPG, PNG, WEBP, HEIC або PDF · до 8 МБ",
+    note_ph: "Номер транзакції або коментар — необов'язково", send: "Надіслати продавцю", sending: "Надсилаємо…",
+    need: "Додайте квитанцію або напишіть номер транзакції.", big: "Файл більший за 8 МБ — стисніть або зробіть скрін.", type: "Потрібна картинка або PDF.",
+    wait_h: "Перевіряємо оплату", wait_p: "Продавець звіряє переказ. Сторінку можна закрити — результат збережеться тут і прийде в програму.",
+    done_h: "Готово! Дякуємо за покупку",
+    done_app: "Tolk уже активувався на вашому комп'ютері — відкрийте програму й перекладайте.",
+    done_hours: "Години нейромережі вже додано до вашого ключа.",
+    done_code: "Ваш код активації — збережіть його:", done_hcode: "Ваш код на години нейромережі:",
+    how_code: ["Завантажте й установіть Tolk.", "У вікні активації вставте цей код.", "Готово — підписка прив'яжеться до вашого комп'ютера."],
+    how_hcode: ["Відкрийте Tolk → «Профіль».", "Натисніть «Ввести код» і вставте цей код.", "Години одразу додадуться до підписки."],
+    download: "Завантажити Tolk", again: "Ще покупка",
+    rej_h: "Оплату не знайдено", rej_p: "Продавець не побачив переказу. Якщо гроші пішли — напишіть у Telegram і додайте квитанцію.", write_tg: "Написати в Telegram",
+    err: "Магазин зараз недоступний. Спробуйте трохи пізніше.", many: "Забагато замовлень за сьогодні — спробуйте завтра.", rate_err: "Курс для цього способу зараз недоступний — оберіть інший.",
+    sum_k: "Ваше замовлення", sum_period: "Термін", sum_hours: "Нейромережа", sum_method: "Спосіб", sum_total: "До сплати",
+    perks: ["Усі мови й стилі субтитрів", "Вкладки браузера й будь-які програми", "Продовження — з дати закінчення", "Оновлення безкоштовно"],
+    f_home: "Головна", f_privacy: "Конфіденційність", f_tg: "Підтримка в Telegram", forever: "назавжди",
+  },
+  sk: {
+    back: "Na úvod", not_me: "Nie je to môj počítač", over: "Platba", h1a: "Tolk pre vás —", h1b: "za pár minút", lead: "Vyberte si obdobie, zaplaťte pohodlným spôsobom a priložte potvrdenie. Predajca platbu potvrdí — zvyčajne za pár minút.",
+    secure: "Platbu kontroluje predajca · údaje karty netreba",
+    steps: ["Plán", "Spôsob", "Platba", "Potvrdenie", "Hotovo"],
+    app_plan: "Nákup pre počítač <b>%s</b> — kľúč príde do programu sám, nič netreba zadávať.",
+    app_hours: "Hodiny sa pridajú ku kľúču počítača <b>%s</b> — v programe hneď a samy.",
+    s1_h: "Čo kupujete", s1_p: "Všetky plány sú plný Tolk. Líši sa len obdobie: čím dlhšie, tým lacnejší mesiac.",
+    tab_plans: "Predplatné", tab_hours: "Hodiny AI", best: "Najvýhodnejšie",
+    per: { week: "7 dní", month: "31 dní", quarter: "3 mesiace", half: "6 mesiacov", year: "12 mesiacov" },
+    pm: "≈ %s mesačne", hrs_plan: "<b>%s</b> AI za celé obdobie", hrs_week: "<b>%s</b> AI na týždeň", hrs_pack: "Nepropadajú · pridajú sa ku kľúču",
+    h: "h", next: "Ďalej", prev: "Späť",
+    s2_h: "Ako chcete zaplatiť", s2_p: "Cena sa prepočíta živým kurzom — v mene zvoleného spôsobu.",
+    rate: "Kurz aktualizovaný %s · hrivna — monobank, krypto — CoinGecko", rate_now: "práve teraz", rate_min: "pred %s min", unavailable: "kurz je dočasne nedostupný",
+    to_pay: "Prejsť k platbe",
+    s3_h: "Pošlite presnú sumu", code_k: "Kód do poznámky k platbe",
+    hint_manual: "Kód určite uveďte v poznámke — podľa neho predajca nájde vašu platbu.", copy: "Kopírovať", copied: "Skopírované",
+    paid: "Zaplatil som — priložiť potvrdenie",
+    stars_p: "Platba hviezdičkami prebieha v bote obchodu: otvorte ho, zaplaťte faktúru — a vráťte sa, všetko sa potvrdí samo.",
+    stars_btn: "Otvoriť bota v Telegrame", stars_wait: "Zaplatil som v Telegrame",
+    s4_h: "Potvrdenie alebo screenshot", s4_p: "Screenshot z banky či kryptopeňaženky so sumou a časom. Uvidí ho len predajca.",
+    drop: "Pretiahnite súbor sem alebo kliknite", drop_s: "JPG, PNG, WEBP, HEIC alebo PDF · do 8 MB",
+    note_ph: "Číslo transakcie alebo poznámka — nepovinné", send: "Poslať predajcovi", sending: "Posielame…",
+    need: "Priložte potvrdenie alebo napíšte číslo transakcie.", big: "Súbor je väčší ako 8 MB — zmenšite ho alebo spravte screenshot.", type: "Treba obrázok alebo PDF.",
+    wait_h: "Overujeme platbu", wait_p: "Predajca kontroluje platbu. Stránku môžete zavrieť — výsledok sa uloží tu a príde do programu.",
+    done_h: "Hotovo! Ďakujeme za nákup",
+    done_app: "Tolk sa už aktivoval vo vašom počítači — otvorte program a prekladajte.",
+    done_hours: "Hodiny AI sú už pridané k vášmu kľúču.",
+    done_code: "Váš aktivačný kód — uložte si ho:", done_hcode: "Váš kód na hodiny AI:",
+    how_code: ["Stiahnite a nainštalujte Tolk.", "V okne aktivácie vložte tento kód.", "Hotovo — predplatné sa priradí k vášmu počítaču."],
+    how_hcode: ["Otvorte Tolk → „Profil“.", "Kliknite na „Zadať kód“ a vložte tento kód.", "Hodiny sa hneď pridajú k predplatnému."],
+    download: "Stiahnuť Tolk", again: "Ďalší nákup",
+    rej_h: "Platba sa nenašla", rej_p: "Predajca nevidel platbu. Ak peniaze odišli — napíšte do Telegramu a priložte potvrdenie.", write_tg: "Napísať do Telegramu",
+    err: "Obchod je teraz nedostupný. Skúste o chvíľu.", many: "Dnes už bolo priveľa objednávok — skúste zajtra.", rate_err: "Kurz pre tento spôsob je teraz nedostupný — vyberte iný.",
+    sum_k: "Vaša objednávka", sum_period: "Obdobie", sum_hours: "AI", sum_method: "Spôsob", sum_total: "Na úhradu",
+    perks: ["Všetky jazyky a štýly titulkov", "Karty prehliadača a akékoľvek programy", "Predĺženie — od dátumu konca", "Aktualizácie zadarmo"],
+    f_home: "Úvod", f_privacy: "Ochrana súkromia", f_tg: "Podpora v Telegrame", forever: "navždy",
+  },
+  en: {
+    back: "Home", not_me: "Not my computer", over: "Checkout", h1a: "Tolk is yours", h1b: "in a couple of minutes", lead: "Pick a period, pay the way you like and attach the receipt. The seller confirms the payment — usually within minutes.",
+    secure: "Checked by the seller · no card details needed",
+    steps: ["Plan", "Method", "Payment", "Receipt", "Done"],
+    app_plan: "Buying for computer <b>%s</b> — the key will arrive in the app by itself, nothing to type.",
+    app_hours: "Hours will be added to the key of computer <b>%s</b> — in the app, right away.",
+    s1_h: "What you're buying", s1_p: "Every plan is the full Tolk. Only the period differs: the longer, the cheaper each month.",
+    tab_plans: "Subscription", tab_hours: "AI hours", best: "Best value",
+    per: { week: "7 days", month: "31 days", quarter: "3 months", half: "6 months", year: "12 months" },
+    pm: "≈ %s a month", hrs_plan: "<b>%s</b> of AI for the whole period", hrs_week: "<b>%s</b> of AI for the week", hrs_pack: "Never expire · added to your key",
+    h: "h", next: "Continue", prev: "Back",
+    s2_h: "How you'd like to pay", s2_p: "Prices follow the live exchange rate — in the currency of the method.",
+    rate: "Rate updated %s · hryvnia — monobank, crypto — CoinGecko", rate_now: "just now", rate_min: "%s min ago", unavailable: "rate temporarily unavailable",
+    to_pay: "Go to payment",
+    s3_h: "Send the exact amount", code_k: "Code for the payment comment",
+    hint_manual: "Be sure to put the code in the comment — that's how the seller finds your payment.", copy: "Copy", copied: "Copied",
+    paid: "I've paid — attach the receipt",
+    stars_p: "Stars payments happen in the shop bot: open it, pay the invoice — and come back, it confirms by itself.",
+    stars_btn: "Open the bot in Telegram", stars_wait: "I've paid in Telegram",
+    s4_h: "Receipt or screenshot", s4_p: "A screenshot from your bank or crypto wallet showing the amount and time. Only the seller sees it.",
+    drop: "Drop the file here or click", drop_s: "JPG, PNG, WEBP, HEIC or PDF · up to 8 MB",
+    note_ph: "Transaction ID or a note — optional", send: "Send to the seller", sending: "Sending…",
+    need: "Attach a receipt or type the transaction ID.", big: "The file is over 8 MB — compress it or take a screenshot.", type: "An image or a PDF, please.",
+    wait_h: "Checking the payment", wait_p: "The seller is checking the transfer. You can close this page — the result stays here and reaches the app.",
+    done_h: "Done! Thank you",
+    done_app: "Tolk is already activated on your computer — open the app and start translating.",
+    done_hours: "The AI hours are already added to your key.",
+    done_code: "Your activation code — keep it:", done_hcode: "Your AI hours code:",
+    how_code: ["Download and install Tolk.", "Paste this code in the activation window.", "Done — the plan binds to your computer."],
+    how_hcode: ["Open Tolk → Profile.", "Click “Enter a code” and paste it.", "The hours are added right away."],
+    download: "Download Tolk", again: "Buy something else",
+    rej_h: "Payment not found", rej_p: "The seller didn't see the transfer. If the money left your account — message us on Telegram with the receipt.", write_tg: "Message on Telegram",
+    err: "The shop is unavailable right now. Please try again shortly.", many: "Too many orders today — please try tomorrow.", rate_err: "No rate for this method right now — please choose another.",
+    sum_k: "Your order", sum_period: "Period", sum_hours: "AI", sum_method: "Method", sum_total: "Total",
+    perks: ["All languages and subtitle styles", "Browser tabs and any apps", "Renewal starts when the current one ends", "Free updates"],
+    f_home: "Home", f_privacy: "Privacy", f_tg: "Support on Telegram", forever: "forever",
+  },
+};
+
+const Q = new URLSearchParams(location.search);
+const APP = { m: (Q.get("m") || "").toUpperCase().replace(/[^0-9A-Z-]/g, "").slice(0, 20), w: (Q.get("w") || "").replace(/[^A-Za-z0-9]/g, "").slice(0, 64) };
+const FROM_APP = /^[0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{3}$/.test(APP.m) && APP.w.length >= 20;
+let lang = tolkLang();
+let cat = null, tab = Q.get("tab") === "hours" ? "hours" : "plans", item = Q.get("item") || "", method = "", order = null, file = null, pollT = 0;
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+const d = () => T[lang];
+const fmt = (s, ...a) => a.reduce((x, v) => x.replace("%s", v), s);
+const esc = tolkEsc;
+const STEPS = ["item", "method", "pay", "receipt", "done"];
+const SYM = { EUR: "€", UAH: "₴", USDT: "USDT", TON: "TON", "⭐": "⭐" };
+
+function money(p, cur) {
+  if (p == null) return "—";
+  const n = Number(p), loc = { ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB" }[lang];
+  const s = n.toLocaleString(loc, { maximumFractionDigits: 2 });
+  return cur === "EUR" ? s + " €" : cur === "UAH" ? s + " ₴" : cur === "⭐" ? s + " ⭐" : s + " " + (SYM[cur] || cur);
+}
+const hrs = (h) => { const x = Math.round(h * 10) / 10; return String(x).replace(".", lang === "en" ? "." : ",") + " " + d().h; };
+
+function applyLang() {
+  document.documentElement.lang = lang === "uk" ? "uk" : lang;
+  $$("[data-i]").forEach((el) => { const v = d()[el.dataset.i]; if (typeof v === "string") el.textContent = v; });
+  $$("#langs button").forEach((b) => b.classList.toggle("on", b.dataset.l === lang));
+  $("#note").placeholder = d().note_ph;
+  $("#stepper").innerHTML = d().steps.map((s) => `<div><i></i><span>${esc(s)}</span></div>`).join("");
+  if (FROM_APP) { $("#appbanner").hidden = false; $("#appbanner-t").innerHTML = fmt(tab === "hours" ? d().app_hours : d().app_plan, esc(APP.m)); }
+  $("#perks").innerHTML = d().perks.map((p) => `<li>${esc(p)}</li>`).join("");
+  $("#mrow").innerHTML = ["mono", "usdt", "ton", "stars"].map((k) => `<span>${tolkIcon(k)}</span>`).join("");
+  drawTabs(); drawItems(); drawMethods(); drawSummary(); markStep(current);
+}
+$$("#langs button").forEach((b) => b.onclick = () => { lang = b.dataset.l; tolkSaveLang(lang); applyLang(); if (order) fillPay(); });
+
+let current = "item";
+function show(step) {
+  current = step;
+  $$(".step").forEach((s) => s.classList.toggle("show", s.id === "s-" + step));
+  markStep(step);
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+function markStep(step) {
+  const i = STEPS.indexOf(step === "wait" ? "receipt" : step === "rejected" ? "done" : step);
+  $$("#stepper > div").forEach((el, k) => { el.classList.toggle("done", k < i); el.classList.toggle("on", k === i); });
+}
+
+function drawTabs() {
+  $$("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.tab === tab));
+  const on = $("#tabs button.on"), knob = $("#tabs .knob");
+  if (on) { knob.style.left = on.offsetLeft + "px"; knob.style.width = on.offsetWidth + "px"; }
+}
+$$("#tabs button").forEach((b) => b.onclick = () => { if (tab === b.dataset.tab) return; tab = b.dataset.tab; item = ""; method = "";
+  if (FROM_APP) $("#appbanner-t").innerHTML = fmt(tab === "hours" ? d().app_hours : d().app_plan, esc(APP.m)); drawTabs(); drawItems(); drawMethods(); drawSummary(); });
+window.addEventListener("resize", drawTabs);
+
+function list() { return !cat ? [] : tab === "hours" ? cat.topups.map((t) => ({ ...t, kind: "topup" })) : cat.plans.map((p) => ({ ...p, kind: "plan" })); }
+function chosen() { return list().find((x) => x.id === item) || null; }
+
+function drawItems() {
+  if (!cat) return;
+  const L = list();
+  if (!L.find((x) => x.id === item)) item = (L.find((x) => x.id === "month") || L.find((x) => x.best) || L[0] || {}).id || "";
+  $("#items").innerHTML = L.map((x) => {
+    const top = x.kind === "plan" ? esc(d().per[x.id] || x.title) : "+" + hrs(x.hours);
+    const name = x.kind === "plan" ? esc(x.title) : "Tolk AI";
+    const pm = x.kind === "plan" && x.per_month && x.days >= 28 && x.id !== "month" ? `<div class="pm">${fmt(d().pm, money(x.per_month, x.currency))}</div>`
+      : `<div class="pm">${top}</div>`;
+    const h = x.kind === "plan" ? (x.days < 28 ? fmt(d().hrs_week, hrs(x.period_h || x.ai_h)) : fmt(d().hrs_plan, hrs(x.period_h || x.ai_h))) : esc(d().hrs_pack);
+    return `<button class="item ${x.id === item ? "sel" : ""}" data-item="${esc(x.id)}"><span class="tick"></span>
+      <div class="nm">${name}${x.best ? `<span class="badge">${esc(d().best)}</span>` : ""}</div>
+      <div class="pr">${money(x.price, x.currency)}</div>${pm}<div class="hrs">${h}</div></button>`;
+  }).join("");
+  $$("[data-item]").forEach((b) => b.onclick = () => { item = b.dataset.item; $$("[data-item]").forEach((x) => x.classList.toggle("sel", x === b)); drawMethods(); drawSummary(); });
+}
+
+function priceOf(m) { return m && m.prices ? m.prices[item] : null; }
+function drawMethods() {
+  if (!cat) return;
+  const ms = cat.methods;
+  if (!ms.find((m) => m.id === method && !(priceOf(m) || {}).unavailable)) method = (ms.find((m) => !(priceOf(m) || {}).unavailable) || {}).id || "";
+  $("#methods").innerHTML = ms.map((m) => {
+    const p = priceOf(m) || {}, off = p.unavailable || p.price == null;
+    const eq = p.eur && m.currency !== "EUR" && p.currency !== "⭐" ? `<small>≈ ${money(p.eur, "EUR")}</small>` : "";
+    return `<button class="method ${m.id === method ? "sel" : ""} ${off ? "off" : ""}" data-m="${esc(m.id)}"><span class="tick"></span>
+      <span class="ic">${tolkIcon(m.icon)}</span>
+      <span><span class="t">${esc(m.title)}</span><br><span class="n">${esc(m.network || (m.kind === "stars" ? "Telegram" : ""))}</span>
+      <div class="p">${off ? `<span class="n">${esc(d().unavailable)}</span>` : money(p.price, p.currency) + eq}</div></span></button>`;
+  }).join("");
+  $$("[data-m]").forEach((b) => b.onclick = () => { method = b.dataset.m; $$("[data-m]").forEach((x) => x.classList.toggle("sel", x === b)); drawSummary(); });
+  const ago = cat.rates_at ? Math.max(0, Math.round((Date.now() - Date.parse(cat.rates_at)) / 60000)) : null;
+  $("#rate span").textContent = ago == null ? "" : fmt(d().rate, ago < 1 ? d().rate_now : fmt(d().rate_min, ago));
+}
+
+function drawSummary() {
+  const x = chosen(), m = cat && cat.methods.find((k) => k.id === method), p = priceOf(m) || {};
+  $("#sum-title").textContent = x ? (x.kind === "plan" ? x.title : "+" + hrs(x.hours) + " Tolk AI") : "—";
+  $("#sum-period").textContent = x ? (x.kind === "plan" ? d().per[x.id] || x.days : "—") : "—";
+  $("#sum-hours").textContent = x ? hrs(x.kind === "plan" ? (x.period_h || x.ai_h) : x.hours) : "—";
+  $("#sum-method").textContent = m ? m.title : "—";
+  $("#sum-total").textContent = x ? (m && p.price != null ? money(p.price, p.currency) : money(x.price, x.currency)) : "—";
+}
+
+async function loadCatalog() {
+  try {
+    const r = await fetch(TOLK_SHOP + "/api/plans?v=2&lang=" + lang, { cache: "no-store" });
+    if (!r.ok) throw 0;
+    cat = await r.json();
+  } catch (e) { $("#items").innerHTML = `<div class="err-msg">${esc(d().err)}</div>`; return; }
+  drawItems(); drawMethods(); drawSummary();
+}
+
+$("#to-method").onclick = () => { if (item) show("method"); };
+$$("[data-back]").forEach((b) => b.onclick = () => show(b.dataset.back));
+$("#to-pay").onclick = async () => {
+  if (!item || !method) return;
+  const btn = $("#to-pay"); btn.disabled = true; $("#order-err").textContent = "";
+  try {
+    const body = { item, method, lang };
+    if (FROM_APP) { body.machine = APP.m; body.watch = APP.w; }
+    const r = await fetch(TOLK_SHOP + "/api/orders", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(r.status === 429 ? "many" : j.error === "rate" ? "rate_err" : "err");
+    order = { ...j, created: Date.now(), from_app: FROM_APP };
+    save();
+    fillPay();
+    show("pay");
+    if (order.kind === "stars") startPoll();
+  } catch (e) { $("#order-err").textContent = d()[e.message] || d().err; }
+  btn.disabled = false;
+};
+
+function fillPay() {
+  if (!order) return;
+  $("#pay-sum").textContent = money(order.price, order.currency);
+  $("#pay-eq").textContent = order.eur && order.currency !== "EUR" && order.currency !== "⭐" ? "≈ " + money(order.eur, "EUR") : "";
+  const stars = order.kind === "stars";
+  $("#manual").hidden = stars; $("#stars").hidden = !stars; $("#copy-sum").hidden = stars;
+  if (stars) { $("#stars-btn").href = order.bot_link || "#"; return; }
+  $("#lines").innerHTML = (order.lines || []).map(([k, v], i) => `<div class="line"><div style="min-width:0"><div class="k">${esc(k)}</div>
+    <div class="v">${esc(v)}</div></div><button class="copy" data-copy="${i}">${esc(d().copy)}</button></div>`).join("");
+  $$("[data-copy]").forEach((b) => b.onclick = () => copy(order.lines[Number(b.dataset.copy)][1], b));
+  $("#pay-code").textContent = order.code;
+  $("#pay-hint").textContent = [order.hint, d().hint_manual].filter(Boolean).join(" ");
+}
+function copy(text, btn) {
+  navigator.clipboard.writeText(String(text)).then(() => {
+    if (btn) { const t = btn.textContent; btn.textContent = d().copied; btn.classList.add("ok"); setTimeout(() => { btn.textContent = t; btn.classList.remove("ok"); }, 1600); }
+    else tolkToast(d().copied);
+  });
+}
+$("#copy-sum").onclick = (e) => copy(order.price, e.currentTarget);
+$("#copy-code").onclick = (e) => copy(order.code, e.currentTarget);
+$("#to-receipt").onclick = () => show("receipt");
+$("#stars-wait").onclick = () => { show("wait"); startPoll(); };
+
+// квитанция
+function setFile(f) {
+  $("#rec-err").textContent = "";
+  if (!f) { file = null; $("#preview").classList.remove("show"); $("#file").value = ""; return; }
+  if (f.size > 8 * 1024 * 1024) { $("#rec-err").textContent = d().big; return; }
+  if (!/^image\/(png|jpe?g|webp|heic|heif)$/.test(f.type) && f.type !== "application/pdf") { $("#rec-err").textContent = d().type; return; }
+  file = f;
+  $("#fname").textContent = f.name; $("#fsize").textContent = (f.size / 1024 / 1024).toFixed(2) + " MB";
+  const th = $("#th");
+  if (/^image\/(png|jpe?g|webp)$/.test(f.type)) { const u = URL.createObjectURL(f); th.style.backgroundImage = `url("${u}")`; th.textContent = ""; }
+  else { th.style.backgroundImage = ""; th.textContent = f.type === "application/pdf" ? "PDF" : "IMG"; }
+  $("#preview").classList.add("show");
+}
+$("#file").onchange = (e) => setFile(e.target.files[0]);
+$("#fclear").onclick = () => setFile(null);
+["dragenter", "dragover"].forEach((ev) => $("#drop").addEventListener(ev, (e) => { e.preventDefault(); $("#drop").classList.add("over"); }));
+["dragleave", "drop"].forEach((ev) => $("#drop").addEventListener(ev, (e) => { e.preventDefault(); $("#drop").classList.remove("over"); }));
+$("#drop").addEventListener("drop", (e) => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+document.addEventListener("paste", (e) => { if (current !== "receipt") return; const f = [...(e.clipboardData || {}).files || []][0]; if (f) setFile(f); });
+$("#send").onclick = async () => {
+  const note = $("#note").value.trim();
+  if (!file && !note) { $("#rec-err").textContent = d().need; return; }
+  const btn = $("#send"); btn.disabled = true; btn.firstElementChild.textContent = d().sending;
+  try {
+    const fd = new FormData();
+    if (file) fd.append("file", file, file.name);
+    if (note) fd.append("note", note);
+    const r = await fetch(`${TOLK_SHOP}/api/orders/${order.id}/receipt?token=${encodeURIComponent(order.token)}`, { method: "POST", body: fd });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error === "big" ? "big" : j.error === "type" ? "type" : "err");
+    order.claimed = true; save();
+    show("wait"); startPoll();
+  } catch (e) { $("#rec-err").textContent = d()[e.message] || d().err; }
+  btn.disabled = false; btn.firstElementChild.textContent = d().send;
+};
+
+// ожидание подтверждения
+function startPoll() { clearTimeout(pollT); poll(); }
+async function poll() {
+  if (!order) return;
+  try {
+    const r = await fetch(`${TOLK_SHOP}/api/orders/${order.id}?token=${encodeURIComponent(order.token)}`, { cache: "no-store" });
+    if (r.status === 404) { forget(); show("item"); return; }
+    const s = await r.json();
+    if (s.state === "paid") return done(s);
+    if (s.state === "rejected") { forget(); show("rejected"); return; }
+  } catch (e) {}
+  const age = Date.now() - (order.created || Date.now());
+  pollT = setTimeout(poll, age < 10 * 60000 ? 5000 : 20000);
+}
+function done(s) {
+  forget();
+  $("#done-code").hidden = true; $("#how").innerHTML = ""; $("#dl").hidden = true;
+  if (s.voucher) {
+    $("#done-p").textContent = s.item_kind === "topup" ? d().done_hcode : d().done_code;
+    $("#voucher").textContent = s.voucher; $("#done-code").hidden = false;
+    $("#copy-voucher").onclick = (e) => copy(s.voucher, e.currentTarget);
+    $("#how").innerHTML = (s.item_kind === "topup" ? d().how_hcode : d().how_code).map((t) => `<li>${esc(t)}</li>`).join("");
+    if (s.item_kind !== "topup") { $("#dl").hidden = false; $("#dl").href = TOLK_DOWNLOAD; }
+  } else {
+    $("#done-p").textContent = s.item_kind === "topup" ? d().done_hours : d().done_app;
+  }
+  show("done"); burst();
+}
+function burst() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const r = $(".done-mark").getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  for (let i = 0; i < 46; i++) {
+    const s = document.createElement("i"), a = Math.random() * Math.PI * 2, dist = 90 + Math.random() * 220;
+    s.className = "spark"; s.style.left = cx + "px"; s.style.top = cy + "px";
+    s.style.background = ["#f6e7c6", "#d9bb85", "#a9824c", "#fff"][i % 4];
+    s.style.setProperty("--dx", Math.cos(a) * dist + "px"); s.style.setProperty("--dy", Math.sin(a) * dist + "px");
+    document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
+  }
+}
+$$("#again, [data-again]").forEach((b) => b.onclick = () => { order = null; file = null; setFile(null); $("#note").value = ""; show("item"); });
+
+// незавершённая покупка переживает перезагрузку страницы
+function save() { try { localStorage.setItem("tolk-pay", JSON.stringify(order)); } catch (e) {} }
+function forget() { try { localStorage.removeItem("tolk-pay"); } catch (e) {} }
+function resume() {
+  let o = null;
+  try { o = JSON.parse(localStorage.getItem("tolk-pay") || "null"); } catch (e) {}
+  if (!o || !o.id || Date.now() - (o.created || 0) > 3 * 86400000) return false;
+  order = o; fillPay();
+  if (o.claimed || o.kind === "stars") { show("wait"); startPoll(); } else show("pay");
+  return true;
+}
+
+$$("[data-go]").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); tolkGo(a.getAttribute("href")); }));
+// ссылку с чужим кодом компьютера могли прислать — оплату без привязки можно открыть одной кнопкой
+$("#notme").addEventListener("click", (e) => { e.preventDefault(); location.href = "pay.html?lang=" + lang + (item ? "&item=" + encodeURIComponent(item) : ""); });
+applyLang();
+show("item");
+loadCatalog().then(resume);
+</script>
+</body>
+</html>
