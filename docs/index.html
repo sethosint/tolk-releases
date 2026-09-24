@@ -3,208 +3,396 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tolk — живой перевод всего, что звучит на компьютере</title>
-<meta name="description" content="Субтитры с переводом поверх любых окон: созвоны, видео, стримы и игры. Распознавание речи прямо на вашем компьютере, перевод со сленгом.">
-<meta property="og:title" content="Tolk — живой перевод всего, что звучит на компьютере">
-<meta property="og:description" content="Субтитры с переводом поверх любых окон: созвоны, видео, стримы и игры.">
+<title>Tolk — живой перевод лекций, конференций и созвонов</title>
+<meta name="description" content="Субтитры с переводом поверх любых окон: лекции, конференции, созвоны и видео. Одна вкладка браузера или одна программа, нейросеть Tolk AI, распознавание речи прямо на вашем компьютере.">
+<meta property="og:title" content="Tolk — живой перевод лекций, конференций и созвонов">
+<meta property="og:description" content="Субтитры с переводом поверх любых окон — прямо по ходу речи.">
 <meta property="og:image" content="img/ru/look.jpg">
+<meta name="theme-color" content="#0b0b0d">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0b0d; --bg2: #121216; --card: rgba(255,255,255,.035); --line: rgba(255,255,255,.08);
+    --bg: #0a0a0c; --bg2: #111115; --card: rgba(255,255,255,.034); --card2: rgba(255,255,255,.055);
+    --line: rgba(255,255,255,.08); --line2: rgba(255,255,255,.14);
     --text: #f5f1e8; --text2: #b9b4aa; --text3: #7d786f;
-    --gold-a: #f1e2bf; --gold-b: #d6b882; --gold-c: #a9824c; --ok: #7fd4a8;
-    --radius: 18px;
+    --gold-a: #f3e4c2; --gold-b: #d6b882; --gold-c: #a9824c; --ok: #7fd4a8; --err: #ee8c8c;
+    --radius: 20px; --ease: cubic-bezier(.2,.7,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased;
-    background-image: radial-gradient(900px 500px at 75% -10%, rgba(214,184,130,.10), transparent 60%),
-                      radial-gradient(700px 400px at 0% 20%, rgba(214,184,130,.05), transparent 60%);
-    background-repeat: no-repeat;
-  }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  @supports (overflow: clip) { html, body { overflow-x: clip; } }
+  body { margin: 0; background: var(--bg); color: var(--text); overflow-x: hidden;
+         font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  img { max-width: 100%; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
   .gold { background: linear-gradient(180deg, var(--gold-a), var(--gold-b) 55%, var(--gold-c));
           -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .overline { font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-b); }
+  h1, h2, h3 { letter-spacing: -.02em; }
+  h2 { font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; margin: 12px 0 14px; }
+  .sub-h { color: var(--text2); max-width: 660px; margin: 0 0 40px; font-size: 17px; }
+  .center { text-align: center; }
+  .center .sub-h { margin-left: auto; margin-right: auto; }
 
-  /* шапка */
-  header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px);
-           background: rgba(11,11,13,.72); border-bottom: 1px solid var(--line); }
-  .bar { display: flex; align-items: center; gap: 18px; height: 64px; }
+  /* --- фон: мягкое золотое сияние, медленно плывёт ---------------------------------------------- */
+  .aurora { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+  .aurora i { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; will-change: transform; }
+  .aurora i:nth-child(1) { width: 60vw; height: 60vw; left: 45%; top: -30vw; background: radial-gradient(closest-side, rgba(214,184,130,.22), transparent);
+                           animation: float1 26s ease-in-out infinite; }
+  .aurora i:nth-child(2) { width: 50vw; height: 50vw; left: -15vw; top: 20vh; background: radial-gradient(closest-side, rgba(169,130,76,.14), transparent);
+                           animation: float2 32s ease-in-out infinite; }
+  .aurora i:nth-child(3) { width: 40vw; height: 40vw; right: -10vw; top: 90vh; background: radial-gradient(closest-side, rgba(243,228,194,.08), transparent);
+                           animation: float1 38s ease-in-out infinite reverse; }
+  @keyframes float1 { 50% { transform: translate(-6vw, 5vh) scale(1.08); } }
+  @keyframes float2 { 50% { transform: translate(7vw, -6vh) scale(.94); } }
+  body:after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 200; opacity: .04;
+               background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .progress { position: fixed; left: 0; top: 0; height: 2px; width: 100%; z-index: 60; transform-origin: 0 50%; transform: scaleX(0);
+              background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); }
+
+  /* --- шапка: прозрачная сверху, стекло при прокрутке ------------------------------------------ */
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .4s, border-color .4s, backdrop-filter .4s;
+           border-bottom: 1px solid transparent; }
+  header.scrolled { background: rgba(10,10,12,.72); backdrop-filter: blur(16px) saturate(140%); border-bottom-color: var(--line); }
+  .bar { display: flex; align-items: center; gap: 18px; height: 70px; transition: height .4s var(--ease); }
+  header.scrolled .bar { height: 60px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; text-decoration: none; }
   .brand img { width: 30px; height: 30px; border-radius: 8px; }
-  nav { display: flex; gap: 22px; margin-left: 18px; }
-  nav a { color: var(--text2); text-decoration: none; font-size: 14px; }
-  nav a:hover { color: var(--text); }
+  nav { display: flex; gap: 4px; margin-left: 18px; }
+  nav a { color: var(--text2); text-decoration: none; font-size: 14px; padding: 7px 12px; border-radius: 9px; transition: color .2s, background .2s; }
+  nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
   .spacer { flex: 1; }
-  .langs { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; }
-  .langs button { background: none; border: 0; color: var(--text3); font: 600 12px Inter, sans-serif;
-                  padding: 6px 9px; border-radius: 7px; cursor: pointer; }
-  .langs button.on { background: rgba(255,255,255,.08); color: var(--text); }
+  .langs { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.02); }
+  .langs button { background: none; border: 0; color: var(--text3); font: 600 12px Inter, sans-serif; padding: 6px 9px; border-radius: 8px;
+                  cursor: pointer; transition: color .2s, background .2s; }
+  .langs button:hover { color: var(--text2); }
+  .langs button.on { background: rgba(255,255,255,.09); color: var(--text); }
 
-  /* кнопки */
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 14px;
-         font-weight: 600; text-decoration: none; font-size: 16px; transition: transform .15s, box-shadow .15s; }
-  .btn:hover { transform: translateY(-1px); }
+  /* --- кнопки ------------------------------------------------------------------------------------- */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 24px; border-radius: 14px; border: 0;
+         font: 600 16px Inter, sans-serif; text-decoration: none; cursor: pointer; position: relative; overflow: hidden;
+         transition: transform .25s var(--ease), box-shadow .3s, background .3s, border-color .3s, opacity .2s; }
+  .btn:active { transform: scale(.98); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
   .btn.gold-btn { color: #1b150c; background: linear-gradient(180deg, var(--gold-a), var(--gold-b) 60%, var(--gold-c));
-                  box-shadow: 0 10px 30px rgba(214,184,130,.22), inset 0 1px 0 rgba(255,255,255,.5); }
-  .btn.glass { color: var(--text); border: 1px solid var(--line); background: rgba(255,255,255,.04); }
-  .btn.glass:hover { border-color: rgba(214,184,130,.35); background: rgba(255,255,255,.06); }
-  .btn.gold-btn { position: relative; overflow: hidden; }
+                  box-shadow: 0 10px 30px rgba(214,184,130,.22), inset 0 1px 0 rgba(255,255,255,.55); }
+  .btn.gold-btn:hover { box-shadow: 0 16px 44px rgba(214,184,130,.34), inset 0 1px 0 rgba(255,255,255,.55); }
   .btn.gold-btn:after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
-                        background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
-                        transform: skewX(-18deg); transition: none; }
-  .btn.gold-btn:hover:after { left: 130%; transition: left .8s ease; }
-  .btn.gold-btn:hover { box-shadow: 0 14px 40px rgba(214,184,130,.32), inset 0 1px 0 rgba(255,255,255,.5); }
+                        background: linear-gradient(100deg, transparent, rgba(255,255,255,.6), transparent); transform: skewX(-18deg); }
+  .btn.gold-btn:hover:after { left: 130%; transition: left .9s ease; }
+  .btn.glass { color: var(--text); border: 1px solid var(--line2); background: rgba(255,255,255,.04); }
+  .btn.glass:hover { border-color: rgba(214,184,130,.45); background: rgba(255,255,255,.07); }
+  .btn.small { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
+  .btn[disabled] { opacity: .5; cursor: default; }
 
-  /* проявление при прокрутке */
-  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
-  .rv.in { opacity: 1; transform: none; }
+  /* --- появление при прокрутке -------------------------------------------------------------------- */
+  .rv { opacity: 0; transform: translateY(26px); filter: blur(6px);
+        transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+  .rv.in { opacity: 1; transform: none; filter: none; }
 
-  /* подсветка карточки за курсором */
-  .card { position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
-  .card:before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
-                 background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(214,184,130,.10), transparent 60%); }
-  .card:hover:before { opacity: 1; }
-  .card:hover { border-color: rgba(214,184,130,.28); }
-  .shot { transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
-  .shot:hover { transform: translateY(-4px); box-shadow: 0 26px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(214,184,130,.2); }
-
-  /* золотая рамка тарифа «Навсегда» — медленно бежит по кругу */
-  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-  .price.best { border-color: transparent; }
-  .price.best:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-                      background: conic-gradient(from var(--ang), rgba(214,184,130,.15), var(--gold-a), rgba(214,184,130,.15) 35%,
-                                  rgba(214,184,130,.15) 60%, var(--gold-b), rgba(214,184,130,.15));
-                      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-                      -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite; }
-  @keyframes spin { to { --ang: 360deg; } }
-  hr.sep { border: 0; height: 1px; margin: 0; background: linear-gradient(90deg, transparent, rgba(214,184,130,.25), transparent); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .rv { opacity: 1; transform: none; transition: none; }
-    .screen .sun, .bokeh i, .screen .bar-v i, .price.best:after, .live:before { animation: none; }
-  }
-  .btn svg { width: 18px; height: 18px; }
-
-  /* первый экран */
-  .hero { padding-top: 72px; padding-bottom: 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-  .overline { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-b); }
-  h1 { font-size: clamp(38px, 5.2vw, 64px); line-height: 1.04; margin: 14px 0 18px; letter-spacing: -.02em; }
-  .lead { color: var(--text2); font-size: 18px; max-width: 540px; }
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 14px; }
+  /* --- первый экран ------------------------------------------------------------------------------- */
+  .hero { padding-top: 132px; padding-bottom: 60px; display: grid; grid-template-columns: 1.02fr 1fr; gap: 56px; align-items: center; position: relative; }
+  .hero:before { content: ""; position: absolute; inset: 40px 0 -20px; z-index: -1; pointer-events: none; opacity: .5;
+                 background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+                 background-size: 56px 56px; -webkit-mask: radial-gradient(60% 60% at 60% 40%, #000, transparent); mask: radial-gradient(60% 60% at 60% 40%, #000, transparent); }
+  h1 { font-size: clamp(40px, 5vw, 62px); line-height: 1.02; margin: 16px 0 20px; letter-spacing: -.035em; font-weight: 800; }
+  .lead { color: var(--text2); font-size: 18.5px; max-width: 560px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 32px 0 16px; }
   .fine { color: var(--text3); font-size: 13px; }
+  .intro > * { opacity: 0; transform: translateY(18px); animation: rise 1s var(--ease) forwards; }
+  .intro > :nth-child(2) { animation-delay: .08s; } .intro > :nth-child(3) { animation-delay: .16s; }
+  .intro > :nth-child(4) { animation-delay: .24s; } .intro > :nth-child(5) { animation-delay: .32s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
 
-  /* зерно, как в окнах программы */
-  body:after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .045;
-               background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
-
-  /* демо субтитров — та же сцена, что в предпросмотре Tolk */
-  .screen { position: relative; aspect-ratio: 16/10; border-radius: 22px; overflow: hidden;
-            border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.02) inset;
-            background: linear-gradient(180deg, #121115 0%, #1b191d 48%, #231f22 62%, #0e0d10 100%); }
+  /* демо субтитров — та же сцена, что в предпросмотре Tolk; наклоняется за курсором */
+  .stage { perspective: 1400px; position: relative; opacity: 0; animation: rise 1.2s .2s var(--ease) forwards; transform: translateY(18px); }
+  .screen { position: relative; aspect-ratio: 16/10; border-radius: 24px; overflow: hidden; border: 1px solid var(--line2);
+            box-shadow: 0 50px 110px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02) inset, 0 0 80px rgba(214,184,130,.08);
+            background: linear-gradient(180deg, #121115 0%, #1b191d 48%, #231f22 62%, #0e0d10 100%);
+            transform-style: preserve-3d; transition: transform .6s var(--ease); will-change: transform; }
   .screen .sun { position: absolute; left: 50%; top: 56%; width: 70%; aspect-ratio: 2/1; transform: translate(-50%, -50%);
                  background: radial-gradient(closest-side, rgba(233,196,140,.42), rgba(214,168,110,.14) 55%, transparent);
                  filter: blur(6px); animation: breathe 7s ease-in-out infinite; }
-  @keyframes breathe { 50% { opacity: .78; transform: translate(-50%, -50%) scale(1.04); } }
+  @keyframes breathe { 50% { opacity: .78; transform: translate(-50%, -50%) scale(1.05); } }
   .screen svg.hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 52%; }
-  .bokeh i { position: absolute; border-radius: 50%; background: rgba(241,226,191,.55);
-             box-shadow: 0 0 10px rgba(241,226,191,.6); animation: drift linear infinite; opacity: 0; }
-  @keyframes drift { 0% { transform: translateY(10px); opacity: 0; } 15%, 80% { opacity: var(--o, .5); }
-                     100% { transform: translateY(-60px); opacity: 0; } }
-  .screen .bar-v { position: absolute; left: 4%; right: 4%; bottom: 3.2%; height: 3px; border-radius: 3px;
-                   background: rgba(255,255,255,.12); z-index: 3; overflow: hidden; }
-  .screen .bar-v i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--gold-c), var(--gold-a));
-                     animation: play 38s linear infinite; }
+  .bokeh i { position: absolute; border-radius: 50%; background: rgba(241,226,191,.55); box-shadow: 0 0 10px rgba(241,226,191,.6);
+             animation: drift linear infinite; opacity: 0; }
+  @keyframes drift { 0% { transform: translateY(10px); opacity: 0; } 15%, 80% { opacity: var(--o, .5); } 100% { transform: translateY(-60px); opacity: 0; } }
+  .screen .bar-v { position: absolute; left: 4%; right: 4%; bottom: 3.2%; height: 3px; border-radius: 3px; background: rgba(255,255,255,.12); z-index: 3; overflow: hidden; }
+  .screen .bar-v i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); animation: play 38s linear infinite; }
   @keyframes play { to { width: 100%; } }
   .win { position: absolute; top: 14px; left: 16px; display: flex; gap: 6px; z-index: 2; }
   .win i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.14); }
-  .sub { position: absolute; left: 7%; right: 7%; bottom: 11%; z-index: 3; padding: 14px 18px 16px;
-         border-radius: 14px; background: rgba(13,13,16,.78); border: 1px solid rgba(255,255,255,.08);
-         backdrop-filter: blur(6px); box-shadow: 0 12px 34px rgba(0,0,0,.5); min-height: 96px; }
+  .sub { position: absolute; left: 7%; right: 7%; bottom: 11%; z-index: 3; padding: 14px 18px 16px; border-radius: 14px;
+         background: rgba(13,13,16,.8); border: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(8px);
+         box-shadow: 0 12px 34px rgba(0,0,0,.5); min-height: 96px; transform: translateZ(40px); }
   .sub .o { color: var(--text3); font-size: 14px; min-height: 22px; }
-  .sub .t { font-size: clamp(17px, 2.1vw, 22px); font-weight: 600; min-height: 32px; }
-  .sub .t span { animation: in .35s ease; }
-  @keyframes in { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: none; } }
-  .live { position: absolute; top: 12px; right: 14px; z-index: 2; font-size: 11px; font-weight: 600;
-          letter-spacing: .12em; color: var(--ok); display: flex; align-items: center; gap: 6px; }
-  .live:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ok);
-                 box-shadow: 0 0 10px var(--ok); animation: pulse 1.6s infinite; }
+  .sub .t { font-size: clamp(16px, 2vw, 22px); font-weight: 600; min-height: 32px; }
+  .sub .t span { animation: wordin .4s ease; }
+  @keyframes wordin { from { opacity: 0; filter: blur(4px); } to { opacity: 1; filter: none; } }
+  .live { position: absolute; top: 12px; right: 14px; z-index: 2; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--ok);
+          display: flex; align-items: center; gap: 6px; }
+  .live:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); animation: pulse 1.6s infinite; }
   @keyframes pulse { 50% { opacity: .35; } }
+  .chip { position: absolute; z-index: 4; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; white-space: nowrap;
+          font-size: 13px; font-weight: 600; color: var(--text); background: rgba(22,21,26,.82); border: 1px solid var(--line2);
+          backdrop-filter: blur(12px); box-shadow: 0 16px 40px rgba(0,0,0,.45); animation: bob 6s ease-in-out infinite; }
+  .chip b { color: var(--gold-a); font-weight: 700; }
+  .chip.c1 { left: -26px; top: 20%; } .chip.c2 { right: -18px; top: -16px; animation-delay: -2s; } .chip.c3 { left: 8%; bottom: -18px; animation-delay: -4s; }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
 
-  /* секции */
-  section { padding: 70px 0; }
-  h2 { font-size: clamp(28px, 3.4vw, 40px); margin: 10px 0 14px; letter-spacing: -.01em; }
-  .sub-h { color: var(--text2); max-width: 640px; margin-bottom: 34px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .card h3 { margin: 14px 0 6px; font-size: 18px; }
+  /* --- бегущая строка ------------------------------------------------------------------------------ */
+  .marquee { padding: 26px 0 8px; }
+  .marquee .cap { text-align: center; color: var(--text3); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; }
+  .track { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .rail { display: flex; gap: 14px; width: max-content; animation: slide 40s linear infinite; }
+  .track:hover .rail { animation-play-state: paused; }
+  .rail span { padding: 10px 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--text2); font-weight: 600; font-size: 15px; white-space: nowrap; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* --- цифры ----------------------------------------------------------------------------------------- */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+  .stat { padding: 22px 22px 20px; border-radius: 18px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); }
+  .stat .n { font-size: clamp(30px, 3.4vw, 42px); font-weight: 800; letter-spacing: -.03em; }
+  .stat .l { color: var(--text2); font-size: 14px; }
+
+  section { padding: 96px 0; position: relative; }
+  hr.sep { border: 0; height: 1px; margin: 0; background: linear-gradient(90deg, transparent, rgba(214,184,130,.25), transparent); }
+
+  /* --- карточки ------------------------------------------------------------------------------------ */
+  .card { position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px;
+          transition: border-color .35s, transform .45s var(--ease), background .35s; }
+  .card:before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+                 background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(214,184,130,.12), transparent 60%); }
+  .card:hover:before { opacity: 1; }
+  .card:hover { border-color: rgba(214,184,130,.3); transform: translateY(-3px); }
+  .card h3 { margin: 16px 0 8px; font-size: 19px; }
   .card p { margin: 0; color: var(--text2); font-size: 15px; }
-  .ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
-         background: rgba(214,184,130,.10); border: 1px solid rgba(214,184,130,.25); color: var(--gold-a); }
-  .ico svg { width: 20px; height: 20px; }
+  .ico { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; color: var(--gold-a);
+         background: linear-gradient(180deg, rgba(214,184,130,.16), rgba(214,184,130,.06)); border: 1px solid rgba(214,184,130,.28); }
+  .ico svg { width: 21px; height: 21px; }
 
-  .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .shot { margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
-  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 1.49; object-fit: contain; background: #000; }
-  .shot figcaption { padding: 12px 16px; color: var(--text2); font-size: 14px; border-top: 1px solid var(--line); }
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .bento .card:nth-child(1) { grid-column: span 4; } .bento .card:nth-child(2) { grid-column: span 2; }
+  .bento .card:nth-child(3), .bento .card:nth-child(4), .bento .card:nth-child(5) { grid-column: span 2; }
+  .bento .card:nth-child(6) { grid-column: span 6; }
+  .bento .card:nth-child(1) { display: flex; flex-direction: column; }
+  .tabsmock { margin-top: auto; position: relative; top: 20px; margin-bottom: 20px; border-radius: 14px; border: 1px solid var(--line); background: rgba(0,0,0,.25); overflow: hidden; }
+  .tabsmock .tb { display: flex; gap: 6px; padding: 10px 10px 0; }
+  .tabsmock .tb span { flex: 1; min-width: 0; font-size: 12px; color: var(--text3); padding: 8px 10px; border-radius: 9px 9px 0 0; background: rgba(255,255,255,.03);
+                       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 7px; transition: all .5s var(--ease); }
+  .tabsmock .tb span.on { color: var(--text); background: rgba(214,184,130,.12); box-shadow: inset 0 1px 0 rgba(214,184,130,.4); }
+  .tabsmock .tb span.on:after { content: "ON"; margin-left: auto; font-size: 9px; font-weight: 800; color: #1b150c; background: var(--gold-b); padding: 1px 5px; border-radius: 5px; }
+  .tabsmock .body { display: flex; align-items: flex-end; gap: 4px; height: 96px; padding: 10px 16px; border-top: 1px solid var(--line); }
+  .tabsmock .body i { flex: 1; height: 100%; border-radius: 3px; background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); opacity: .75; animation: eq 1.1s ease-in-out infinite; transform-origin: bottom; }
+  @keyframes eq { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+  .pairs { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+  .pair { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 12px; border-radius: 11px; background: rgba(255,255,255,.03); border: 1px solid var(--line);
+          opacity: .35; transform: translateX(-6px); transition: all .6s var(--ease); }
+  .pair.on { opacity: 1; transform: none; border-color: rgba(214,184,130,.35); }
+  .pair s { text-decoration: none; color: var(--text3); }
+  .pair b { color: var(--gold-a); font-weight: 600; margin-left: auto; text-align: right; }
+  .langrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .langrow span { font-size: 13px; padding: 6px 11px; border-radius: 9px; border: 1px solid var(--line); color: var(--text2); background: rgba(255,255,255,.02); }
 
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
-  .step { position: relative; padding-top: 58px; }
-  .step:after { counter-increment: s; content: counter(s); position: absolute; top: 22px; left: 24px;
-                 width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
-                 font-weight: 700; font-size: 14px; color: #1b150c;
-                 background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); }
+  /* --- шаги: линия дорисовывается при прокрутке ---------------------------------------------------- */
+  .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .steps .line { position: absolute; left: 6%; right: 6%; top: 38px; height: 2px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
+  .steps .line i { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); }
+  .step { padding-top: 76px; background: rgba(12,12,15,.8); }
+  .step .num { position: absolute; top: 20px; left: 26px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+               font-weight: 800; color: #1b150c; background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); box-shadow: 0 8px 22px rgba(214,184,130,.28); }
 
-  .prices { display: grid; grid-template-columns: repeat(2, minmax(0, 360px)); gap: 18px; justify-content: center; }
-  .price { text-align: left; padding: 30px; }
-  .price.best { border-color: rgba(214,184,130,.55); box-shadow: 0 0 0 1px rgba(214,184,130,.25), 0 30px 70px rgba(0,0,0,.4); }
-  .price .name { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-b); }
-  .price .sum { font-size: 46px; font-weight: 700; margin: 8px 0 2px; }
-  .price .per { color: var(--text3); font-size: 14px; }
-  .price ul { list-style: none; padding: 0; margin: 20px 0 24px; }
-  .price li { padding: 6px 0 6px 26px; position: relative; color: var(--text2); font-size: 15px; }
+  /* --- галерея -------------------------------------------------------------------------------------- */
+  .gtabs { display: flex; gap: 6px; padding: 5px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.02); width: max-content; max-width: 100%; overflow-x: auto; margin-bottom: 22px; }
+  .gtabs button { position: relative; overflow: hidden; background: none; border: 0; color: var(--text2); font: 600 14px Inter, sans-serif; padding: 10px 16px;
+                  border-radius: 10px; cursor: pointer; white-space: nowrap; transition: color .25s, background .25s; }
+  .gtabs button.on { color: var(--text); background: rgba(255,255,255,.08); }
+  .gtabs button i { position: absolute; left: 10px; right: 10px; bottom: 4px; height: 2px; border-radius: 2px; transform-origin: 0 50%; transform: scaleX(0);
+                    background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); }
+  .gtabs button.on i { animation: tabfill 6.5s linear forwards; }
+  @keyframes tabfill { to { transform: scaleX(1); } }
+  .gframe { position: relative; border-radius: 22px; padding: 1px; background: linear-gradient(160deg, rgba(214,184,130,.45), rgba(255,255,255,.06) 40%, rgba(214,184,130,.2));
+            box-shadow: 0 50px 120px rgba(0,0,0,.55), 0 0 90px rgba(214,184,130,.07); }
+  .gview { position: relative; border-radius: 21px; overflow: hidden; background: #09090b; aspect-ratio: 1220/820; }
+  .gview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transform: scale(1.02); transition: opacity .7s var(--ease), transform 1.2s var(--ease); }
+  .gview img.on { opacity: 1; transform: none; }
+  .gcap { margin-top: 18px; color: var(--text2); text-align: center; min-height: 26px; transition: opacity .4s; }
+
+  /* --- тарифы -------------------------------------------------------------------------------------- */
+  .seg { position: relative; display: inline-flex; padding: 5px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.03); margin: 0 auto 34px; }
+  .seg button { position: relative; z-index: 1; background: none; border: 0; color: var(--text2); font: 600 15px Inter, sans-serif; padding: 11px 22px; border-radius: 10px; cursor: pointer; transition: color .3s; }
+  .seg button.on { color: var(--text); }
+  .seg .knob { position: absolute; top: 5px; bottom: 5px; left: 5px; border-radius: 10px; background: rgba(255,255,255,.09); box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+               transition: transform .45s var(--spring), width .45s var(--spring); }
+  .plans { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: stretch; }
+  .plans.hours { grid-template-columns: repeat(3, minmax(0, 300px)); justify-content: center; }
+  .price { display: flex; flex-direction: column; padding: 26px 22px 22px; }
+  .price .name { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-b); display: flex; align-items: center; gap: 8px; min-height: 22px; }
+  .price .badge { font-size: 10px; letter-spacing: .08em; padding: 3px 8px; border-radius: 7px; color: #1b150c; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); }
+  .price .sum { font-size: 44px; font-weight: 800; letter-spacing: -.03em; margin: 12px 0 0; line-height: 1.1; }
+  .price .per { color: var(--text3); font-size: 13.5px; min-height: 21px; }
+  .price .pm { color: var(--gold-b); font-size: 13px; font-weight: 600; min-height: 20px; }
+  .price .ai { margin: 16px 0 4px; padding: 10px 12px; border-radius: 12px; background: rgba(214,184,130,.07); border: 1px solid rgba(214,184,130,.18); font-size: 13.5px; color: var(--text2); }
+  .price .ai b { color: var(--gold-a); }
+  .price ul { list-style: none; padding: 0; margin: 14px 0 22px; flex: 1; }
+  .price li { padding: 5px 0 5px 24px; position: relative; color: var(--text2); font-size: 14px; }
   .price li:before { content: "✓"; position: absolute; left: 0; color: var(--gold-b); font-weight: 700; }
-  .pay { text-align: center; color: var(--text3); font-size: 14px; margin-top: 22px; }
+  .price .btn { width: 100%; }
+  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  .price.best { background: linear-gradient(180deg, rgba(214,184,130,.08), rgba(255,255,255,.02)); border-color: transparent; box-shadow: 0 30px 70px rgba(0,0,0,.45); }
+  .price.best:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+                      background: conic-gradient(from var(--ang), rgba(214,184,130,.15), var(--gold-a), rgba(214,184,130,.15) 35%, rgba(214,184,130,.15) 60%, var(--gold-b), rgba(214,184,130,.15));
+                      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite; }
+  @keyframes spin { to { --ang: 360deg; } }
+  .pay { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .pay span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 11px; border: 1px solid var(--line); color: var(--text2); font-size: 14px; background: rgba(255,255,255,.02); }
+  .note { color: var(--text3); font-size: 13.5px; margin: 18px auto 0; max-width: 760px; text-align: center; }
+  .fade-swap { transition: opacity .35s, transform .35s var(--ease); }
+  .fade-swap.out { opacity: 0; transform: translateY(8px); }
 
-  .req { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .req .card p { font-size: 14px; }
-  .req b { display: block; font-size: 15px; margin-bottom: 4px; }
+  /* --- скоро ---------------------------------------------------------------------------------------- */
+  .soon { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-a);
+          padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(214,184,130,.4); background: rgba(214,184,130,.08); position: relative; overflow: hidden; }
+  .pill:after { content: ""; position: absolute; top: 0; bottom: 0; width: 50%; left: -70%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+                animation: sheen 3.4s ease-in-out infinite; }
+  @keyframes sheen { 60%, 100% { left: 130%; } }
 
-  details { border: 1px solid var(--line); border-radius: 14px; background: var(--card); margin-bottom: 10px; }
-  summary { cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none; position: relative; }
-  summary::-webkit-details-marker { display: none; }
-  summary:after { content: "+"; position: absolute; right: 22px; color: var(--gold-b); font-size: 20px; top: 13px; }
-  details[open] summary:after { content: "–"; }
-  details p { margin: 0; padding: 0 22px 18px; color: var(--text2); }
+  .req { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .req b { display: block; font-size: 15.5px; margin-bottom: 4px; }
+  .req p { font-size: 14px; }
 
-  .final { text-align: center; padding: 80px 0 90px; }
+  /* --- вопросы: плавно раскрываются ----------------------------------------------------------------- */
+  .faq { max-width: 820px; margin: 0 auto; }
+  .qa { border: 1px solid var(--line); border-radius: 16px; background: var(--card); margin-bottom: 10px; transition: border-color .3s, background .3s; }
+  .qa.open { border-color: rgba(214,184,130,.3); background: var(--card2); }
+  .qa button { width: 100%; text-align: left; background: none; border: 0; color: var(--text); font: 600 16px Inter, sans-serif; padding: 20px 56px 20px 22px; cursor: pointer; position: relative; }
+  .qa button:after { content: ""; position: absolute; right: 24px; top: 50%; width: 12px; height: 12px; margin-top: -8px; border-right: 2px solid var(--gold-b); border-bottom: 2px solid var(--gold-b);
+                     transform: rotate(45deg); transition: transform .35s var(--ease), margin .35s; }
+  .qa.open button:after { transform: rotate(-135deg); margin-top: -2px; }
+  .qa .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
+  .qa.open .ans { grid-template-rows: 1fr; }
+  .qa .ans > div { overflow: hidden; }
+  .qa .ans p { margin: 0; padding: 0 22px 20px; color: var(--text2); }
+
+  .final { text-align: center; padding: 110px 0 120px; position: relative; }
+  .final:before { content: ""; position: absolute; left: 50%; top: 50%; width: 700px; height: 360px; transform: translate(-50%, -50%); z-index: -1;
+                  background: radial-gradient(closest-side, rgba(214,184,130,.16), transparent); filter: blur(30px); }
+  .final h2 { font-size: clamp(34px, 4.6vw, 58px); }
   footer { border-top: 1px solid var(--line); color: var(--text3); font-size: 14px; padding: 28px 0 40px; }
-  footer .wrap { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
-  footer a { color: var(--text2); }
-  .note { color: var(--text3); font-size: 13px; margin-top: 16px; }
+  footer .wrap { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--text2); text-decoration: none; } footer a:hover { color: var(--text); }
 
+  /* --- оформление покупки ---------------------------------------------------------------------------- */
+  .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal.show { display: flex; }
+  .modal .back { position: absolute; inset: 0; background: rgba(5,5,7,.62); backdrop-filter: blur(10px); opacity: 0; transition: opacity .35s; }
+  .modal.vis .back { opacity: 1; }
+  .panel { position: relative; width: 100%; max-width: 560px; max-height: calc(100vh - 40px); overflow: auto; border-radius: 22px; padding: 30px;
+           background: linear-gradient(180deg, #19181c, #111114); border: 1px solid var(--line2); box-shadow: 0 40px 120px rgba(0,0,0,.7);
+           opacity: 0; transform: translateY(16px) scale(.97); transition: opacity .4s var(--ease), transform .45s var(--spring); }
+  .modal.vis .panel { opacity: 1; transform: none; }
+  .panel .x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.03);
+              color: var(--text2); cursor: pointer; font-size: 18px; line-height: 1; transition: all .2s; }
+  .panel .x:hover { color: var(--text); border-color: var(--line2); }
+  .panel h3 { font-size: 24px; margin: 8px 0 6px; }
+  .panel .muted { color: var(--text2); font-size: 14.5px; margin: 0 0 18px; }
+  .dots { display: flex; gap: 6px; margin: 0 46px 18px 0; }
+  .dots i { height: 4px; flex: 1; border-radius: 4px; background: rgba(255,255,255,.08); overflow: hidden; position: relative; }
+  .dots i:after { content: ""; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); transition: transform .5s var(--ease); }
+  .dots i.on:after { transform: scaleX(1); }
+  .opts { display: grid; gap: 8px; margin-bottom: 18px; }
+  .opt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 14px; border-radius: 13px; border: 1px solid var(--line); background: rgba(255,255,255,.025);
+         color: var(--text); font: 500 15px Inter, sans-serif; cursor: pointer; text-align: left; transition: border-color .25s, background .25s, transform .2s; }
+  .opt:hover { border-color: var(--line2); }
+  .opt.on { border-color: rgba(214,184,130,.6); background: rgba(214,184,130,.08); }
+  .opt .r { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.3); flex: none; position: relative; transition: border-color .25s; }
+  .opt.on .r { border-color: var(--gold-b); }
+  .opt.on .r:after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); animation: pop .35s var(--spring); }
+  @keyframes pop { from { transform: scale(0); } }
+  .opt .v { margin-left: auto; font-weight: 700; color: var(--gold-a); white-space: nowrap; }
+  .opt small { display: block; color: var(--text3); font-size: 12.5px; }
+  .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+  .mgrid .opt { justify-content: center; font-weight: 600; font-size: 14px; }
+  .total { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .total .sumline { font-size: 14px; color: var(--text2); }
+  .total .sumline b { display: block; font-size: 24px; color: var(--text); letter-spacing: -.02em; }
+  .req-box { border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.025); padding: 6px 16px; margin-bottom: 16px; }
+  .rq { display: flex; align-items: flex-end; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .rq:last-child { border-bottom: 0; }
+  .rq .k { color: var(--text3); font-size: 12.5px; }
+  .rq .val { font: 600 16px "Cascadia Mono", Consolas, monospace; word-break: break-all; }
+  .rq.big .val { font-size: 22px; color: var(--gold-a); letter-spacing: .06em; }
+  .rq .cp { margin-left: auto; flex: none; background: none; border: 0; color: var(--gold-b); font: 600 13px Inter, sans-serif; cursor: pointer; padding: 4px 0; }
+  .rq .cp:hover { color: var(--gold-a); }
+  .row-btns { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+  .ring { width: 74px; height: 74px; margin: 6px auto 16px; border-radius: 50%; border: 3px solid rgba(255,255,255,.08); border-top-color: var(--gold-b); animation: rot 1s linear infinite; }
+  @keyframes rot { to { transform: rotate(360deg); } }
+  .okmark { width: 78px; height: 78px; margin: 4px auto 16px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(closest-side, rgba(214,184,130,.2), transparent);
+            border: 2px solid var(--gold-b); animation: pop .6s var(--spring); }
+  .okmark svg { width: 34px; height: 34px; stroke: var(--gold-a); stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw .7s .2s ease forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .code { text-align: center; font: 700 26px "Cascadia Mono", Consolas, monospace; letter-spacing: .08em; color: var(--gold-a); padding: 16px; border-radius: 14px;
+          border: 1px dashed rgba(214,184,130,.5); background: rgba(214,184,130,.06); margin: 6px 0 14px; word-break: break-all; }
+  .howto { margin: 0 0 18px; padding: 0; list-style: none; counter-reset: h; }
+  .howto li { position: relative; padding: 6px 0 6px 34px; color: var(--text2); font-size: 14.5px; }
+  .howto li:before { counter-increment: h; content: counter(h); position: absolute; left: 0; top: 6px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+                     font-size: 12px; font-weight: 800; color: #1b150c; background: linear-gradient(180deg, var(--gold-a), var(--gold-c)); }
+  .step-in { animation: stepin .5s var(--ease); }
+  @keyframes stepin { from { opacity: 0; transform: translateX(14px); } }
+  .toast { position: fixed; left: 50%; bottom: 24px; z-index: 150; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: all .35s var(--ease);
+           background: #232026; border: 1px solid var(--line2); padding: 11px 18px; border-radius: 12px; font-weight: 600; font-size: 14px; }
+  .toast.on { opacity: 1; transform: translate(-50%, 0); }
+  .resume { position: fixed; left: 50%; bottom: 20px; z-index: 90; transform: translate(-50%, 120%); transition: transform .5s var(--spring); display: flex; align-items: center; gap: 12px;
+            padding: 10px 10px 10px 18px; border-radius: 14px; background: rgba(25,24,28,.92); border: 1px solid rgba(214,184,130,.4); backdrop-filter: blur(12px); box-shadow: 0 20px 50px rgba(0,0,0,.5); font-size: 14px; }
+  .resume.on { transform: translate(-50%, 0); }
+  .sparks i { position: absolute; left: 50%; top: 40%; width: 6px; height: 6px; border-radius: 50%; background: var(--gold-a); pointer-events: none; animation: spark 1.1s ease-out forwards; }
+  @keyframes spark { to { transform: translate(var(--dx), var(--dy)); opacity: 0; } }
+
+  @media (max-width: 1080px) {
+    .plans { grid-template-columns: repeat(3, 1fr); }
+    .plans .price:nth-child(4), .plans .price:nth-child(5) { grid-column: span 1; }
+  }
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-top: 40px; }
-    .grid, .steps, .req { grid-template-columns: 1fr 1fr; }
+    .hero { grid-template-columns: 1fr; padding-top: 104px; gap: 40px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .bento .card { grid-column: span 6 !important; }
+    .steps, .soon, .req { grid-template-columns: 1fr 1fr; }
+    .steps .line { display: none; }
+    .plans, .plans.hours { grid-template-columns: repeat(2, 1fr); }
     nav { display: none; }
+    .chip.c1 { left: 6px; } .chip.c2 { right: 6px; }
   }
   @media (max-width: 620px) {
     .wrap { padding-left: 16px; padding-right: 16px; }
-    .grid, .steps, .shots, .prices, .req { grid-template-columns: 1fr; }
-    section { padding: 52px 0; }
+    section { padding: 64px 0; }
+    .steps, .soon, .req, .plans, .plans.hours { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
     .langs button { padding: 6px 7px; }
+    .buy-top { display: none; }
+    .chip { font-size: 12px; padding: 7px 11px; }
+    .chip.c3, .chip.c2 { display: none; }
+    .panel { padding: 24px 18px; }
+    .mgrid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
+    .rv { opacity: 1; transform: none; filter: none; }
+    .intro > *, .stage { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
-<header>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="progress" id="progress"></div>
+
+<header id="top">
   <div class="wrap bar">
     <a class="brand" href="#"><img src="img/icon.png" alt="">Tolk</a>
     <nav>
@@ -214,42 +402,57 @@
       <a href="#faq" data-i="nav_faq"></a>
     </nav>
     <div class="spacer"></div>
-    <div class="langs" id="langs">
-      <button data-l="ru">RU</button><button data-l="uk">UA</button><button data-l="sk">SK</button><button data-l="en">EN</button>
-    </div>
+    <div class="langs" id="langs"><button data-l="ru">RU</button><button data-l="uk">UA</button><button data-l="sk">SK</button><button data-l="en">EN</button></div>
+    <a class="btn gold-btn small buy-top" href="#pricing" data-i="nav_buy"></a>
   </div>
 </header>
 
 <main>
   <div class="wrap hero">
-    <div>
+    <div class="intro">
       <div class="overline" data-i="hero_over"></div>
       <h1><span data-i="hero_h1a"></span><br><span class="gold" data-i="hero_h1b"></span></h1>
       <p class="lead" data-i="hero_lead"></p>
       <div class="cta">
-        <a class="btn gold-btn dl" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
-          <span data-i="cta_download"></span>
-        </a>
-        <a class="btn glass" href="#pricing" data-i="cta_prices"></a>
+        <a class="btn gold-btn dl magnet" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg><span data-i="cta_download"></span></a>
+        <a class="btn glass magnet" href="#pricing" data-i="cta_prices"></a>
       </div>
       <div class="fine" data-i="hero_fine"></div>
     </div>
-    <div class="screen" aria-hidden="true">
-      <div class="sun"></div>
-      <div class="bokeh" id="bokeh"></div>
-      <svg class="hills" viewBox="0 0 800 260" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b272c"/><stop offset="1" stop-color="#141216"/></linearGradient>
-          <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1a1e"/><stop offset="1" stop-color="#0c0b0d"/></linearGradient>
-        </defs>
-        <path d="M0 120 C120 70 220 110 330 88 C450 64 560 118 660 92 C730 74 780 86 800 80 L800 260 L0 260Z" fill="url(#h1)"/>
-        <path d="M0 170 C140 130 260 168 380 150 C520 128 620 176 800 146 L800 260 L0 260Z" fill="url(#h2)"/>
-      </svg>
-      <div class="win"><i></i><i></i><i></i></div>
-      <div class="live">LIVE</div>
-      <div class="sub"><div class="o" id="demo-o"></div><div class="t" id="demo-t"></div></div>
-      <div class="bar-v"><i></i></div>
+    <div class="stage" id="stage">
+      <div class="screen" id="screen" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="bokeh" id="bokeh"></div>
+        <svg class="hills" viewBox="0 0 800 260" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b272c"/><stop offset="1" stop-color="#141216"/></linearGradient>
+            <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1a1e"/><stop offset="1" stop-color="#0c0b0d"/></linearGradient>
+          </defs>
+          <path d="M0 120 C120 70 220 110 330 88 C450 64 560 118 660 92 C730 74 780 86 800 80 L800 260 L0 260Z" fill="url(#h1)"/>
+          <path d="M0 170 C140 130 260 168 380 150 C520 128 620 176 800 146 L800 260 L0 260Z" fill="url(#h2)"/>
+        </svg>
+        <div class="win"><i></i><i></i><i></i></div>
+        <div class="live">LIVE</div>
+        <div class="sub"><div class="o" id="demo-o"></div><div class="t" id="demo-t"></div></div>
+        <div class="bar-v"><i></i></div>
+      </div>
+      <div class="chip c1"><span class="dot"></span><span data-i="chip1"></span></div>
+      <div class="chip c2"><b data-i="chip2b"></b><span data-i="chip2"></span></div>
+      <div class="chip c3"><b>Tolk AI</b><span data-i="chip3"></span></div>
+    </div>
+  </div>
+
+  <div class="marquee">
+    <div class="cap" data-i="mq_cap"></div>
+    <div class="track"><div class="rail" id="rail"></div></div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><div class="n"><span class="count" data-to="0.6" data-dec="1">0,6</span> <span data-i="sec"></span></div><div class="l" data-i="st1"></div></div>
+      <div class="stat rv"><div class="n"><span class="count" data-to="90">90</span>+</div><div class="l" data-i="st2"></div></div>
+      <div class="stat rv"><div class="n"><span class="count" data-to="30">30</span>+</div><div class="l" data-i="st3"></div></div>
+      <div class="stat rv"><div class="n"><span class="count" data-to="100">100</span> %</div><div class="l" data-i="st4"></div></div>
     </div>
   </div>
 
@@ -258,26 +461,28 @@
       <div class="overline" data-i="f_over"></div>
       <h2 data-i="f_h2"></h2>
       <p class="sub-h" data-i="f_sub"></p>
-      <div class="grid">
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M7 14h10M9 11h6"/></svg></div><h3 data-i="f1_t"></h3><p data-i="f1_p"></p></div>
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h3l2-6 4 12 2-6h5"/></svg></div><h3 data-i="f2_t"></h3><p data-i="f2_p"></p></div>
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5h10a3 3 0 013 3v5a3 3 0 01-3 3H10l-4 3v-3H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg></div><h3 data-i="f3_t"></h3><p data-i="f3_p"></p></div>
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></div><h3 data-i="f4_t"></h3><p data-i="f4_p"></p></div>
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.4 5 5.6.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.6 8z"/></svg></div><h3 data-i="f5_t"></h3><p data-i="f5_p"></p></div>
-        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><h3 data-i="f6_t"></h3><p data-i="f6_p"></p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="overline" data-i="s_over"></div>
-      <h2 data-i="s_h2"></h2>
-      <div class="shots">
-        <figure class="shot"><img data-img="look" alt=""><figcaption data-i="s1"></figcaption></figure>
-        <figure class="shot"><img data-img="translate" alt=""><figcaption data-i="s2"></figcaption></figure>
-        <figure class="shot"><img data-img="ready" alt=""><figcaption data-i="s3"></figcaption></figure>
-        <figure class="shot"><img data-img="shop" alt=""><figcaption data-i="s4"></figcaption></figure>
+      <div class="bento">
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 9h18M8 5v4"/></svg></div>
+          <h3 data-i="b1_t"></h3><p data-i="b1_p"></p>
+          <div class="tabsmock" aria-hidden="true">
+            <div class="tb" id="tabsmock"><span>YouTube</span><span>Google Meet</span><span>Makroekonómia</span><span>Discord</span></div>
+            <div class="body" id="eq"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5h10a3 3 0 013 3v5a3 3 0 01-3 3H10l-4 3v-3H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg></div>
+          <h3 data-i="b2_t"></h3><p data-i="b2_p"></p>
+          <div class="pairs" id="pairs"></div>
+        </div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M7 14h10M9 11h6"/></svg></div><h3 data-i="b3_t"></h3><p data-i="b3_p"></p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h3l2-6 4 12 2-6h5"/></svg></div><h3 data-i="b4_t"></h3><p data-i="b4_p"></p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><h3 data-i="b5_t"></h3><p data-i="b5_p"></p></div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div>
+          <h3 data-i="b6_t"></h3><p data-i="b6_p"></p>
+          <div class="langrow" id="langrow"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -287,36 +492,53 @@
     <div class="wrap">
       <div class="overline" data-i="h_over"></div>
       <h2 data-i="h_h2"></h2>
-      <div class="steps">
-        <div class="card step"><h3 data-i="h1_t"></h3><p data-i="h1_p"></p></div>
-        <div class="card step"><h3 data-i="h2_t"></h3><p data-i="h2_p"></p></div>
-        <div class="card step"><h3 data-i="h3_t"></h3><p data-i="h3_p"></p></div>
+      <p class="sub-h" data-i="h_sub"></p>
+      <div class="steps" id="steps">
+        <div class="line"><i></i></div>
+        <div class="card step"><div class="num">1</div><h3 data-i="h1_t"></h3><p data-i="h1_p"></p></div>
+        <div class="card step"><div class="num">2</div><h3 data-i="h2_t"></h3><p data-i="h2_p"></p></div>
+        <div class="card step"><div class="num">3</div><h3 data-i="h3_t"></h3><p data-i="h3_p"></p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="look">
+    <div class="wrap">
+      <div class="center">
+        <div class="overline" data-i="g_over"></div>
+        <h2 data-i="g_h2"></h2>
+      </div>
+      <div class="center"><div class="gtabs" id="gtabs" style="margin-left:auto;margin-right:auto"></div></div>
+      <div class="gframe rv"><div class="gview" id="gview"></div></div>
+      <div class="gcap" id="gcap"></div>
     </div>
   </section>
 
   <hr class="sep">
   <section id="pricing">
     <div class="wrap">
-      <div class="overline" style="text-align:center" data-i="p_over"></div>
-      <h2 style="text-align:center" data-i="p_h2"></h2>
-      <p class="sub-h" style="margin:0 auto 34px;text-align:center" data-i="p_sub"></p>
-      <div class="prices">
-        <div class="card price">
-          <div class="name" data-i="p_month"></div>
-          <div class="sum">5 €</div><div class="per" data-i="p_month_per"></div>
-          <ul><li data-i="p_all"></li><li data-i="p_ai"></li><li data-i="p_updates"></li><li data-i="p_renew"></li></ul>
-          <a class="btn glass dl" href="#" style="width:100%;justify-content:center" data-i="p_try"></a>
-        </div>
-        <div class="card price best">
-          <div class="name" data-i="p_forever"></div>
-          <div class="sum gold">25 €</div><div class="per" data-i="p_forever_per"></div>
-          <ul><li data-i="p_all"></li><li data-i="p_ai"></li><li data-i="p_updates"></li><li data-i="p_once"></li></ul>
-          <a class="btn gold-btn dl" href="#" style="width:100%;justify-content:center" data-i="p_buy"></a>
-        </div>
+      <div class="center">
+        <div class="overline" data-i="p_over"></div>
+        <h2 data-i="p_h2"></h2>
+        <p class="sub-h" data-i="p_sub"></p>
+        <div class="seg" id="pseg"><span class="knob"></span><button data-t="plans" class="on" data-i="tab_plans"></button><button data-t="hours" data-i="tab_hours"></button></div>
       </div>
-      <p class="pay" data-i="p_pay"></p>
-      <p class="pay note" data-i="p_note"></p>
+      <div class="fade-swap" id="pricebox"></div>
+      <div class="pay" id="paylist"></div>
+      <p class="note" data-i="p_note"></p>
+    </div>
+  </section>
+
+  <section id="soon">
+    <div class="wrap">
+      <div class="overline" data-i="so_over"></div>
+      <h2 data-i="so_h2"></h2>
+      <p class="sub-h" data-i="so_sub"></p>
+      <div class="soon">
+        <div class="card"><span class="pill" data-i="soon"></span><h3 data-i="so1_t"></h3><p data-i="so1_p"></p></div>
+        <div class="card"><span class="pill" data-i="soon"></span><h3 data-i="so2_t"></h3><p data-i="so2_p"></p></div>
+        <div class="card"><span class="pill" data-i="soon"></span><h3 data-i="so3_t"></h3><p data-i="so3_p"></p></div>
+      </div>
     </div>
   </section>
 
@@ -335,26 +557,17 @@
 
   <hr class="sep">
   <section id="faq">
-    <div class="wrap" style="max-width:820px">
-      <div class="overline" data-i="q_over"></div>
-      <h2 data-i="q_h2"></h2>
-      <details><summary data-i="q7"></summary><p data-i="a7"></p></details>
-      <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
-      <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
-      <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
-      <details><summary data-i="q4"></summary><p data-i="a4"></p></details>
-      <details><summary data-i="q5"></summary><p data-i="a5"></p></details>
-      <details><summary data-i="q6"></summary><p data-i="a6"></p></details>
+    <div class="wrap">
+      <div class="center"><div class="overline" data-i="q_over"></div><h2 data-i="q_h2"></h2></div>
+      <div class="faq" id="faqlist"></div>
     </div>
   </section>
 
   <div class="wrap final">
-    <h2><span data-i="fin_a"></span> <span class="gold" data-i="fin_b"></span></h2>
+    <h2 class="rv"><span data-i="fin_a"></span> <span class="gold" data-i="fin_b"></span></h2>
     <div class="cta" style="justify-content:center">
-      <a class="btn gold-btn dl" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
-        <span data-i="cta_download"></span>
-      </a>
+      <a class="btn gold-btn dl magnet" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg><span data-i="cta_download"></span></a>
+      <a class="btn glass magnet" href="#pricing" data-i="cta_prices"></a>
     </div>
     <div class="fine" data-i="hero_fine"></div>
   </div>
@@ -368,238 +581,378 @@
   </div>
 </footer>
 
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="back" data-close></div>
+  <div class="panel" id="panel"><button class="x" data-close aria-label="close">✕</button><div id="co"></div></div>
+</div>
+<div class="resume" id="resume"><span data-i="co_resume"></span><button class="btn gold-btn small" id="resumeBtn" data-i="co_show"></button></div>
+<div class="toast" id="toast"></div>
+
 <script>
 const DOWNLOAD = "https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe";
+const SHOP = "https://tolk-shop.seth-gamingmain.workers.dev";
+const TG = "https://t.me/sethosint";
+
+// Тарифы на случай, если магазин не ответил (настоящие — загружаются из магазина)
+const FALLBACK = {
+  month_h: 6.67,
+  plans: [
+    { id: "week", price: "1.5", currency: "EUR", days: 7, ai_h: 1.56, per_month: 6.43 },
+    { id: "month", price: "5", currency: "EUR", days: 31, ai_h: 6.67, per_month: 5 },
+    { id: "quarter", price: "13", currency: "EUR", days: 92, ai_h: 6.67, per_month: 4.33 },
+    { id: "half", price: "24", currency: "EUR", days: 183, ai_h: 6.67, per_month: 4 },
+    { id: "year", price: "42", currency: "EUR", days: 366, ai_h: 6.67, per_month: 3.5, best: true }],
+  topups: [{ id: "h5", hours: 5, price: "1.5", currency: "EUR" }, { id: "h15", hours: 15, price: "4", currency: "EUR" },
+           { id: "h40", hours: 40, price: "9", currency: "EUR" }],
+  methods: [],
+};
 
 const T = {
   ru: {
-    nav_features: "Возможности", nav_how: "Как это работает", nav_pricing: "Цены", nav_faq: "Вопросы",
+    nav_features: "Возможности", nav_how: "Как это работает", nav_pricing: "Тарифы", nav_faq: "Вопросы", nav_buy: "Купить",
     hero_over: "Лекции · конференции · созвоны",
     hero_h1a: "Живой перевод", hero_h1b: "любой речи на экране",
-    hero_lead: "Tolk слушает лекции, конференции, созвоны и видео и показывает субтитры с переводом поверх всех окон — прямо по ходу речи. Словацкий, английский и ещё десятки языков. Сам настраивается под ваш компьютер.",
-    cta_download: "Скачать для Windows", cta_prices: "Цены",
-    hero_fine: "Windows 10 и 11 · установка за минуту · оплата прямо в программе",
-    f_over: "Возможности", f_h2: "Переводит так, как говорят люди",
-    f_sub: "Никаких ключей, кнопок и настроек: включили — и видите перевод.",
-    f1_t: "Поверх всех окон", f1_p: "Классические субтитры внизу экрана или лента сбоку. Размер, стиль и прозрачность — как вам удобно.",
-    f2_t: "Правда в реальном времени", f2_p: "Перевод появляется по ходу фразы и только дописывается — текст не прыгает и не переписывается.",
-    f3_t: "Понимает смысл", f3_p: "Нейросеть Tolk AI переводит по смыслу, а не слово в слово: учебные термины (zápočet — зачёт), «ложных друзей» словацкого, сленг и шутки. Свои термины и имена — в словарь.*",
-    f4_t: "Онлайн и в аудитории", f4_p: "Zoom, Teams, Meet, Discord, браузер — весь звук компьютера или одно приложение. Лекция вживую — через микрофон ноутбука.",
-    f5_t: "Сам под ваше железо", f5_p: "При первом запуске Tolk замеряет видеокарту и процессор и выбирает лучшую точность и скорость.",
-    f6_t: "Звук не уходит с компьютера", f6_p: "Речь распознаётся прямо у вас. Для перевода отправляется только текст — и то, если нужно.",
-    s_over: "Как выглядит", s_h2: "Красиво и без лишнего",
-    s1: "Стили и размер субтитров — с живым предпросмотром", s2: "Язык перевода, режим и что слушать",
-    s3: "Первый запуск: всё подобрано под ваш компьютер", s4: "Покупка и продление прямо в программе",
-    h_over: "Как это работает", h_h2: "Три шага — и субтитры на экране",
+    hero_lead: "Tolk слушает лекции, конференции, созвоны и видео и показывает субтитры с переводом поверх всех окон — прямо по ходу речи. Одна вкладка браузера или одна программа, словацкий, английский и ещё десятки языков.",
+    cta_download: "Скачать для Windows", cta_prices: "Выбрать тариф",
+    hero_fine: "Windows 10 и 11 · установка за минуту · покупка на сайте или прямо в программе",
+    chip1: "Словацкий → русский", chip2b: "0,6 с", sec: "с", chip2: "до перевода", chip3: "понимает сленг",
+    mq_cap: "Переводит звук любой вкладки и программы",
+    st1: "в среднем до перевода", st2: "языков речи распознаёт", st3: "языков перевода", st4: "звука остаётся на вашем ПК",
+    f_over: "Возможности", f_h2: "Переводит так, как говорят люди", f_sub: "Никаких ключей и настроек: включили — и видите перевод.",
+    b1_t: "Одна вкладка или одна программа", b1_p: "Лекция в Chrome, созвон в Zoom или Teams, видео на YouTube — Tolk слушает только выбранное. Расширение для Chrome, Edge, Opera, Yandex, Brave и Firefox: нажали значок на вкладке — и готово.",
+    b2_t: "Понимает смысл", b2_p: "Нейросеть Tolk AI переводит по смыслу, а не слово в слово.",
+    b3_t: "Поверх всех окон", b3_p: "Субтитры внизу экрана или лента сбоку. Размер, стиль и прозрачность — как вам удобно.",
+    b4_t: "Правда в реальном времени", b4_p: "Перевод появляется по ходу фразы и только дописывается — текст не прыгает.",
+    b5_t: "Звук не уходит с компьютера", b5_p: "Речь распознаётся прямо у вас. Для перевода отправляется только текст.",
+    b6_t: "Десятки языков", b6_p: "Распознаёт речь на 90+ языках и переводит на 30+. Для лекций поставьте язык речи — точность ещё выше.",
+    pairs: [["zápočet", "зачёт"], ["cvičenie", "практическое занятие"], ["No, takže…", "Ну, так что…"], ["no cap, it slaps", "без шуток, это огонь"]],
+    h_over: "Как это работает", h_h2: "Три шага — и субтитры на экране", h_sub: "Установка за минуту, дальше Tolk всё подбирает сам.",
     h1_t: "Скачайте и установите", h1_p: "Один файл, без прав администратора. Tolk сам подготовит распознавание под ваш компьютер.",
-    h2_t: "Купите прямо в Tolk", h2_p: "Карта, USDT, TON или звёзды Telegram. После оплаты лицензия активируется сама — ключи копировать не нужно.",
-    h3_t: "Включите перевод", h3_p: "Горячая клавиша или кнопка — и субтитры появятся, как только кто-то заговорит.",
-    p_over: "Цены", p_h2: "Одна программа — два тарифа", p_sub: "Все возможности в обоих тарифах. Выбирайте, как удобнее платить.",
-    p_month: "Месяц", p_month_per: "31 день · продление в пару кликов", p_forever: "Навсегда", p_forever_per: "один платёж — без срока",
-    p_all: "Все возможности и стили", p_ai: "Перевод нейросетью Tolk AI*", p_updates: "Автообновления", p_renew: "Продление с даты окончания",
-    p_once: "Никаких подписок", p_try: "Скачать и купить", p_buy: "Скачать и купить",
-    p_pay: "Оплата в программе: банковская карта · USDT (TRC20) · TON · звёзды Telegram",
-    p_note: "* Tolk AI — в пределах месячного лимита. Когда лимит закончился или нет интернета, Tolk сам переводит через Google или прямо на компьютере.",
+    h2_t: "Выберите тариф", h2_p: "Здесь, на сайте, или прямо в Tolk: карта, USDT, TON или звёзды Telegram. С сайта придёт код активации — вставьте его в Tolk.",
+    h3_t: "Включите перевод", h3_p: "Выберите вкладку или программу — субтитры появятся, как только кто-то заговорит.",
+    g_over: "Как выглядит", g_h2: "Красиво и без лишнего",
+    gallery: [["look", "Внешний вид", "Стили и размер субтитров — с живым предпросмотром"],
+              ["picker", "Что слушать", "Одна вкладка браузера или одна программа — остальное не мешает"],
+              ["profile", "Часы Tolk AI", "Сколько часов нейросети использовано — видно в профиле"],
+              ["shop", "Покупка", "Пять тарифов и докупка часов прямо в программе"]],
+    p_over: "Тарифы", p_h2: "Выберите свой срок",
+    p_sub: "Любой тариф — все возможности Tolk. Отличается только срок: чем дольше, тем дешевле месяц. Часы нейросети Tolk AI в месяц у всех одинаковые.",
+    tab_plans: "Подписка", tab_hours: "Часы Tolk AI",
+    plan_names: { week: "Неделя", month: "Месяц", quarter: "3 месяца", half: "Полгода", year: "Год" },
+    period: { week: "7 дней", month: "31 день", quarter: "3 месяца", half: "6 месяцев", year: "12 месяцев" },
+    per_month: "≈ %s в месяц", ai_line: "Tolk AI — <b>%s</b> в месяц", ai_week: "Tolk AI — <b>%s</b> на неделю",
+    best: "Выгоднее всего", buy: "Купить",
+    feats: ["Все возможности и стили", "Вкладки браузера и программы", "Автообновления", "Продление с даты окончания"],
+    hours_title: "+%s Tolk AI", hours_sub: "не сгорают до конца подписки", per_hour: "%s за час",
+    hours_feats: ["Добавятся к вашему ключу", "Действуют до конца подписки", "Переезжают при продлении"],
+    h: "ч", m: "мин",
+    p_note: "Когда часы Tolk AI закончились, перевод не останавливается: Tolk переводит через Google или ваш бесплатный ключ DeepL. Часы обновляются каждые 30 дней, докупленные не сгорают.",
+    pay_card: "Банковская карта", pay_stars: "Звёзды Telegram",
+    so_over: "Скоро", so_h2: "Что появится в Tolk", so_sub: "Уже в работе — придут сами, с автообновлением.", soon: "Скоро",
+    so1_t: "Озвучка перевода", so1_p: "Tolk читает перевод голосом и приглушает оригинал — как дубляж в кино.",
+    so2_t: "Конспект лекции", so2_p: "После занятия нейросеть соберёт главное: темы, термины, даты зачётов и экзаменов.",
+    so3_t: "Перевод слайдов", so3_p: "Tolk переведёт текст на слайдах и на экране — презентация целиком на вашем языке.",
     r_over: "Требования", r_h2: "Что нужно для работы",
     r1_t: "Windows 10 или 11", r1_p: "64-разрядная. Звук отдельной программы — в Windows 11.",
     r2_t: "Память 8 ГБ", r2_p: "Работает и на 4 ГБ — Tolk выберет модель полегче.",
     r3_t: "Видеокарта — по желанию", r3_p: "С NVIDIA быстрее и точнее, но и на процессоре всё работает.",
     r4_t: "Интернет для перевода", r4_p: "Без интернета — перевод прямо на компьютере. ~3 ГБ места под модели.",
     q_over: "Вопросы", q_h2: "Частые вопросы",
-    q1: "Windows пишет «Система Windows защитила ваш компьютер» — это нормально?",
-    a1: "Да. Так Windows реагирует на новые программы без платной цифровой подписи. Нажмите «Подробнее» → «Выполнить в любом случае».",
-    q2: "Как оплатить и получить ключ?",
-    a2: "Установите Tolk и нажмите «Купить Tolk». Выберите тариф и способ оплаты, переведите сумму с кодом в комментарии и нажмите «Я оплатил». Как только оплата подтвердится, лицензия активируется сама. Звёздами Telegram — мгновенно.",
-    q3: "Можно пользоваться на нескольких компьютерах?",
-    a3: "Лицензия привязана к одному компьютеру. Сменили компьютер или переустановили Windows — напишите в Telegram, поможем.",
-    q4: "Какие языки?",
-    a4: "Распознаёт речь на десятках языков и переводит на 30+. Интерфейс — на русском, украинском, словацком и английском.",
-    q5: "Сленг, имена, игры — переведёт правильно?",
-    a5: "Нейросеть Tolk AI переводит по смыслу. А свои термины, имена и словечки можно добавить в словарь — Tolk будет их узнавать и переводить как нужно.",
-    q7: "Подойдёт для лекций и конференций на словацком?",
-    a7: "Да, это главный сценарий. Онлайн-лекция или конференция — выберите звук компьютера или нужную программу (Zoom, Teams, браузер). Лекция в аудитории — микрофон ноутбука. Поставьте язык речи «Словацкий»: распознавание станет точнее и быстрее. Названия предметов и термины курса добавьте в словарь.",
-    q6: "Что с приватностью?",
-    a6: "Звук никуда не отправляется: речь распознаётся на вашем компьютере. Для перевода уходит только распознанный текст.",
+    faq: [
+      ["Подойдёт для лекций и конференций на словацком?", "Да, это главный сценарий. Онлайн-лекция или конференция — выберите вкладку браузера или программу (Zoom, Teams). Лекция в аудитории — микрофон ноутбука. Поставьте язык речи «Словацкий» — распознавание станет точнее и быстрее. Названия предметов и термины курса добавьте в словарь."],
+      ["Сколько часов нейросети я получу?", "В любом тарифе — 6 ч 40 мин живого перевода нейросетью Tolk AI в месяц: это примерно 5–6 лекций со всеми паузами. Сколько осталось — видно в профиле. Не хватит — докупите часы на сайте или в Tolk, либо подключите свой бесплатный ключ DeepL. Перевод не останавливается никогда."],
+      ["Купил на сайте — что дальше?", "Вам придёт код активации вида TOLK-XXXX-XXXX-XXXX. Скачайте Tolk и вставьте код в окне активации — подписка привяжется к вашему компьютеру. Код на часы вводится в «Профиль → Ввести код»."],
+      ["Как переводить только одну вкладку браузера?", "В Tolk откройте «Перевод и звук → Расширение для вкладок» и подключите расширение (около минуты). Потом нажимайте значок Tolk на нужной вкладке — Tolk сразу переводит только её. Работает в Chrome, Edge, Opera, Yandex, Brave, Vivaldi и Firefox."],
+      ["Windows пишет «Система Windows защитила ваш компьютер» — это нормально?", "Да. Так Windows реагирует на новые программы без платной цифровой подписи. Нажмите «Подробнее» → «Выполнить в любом случае»."],
+      ["Можно пользоваться на нескольких компьютерах?", "Подписка привязана к одному компьютеру. Сменили компьютер или переустановили Windows — напишите в Telegram, поможем."],
+      ["Какие языки?", "Распознаёт речь на 90+ языках и переводит на 30+. Интерфейс — на русском, украинском, словацком и английском."],
+      ["Что с приватностью?", "Звук никуда не отправляется: речь распознаётся на вашем компьютере. Для перевода уходит только распознанный текст."]],
     fin_a: "Смотрите и понимайте", fin_b: "на любом языке",
     foot_tg: "Поддержка — Telegram @sethosint", foot_versions: "Все версии",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Это точно будет на экзамене, так что запишите."],
            ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Зачёт получите, если сдадите оба задания вовремя."],
            ["Thanks for joining the call, let's get started.", "Спасибо, что подключились, давайте начнём."],
            ["No cap, that last round was insane.", "Без шуток, последний раунд был просто безумный."]],
+    co_buy: "Покупка Tolk", co_hours: "Часы Tolk AI", co_pick: "Выберите тариф", co_pick_h: "Выберите пакет часов",
+    co_method: "Способ оплаты", co_total: "К оплате", co_next: "Перейти к оплате", co_back: "Назад", co_close: "Закрыть",
+    co_pay_h: "Переведите %s", co_code: "Код для комментария к переводу", co_paid: "Я оплатил",
+    co_code_hint: "Обязательно укажите этот код в комментарии — по нему продавец найдёт ваш платёж.",
+    co_stars_h: "Оплата звёздами Telegram", co_stars_p: "Откроется бот магазина — оплатите счёт. Код активации появится здесь и в чате с ботом.", co_stars_btn: "Открыть Telegram",
+    co_wait_h: "Ждём подтверждения оплаты…", co_wait_p: "Обычно это несколько минут. Можно не закрывать страницу — код появится здесь сам.",
+    co_done_h: "Готово! Спасибо за покупку", co_done_p: "Ваш код активации:",
+    co_steps: ["Скачайте и установите Tolk.", "В окне активации вставьте этот код.", "Готово — подписка привяжется к вашему компьютеру."],
+    co_steps_h: ["Откройте Tolk → «Профиль».", "Нажмите «Ввести код» и вставьте этот код.", "Часы сразу добавятся к вашей подписке."],
+    co_copy: "Скопировать", co_copied: "Скопировано",
+    co_rej_h: "Оплата не найдена", co_rej_p: "Продавец не увидел перевода. Если деньги ушли — напишите в Telegram, приложив код комментария.",
+    co_err: "Магазин сейчас недоступен. Попробуйте позже или напишите в Telegram.", co_many: "Слишком много заказов за сегодня. Попробуйте завтра или напишите в Telegram.",
+    co_fail: "Не получилось", co_write: "Написать в Telegram", co_resume: "Покупка ждёт подтверждения", co_show: "Показать", co_loading: "Загружаем…",
   },
   uk: {
-    nav_features: "Можливості", nav_how: "Як це працює", nav_pricing: "Ціни", nav_faq: "Питання",
+    nav_features: "Можливості", nav_how: "Як це працює", nav_pricing: "Тарифи", nav_faq: "Питання", nav_buy: "Купити",
     hero_over: "Лекції · конференції · дзвінки",
     hero_h1a: "Живий переклад", hero_h1b: "будь-якого мовлення на екрані",
-    hero_lead: "Tolk слухає лекції, конференції, дзвінки й відео та показує субтитри з перекладом поверх усіх вікон — просто під час мовлення. Словацька, англійська й ще десятки мов. Сам налаштовується під ваш комп'ютер.",
-    cta_download: "Завантажити для Windows", cta_prices: "Ціни",
-    hero_fine: "Windows 10 і 11 · встановлення за хвилину · оплата просто в програмі",
-    f_over: "Можливості", f_h2: "Перекладає так, як говорять люди",
-    f_sub: "Жодних ключів, кнопок і налаштувань: увімкнули — і бачите переклад.",
-    f1_t: "Поверх усіх вікон", f1_p: "Класичні субтитри внизу екрана або стрічка збоку. Розмір, стиль і прозорість — як вам зручно.",
-    f2_t: "Справді в реальному часі", f2_p: "Переклад з'являється під час фрази й тільки дописується — текст не стрибає і не переписується.",
-    f3_t: "Розуміє зміст", f3_p: "Нейромережа Tolk AI перекладає за змістом, а не слово в слово: навчальні терміни (zápočet — залік), «хибних друзів» словацької, сленг і жарти. Свої терміни й імена — у словник.*",
-    f4_t: "Онлайн і в аудиторії", f4_p: "Zoom, Teams, Meet, Discord, браузер — весь звук комп'ютера або один застосунок. Лекція наживо — через мікрофон ноутбука.",
-    f5_t: "Сам під ваше залізо", f5_p: "Під час першого запуску Tolk заміряє відеокарту й процесор і вибирає найкращу точність і швидкість.",
-    f6_t: "Звук не залишає комп'ютер", f6_p: "Мовлення розпізнається просто у вас. Для перекладу надсилається лише текст — і то, якщо потрібно.",
-    s_over: "Як виглядає", s_h2: "Гарно й без зайвого",
-    s1: "Стилі й розмір субтитрів — з живим переглядом", s2: "Мова перекладу, режим і що слухати",
-    s3: "Перший запуск: усе дібрано під ваш комп'ютер", s4: "Купівля й продовження просто в програмі",
-    h_over: "Як це працює", h_h2: "Три кроки — і субтитри на екрані",
+    hero_lead: "Tolk слухає лекції, конференції, дзвінки й відео та показує субтитри з перекладом поверх усіх вікон — просто під час мовлення. Одна вкладка браузера або одна програма, словацька, англійська й ще десятки мов.",
+    cta_download: "Завантажити для Windows", cta_prices: "Обрати тариф",
+    hero_fine: "Windows 10 і 11 · встановлення за хвилину · купівля на сайті або просто в програмі",
+    chip1: "Словацька → українська", chip2b: "0,6 с", sec: "с", chip2: "до перекладу", chip3: "розуміє сленг",
+    mq_cap: "Перекладає звук будь-якої вкладки й програми",
+    st1: "в середньому до перекладу", st2: "мов мовлення розпізнає", st3: "мов перекладу", st4: "звуку лишається на вашому ПК",
+    f_over: "Можливості", f_h2: "Перекладає так, як говорять люди", f_sub: "Жодних ключів і налаштувань: увімкнули — і бачите переклад.",
+    b1_t: "Одна вкладка або одна програма", b1_p: "Лекція в Chrome, дзвінок у Zoom чи Teams, відео на YouTube — Tolk слухає лише вибране. Розширення для Chrome, Edge, Opera, Yandex, Brave і Firefox: натиснули значок на вкладці — і готово.",
+    b2_t: "Розуміє зміст", b2_p: "Нейромережа Tolk AI перекладає за змістом, а не слово в слово.",
+    b3_t: "Поверх усіх вікон", b3_p: "Субтитри внизу екрана або стрічка збоку. Розмір, стиль і прозорість — як вам зручно.",
+    b4_t: "Справді в реальному часі", b4_p: "Переклад з'являється під час фрази й тільки дописується — текст не стрибає.",
+    b5_t: "Звук не залишає комп'ютер", b5_p: "Мовлення розпізнається просто у вас. Для перекладу надсилається лише текст.",
+    b6_t: "Десятки мов", b6_p: "Розпізнає мовлення 90+ мовами й перекладає на 30+. Для лекцій вкажіть мову мовлення — точність ще вища.",
+    pairs: [["zápočet", "залік"], ["cvičenie", "практичне заняття"], ["No, takže…", "Ну, отже…"], ["no cap, it slaps", "без жартів, це вогонь"]],
+    h_over: "Як це працює", h_h2: "Три кроки — і субтитри на екрані", h_sub: "Встановлення за хвилину, далі Tolk усе добирає сам.",
     h1_t: "Завантажте й установіть", h1_p: "Один файл, без прав адміністратора. Tolk сам підготує розпізнавання під ваш комп'ютер.",
-    h2_t: "Купіть просто в Tolk", h2_p: "Картка, USDT, TON або зірки Telegram. Після оплати ліцензія активується сама — ключі копіювати не треба.",
-    h3_t: "Увімкніть переклад", h3_p: "Гаряча клавіша або кнопка — і субтитри з'являться, щойно хтось заговорить.",
-    p_over: "Ціни", p_h2: "Одна програма — два тарифи", p_sub: "Усі можливості в обох тарифах. Обирайте, як зручніше платити.",
-    p_month: "Місяць", p_month_per: "31 день · продовження у кілька кліків", p_forever: "Назавжди", p_forever_per: "один платіж — без строку",
-    p_all: "Усі можливості та стилі", p_ai: "Переклад нейромережею Tolk AI*", p_updates: "Автооновлення", p_renew: "Продовження з дати закінчення",
-    p_once: "Жодних підписок", p_try: "Завантажити й купити", p_buy: "Завантажити й купити",
-    p_pay: "Оплата в програмі: банківська картка · USDT (TRC20) · TON · зірки Telegram",
-    p_note: "* Tolk AI — у межах місячного ліміту. Коли ліміт закінчився або немає інтернету, Tolk сам перекладає через Google або просто на комп'ютері.",
+    h2_t: "Оберіть тариф", h2_p: "Тут, на сайті, або просто в Tolk: картка, USDT, TON чи зірки Telegram. Із сайту прийде код активації — вставте його в Tolk.",
+    h3_t: "Увімкніть переклад", h3_p: "Оберіть вкладку чи програму — субтитри з'являться, щойно хтось заговорить.",
+    g_over: "Як виглядає", g_h2: "Гарно й без зайвого",
+    gallery: [["look", "Зовнішній вигляд", "Стилі й розмір субтитрів — із живим переглядом"],
+              ["picker", "Що слухати", "Одна вкладка браузера або одна програма — решта не заважає"],
+              ["profile", "Години Tolk AI", "Скільки годин нейромережі використано — видно в профілі"],
+              ["shop", "Купівля", "П'ять тарифів і докупівля годин просто в програмі"]],
+    p_over: "Тарифи", p_h2: "Оберіть свій строк",
+    p_sub: "Будь-який тариф — усі можливості Tolk. Відрізняється лише строк: що довше, то дешевший місяць. Години нейромережі Tolk AI на місяць у всіх однакові.",
+    tab_plans: "Підписка", tab_hours: "Години Tolk AI",
+    plan_names: { week: "Тиждень", month: "Місяць", quarter: "3 місяці", half: "Пів року", year: "Рік" },
+    period: { week: "7 днів", month: "31 день", quarter: "3 місяці", half: "6 місяців", year: "12 місяців" },
+    per_month: "≈ %s на місяць", ai_line: "Tolk AI — <b>%s</b> на місяць", ai_week: "Tolk AI — <b>%s</b> на тиждень",
+    best: "Найвигідніше", buy: "Купити",
+    feats: ["Усі можливості й стилі", "Вкладки браузера й програми", "Автооновлення", "Продовження з дати закінчення"],
+    hours_title: "+%s Tolk AI", hours_sub: "не згорають до кінця підписки", per_hour: "%s за годину",
+    hours_feats: ["Додадуться до вашого ключа", "Діють до кінця підписки", "Переходять при продовженні"],
+    h: "год", m: "хв",
+    p_note: "Коли години Tolk AI закінчилися, переклад не зупиняється: Tolk перекладає через Google або ваш безкоштовний ключ DeepL. Години оновлюються кожні 30 днів, докуплені не згорають.",
+    pay_card: "Банківська картка", pay_stars: "Зірки Telegram",
+    so_over: "Незабаром", so_h2: "Що з'явиться в Tolk", so_sub: "Уже в роботі — прийдуть самі, з автооновленням.", soon: "Незабаром",
+    so1_t: "Озвучення перекладу", so1_p: "Tolk читає переклад голосом і приглушує оригінал — як дубляж у кіно.",
+    so2_t: "Конспект лекції", so2_p: "Після заняття нейромережа збере головне: теми, терміни, дати заліків та іспитів.",
+    so3_t: "Переклад слайдів", so3_p: "Tolk перекладе текст на слайдах і на екрані — презентація повністю вашою мовою.",
     r_over: "Вимоги", r_h2: "Що потрібно для роботи",
     r1_t: "Windows 10 або 11", r1_p: "64-розрядна. Звук окремої програми — у Windows 11.",
     r2_t: "Пам'ять 8 ГБ", r2_p: "Працює й на 4 ГБ — Tolk вибере легшу модель.",
     r3_t: "Відеокарта — за бажанням", r3_p: "З NVIDIA швидше й точніше, але й на процесорі все працює.",
     r4_t: "Інтернет для перекладу", r4_p: "Без інтернету — переклад просто на комп'ютері. ~3 ГБ місця під моделі.",
     q_over: "Питання", q_h2: "Часті питання",
-    q1: "Windows пише «Систему Windows захищено» — це нормально?",
-    a1: "Так. Так Windows реагує на нові програми без платного цифрового підпису. Натисніть «Докладніше» → «Усе одно запустити».",
-    q2: "Як оплатити й отримати ключ?",
-    a2: "Установіть Tolk і натисніть «Купити Tolk». Оберіть тариф і спосіб оплати, перекажіть суму з кодом у коментарі й натисніть «Я оплатив». Щойно оплату підтвердять, ліцензія активується сама. Зірками Telegram — миттєво.",
-    q3: "Можна користуватися на кількох комп'ютерах?",
-    a3: "Ліцензія прив'язана до одного комп'ютера. Змінили комп'ютер або перевстановили Windows — напишіть у Telegram, допоможемо.",
-    q4: "Які мови?",
-    a4: "Розпізнає мовлення десятками мов і перекладає на 30+. Інтерфейс — українською, російською, словацькою та англійською.",
-    q5: "Сленг, імена, ігри — перекладе правильно?",
-    a5: "Нейромережа Tolk AI перекладає за змістом. А свої терміни, імена й словечка можна додати до словника — Tolk упізнаватиме їх і перекладатиме як треба.",
-    q7: "Підійде для лекцій і конференцій словацькою?",
-    a7: "Так, це головний сценарій. Онлайн-лекція чи конференція — оберіть звук комп'ютера або потрібну програму (Zoom, Teams, браузер). Лекція в аудиторії — мікрофон ноутбука. Поставте мову мовлення «Словацька»: розпізнавання стане точнішим і швидшим. Назви предметів і терміни курсу додайте до словника.",
-    q6: "Що з приватністю?",
-    a6: "Звук нікуди не надсилається: мовлення розпізнається на вашому комп'ютері. Для перекладу йде лише розпізнаний текст.",
+    faq: [
+      ["Підійде для лекцій і конференцій словацькою?", "Так, це головний сценарій. Онлайн-лекція чи конференція — оберіть вкладку браузера або програму (Zoom, Teams). Лекція в аудиторії — мікрофон ноутбука. Поставте мову мовлення «Словацька» — розпізнавання стане точнішим і швидшим. Назви предметів і терміни курсу додайте до словника."],
+      ["Скільки годин нейромережі я отримаю?", "У будь-якому тарифі — 6 год 40 хв живого перекладу нейромережею Tolk AI на місяць: це приблизно 5–6 лекцій з усіма паузами. Скільки лишилося — видно в профілі. Не вистачить — докупіть години на сайті чи в Tolk або підключіть свій безкоштовний ключ DeepL. Переклад не зупиняється ніколи."],
+      ["Купив на сайті — що далі?", "Вам прийде код активації вигляду TOLK-XXXX-XXXX-XXXX. Завантажте Tolk і вставте код у вікні активації — підписка прив'яжеться до вашого комп'ютера. Код на години вводиться в «Профіль → Ввести код»."],
+      ["Як перекладати лише одну вкладку браузера?", "У Tolk відкрийте «Переклад і звук → Розширення для вкладок» і підключіть розширення (близько хвилини). Потім натискайте значок Tolk на потрібній вкладці — Tolk одразу перекладає лише її. Працює в Chrome, Edge, Opera, Yandex, Brave, Vivaldi і Firefox."],
+      ["Windows пише «Систему Windows захищено» — це нормально?", "Так. Так Windows реагує на нові програми без платного цифрового підпису. Натисніть «Докладніше» → «Усе одно запустити»."],
+      ["Можна користуватися на кількох комп'ютерах?", "Підписка прив'язана до одного комп'ютера. Змінили комп'ютер або перевстановили Windows — напишіть у Telegram, допоможемо."],
+      ["Які мови?", "Розпізнає мовлення 90+ мовами й перекладає на 30+. Інтерфейс — українською, російською, словацькою та англійською."],
+      ["Що з приватністю?", "Звук нікуди не надсилається: мовлення розпізнається на вашому комп'ютері. Для перекладу йде лише розпізнаний текст."]],
     fin_a: "Дивіться й розумійте", fin_b: "будь-якою мовою",
     foot_tg: "Підтримка — Telegram @sethosint", foot_versions: "Усі версії",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Це точно буде на іспиті, тож запишіть."],
            ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Залік отримаєте, якщо здасте обидва завдання вчасно."],
            ["Thanks for joining the call, let's get started.", "Дякую, що долучилися, почнімо."],
            ["No cap, that last round was insane.", "Без жартів, останній раунд був просто шалений."]],
+    co_buy: "Купівля Tolk", co_hours: "Години Tolk AI", co_pick: "Оберіть тариф", co_pick_h: "Оберіть пакет годин",
+    co_method: "Спосіб оплати", co_total: "До сплати", co_next: "Перейти до оплати", co_back: "Назад", co_close: "Закрити",
+    co_pay_h: "Перекажіть %s", co_code: "Код для коментаря до переказу", co_paid: "Я оплатив",
+    co_code_hint: "Обов'язково вкажіть цей код у коментарі — за ним продавець знайде ваш платіж.",
+    co_stars_h: "Оплата зірками Telegram", co_stars_p: "Відкриється бот магазину — оплатіть рахунок. Код активації з'явиться тут і в чаті з ботом.", co_stars_btn: "Відкрити Telegram",
+    co_wait_h: "Чекаємо підтвердження оплати…", co_wait_p: "Зазвичай це кілька хвилин. Можна не закривати сторінку — код з'явиться тут сам.",
+    co_done_h: "Готово! Дякуємо за покупку", co_done_p: "Ваш код активації:",
+    co_steps: ["Завантажте й установіть Tolk.", "У вікні активації вставте цей код.", "Готово — підписка прив'яжеться до вашого комп'ютера."],
+    co_steps_h: ["Відкрийте Tolk → «Профіль».", "Натисніть «Ввести код» і вставте цей код.", "Години одразу додадуться до вашої підписки."],
+    co_copy: "Скопіювати", co_copied: "Скопійовано",
+    co_rej_h: "Оплату не знайдено", co_rej_p: "Продавець не побачив переказу. Якщо гроші пішли — напишіть у Telegram, додавши код коментаря.",
+    co_err: "Магазин зараз недоступний. Спробуйте пізніше або напишіть у Telegram.", co_many: "Забагато замовлень за сьогодні. Спробуйте завтра або напишіть у Telegram.",
+    co_fail: "Не вийшло", co_write: "Написати в Telegram", co_resume: "Купівля чекає підтвердження", co_show: "Показати", co_loading: "Завантажуємо…",
   },
   sk: {
-    nav_features: "Možnosti", nav_how: "Ako to funguje", nav_pricing: "Ceny", nav_faq: "Otázky",
+    nav_features: "Možnosti", nav_how: "Ako to funguje", nav_pricing: "Plány", nav_faq: "Otázky", nav_buy: "Kúpiť",
     hero_over: "Prednášky · konferencie · hovory",
     hero_h1a: "Živý preklad", hero_h1b: "akejkoľvek reči na obrazovke",
-    hero_lead: "Tolk počúva prednášky, konferencie, hovory a videá a zobrazuje titulky s prekladom nad všetkými oknami — priamo počas reči. Angličtina, slovenčina a desiatky ďalších jazykov. Sám sa nastaví podľa vášho počítača.",
-    cta_download: "Stiahnuť pre Windows", cta_prices: "Ceny",
-    hero_fine: "Windows 10 a 11 · inštalácia za minútu · platba priamo v programe",
-    f_over: "Možnosti", f_h2: "Prekladá tak, ako ľudia hovoria",
-    f_sub: "Žiadne kľúče, tlačidlá ani nastavovanie: zapnete — a vidíte preklad.",
-    f1_t: "Nad všetkými oknami", f1_p: "Klasické titulky dole na obrazovke alebo pás na boku. Veľkosť, štýl a priehľadnosť podľa vás.",
-    f2_t: "Naozaj v reálnom čase", f2_p: "Preklad sa objavuje počas vety a iba sa dopisuje — text neskáče a neprepisuje sa.",
-    f3_t: "Rozumie zmyslu", f3_p: "Neurónová sieť Tolk AI prekladá podľa zmyslu, nie slovo po slove: odborné termíny, idiómy, slang aj vtipy. Vlastné termíny a mená — do slovníka.*",
-    f4_t: "Online aj v posluchárni", f4_p: "Zoom, Teams, Meet, Discord, prehliadač — celý zvuk počítača alebo jedna aplikácia. Prednáška naživo — cez mikrofón notebooku.",
-    f5_t: "Sám podľa vášho hardvéru", f5_p: "Pri prvom spustení Tolk zmeria grafickú kartu a procesor a zvolí najlepšiu presnosť a rýchlosť.",
-    f6_t: "Zvuk neopúšťa počítač", f6_p: "Reč sa rozpoznáva priamo u vás. Na preklad sa posiela iba text — a aj to len ak treba.",
-    s_over: "Ako to vyzerá", s_h2: "Pekne a bez zbytočností",
-    s1: "Štýly a veľkosť titulkov — so živým náhľadom", s2: "Jazyk prekladu, režim a čo počúvať",
-    s3: "Prvé spustenie: všetko nastavené pre váš počítač", s4: "Nákup a predĺženie priamo v programe",
-    h_over: "Ako to funguje", h_h2: "Tri kroky — a titulky na obrazovke",
+    hero_lead: "Tolk počúva prednášky, konferencie, hovory a videá a zobrazuje titulky s prekladom nad všetkými oknami — priamo počas reči. Jedna karta prehliadača alebo jeden program, angličtina, slovenčina a desiatky ďalších jazykov.",
+    cta_download: "Stiahnuť pre Windows", cta_prices: "Vybrať plán",
+    hero_fine: "Windows 10 a 11 · inštalácia za minútu · nákup na stránke alebo priamo v programe",
+    chip1: "Angličtina → slovenčina", chip2b: "0,6 s", sec: "s", chip2: "do prekladu", chip3: "rozumie slangu",
+    mq_cap: "Prekladá zvuk akejkoľvek karty a programu",
+    st1: "v priemere do prekladu", st2: "jazykov reči rozpozná", st3: "jazykov prekladu", st4: "zvuku zostáva vo vašom PC",
+    f_over: "Možnosti", f_h2: "Prekladá tak, ako ľudia hovoria", f_sub: "Žiadne kľúče ani nastavovanie: zapnete — a vidíte preklad.",
+    b1_t: "Jedna karta alebo jeden program", b1_p: "Prednáška v Chrome, hovor v Zoome či Teams, video na YouTube — Tolk počúva len vybrané. Rozšírenie pre Chrome, Edge, Operu, Yandex, Brave a Firefox: kliknete na ikonu na karte — a hotovo.",
+    b2_t: "Rozumie zmyslu", b2_p: "Neurónová sieť Tolk AI prekladá podľa zmyslu, nie slovo po slove.",
+    b3_t: "Nad všetkými oknami", b3_p: "Titulky dole na obrazovke alebo pás na boku. Veľkosť, štýl a priehľadnosť podľa vás.",
+    b4_t: "Naozaj v reálnom čase", b4_p: "Preklad sa objavuje počas vety a iba sa dopisuje — text neskáče.",
+    b5_t: "Zvuk neopúšťa počítač", b5_p: "Reč sa rozpoznáva priamo u vás. Na preklad sa posiela iba text.",
+    b6_t: "Desiatky jazykov", b6_p: "Rozpozná reč v 90+ jazykoch a prekladá do 30+. Pri prednáškach nastavte jazyk reči — presnosť je ešte vyššia.",
+    pairs: [["no cap", "bez preháňania"], ["it slaps", "je to bomba"], ["lowkey", "tak trochu"], ["we're cooked", "je po nás"]],
+    h_over: "Ako to funguje", h_h2: "Tri kroky — a titulky na obrazovke", h_sub: "Inštalácia za minútu, ďalej si Tolk všetko nastaví sám.",
     h1_t: "Stiahnite a nainštalujte", h1_p: "Jeden súbor, bez práv správcu. Tolk sám pripraví rozpoznávanie pre váš počítač.",
-    h2_t: "Kúpte priamo v Tolku", h2_p: "Karta, USDT, TON alebo hviezdy Telegram. Po platbe sa licencia aktivuje sama — kľúče netreba kopírovať.",
-    h3_t: "Zapnite preklad", h3_p: "Klávesová skratka alebo tlačidlo — a titulky sa objavia, len čo niekto prehovorí.",
-    p_over: "Ceny", p_h2: "Jeden program — dva plány", p_sub: "Všetky možnosti v oboch plánoch. Vyberte si, ako chcete platiť.",
-    p_month: "Mesiac", p_month_per: "31 dní · predĺženie na pár kliknutí", p_forever: "Navždy", p_forever_per: "jedna platba — bez obmedzenia",
-    p_all: "Všetky možnosti a štýly", p_ai: "Preklad neurónovou sieťou Tolk AI*", p_updates: "Automatické aktualizácie", p_renew: "Predĺženie od dátumu konca",
-    p_once: "Žiadne predplatné", p_try: "Stiahnuť a kúpiť", p_buy: "Stiahnuť a kúpiť",
-    p_pay: "Platba v programe: platobná karta · USDT (TRC20) · TON · hviezdy Telegram",
-    p_note: "* Tolk AI — v rámci mesačného limitu. Keď sa limit minie alebo nie je internet, Tolk sám prekladá cez Google alebo priamo v počítači.",
+    h2_t: "Vyberte si plán", h2_p: "Tu na stránke alebo priamo v Tolku: karta, USDT, TON alebo hviezdy Telegram. Zo stránky dostanete aktivačný kód — vložte ho do Tolku.",
+    h3_t: "Zapnite preklad", h3_p: "Vyberte kartu alebo program — titulky sa objavia, len čo niekto prehovorí.",
+    g_over: "Ako to vyzerá", g_h2: "Pekne a bez zbytočností",
+    gallery: [["look", "Vzhľad", "Štýly a veľkosť titulkov — so živým náhľadom"],
+              ["picker", "Čo počúvať", "Jedna karta prehliadača alebo jeden program — ostatné neruší"],
+              ["profile", "Hodiny Tolk AI", "Koľko hodín neurónovej siete ste využili — vidno v profile"],
+              ["shop", "Nákup", "Päť plánov a dokúpenie hodín priamo v programe"]],
+    p_over: "Plány", p_h2: "Vyberte si svoje obdobie",
+    p_sub: "Každý plán — všetky možnosti Tolku. Líši sa len dĺžka: čím dlhšie, tým lacnejší mesiac. Hodiny neurónovej siete Tolk AI mesačne sú u všetkých rovnaké.",
+    tab_plans: "Predplatné", tab_hours: "Hodiny Tolk AI",
+    plan_names: { week: "Týždeň", month: "Mesiac", quarter: "3 mesiace", half: "Pol roka", year: "Rok" },
+    period: { week: "7 dní", month: "31 dní", quarter: "3 mesiace", half: "6 mesiacov", year: "12 mesiacov" },
+    per_month: "≈ %s mesačne", ai_line: "Tolk AI — <b>%s</b> mesačne", ai_week: "Tolk AI — <b>%s</b> na týždeň",
+    best: "Najvýhodnejšie", buy: "Kúpiť",
+    feats: ["Všetky možnosti a štýly", "Karty prehliadača a programy", "Automatické aktualizácie", "Predĺženie od dátumu konca"],
+    hours_title: "+%s Tolk AI", hours_sub: "nepropadnú do konca predplatného", per_hour: "%s za hodinu",
+    hours_feats: ["Pridajú sa k vášmu kľúču", "Platia do konca predplatného", "Pri predĺžení sa presunú"],
+    h: "h", m: "min",
+    p_note: "Keď sa hodiny Tolk AI minú, preklad sa nezastaví: Tolk prekladá cez Google alebo váš bezplatný kľúč DeepL. Hodiny sa obnovujú každých 30 dní, dokúpené nepropadnú.",
+    pay_card: "Platobná karta", pay_stars: "Hviezdy Telegram",
+    so_over: "Čoskoro", so_h2: "Čo pribudne v Tolku", so_sub: "Už na tom pracujeme — prídu samy s automatickou aktualizáciou.", soon: "Čoskoro",
+    so1_t: "Dabing prekladu", so1_p: "Tolk číta preklad nahlas a stlmí originál — ako dabing vo filme.",
+    so2_t: "Poznámky z prednášky", so2_p: "Po hodine neurónová sieť zhrnie to hlavné: témy, pojmy, termíny zápočtov a skúšok.",
+    so3_t: "Preklad snímok", so3_p: "Tolk preloží text na snímkach aj na obrazovke — celá prezentácia vo vašom jazyku.",
     r_over: "Požiadavky", r_h2: "Čo treba na prácu",
     r1_t: "Windows 10 alebo 11", r1_p: "64-bitový. Zvuk jedného programu — vo Windows 11.",
     r2_t: "Pamäť 8 GB", r2_p: "Funguje aj so 4 GB — Tolk zvolí ľahší model.",
     r3_t: "Grafická karta — voliteľne", r3_p: "S NVIDIA rýchlejšie a presnejšie, ale aj na procesore všetko funguje.",
     r4_t: "Internet na preklad", r4_p: "Bez internetu — preklad priamo v počítači. ~3 GB miesta na modely.",
     q_over: "Otázky", q_h2: "Časté otázky",
-    q1: "Windows píše „Systém Windows ochránil váš počítač“ — je to v poriadku?",
-    a1: "Áno. Tak Windows reaguje na nové programy bez plateného digitálneho podpisu. Kliknite na „Ďalšie informácie“ → „Spustiť aj tak“.",
-    q2: "Ako zaplatiť a získať kľúč?",
-    a2: "Nainštalujte Tolk a kliknite na „Kúpiť Tolk“. Vyberte plán a spôsob platby, pošlite sumu s kódom v poznámke a kliknite „Zaplatil som“. Hneď po potvrdení platby sa licencia aktivuje sama. Hviezdami Telegram — okamžite.",
-    q3: "Dá sa používať na viacerých počítačoch?",
-    a3: "Licencia je viazaná na jeden počítač. Zmenili ste počítač alebo preinštalovali Windows — napíšte na Telegram, pomôžeme.",
-    q4: "Aké jazyky?",
-    a4: "Rozpozná reč v desiatkach jazykov a prekladá do 30+. Rozhranie — slovensky, ukrajinsky, rusky a anglicky.",
-    q5: "Slang, mená, hry — preloží správne?",
-    a5: "Neurónová sieť Tolk AI prekladá podľa zmyslu. Vlastné termíny, mená a výrazy môžete pridať do slovníka — Tolk ich spozná a preloží, ako treba.",
-    q7: "Hodí sa na prednášky a konferencie?",
-    a7: "Áno, na to je stavaný. Online prednáška či konferencia — zvoľte zvuk počítača alebo konkrétny program (Zoom, Teams, prehliadač). Prednáška v posluchárni — mikrofón notebooku. Nastavte jazyk reči, napríklad angličtinu: rozpoznávanie bude presnejšie a rýchlejšie. Názvy predmetov a termíny pridajte do slovníka.",
-    q6: "A súkromie?",
-    a6: "Zvuk sa nikam neposiela: reč sa rozpoznáva vo vašom počítači. Na preklad ide iba rozpoznaný text.",
+    faq: [
+      ["Hodí sa na prednášky a konferencie?", "Áno, na to je stavaný. Online prednáška či konferencia — vyberte kartu prehliadača alebo program (Zoom, Teams). Prednáška v posluchárni — mikrofón notebooku. Nastavte jazyk reči, napríklad angličtinu — rozpoznávanie bude presnejšie a rýchlejšie. Názvy predmetov a termíny pridajte do slovníka."],
+      ["Koľko hodín neurónovej siete dostanem?", "V každom pláne 6 h 40 min živého prekladu neurónovou sieťou Tolk AI mesačne — približne 5–6 prednášok so všetkými pauzami. Koľko zostáva, vidno v profile. Ak nebude stačiť, dokúpte hodiny na stránke či v Tolku, alebo pripojte vlastný bezplatný kľúč DeepL. Preklad sa nikdy nezastaví."],
+      ["Kúpil som na stránke — čo ďalej?", "Dostanete aktivačný kód v tvare TOLK-XXXX-XXXX-XXXX. Stiahnite Tolk a kód vložte v okne aktivácie — predplatné sa naviaže na váš počítač. Kód na hodiny sa zadáva v „Profil → Zadať kód“."],
+      ["Ako prekladať len jednu kartu prehliadača?", "V Tolku otvorte „Preklad a zvuk → Rozšírenie pre karty“ a pripojte rozšírenie (asi minúta). Potom klikajte na ikonu Tolk na požadovanej karte — Tolk hneď prekladá len ju. Funguje v Chrome, Edge, Opere, Yandex, Brave, Vivaldi a Firefoxe."],
+      ["Windows píše „Systém Windows ochránil váš počítač“ — je to v poriadku?", "Áno. Tak Windows reaguje na nové programy bez plateného digitálneho podpisu. Kliknite na „Ďalšie informácie“ → „Spustiť aj tak“."],
+      ["Dá sa používať na viacerých počítačoch?", "Predplatné je viazané na jeden počítač. Zmenili ste počítač alebo preinštalovali Windows — napíšte na Telegram, pomôžeme."],
+      ["Aké jazyky?", "Rozpozná reč v 90+ jazykoch a prekladá do 30+. Rozhranie — slovensky, ukrajinsky, rusky a anglicky."],
+      ["A súkromie?", "Zvuk sa nikam neposiela: reč sa rozpoznáva vo vašom počítači. Na preklad ide iba rozpoznaný text."]],
     fin_a: "Pozerajte a rozumejte", fin_b: "v akomkoľvek jazyku",
     foot_tg: "Podpora — Telegram @sethosint", foot_versions: "Všetky verzie",
     demo: [["This will definitely be on the exam, so write it down.", "Toto bude určite na skúške, tak si to zapíšte."],
            ["Thanks for joining the call, let's get started.", "Vďaka, že ste sa pripojili, poďme na to."],
            ["No cap, that last round was insane.", "Bez preháňania, posledné kolo bolo úplne šialené."]],
+    co_buy: "Nákup Tolku", co_hours: "Hodiny Tolk AI", co_pick: "Vyberte si plán", co_pick_h: "Vyberte balík hodín",
+    co_method: "Spôsob platby", co_total: "Na úhradu", co_next: "Prejsť k platbe", co_back: "Späť", co_close: "Zavrieť",
+    co_pay_h: "Pošlite %s", co_code: "Kód do poznámky k platbe", co_paid: "Zaplatil som",
+    co_code_hint: "Kód nezabudnite uviesť v poznámke — podľa neho predajca nájde vašu platbu.",
+    co_stars_h: "Platba hviezdami Telegram", co_stars_p: "Otvorí sa bot obchodu — zaplaťte faktúru. Aktivačný kód sa objaví tu aj v chate s botom.", co_stars_btn: "Otvoriť Telegram",
+    co_wait_h: "Čakáme na potvrdenie platby…", co_wait_p: "Zvyčajne to trvá pár minút. Stránku nemusíte zatvárať — kód sa tu objaví sám.",
+    co_done_h: "Hotovo! Ďakujeme za nákup", co_done_p: "Váš aktivačný kód:",
+    co_steps: ["Stiahnite a nainštalujte Tolk.", "V okne aktivácie vložte tento kód.", "Hotovo — predplatné sa naviaže na váš počítač."],
+    co_steps_h: ["Otvorte Tolk → „Profil“.", "Kliknite na „Zadať kód“ a vložte tento kód.", "Hodiny sa hneď pridajú k vášmu predplatnému."],
+    co_copy: "Kopírovať", co_copied: "Skopírované",
+    co_rej_h: "Platba sa nenašla", co_rej_p: "Predajca platbu nevidel. Ak peniaze odišli, napíšte na Telegram a priložte kód z poznámky.",
+    co_err: "Obchod je teraz nedostupný. Skúste neskôr alebo napíšte na Telegram.", co_many: "Priveľa objednávok za dnešok. Skúste zajtra alebo napíšte na Telegram.",
+    co_fail: "Nepodarilo sa", co_write: "Napísať na Telegram", co_resume: "Nákup čaká na potvrdenie", co_show: "Zobraziť", co_loading: "Načítavame…",
   },
   en: {
-    nav_features: "Features", nav_how: "How it works", nav_pricing: "Pricing", nav_faq: "FAQ",
+    nav_features: "Features", nav_how: "How it works", nav_pricing: "Pricing", nav_faq: "FAQ", nav_buy: "Buy",
     hero_over: "Lectures · conferences · calls",
     hero_h1a: "Live translation", hero_h1b: "of any speech on your screen",
-    hero_lead: "Tolk listens to lectures, conferences, calls and videos and shows translated subtitles over every window — as people speak. Slovak, English and dozens of other languages. It tunes itself to your PC.",
-    cta_download: "Download for Windows", cta_prices: "Pricing",
-    hero_fine: "Windows 10 & 11 · one-minute install · pay right inside the app",
-    f_over: "Features", f_h2: "Translates the way people actually talk",
-    f_sub: "No keys, no knobs, no setup: turn it on and read the translation.",
-    f1_t: "Over every window", f1_p: "Classic subtitles at the bottom or a side feed. Size, style and opacity your way.",
-    f2_t: "Truly real-time", f2_p: "The translation appears as the sentence goes and only ever grows — no jumping, no rewriting.",
-    f3_t: "Gets the meaning", f3_p: "The Tolk AI neural network translates by meaning, not word for word: course terms, false friends, slang and jokes. Add your own terms and names to the glossary.*",
-    f4_t: "Online and in the room", f4_p: "Zoom, Teams, Meet, Discord, a browser — all computer audio or one app. A live lecture — through your laptop mic.",
-    f5_t: "Tuned to your hardware", f5_p: "On first launch Tolk benchmarks your GPU and CPU and picks the best accuracy and speed.",
-    f6_t: "Audio stays on your PC", f6_p: "Speech is recognized locally. Only text is sent for translation — and only when needed.",
-    s_over: "Look inside", s_h2: "Beautiful and clutter-free",
-    s1: "Subtitle styles and size — with a live preview", s2: "Target language, mode and what to listen to",
-    s3: "First launch: everything tuned to your PC", s4: "Buy and renew right inside the app",
-    h_over: "How it works", h_h2: "Three steps to subtitles on screen",
+    hero_lead: "Tolk listens to lectures, conferences, calls and videos and shows translated subtitles over every window — as people speak. One browser tab or one app, Slovak, English and dozens of other languages.",
+    cta_download: "Download for Windows", cta_prices: "Choose a plan",
+    hero_fine: "Windows 10 & 11 · one-minute install · buy on the website or right inside the app",
+    chip1: "Slovak → English", chip2b: "0.6 s", sec: "s", chip2: "to translation", chip3: "gets slang",
+    mq_cap: "Translates the sound of any tab and any app",
+    st1: "on average to translation", st2: "speech languages recognized", st3: "translation languages", st4: "of audio stays on your PC",
+    f_over: "Features", f_h2: "Translates the way people actually talk", f_sub: "No keys, no setup: turn it on and read the translation.",
+    b1_t: "One tab or one app", b1_p: "A lecture in Chrome, a call in Zoom or Teams, a video on YouTube — Tolk listens only to what you pick. Extension for Chrome, Edge, Opera, Yandex, Brave and Firefox: click its icon on a tab and you're done.",
+    b2_t: "Gets the meaning", b2_p: "The Tolk AI neural network translates by meaning, not word for word.",
+    b3_t: "Over every window", b3_p: "Subtitles at the bottom or a side feed. Size, style and opacity your way.",
+    b4_t: "Truly real-time", b4_p: "The translation appears as the sentence goes and only ever grows — no jumping.",
+    b5_t: "Audio stays on your PC", b5_p: "Speech is recognized locally. Only text is sent for translation.",
+    b6_t: "Dozens of languages", b6_p: "Recognizes speech in 90+ languages and translates into 30+. For lectures, set the speech language for even better accuracy.",
+    pairs: [["zápočet", "pass/fail credit"], ["cvičenie", "seminar"], ["Ty vole!", "Wow!"], ["жесть", "that's rough"]],
+    h_over: "How it works", h_h2: "Three steps to subtitles on screen", h_sub: "A one-minute install; then Tolk tunes everything itself.",
     h1_t: "Download and install", h1_p: "One file, no admin rights. Tolk prepares speech recognition for your PC by itself.",
-    h2_t: "Buy inside Tolk", h2_p: "Card, USDT, TON or Telegram Stars. After payment the license activates itself — no keys to copy.",
-    h3_t: "Turn on translation", h3_p: "A hotkey or a button — and subtitles appear as soon as someone speaks.",
-    p_over: "Pricing", p_h2: "One app, two plans", p_sub: "Every feature in both plans. Pay the way you like.",
-    p_month: "Month", p_month_per: "31 days · renew in a couple of clicks", p_forever: "Forever", p_forever_per: "one payment, no expiry",
-    p_all: "All features and styles", p_ai: "Tolk AI neural translation*", p_updates: "Automatic updates", p_renew: "Renewal adds to your end date",
-    p_once: "No subscription", p_try: "Download & buy", p_buy: "Download & buy",
-    p_pay: "Pay inside the app: bank card · USDT (TRC20) · TON · Telegram Stars",
-    p_note: "* Tolk AI within a monthly limit. When the limit is used up or you're offline, Tolk translates via Google or right on your PC.",
+    h2_t: "Choose a plan", h2_p: "Right here or inside Tolk: card, USDT, TON or Telegram Stars. A website purchase gives you an activation code — paste it into Tolk.",
+    h3_t: "Turn on translation", h3_p: "Pick a tab or an app — subtitles appear as soon as someone speaks.",
+    g_over: "Look inside", g_h2: "Beautiful and clutter-free",
+    gallery: [["look", "Appearance", "Subtitle styles and size — with a live preview"],
+              ["picker", "What to listen to", "One browser tab or one app — nothing else gets in the way"],
+              ["profile", "Tolk AI hours", "See how many neural network hours you've used in your profile"],
+              ["shop", "Buying", "Five plans and extra hours right inside the app"]],
+    p_over: "Pricing", p_h2: "Pick your period",
+    p_sub: "Every plan has all of Tolk. Only the length differs: the longer, the cheaper each month. Monthly Tolk AI neural network hours are the same for everyone.",
+    tab_plans: "Subscription", tab_hours: "Tolk AI hours",
+    plan_names: { week: "Week", month: "Month", quarter: "3 months", half: "6 months", year: "Year" },
+    period: { week: "7 days", month: "31 days", quarter: "3 months", half: "6 months", year: "12 months" },
+    per_month: "≈ %s a month", ai_line: "Tolk AI — <b>%s</b> a month", ai_week: "Tolk AI — <b>%s</b> for the week",
+    best: "Best value", buy: "Buy",
+    feats: ["All features and styles", "Browser tabs and apps", "Automatic updates", "Renewal adds to your end date"],
+    hours_title: "+%s Tolk AI", hours_sub: "don't expire until your subscription ends", per_hour: "%s per hour",
+    hours_feats: ["Added to your key", "Valid until your subscription ends", "Move over when you renew"],
+    h: "h", m: "min",
+    p_note: "When your Tolk AI hours run out, translation doesn't stop: Tolk translates via Google or your free DeepL key. Hours renew every 30 days; bought hours don't expire.",
+    pay_card: "Bank card", pay_stars: "Telegram Stars",
+    so_over: "Coming soon", so_h2: "What's coming to Tolk", so_sub: "Already in the works — they'll arrive with an automatic update.", soon: "Soon",
+    so1_t: "Voice-over translation", so1_p: "Tolk reads the translation aloud and lowers the original — like dubbing in a film.",
+    so2_t: "Lecture notes", so2_p: "After class the neural network pulls out the essentials: topics, terms, test and exam dates.",
+    so3_t: "Slide translation", so3_p: "Tolk will translate text on slides and on screen — the whole presentation in your language.",
     r_over: "Requirements", r_h2: "What you need",
     r1_t: "Windows 10 or 11", r1_p: "64-bit. Single-app audio needs Windows 11.",
     r2_t: "8 GB RAM", r2_p: "Works with 4 GB too — Tolk picks a lighter model.",
     r3_t: "GPU optional", r3_p: "NVIDIA makes it faster and more accurate, but the CPU works too.",
     r4_t: "Internet for translation", r4_p: "Offline, translation runs on your PC. ~3 GB of disk for models.",
     q_over: "FAQ", q_h2: "Frequently asked questions",
-    q1: "Windows says “Windows protected your PC” — is that OK?",
-    a1: "Yes. That's how Windows treats new apps without a paid code-signing certificate. Click “More info” → “Run anyway”.",
-    q2: "How do I pay and get a key?",
-    a2: "Install Tolk and click “Buy Tolk”. Pick a plan and payment method, send the amount with the code in the comment and click “I've paid”. Once the payment is confirmed, the license activates itself. Telegram Stars are instant.",
-    q3: "Can I use it on several computers?",
-    a3: "A license is tied to one computer. New PC or reinstalled Windows — message us on Telegram and we'll help.",
-    q4: "Which languages?",
-    a4: "Recognizes speech in dozens of languages and translates into 30+. The interface is in English, Ukrainian, Slovak and Russian.",
-    q5: "Slang, names, games — will it get them right?",
-    a5: "Tolk AI translates by meaning. You can also add your own terms, names and words to the glossary — Tolk will recognize them and translate them your way.",
-    q7: "Is it good for lectures and conferences in Slovak?",
-    a7: "Yes, that's what it's built for. Online lecture or conference — pick computer audio or the app (Zoom, Teams, a browser). A lecture in the room — your laptop mic. Set the speech language to Slovak for faster, more accurate recognition. Add course names and terms to the glossary.",
-    q6: "What about privacy?",
-    a6: "Audio never leaves your computer: speech is recognized locally. Only the recognized text is sent for translation.",
+    faq: [
+      ["Is it good for lectures and conferences in Slovak?", "Yes, that's what it's built for. Online lecture or conference — pick a browser tab or an app (Zoom, Teams). A lecture in the room — your laptop mic. Set the speech language to Slovak for faster, more accurate recognition. Add course names and terms to the glossary."],
+      ["How many neural network hours do I get?", "Every plan includes 6 h 40 min of live Tolk AI translation a month — about 5–6 lectures with all the pauses. Your profile shows what's left. Need more? Buy hours here or in Tolk, or connect your own free DeepL key. Translation never stops."],
+      ["I bought on the website — what now?", "You get an activation code like TOLK-XXXX-XXXX-XXXX. Download Tolk and paste the code in the activation window — the subscription binds to your computer. An hours code goes into “Profile → Enter a code”."],
+      ["How do I translate just one browser tab?", "In Tolk, open “Translation & sound → Extension for tabs” and connect the extension (about a minute). Then click the Tolk icon on the tab you need — Tolk translates only that tab. Works in Chrome, Edge, Opera, Yandex, Brave, Vivaldi and Firefox."],
+      ["Windows says “Windows protected your PC” — is that OK?", "Yes. That's how Windows treats new apps without a paid code-signing certificate. Click “More info” → “Run anyway”."],
+      ["Can I use it on several computers?", "A subscription is tied to one computer. New PC or reinstalled Windows — message us on Telegram and we'll help."],
+      ["Which languages?", "Recognizes speech in 90+ languages and translates into 30+. The interface is in English, Ukrainian, Slovak and Russian."],
+      ["What about privacy?", "Audio never leaves your computer: speech is recognized locally. Only the recognized text is sent for translation."]],
     fin_a: "Watch and understand", fin_b: "in any language",
     foot_tg: "Support — Telegram @sethosint", foot_versions: "All versions",
     demo: [["Toto bude určite na skúške, takže si to zapíšte.", "This will definitely be on the exam, so write it down."],
            ["Danke, dass ihr dabei seid, lasst uns anfangen.", "Thanks for joining, let's get started."],
            ["Sin mentir, esa última ronda fue una locura.", "No cap, that last round was insane."]],
+    co_buy: "Buy Tolk", co_hours: "Tolk AI hours", co_pick: "Choose a plan", co_pick_h: "Choose an hours pack",
+    co_method: "Payment method", co_total: "To pay", co_next: "Continue to payment", co_back: "Back", co_close: "Close",
+    co_pay_h: "Send %s", co_code: "Code for the transfer comment", co_paid: "I've paid",
+    co_code_hint: "Be sure to put this code in the comment — that's how the seller finds your payment.",
+    co_stars_h: "Pay with Telegram Stars", co_stars_p: "The shop's bot opens — pay the invoice. Your activation code appears here and in the bot chat.", co_stars_btn: "Open Telegram",
+    co_wait_h: "Waiting for payment confirmation…", co_wait_p: "Usually a few minutes. Keep this page open — the code will appear here by itself.",
+    co_done_h: "Done! Thanks for your purchase", co_done_p: "Your activation code:",
+    co_steps: ["Download and install Tolk.", "Paste this code in the activation window.", "Done — the subscription binds to your computer."],
+    co_steps_h: ["Open Tolk → “Profile”.", "Click “Enter a code” and paste this code.", "The hours are added to your subscription right away."],
+    co_copy: "Copy", co_copied: "Copied",
+    co_rej_h: "Payment not found", co_rej_p: "The seller didn't see the transfer. If the money went out, message us on Telegram with the comment code.",
+    co_err: "The shop is unavailable right now. Try again later or message us on Telegram.", co_many: "Too many orders today. Try tomorrow or message us on Telegram.",
+    co_fail: "Something went wrong", co_write: "Message on Telegram", co_resume: "A purchase is awaiting confirmation", co_show: "Show", co_loading: "Loading…",
   },
 };
 
+const APPS = ["Zoom", "Microsoft Teams", "Google Meet", "YouTube", "Discord", "Chrome", "Edge", "Opera", "Firefox", "Yandex", "Brave", "Twitch", "Skype", "VLC", "Spotify", "Moodle", "BigBlueButton", "Webex"];
+const LANGS_SHOW = ["Slovenčina", "English", "Русский", "Українська", "Čeština", "Deutsch", "Polski", "Español", "Français", "Italiano", "Magyar", "Türkçe", "日本語", "中文", "한국어", "العربية"];
+
 let lang = "ru";
-let demoTimer = null;
+let catalog = FALLBACK;
+let ptab = "plans";
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const d = () => T[lang];
+const fmt = (s, ...a) => a.reduce((acc, x) => acc.replace("%s", x), s);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function money(price, cur) {
+  let t = String(price);
+  if (lang !== "en") t = t.replace(".", ",");
+  return t + " " + (cur === "EUR" ? "€" : cur);
+}
+function hours(h) {
+  const mins = Math.round(Number(h) * 60), hh = Math.floor(mins / 60), mm = mins % 60;
+  if (!hh) return mm + " " + d().m;
+  return hh + " " + d().h + (mm ? " " + mm + " " + d().m : "");
+}
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove("on"), 2000); }
+function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function load(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } }
 
 function detect() {
-  try {
-    const saved = localStorage.getItem("tolk-lang");
-    if (saved && T[saved]) return saved;
-  } catch (e) {}
+  const saved = load("tolk-lang");
+  if (saved && T[saved]) return saved;
   const list = (navigator.languages || [navigator.language || "en"]).map((l) => String(l).slice(0, 2).toLowerCase());
   for (const l of list) {
     if (l === "uk") return "uk";
@@ -611,82 +964,403 @@ function detect() {
 
 function apply(l) {
   lang = l;
-  const d = T[l];
-  document.documentElement.lang = l === "uk" ? "uk" : l;
-  document.querySelectorAll("[data-i]").forEach((el) => { if (d[el.dataset.i] != null) el.textContent = d[el.dataset.i]; });
-  document.querySelectorAll("[data-img]").forEach((el) => { el.src = `img/${l}/${el.dataset.img}.jpg`; el.loading = "lazy"; });
-  document.querySelectorAll("#langs button").forEach((b) => b.classList.toggle("on", b.dataset.l === l));
-  document.title = `Tolk — ${d.hero_h1a.toLowerCase()} ${d.hero_h1b}`;
-  try { localStorage.setItem("tolk-lang", l); } catch (e) {}
-  demo();
+  document.documentElement.lang = l;
+  $$("[data-i]").forEach((el) => { if (typeof d()[el.dataset.i] === "string") el.textContent = d()[el.dataset.i]; });
+  $$("#langs button").forEach((b) => b.classList.toggle("on", b.dataset.l === l));
+  document.title = `Tolk — ${d().hero_h1a.toLowerCase()} ${d().hero_h1b}`;
+  store("tolk-lang", l);
+  demo(); pairs(); gallery(); faq(); prices(); payList();
+  fetchCatalog();
 }
 
+// --- демо субтитров -------------------------------------------------------------------------------
+let demoTimer = null;
 function demo() {
   clearTimeout(demoTimer);
-  const lines = T[lang].demo;
-  const o = document.getElementById("demo-o"), t = document.getElementById("demo-t");
+  const lines = d().demo, o = $("#demo-o"), t = $("#demo-t");
+  if (reduced) { o.textContent = lines[0][0]; t.textContent = lines[0][1]; return; }
   let i = 0;
   const play = () => {
-    const [orig, tr] = lines[i % lines.length];
-    const ow = orig.split(" "), tw = tr.split(" ");
+    const [orig, tr] = lines[i % lines.length], ow = orig.split(" "), tw = tr.split(" ");
     o.textContent = ""; t.textContent = "";
     let k = 0;
     const step = () => {
       if (k < ow.length) o.textContent = ow.slice(0, k + 1).join(" ");
-      const tk = Math.max(0, k - 1);                     // перевод чуть отстаёт — как в жизни
-      if (k >= 1 && tk < tw.length) {
-        const span = document.createElement("span");
-        span.textContent = (tk ? " " : "") + tw[tk];
-        t.appendChild(span);
-      }
+      const tk = Math.max(0, k - 1);
+      if (k >= 1 && tk < tw.length) { const s = document.createElement("span"); s.textContent = (tk ? " " : "") + tw[tk]; t.appendChild(s); }
       k++;
-      if (k <= Math.max(ow.length, tw.length + 1)) demoTimer = setTimeout(step, 260);
+      if (k <= Math.max(ow.length, tw.length + 1)) demoTimer = setTimeout(step, 250);
       else { i++; demoTimer = setTimeout(play, 2600); }
     };
     step();
   };
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    o.textContent = lines[0][0]; t.textContent = lines[0][1];
-    return;
-  }
   play();
 }
 
-// огоньки в сцене
-(function () {
-  const box = document.getElementById("bokeh");
-  if (!box) return;
-  for (let i = 0; i < 18; i++) {
-    const s = document.createElement("i");
-    const size = 2 + Math.random() * 5;
-    s.style.cssText = `left:${Math.random() * 100}%;top:${20 + Math.random() * 55}%;width:${size}px;height:${size}px;` +
-      `animation-duration:${9 + Math.random() * 10}s;animation-delay:${-Math.random() * 18}s;--o:${0.2 + Math.random() * 0.5};` +
-      (size > 5 ? "filter:blur(2px);" : "");
+// --- «понимает смысл»: пары по очереди подсвечиваются -----------------------------------------------
+let pairTimer = null;
+function pairs() {
+  clearInterval(pairTimer);
+  const box = $("#pairs");
+  box.innerHTML = d().pairs.map(([a, b]) => `<div class="pair"><s>${esc(a)}</s><span>→</span><b>${esc(b)}</b></div>`).join("");
+  const items = $$(".pair", box);
+  let i = 0;
+  const tick = () => { items.forEach((p, k) => p.classList.toggle("on", k === i % items.length)); i++; };
+  tick();
+  if (!reduced) pairTimer = setInterval(tick, 1800);
+}
+
+// --- галерея ----------------------------------------------------------------------------------------
+let galTimer = null, galIdx = 0;
+function gallery() {
+  const g = d().gallery, tabs = $("#gtabs"), view = $("#gview");
+  tabs.innerHTML = g.map(([id, name], i) => `<button data-g="${i}">${esc(name)}<i></i></button>`).join("");
+  view.innerHTML = g.map(([id, , cap]) => `<img src="img/${lang}/${id}.jpg" alt="${esc(cap)}" loading="lazy">`).join("");
+  $$("button", tabs).forEach((b) => b.addEventListener("click", () => showGal(+b.dataset.g, true)));
+  showGal(galIdx % g.length);
+}
+function showGal(i, manual) {
+  clearTimeout(galTimer);
+  galIdx = i;
+  const g = d().gallery;
+  $$("#gtabs button").forEach((b, k) => { b.classList.remove("on"); if (k === i) { void b.offsetWidth; b.classList.add("on"); } });
+  $$("#gview img").forEach((im, k) => im.classList.toggle("on", k === i));
+  const cap = $("#gcap"); cap.style.opacity = 0;
+  setTimeout(() => { cap.textContent = g[i][2]; cap.style.opacity = 1; }, 180);
+  if (!reduced) galTimer = setTimeout(() => showGal((i + 1) % g.length), 6500);
+}
+
+// --- вопросы ----------------------------------------------------------------------------------------
+function faq() {
+  $("#faqlist").innerHTML = d().faq.map(([q, a]) => `<div class="qa rv"><button>${esc(q)}</button><div class="ans"><div><p>${esc(a)}</p></div></div></div>`).join("");
+  $$("#faqlist .qa").forEach((qa) => $("button", qa).addEventListener("click", () => qa.classList.toggle("open")));
+  reveal($$("#faqlist .qa"));
+}
+
+// --- тарифы: с сервера магазина (цены, часы), при сбое — встроенные ---------------------------------
+async function fetchCatalog() {
+  const want = lang;
+  try {
+    const r = await fetch(`${SHOP}/api/plans?lang=${lang}&v=2`, { cache: "no-store" });
+    const c = await r.json();
+    if (c && c.plans && c.plans.length && want === lang) { catalog = c; prices(); payList(); }
+  } catch (e) {}
+}
+
+function planCard(p) {
+  const days = p.days || 0, name = (d().plan_names || {})[p.id] || p.title;
+  const ai = days && days < 28 ? fmt(d().ai_week, hours(p.ai_h)) : fmt(d().ai_line, hours(catalog.month_h || 6.67));
+  const per = days >= 60 && p.per_month ? fmt(d().per_month, money(p.per_month, p.currency)) : "";
+  return `<div class="card price ${p.best ? "best" : ""} rv">
+    <div class="name">${esc(name)}${p.best ? `<span class="badge">${esc(d().best)}</span>` : ""}</div>
+    <div class="sum ${p.best ? "gold" : ""}">${money(p.price, p.currency)}</div>
+    <div class="per">${esc(d().period[p.id] || "")}</div><div class="pm">${esc(per)}</div>
+    <div class="ai">${ai}</div>
+    <ul>${d().feats.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+    <button class="btn ${p.best ? "gold-btn" : "glass"}" data-buy="${esc(p.id)}" data-kind="plan">${esc(d().buy)}</button></div>`;
+}
+function hourCard(t, i) {
+  const per = Math.round((Number(t.price) / Number(t.hours)) * 100) / 100;
+  return `<div class="card price ${i === 1 ? "best" : ""} rv">
+    <div class="name">${esc(fmt(d().hours_title, hours(t.hours)))}</div>
+    <div class="sum ${i === 1 ? "gold" : ""}">${money(t.price, t.currency)}</div>
+    <div class="per">${esc(fmt(d().per_hour, money(per, t.currency)))}</div><div class="pm"></div>
+    <div class="ai">${esc(d().hours_sub)}</div>
+    <ul>${d().hours_feats.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+    <button class="btn ${i === 1 ? "gold-btn" : "glass"}" data-buy="${esc(t.id)}" data-kind="topup">${esc(d().buy)}</button></div>`;
+}
+function prices() {
+  const box = $("#pricebox");
+  const html = ptab === "plans" ? `<div class="plans">${catalog.plans.map(planCard).join("")}</div>`
+    : `<div class="plans hours">${(catalog.topups || []).map(hourCard).join("")}</div>`;
+  box.innerHTML = html;
+  $$("[data-buy]", box).forEach((b) => b.addEventListener("click", () => openCheckout(b.dataset.buy, b.dataset.kind)));
+  $$(".card", box).forEach(spot);
+  reveal($$(".rv", box), true);
+  $$("#pseg button").forEach((b) => b.classList.toggle("on", b.dataset.t === ptab));
+  knob();
+}
+function knob() {
+  const on = $("#pseg button.on"), k = $("#pseg .knob");
+  if (!on) return;
+  k.style.width = on.offsetWidth + "px";
+  k.style.transform = `translateX(${on.offsetLeft - 5}px)`;
+}
+$$("#pseg button").forEach((b) => b.addEventListener("click", () => {
+  if (ptab === b.dataset.t) return;
+  ptab = b.dataset.t;
+  const box = $("#pricebox");
+  box.classList.add("out");
+  $$("#pseg button").forEach((x) => x.classList.toggle("on", x === b));
+  knob();
+  setTimeout(() => { prices(); box.classList.remove("out"); }, 260);
+}));
+function payList() {
+  const ms = catalog.methods && catalog.methods.length ? catalog.methods.map((m) => m.title)
+    : [d().pay_card, "USDT (TRC20)", "TON (Toncoin)", d().pay_stars];
+  const icons = ["💳", "₮", "◆", "⭐"];
+  $("#paylist").innerHTML = ms.map((t, i) => `<span>${icons[i] || "•"} ${esc(t)}</span>`).join("");
+}
+
+// --- оформление покупки на сайте: код активации придёт сюда ---------------------------------------
+const CO = { item: null, kind: "plan", method: null, order: null, timer: null, t0: 0 };
+function openModal() {
+  const m = $("#modal");
+  m.classList.add("show");
+  requestAnimationFrame(() => m.classList.add("vis"));
+  document.body.style.overflow = "hidden";
+}
+function closeModal() {
+  const m = $("#modal");
+  m.classList.remove("vis");
+  setTimeout(() => { m.classList.remove("show"); document.body.style.overflow = ""; }, 350);
+}
+$$("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#modal").classList.contains("show")) closeModal(); });
+
+function items(kind) { return kind === "topup" ? catalog.topups || [] : catalog.plans; }
+function itemName(id, kind) {
+  if (kind === "topup") { const t = (catalog.topups || []).find((x) => x.id === id); return t ? fmt(d().hours_title, hours(t.hours)) : id; }
+  return (d().plan_names || {})[id] || id;
+}
+function priceIn(methodId, id) {
+  const m = (catalog.methods || []).find((x) => x.id === methodId);
+  const p = m && m.prices && m.prices[id];
+  if (p) return money(p.price, p.currency);
+  const it = items(CO.kind).find((x) => x.id === id);
+  return it ? money(it.price, it.currency) : "";
+}
+function dots(n) { return `<div class="dots">${[0, 1, 2].map((i) => `<i class="${i < n ? "on" : ""}"></i>`).join("")}</div>`; }
+function co(html) { const box = $("#co"); box.innerHTML = `<div class="step-in">${html}</div>`; }
+
+function openCheckout(item, kind) {
+  CO.item = item; CO.kind = kind;
+  if (!CO.method && catalog.methods && catalog.methods.length) CO.method = catalog.methods[0].id;
+  stepChoose();
+  openModal();
+}
+function stepChoose() {
+  const list = items(CO.kind), methods = catalog.methods || [];
+  co(`${dots(1)}<div class="overline">${esc(CO.kind === "topup" ? d().co_hours : d().co_buy)}</div>
+    <h3>${esc(CO.kind === "topup" ? d().co_pick_h : d().co_pick)}</h3>
+    <div class="opts">${list.map((it) => `<button class="opt ${it.id === CO.item ? "on" : ""}" data-it="${esc(it.id)}"><span class="r"></span>
+      <span>${esc(itemName(it.id, CO.kind))}${CO.kind === "plan" ? `<small>${esc((it.days || 0) >= 60 && it.per_month ? fmt(d().per_month, money(it.per_month, it.currency)) : d().period[it.id] || "")}</small>` : ""}</span>
+      <span class="v">${money(it.price, it.currency)}</span></button>`).join("")}</div>
+    <div class="overline" style="margin-bottom:10px">${esc(d().co_method)}</div>
+    <div class="mgrid">${methods.length ? methods.map((m) => `<button class="opt ${m.id === CO.method ? "on" : ""}" data-m="${esc(m.id)}">${esc(m.title)}</button>`).join("")
+      : `<div class="muted">${esc(d().co_loading)}</div>`}</div>
+    <div class="total"><div class="sumline">${esc(d().co_total)}<b id="cosum">${priceIn(CO.method, CO.item)}</b></div>
+      <button class="btn gold-btn" id="cogo" ${methods.length ? "" : "disabled"}>${esc(d().co_next)}</button></div>`);
+  $$("[data-it]", $("#co")).forEach((b) => b.addEventListener("click", () => { CO.item = b.dataset.it; $$("[data-it]").forEach((x) => x.classList.toggle("on", x === b)); $("#cosum").textContent = priceIn(CO.method, CO.item); }));
+  $$("[data-m]", $("#co")).forEach((b) => b.addEventListener("click", () => { CO.method = b.dataset.m; $$("[data-m]").forEach((x) => x.classList.toggle("on", x === b)); $("#cosum").textContent = priceIn(CO.method, CO.item); }));
+  const go = $("#cogo");
+  if (go) go.addEventListener("click", createOrder);
+}
+function stepError(text, title) {
+  co(`<div class="overline">${esc(d().co_buy)}</div><h3>${esc(title || d().co_fail)}</h3>
+    <p class="muted">${esc(text)}</p><div class="row-btns"><a class="btn glass" href="${TG}" target="_blank" rel="noopener">${esc(d().co_write)}</a>
+    <button class="btn gold-btn" id="coback">${esc(d().co_back)}</button></div>`);
+  $("#coback").addEventListener("click", stepChoose);
+}
+async function createOrder() {
+  const b = $("#cogo");
+  b.disabled = true;
+  try {
+    const r = await fetch(`${SHOP}/api/orders`, { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ plan: CO.item, method: CO.method, lang }) });
+    const o = await r.json();
+    if (r.status === 429) return stepError(d().co_many);
+    if (!r.ok || !o.id) return stepError(d().co_err);
+    CO.order = o;
+    store("tolk-order", { id: o.id, token: o.token, kind: CO.kind, t: Date.now() });
+    stepPay();
+  } catch (e) { stepError(d().co_err); }
+}
+function copyRow(k, v, big) {
+  return `<div class="rq ${big ? "big" : ""}"><div><div class="k">${esc(k)}</div><div class="val">${esc(v)}</div></div>
+    <button class="cp" data-copy="${esc(v)}">${esc(d().co_copy)}</button></div>`;
+}
+function bindCopy() {
+  $$("[data-copy]", $("#co")).forEach((b) => b.addEventListener("click", () => {
+    const v = b.dataset.copy, clean = v.replace(/\s/g, "");
+    (navigator.clipboard ? navigator.clipboard.writeText(/^\d+$/.test(clean) ? clean : v) : Promise.reject()).then(() => toast(d().co_copied)).catch(() => {});
+  }));
+}
+function stepPay() {
+  const o = CO.order;
+  if (o.kind === "stars") {
+    co(`${dots(2)}<div class="overline">${esc(itemName(CO.item, CO.kind))}</div><h3>${esc(d().co_stars_h)}</h3>
+      <p class="muted">${esc(d().co_stars_p)}</p><div class="code">${esc(o.stars)} ⭐</div>
+      <div class="row-btns"><button class="btn glass" id="coback">${esc(d().co_back)}</button>
+      <a class="btn gold-btn" id="costars" href="${esc(o.bot_link)}" target="_blank" rel="noopener">${esc(d().co_stars_btn)}</a></div>`);
+    $("#costars").addEventListener("click", () => setTimeout(stepWait, 400));
+  } else {
+    co(`${dots(2)}<div class="overline">${esc(itemName(CO.item, CO.kind))}</div><h3>${esc(fmt(d().co_pay_h, money(o.price, o.currency)))}</h3>
+      <p class="muted">${esc(o.hint || "")}</p>
+      <div class="req-box">${(o.lines || []).map(([k, v]) => copyRow(k, v)).join("")}${copyRow(d().co_code, o.code, true)}</div>
+      <p class="muted" style="font-size:13px">${esc(d().co_code_hint)}</p>
+      <div class="row-btns"><button class="btn glass" id="coback">${esc(d().co_back)}</button>
+      <button class="btn gold-btn" id="copaid">${esc(d().co_paid)}</button></div>`);
+    bindCopy();
+    $("#copaid").addEventListener("click", async () => {
+      $("#copaid").disabled = true;
+      try {
+        const r = await fetch(`${SHOP}/api/orders/${o.id}/claim`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ token: o.token }) });
+        if (!r.ok) throw new Error();
+        stepWait();
+      } catch (e) { $("#copaid").disabled = false; toast(d().co_err); }
+    });
+  }
+  $("#coback").addEventListener("click", stepChoose);
+}
+function stepWait() {
+  co(`${dots(3)}<div class="ring"></div><h3 class="center">${esc(d().co_wait_h)}</h3><p class="muted center">${esc(d().co_wait_p)}</p>
+    <div class="row-btns" style="justify-content:center"><button class="btn glass" data-close2>${esc(d().co_close)}</button></div>`);
+  $("[data-close2]").addEventListener("click", closeModal);
+  CO.t0 = CO.t0 || Date.now();
+  poll();
+}
+async function poll() {
+  clearTimeout(CO.timer);
+  const o = load("tolk-order");
+  if (!o) return;
+  try {
+    const r = await fetch(`${SHOP}/api/orders/${o.id}?token=${encodeURIComponent(o.token)}`, { cache: "no-store" });
+    if (r.status === 404) { store("tolk-order", null); $("#resume").classList.remove("on"); return; }
+    const s = await r.json();
+    if (s.state === "paid") { store("tolk-order", null); $("#resume").classList.remove("on"); return stepDone(s, o.kind); }
+    if (s.state === "rejected") { store("tolk-order", null); $("#resume").classList.remove("on"); return stepError(d().co_rej_p, d().co_rej_h); }
+  } catch (e) {}
+  const age = Date.now() - (o.t || Date.now());
+  CO.timer = setTimeout(poll, age < 180000 ? 5000 : 20000);
+}
+function stepDone(s, kind) {
+  let code = s.voucher || s.key || "";
+  if (code && !/^TOLK/i.test(code)) code = "TOLK-" + code;
+  const steps = kind === "topup" ? d().co_steps_h : d().co_steps;
+  co(`<div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h3 class="center">${esc(d().co_done_h)}</h3><p class="muted center">${esc(d().co_done_p)}</p>
+    <div class="code" id="donecode">${esc(code)}</div>
+    <div class="row-btns" style="justify-content:center;margin-bottom:18px"><button class="btn glass small" data-copy="${esc(code)}">${esc(d().co_copy)}</button></div>
+    <ol class="howto">${steps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+    <div class="row-btns"><a class="btn gold-btn" href="${DOWNLOAD}">${esc(d().cta_download)}</a></div>`);
+  bindCopy();
+  openModal();
+  burst();
+}
+function burst() {
+  if (reduced) return;
+  const box = document.createElement("div");
+  box.className = "sparks";
+  for (let i = 0; i < 26; i++) {
+    const s = document.createElement("i"), a = Math.random() * Math.PI * 2, r = 80 + Math.random() * 140;
+    s.style.setProperty("--dx", Math.cos(a) * r + "px");
+    s.style.setProperty("--dy", Math.sin(a) * r + "px");
+    s.style.animationDelay = Math.random() * .15 + "s";
     box.appendChild(s);
   }
+  $("#panel").appendChild(box);
+  setTimeout(() => box.remove(), 1600);
+}
+function resumeCheck() {
+  const o = load("tolk-order");
+  if (!o) return;
+  if (Date.now() - (o.t || 0) > 48 * 3600 * 1000) { store("tolk-order", null); return; }
+  $("#resume").classList.add("on");
+  poll();
+}
+$("#resumeBtn").addEventListener("click", () => { $("#resume").classList.remove("on"); stepWait(); openModal(); });
+
+// --- эффекты ----------------------------------------------------------------------------------------
+function spot(c) {
+  c.addEventListener("pointermove", (e) => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    c.style.setProperty("--my", (e.clientY - r.top) + "px");
+  });
+}
+let io = null;
+function reveal(els, now) {
+  els.forEach((el, i) => { el.classList.add("rv"); el.style.transitionDelay = (i % 5) * 70 + "ms"; });
+  if (reduced || !("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
+  if (!io) io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  els.forEach((el) => io.observe(el));
+}
+function counters() {
+  const els = $$(".count");
+  const run = (el) => {
+    const to = parseFloat(el.dataset.to), dec = +(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+    const f = (t) => {
+      const k = Math.min(1, (t - t0) / dur), v = to * (1 - Math.pow(1 - k, 3));
+      el.textContent = v.toFixed(dec).replace(".", lang === "en" ? "." : ",");
+      if (k < 1) requestAnimationFrame(f);
+    };
+    requestAnimationFrame(f);
+  };
+  if (reduced || !("IntersectionObserver" in window)) return;
+  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { run(e.target); o.unobserve(e.target); } }), { threshold: .6 });
+  els.forEach((el) => o.observe(el));
+}
+
+(function init() {
+  // огоньки в сцене
+  const box = $("#bokeh");
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement("i"), size = 2 + Math.random() * 5;
+    s.style.cssText = `left:${Math.random() * 100}%;top:${20 + Math.random() * 55}%;width:${size}px;height:${size}px;animation-duration:${9 + Math.random() * 10}s;` +
+      `animation-delay:${-Math.random() * 18}s;--o:${0.2 + Math.random() * 0.5};` + (size > 5 ? "filter:blur(2px);" : "");
+    box.appendChild(s);
+  }
+  // бегущая строка — два одинаковых ряда, чтобы петля была бесшовной
+  $("#rail").innerHTML = [...APPS, ...APPS].map((a) => `<span>${esc(a)}</span>`).join("");
+  $("#langrow").innerHTML = LANGS_SHOW.map((a) => `<span>${esc(a)}</span>`).join("");
+  // эквалайзер и вкладки в карточке
+  $("#eq").innerHTML = Array.from({ length: 34 }, (_, i) => `<i style="animation-delay:${-(i * 97 % 1100) / 1000}s;animation-duration:${0.8 + (i * 37 % 60) / 100}s"></i>`).join("");
+  const tabsEls = $$("#tabsmock span");
+  let ti = 2;
+  const tabTick = () => { tabsEls.forEach((s, k) => s.classList.toggle("on", k === ti % tabsEls.length)); ti++; };
+  tabTick();
+  if (!reduced) setInterval(tabTick, 2600);
+  // наклон демо за курсором
+  const stage = $("#stage"), screen = $("#screen");
+  if (!reduced && matchMedia("(pointer: fine)").matches) {
+    stage.addEventListener("pointermove", (e) => {
+      const r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      screen.style.transform = `rotateY(${x * 9}deg) rotateX(${-y * 7}deg)`;
+    });
+    stage.addEventListener("pointerleave", () => { screen.style.transform = ""; });
+    // «магнитные» кнопки
+    $$(".magnet").forEach((b) => {
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .12}px, ${(e.clientY - r.top - r.height / 2) * .18}px)`;
+      });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+  // прокрутка: шапка, полоса прогресса, линия шагов
+  const header = $("#top"), prog = $("#progress"), steps = $("#steps"), line = $("#steps .line");
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    header.classList.toggle("scrolled", y > 12);
+    prog.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
+    const r = steps.getBoundingClientRect(), p = Math.min(1, Math.max(0, (innerHeight * .8 - r.top) / (r.height + innerHeight * .3)));
+    line.style.setProperty("--p", p.toFixed(3));
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener("resize", knob);
+  onScroll();
+  $$(".card").forEach(spot);
+  reveal($$("section h2, section .overline, section .sub-h, .bento .card, .steps .card, .soon .card, .req .card, .gframe"));
+  counters();
+  $$("a.dl").forEach((a) => { a.href = DOWNLOAD; });
+  $$("#langs button").forEach((b) => b.addEventListener("click", () => apply(b.dataset.l)));
+  apply(detect());
+  resumeCheck();
 })();
-
-// проявление при прокрутке
-(function () {
-  const els = document.querySelectorAll("section h2, section .overline, section .sub-h, .card, .shot, .pay, .final h2");
-  els.forEach((el) => el.classList.add("rv"));
-  if (!("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
-  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-  }), { threshold: 0.12 });
-  els.forEach((el, i) => { el.style.transitionDelay = (i % 3) * 70 + "ms"; io.observe(el); });
-})();
-
-// подсветка карточек за курсором
-document.querySelectorAll(".card").forEach((c) => c.addEventListener("pointermove", (e) => {
-  const r = c.getBoundingClientRect();
-  c.style.setProperty("--mx", (e.clientX - r.left) + "px");
-  c.style.setProperty("--my", (e.clientY - r.top) + "px");
-}));
-
-document.querySelectorAll("a.dl").forEach((a) => { a.href = DOWNLOAD; });
-document.querySelectorAll("#langs button").forEach((b) => b.addEventListener("click", () => apply(b.dataset.l)));
-apply(detect());
 </script>
 </body>
 </html>
