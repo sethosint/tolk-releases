@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=31">
+<link rel="stylesheet" href="assets/site.css?v=32">
 </head>
 <body>
 
@@ -55,7 +55,7 @@
   <section class="hero">
     <div class="wrap">
       <p class="kicker mono" data-in><span class="dot"></span><span data-t="kicker">Tolk 3.0 · перевод в реальном времени</span></p>
-      <h1 class="js-lines" data-t="h1">Лекция идёт по‑словацки.<br>Субтитры — по‑русски.</h1>
+      <h1 class="js-lines" data-t="h1">Лекция идёт по‑словацки.<br>Субтитры — <em>по‑русски.</em></h1>
       <div class="hero-foot">
         <div data-in>
           <p class="lede" data-t="lede">Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна — лекции в Teams, записи на YouTube, фильма или созвона.</p>
@@ -65,7 +65,7 @@
             <a class="btn btn-main js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
               <span data-t="cta_dl">Скачать для Windows</span></a>
-            <a class="btn btn-line js-buy" href="https://t.me/TolkShopBot" target="_blank" rel="noopener" data-t="cta_buy">Купить в Telegram</a>
+            <a class="btn btn-line js-buy" href="https://t.me/TolkShopBot" target="_blank" rel="noopener"><span data-t="cta_buy">Купить в Telegram</span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></a>
           </div>
           <p class="fine" data-t="fine">30 минут Tolk AI бесплатно · без регистрации · Windows 10 и 11</p>
         </div>
@@ -92,6 +92,14 @@
     </div>
   </section>
 
+  <section class="marquee" aria-label="Microsoft Teams, YouTube, Zoom, Netflix, Google Meet, Discord, Webex, Moodle, Twitch, VLC">
+    <div class="wrap"><p class="kicker mono"><span data-t="mq_k">Работает везде, где есть звук</span></p></div>
+    <div class="mq" aria-hidden="true"><div class="mq-track js-mq">
+      <span>Microsoft Teams</span><i></i><span>YouTube</span><i></i><span>Zoom</span><i></i><span>Netflix</span><i></i><span>Google Meet</span><i></i>
+      <span>Discord</span><i></i><span>Webex</span><i></i><span>Moodle</span><i></i><span>Twitch</span><i></i><span>VLC</span><i></i>
+    </div></div>
+  </section>
+
   <section class="cases" id="cases">
     <div class="wrap head">
       <span class="no mono" data-t="no1">01 — Где пригодится</span>
@@ -101,7 +109,7 @@
     </div>
     <div class="track js-track">
       <article class="case">
-        <div class="frame" data-video="hero" data-par>
+        <div class="frame" data-video="hero" data-start="3.4" data-par>
           <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
           <div class="subs one"><img src="img/app/ru/sub-lecture-2.png" data-src="sub-lecture-2.png" alt="" loading="lazy"></div>
         </div>
@@ -160,7 +168,7 @@
       <div class="head">
         <span class="no mono" data-t="no3">03 — Tolk AI</span>
         <div>
-          <h2 data-reveal data-t="a_h2">Обычный переводчик переводит слова. Tolk AI — смысл.</h2>
+          <h2 data-reveal data-t="a_h2">Обычный переводчик переводит слова. Tolk AI — <em>смысл.</em></h2>
           <p class="lede" data-reveal data-t="a_lede">В словацких лекциях полно университетских слов и сленга. Вот как их понимает Google Переводчик — и как Tolk AI.</p>
         </div>
       </div>
@@ -189,7 +197,7 @@
         </div>
       </div>
       <div class="styles-bar js-styles"></div>
-      <div class="frame styles-stage" data-video="hero" data-reveal>
+      <div class="frame styles-stage" data-video="hero" data-start="6.2">
         <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
         <div class="subs js-style-subs"></div>
       </div>
@@ -207,7 +215,7 @@
       <div class="head">
         <span class="no mono" data-t="no5">05 — Цены</span>
         <div>
-          <h2 data-reveal data-t="p_h2">Одна подписка. Всё включено.</h2>
+          <h2 data-reveal data-t="p_h2">Одна подписка. <em>Всё включено.</em></h2>
           <p class="lede" data-reveal data-t="p_lede">Любой тариф — это весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок, тем дешевле месяц.</p>
         </div>
       </div>
@@ -239,7 +247,7 @@
     </div>
     <div class="wrap">
       <div class="big" data-reveal>30<small data-t="min">мин</small></div>
-      <h2 style="margin-top:44px;max-width:11em" data-reveal data-t="t_h2">Попробуйте на своей лекции.</h2>
+      <h2 style="margin-top:44px;max-width:11em" data-reveal data-t="t_h2">Попробуйте <em>на своей лекции.</em></h2>
       <p class="lede" style="margin-top:22px" data-reveal data-t="t_p">Скачайте Tolk и нажмите «Попробовать бесплатно»: полчаса полной версии с Tolk AI. Без карты и регистрации — один раз на компьютер.</p>
       <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:36px" data-reveal>
         <a class="btn btn-light js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
@@ -274,8 +282,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js" defer></script>
-<script src="assets/texts.js?v=31" defer></script>
-<script src="assets/site.js?v=31" defer></script>
+<script src="assets/texts.js?v=32" defer></script>
+<script src="assets/site.js?v=32" defer></script>
 </body>
 </html>

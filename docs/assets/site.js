@@ -52,6 +52,7 @@
   };
   const eur = (p) => (lang === "en" ? "€" + Number(p).toFixed(2) : Number(p).toFixed(2).replace(".", ",") + " €");
   const hrs = (h) => num(h, 1).replace(/[.,]0$/, "");
+  const ARR = '<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg>';
   const amount = (x, cur) => (cur === "UAH" ? x + " ₴" : cur === "⭐" ? x + " ⭐" : x + " " + cur);
 
   function applyTexts() {
@@ -74,12 +75,25 @@
     location.href = u.toString();                  // заново — чтобы вся анимация перестроилась под новый текст
   }));
 
+  // типографика: тире не начинает строку, короткие предлоги и союзы не висят в конце строки
+  const SHORT = /(^|[\s(«„“])(в|к|с|у|о|и|а|я|й|з|на|не|по|за|из|от|до|но|ни|та|же|для|без|при|под|над|про|что|как|v|k|s|z|o|a|i|u|na|do|po|za|od|so|ku|pre|pri|zo|the|a|an|to|in|on|of|at|by|and|or|is)\s+/gi;
+  function typograph(scope) {
+    const w = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (w.nextNode()) nodes.push(w.currentNode);
+    nodes.forEach((n) => {
+      if (n.parentElement.closest("script, style, .mq")) return;
+      const t = n.nodeValue.replace(/\s+([—–])(?=\s)/g, " $1").replace(SHORT, "$1$2 ").replace(SHORT, "$1$2 ");
+      if (t !== n.nodeValue) n.nodeValue = t;
+    });
+  }
+
   // строки заголовка и слова крупной фразы — для анимации
   function splitLines(el) {
     el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i).map((s) => `<span class="line"><span>${s.trim()}</span></span>`).join("");
   }
   function splitWords(el) {
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(" ");
+    el.innerHTML = el.textContent.trim().split(/[ \t\n]+/).map((w) => `<span class="w">${w}</span>`).join(" ");
   }
 
   // --- сравнение: Google и Tolk AI ------------------------------------------------------------------
@@ -210,7 +224,7 @@
         <div class="pm">${pm}</div>
         <div class="hours">${hours}</div>
         <div class="alt">${altPrices(p.id, p.stars)}</div>
-        <a class="btn ${p.best ? "" : "btn-line"}" href="https://t.me/${BOT}?start=p_${p.id}" target="_blank" rel="noopener">${tx("buy")}</a>
+        <a class="btn ${p.best ? "" : "btn-line"}" href="https://t.me/${BOT}?start=p_${p.id}" target="_blank" rel="noopener">${tx("buy")}${ARR}</a>
       </div>`;
     }).join("");
     const tops = $(".js-topups");
@@ -249,6 +263,8 @@
       v.muted = true; v.loop = true; v.playsInline = true; v.preload = "none";
       v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
       v.addEventListener("playing", () => media.classList.add("has-video"), { once: true });
+      const start = Number(f.dataset.start) || 0;
+      if (start) v.addEventListener("loadedmetadata", () => { if (v.duration) v.currentTime = start % v.duration; }, { once: true });
       media.appendChild(v);
       f._video = v;
       io.observe(f);
@@ -270,6 +286,17 @@
                     { clipPath: "inset(0 0% 0 0)", duration: 1.3, delay: .25, ease: "power2.inOut", onStart: () => nxt.classList.add("on") });
       } else { cur.classList.remove("on"); nxt.classList.add("on"); }
     }, 4200);
+  }
+
+  // --- бегущая строка -------------------------------------------------------------------------------------
+  function marquee() {
+    const mq = $(".js-mq");
+    if (!mq) return null;
+    mq.innerHTML += mq.innerHTML;
+    if (!window.gsap) return null;
+    const loop = gsap.to(mq, { xPercent: -50, duration: 46, ease: "none", repeat: -1 });
+    loop.totalTime(loop.duration() * 50);          // запас, чтобы крутить и назад
+    return loop;
   }
 
   // --- цифры считаются, когда видны -----------------------------------------------------------------------
@@ -327,7 +354,10 @@
     tl.from(".nav", { y: -24, opacity: 0, duration: 1.1 })
       .from(".js-lines .line > span", { yPercent: 112, duration: 1.5, stagger: .12 }, .05)
       .from(".hero [data-in]", { y: 26, opacity: 0, duration: 1.3, stagger: .12 }, .45)
-      .from(".js-hero-frame", { y: 80, opacity: 0, duration: 1.7 }, .4);
+      .from(".stage", { clipPath: "inset(100% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", clearProps: "clipPath" }, .2)
+      .from(".js-hero-frame .media", { yPercent: 12, duration: 2.2 }, .2)
+      .from(".js-hero-frame .tag", { opacity: 0, y: -10, duration: 1 }, 1.3)
+      .from(".js-hero-frame .subs", { opacity: 0, duration: 1.2 }, 1.45);
 
     const mm = gsap.matchMedia();
     mm.add("(min-width: 901px)", () => {
@@ -383,6 +413,47 @@
       styleTimer = setInterval(() => setStyle((styleIdx + 1) % STYLES.length), 2600);
     } });
 
+    // заголовки разделов — по строкам из-под маски; строки пересчитываются при смене ширины
+    if (window.SplitText) {
+      gsap.registerPlugin(SplitText);
+      $$("h2[data-reveal]").forEach((h) => {
+        h.removeAttribute("data-reveal");
+        SplitText.create(h, { type: "lines", mask: "lines", linesClass: "sl", autoSplit: true,
+          onSplit: (self) => gsap.from(self.lines, { yPercent: 118, duration: 1.4, ease: "expo.out", stagger: .09,
+            scrollTrigger: { trigger: h, start: "top 88%", once: true } }) });
+      });
+    }
+    $$(".no").forEach((n) => gsap.fromTo(n, { "--draw": 0 }, { "--draw": 1, duration: 1.6, ease: "expo.inOut",
+      scrollTrigger: { trigger: n, start: "top 90%", once: true } }));
+
+    // бегущая строка: быстрее при прокрутке, в сторону прокрутки
+    const loop = marquee();
+    if (loop) {
+      ScrollTrigger.create({ trigger: ".marquee", start: "top bottom", end: "bottom top", onUpdate: (self) => {
+        const boost = Math.min(5, Math.abs(self.getVelocity()) / 500);
+        gsap.to(loop, { timeScale: self.direction * (1 + boost), duration: .2, overwrite: true,
+          onComplete: () => gsap.to(loop, { timeScale: self.direction, duration: 1.2, ease: "power2.out" }) });
+      } });
+    }
+
+    // шапка: подчёркнут раздел, который сейчас на экране
+    $$(".nav nav a").forEach((a) => {
+      const sec = $(a.getAttribute("href"));
+      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 45%", end: "bottom 45%", onToggle: (st) => a.classList.toggle("on", st.isActive) });
+    });
+
+    // главные кнопки слегка тянутся за курсором
+    if (matchMedia("(pointer: fine)").matches) {
+      $$(".hero .btn, .trial .btn").forEach((b) => {
+        const xTo = gsap.quickTo(b, "x", { duration: .7, ease: "power3" }), yTo = gsap.quickTo(b, "y", { duration: .7, ease: "power3" });
+        b.addEventListener("pointermove", (e) => {
+          const r = b.getBoundingClientRect();
+          xTo((e.clientX - r.left - r.width / 2) * .22); yTo((e.clientY - r.top - r.height / 2) * .32);
+        });
+        b.addEventListener("pointerleave", () => { xTo(0); yTo(0); });
+      });
+    }
+
     // появление блоков
     $$("[data-reveal]").forEach((el) => gsap.from(el, { y: 56, opacity: 0, duration: 1.3, ease: "expo.out",
       scrollTrigger: { trigger: el, start: "top 90%", once: true } }));
@@ -412,6 +483,7 @@
 
   function runStatic() {
     root.classList.remove("js-wait");
+    marquee();
     const nav = $("#nav");
     const onScroll = () => nav.classList.toggle("solid", scrollY > 12);
     onScroll();
@@ -430,6 +502,7 @@
   renderStyles();
   renderFaq();
   renderPrices();
+  $$("h1, h2, h3, .lede, .statement .js-words, .step p, .case-meta p, .faq, .fine, .caption").forEach(typograph);
   if (motion) runMotion(); else runStatic();
   rotateSubs();
   counters();
