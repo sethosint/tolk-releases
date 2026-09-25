@@ -5,214 +5,219 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tolk — субтитры с переводом для лекций, фильмов и созвонов</title>
 <meta name="description" content="Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна: лекции, фильма, созвона. Для студентов в Словакии — словацкий, английский и ещё 33 языка.">
-<meta name="theme-color" content="#f3f0e9">
+<meta name="theme-color" content="#f3f0e9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tolk — субтитры с переводом поверх любого окна">
 <meta property="og:description" content="Лекции, фильмы и созвоны на любом языке — с переводом в реальном времени. Windows 10 и 11.">
 <meta property="og:image" content="https://sethosint.github.io/tolk-releases/img/og.jpg">
 <link rel="icon" href="img/favicon.png">
+<script>
+  // тема: сохранённая вручную или системная (без мигания при загрузке)
+  (function () {
+    var r = document.documentElement;
+    try { var t = localStorage.getItem("tolk-theme"); if (t === "light" || t === "dark") r.dataset.theme = t; } catch (e) {}
+    var q = /[?&]theme=(light|dark)/.exec(location.search); if (q) r.dataset.theme = q[1];
+    r.classList.add("js-wait");                           // первый экран ждёт анимации входа (не дольше 3 с)
+    setTimeout(function () { r.classList.remove("js-wait"); }, 3000);
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=30">
+<link rel="stylesheet" href="assets/site.css?v=31">
 </head>
 <body>
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="logo" href="./"><img src="img/icon.png" alt="" width="28" height="28">Tolk</a>
+    <a class="logo" href="#top"><img src="img/icon.png" alt="" width="28" height="28">Tolk</a>
     <nav aria-label="Разделы">
-      <a href="#lectures" data-t="nav_lectures">Лекции</a>
-      <a href="#films" data-t="nav_films">Фильмы и языки</a>
+      <a href="#cases" data-t="nav_cases">Возможности</a>
+      <a href="#how" data-t="nav_how">Как работает</a>
       <a href="#ai" data-t="nav_ai">Tolk AI</a>
       <a href="#pricing" data-t="nav_price">Цены</a>
       <a href="#faq" data-t="nav_faq">Вопросы</a>
     </nav>
     <span class="grow"></span>
+    <button class="theme-btn" id="theme" type="button" aria-label="Тема" title="Светлая / тёмная тема">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"/></svg>
+    </button>
     <div class="langs" role="group" aria-label="Язык">
       <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="sk">SK</button><button data-lang="en">EN</button>
     </div>
-    <a class="btn btn-ink js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe"><span data-t="nav_dl">Скачать</span><span class="long" data-t="nav_dl_long">&nbsp;для Windows</span></a>
+    <a class="btn btn-main js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe"><span data-t="nav_dl">Скачать</span><span class="long" data-t="nav_dl_long">&nbsp;для Windows</span></a>
   </div>
 </header>
 
-<main>
+<main id="top">
   <section class="hero">
     <div class="wrap">
-      <div class="hero-top">
-        <div>
-          <p class="kicker mono rv"><span class="dot"></span><span data-t="kicker">Tolk 3.0 · перевод в реальном времени</span></p>
-          <h1 class="rv d1" data-t="h1">Лекция идёт по‑словацки. Субтитры — по‑русски.</h1>
+      <p class="kicker mono" data-in><span class="dot"></span><span data-t="kicker">Tolk 3.0 · перевод в реальном времени</span></p>
+      <h1 class="js-lines" data-t="h1">Лекция идёт по‑словацки.<br>Субтитры — по‑русски.</h1>
+      <div class="hero-foot">
+        <div data-in>
+          <p class="lede" data-t="lede">Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна — лекции в Teams, записи на YouTube, фильма или созвона.</p>
         </div>
-        <div class="side rv d2">
-          <p class="lede" data-t="lede">Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна — лекции в Teams, записи на YouTube, фильма или созвона. Термины, сокращения и сленг переводит по смыслу.</p>
+        <div data-in>
           <div class="ctas">
-            <a class="btn btn-ink js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
+            <a class="btn btn-main js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
               <span data-t="cta_dl">Скачать для Windows</span></a>
-            <a class="link js-buy" href="https://t.me/TolkShopBot" data-t="cta_buy">Купить в Telegram</a>
+            <a class="btn btn-line js-buy" href="https://t.me/TolkShopBot" target="_blank" rel="noopener" data-t="cta_buy">Купить в Telegram</a>
           </div>
           <p class="fine" data-t="fine">30 минут Tolk AI бесплатно · без регистрации · Windows 10 и 11</p>
         </div>
       </div>
-
-      <div class="stage rv d2">
-        <div class="screen" aria-hidden="true">
-          <div class="bar"><i></i><i></i><i></i><span data-t="tab">Makroekonómia II — prednáška 4 · YouTube</span></div>
-          <div class="slide">
-            <div class="dept" data-t="s_dept">Katedra ekonómie · Makroekonómia II</div>
-            <div class="title" data-t="s_title">Monetárna politika ECB</div>
-            <ul>
-              <li data-t="s_b1">Inflačný cieľ: 2 % v strednodobom horizonte</li>
-              <li data-t="s_b2">Nástroje: kľúčové úrokové sadzby, operácie na voľnom trhu</li>
-              <li data-t="s_b3">Transmisný mechanizmus menovej politiky</li>
-            </ul>
-            <div class="chart">
-              <svg viewBox="0 0 340 200" fill="none">
-                <text x="0" y="12" fill="#8b93a5" font-family="Inter, sans-serif" font-size="11" data-t="s_chart">HICP, eurozóna (%)</text>
-                <line x1="0" y1="190" x2="310" y2="190" stroke="#d6d9e0"/>
-                <line x1="0" y1="140" x2="310" y2="140" stroke="#3c5a8f" stroke-dasharray="4 5" stroke-width="1.4"/>
-                <text x="316" y="144" fill="#3c5a8f" font-family="Inter, sans-serif" font-size="11">2 %</text>
-                <polyline points="0,160 28,158 56,150 84,120 112,62 140,34 168,58 196,104 224,126 252,136 280,142 310,140"
-                          stroke="#13203a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-                <circle cx="140" cy="34" r="4" fill="#13203a"/>
-              </svg>
-            </div>
-            <div class="s-foot"><span data-t="s_foot1">Prednáška 4 · 14. 10.</span><span data-t="s_foot2">12 / 38</span></div>
-          </div>
-          <div class="subs js-subs">
-            <img class="on" src="img/app/ru/sub-lecture-1.png" alt="" data-src="sub-lecture-1.png">
-            <img src="img/app/ru/sub-lecture-2.png" alt="" data-src="sub-lecture-2.png">
-            <img src="img/app/ru/sub-lecture-3.png" alt="" data-src="sub-lecture-3.png">
-          </div>
+    </div>
+    <div class="stage">
+      <div class="frame js-hero-frame" data-video="hero">
+        <div class="media"><img class="scene" src="img/scene.jpg" alt=""></div>
+        <div class="tag mono"><span class="dot"></span><span>Tolk</span><span class="sep">/</span><span data-t="pair">SK → RU</span></div>
+        <div class="subs js-rotate">
+          <img class="on" src="img/app/ru/sub-lecture-1.png" data-src="sub-lecture-1.png" alt="">
+          <img src="img/app/ru/sub-lecture-2.png" data-src="sub-lecture-2.png" alt="">
+          <img src="img/app/ru/sub-lecture-3.png" data-src="sub-lecture-3.png" alt="">
         </div>
-        <div class="timeline mono" aria-hidden="true"><span class="js-tc">00:41:12</span><span class="track"><b class="js-bar"></b></span><span>01:30:00</span></div>
-        <p class="caption" data-t="caption">Субтитры — настоящий кадр из Tolk 3.0, стиль «Графит». Слайд лекции — для примера.</p>
+      </div>
+      <p class="caption wrap js-caption" data-t="caption">Субтитры — настоящий кадр Tolk 3.0 с переводом Tolk AI.</p>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <p class="kicker mono"><span data-t="st_k">Коротко</span></p>
+      <p class="js-words" data-t="statement">Tolk слышит всё, что звучит на компьютере, и через долю секунды показывает перевод поверх любого окна. Ничего не нужно настраивать: нажмите «Начать перевод» — и читайте.</p>
+    </div>
+  </section>
+
+  <section class="cases" id="cases">
+    <div class="wrap head">
+      <span class="no mono" data-t="no1">01 — Где пригодится</span>
+      <div>
+        <h2 data-reveal data-t="c_h2">Один Tolk — для учёбы, кино и работы.</h2>
+      </div>
+    </div>
+    <div class="track js-track">
+      <article class="case">
+        <div class="frame" data-video="hero" data-par>
+          <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+          <div class="subs one"><img src="img/app/ru/sub-lecture-2.png" data-src="sub-lecture-2.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="case-meta"><span class="mono">01</span><h3 data-t="c1t">Лекции и семинары</h3><p data-t="c1p">Словацкий, английский или немецкий преподаватель — а вы читаете его на своём языке. С терминами, сокращениями и шутками.</p></div>
+      </article>
+      <article class="case">
+        <div class="frame" data-video="film" data-par>
+          <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+          <div class="subs one"><img src="img/app/ru/sub-film.png" data-src="sub-film.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="case-meta"><span class="mono">02</span><h3 data-t="c2t">Фильмы и сериалы</h3><p data-t="c2p">Netflix, YouTube, любой плеер. Стиль «Кино» — белые буквы с обводкой, как в настоящих субтитрах.</p></div>
+      </article>
+      <article class="case">
+        <div class="frame" data-video="call" data-par>
+          <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+          <img class="float js-img" src="img/app/ru/picker.webp" data-src="picker.webp" alt="" loading="lazy">
+        </div>
+        <div class="case-meta"><span class="mono">03</span><h3 data-t="c3t">Созвоны</h3><p data-t="c3p">Zoom, Teams, Webex, Google Meet, Discord. Выберите программу — Tolk слышит только её, а не уведомления и музыку.</p></div>
+      </article>
+      <article class="case">
+        <div class="frame" data-video="learn" data-par>
+          <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+          <div class="subs one"><img src="img/app/ru/sub-learn.png" data-src="sub-learn.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="case-meta"><span class="mono">04</span><h3 data-t="c4t">Изучение языков</h3><p data-t="c4p">Под переводом — оригинальная фраза. Слышите, читаете и понимаете одновременно — язык учится сам.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="head">
+        <span class="no mono" data-t="no2">02 — Как это работает</span>
+        <div><h2 data-reveal data-t="h_h2">Три шага — и лекция на вашем языке.</h2></div>
+      </div>
+      <div class="how-grid">
+        <div class="how-screen" aria-hidden="true">
+          <div class="pane on"><img class="js-img" src="img/app/ru/trial.webp" data-src="trial.webp" alt="" loading="lazy"></div>
+          <div class="pane"><img class="dlg js-img" src="img/app/ru/picker.webp" data-src="picker.webp" alt="" loading="lazy"></div>
+          <div class="pane"><img class="js-img" src="img/app/ru/look.webp" data-src="look.webp" alt="" loading="lazy"></div>
+        </div>
+        <div class="steps">
+          <div class="step on"><span class="mono" data-t="s1k">Шаг 1</span><h3 data-t="s1t">Скачайте Tolk</h3><p data-t="s1p">Установка — минута. Первые 30 минут Tolk AI бесплатно: без карты и регистрации.</p>
+            <img class="shot-m js-img" src="img/app/ru/trial.webp" data-src="trial.webp" alt="" loading="lazy"></div>
+          <div class="step"><span class="mono" data-t="s2k">Шаг 2</span><h3 data-t="s2t">Выберите, что слушать</h3><p data-t="s2p">Вкладку с лекцией, Zoom, Teams или весь звук компьютера. На Windows 11 — без всяких расширений.</p>
+            <img class="shot-m js-img" src="img/app/ru/picker.webp" data-src="picker.webp" alt="" loading="lazy"></div>
+          <div class="step"><span class="mono" data-t="s3k">Шаг 3</span><h3 data-t="s3t">Читайте перевод</h3><p data-t="s3p">Субтитры появляются поверх любого окна. Перетащите их мышью, выберите стиль и размер — остальное Tolk настроит сам.</p>
+            <img class="shot-m js-img" src="img/app/ru/look.webp" data-src="look.webp" alt="" loading="lazy"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="with">
+  <section class="sec band js-band" id="ai">
     <div class="wrap">
-      <span class="mono" data-t="with">Работает с</span>
-      <span class="app">YouTube</span><span class="app">Microsoft Teams</span><span class="app">Zoom</span><span class="app">Webex</span>
-      <span class="app">Google Meet</span><span class="app">Moodle</span><span class="app">Netflix</span><span class="app">VLC</span>
-      <span class="app" data-t="with_any">и любой программой со звуком</span>
-    </div>
-  </div>
-
-  <section class="sec" id="lectures">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-no mono rv" data-t="no1">01 — Лекции</span>
+      <div class="head">
+        <span class="no mono" data-t="no3">03 — Tolk AI</span>
         <div>
-          <h2 class="rv" data-t="l_h2">Понимает университет, а не только слова.</h2>
-          <p class="lede rv d1" data-t="l_lede">Преподаватель говорит быстро, с терминами и шутками. Tolk AI знает, что zápočet — это зачёт, písomka — контрольная, а AIS — система с расписанием и оценками. Переводит по смыслу — как однокурсник, который давно тут учится.</p>
+          <h2 data-reveal data-t="a_h2">Обычный переводчик переводит слова. Tolk AI — смысл.</h2>
+          <p class="lede" data-reveal data-t="a_lede">В словацких лекциях полно университетских слов и сленга. Вот как их понимает Google Переводчик — и как Tolk AI.</p>
         </div>
       </div>
       <div class="split">
         <span></span>
         <div>
-          <div class="pairs js-pairs"></div>
-          <div class="facts">
-            <div class="fact rv"><b>35</b><span data-t="f1">языков речи — от словацкого и чешского до японского</span></div>
-            <div class="fact rv d1"><b data-t="f2n">30 ч</b><span data-t="f2">Tolk AI в месяц в любом тарифе — это около 20 пар по 90 минут</span></div>
-            <div class="fact rv d2"><b>2</b><span data-t="f3">строки на экране: перевод и оригинал — видно, что именно сказали</span></div>
+          <div class="seg js-seg" role="group">
+            <span class="pill"></span>
+            <button type="button" data-mode="g" data-t="seg_g">Google Переводчик</button>
+            <button type="button" data-mode="t" aria-pressed="true" data-t="seg_t">Tolk AI</button>
           </div>
+          <div class="cmp js-cmp"></div>
+          <p class="cmp-note" data-t="cmp_note">Настоящие ответы обоих переводчиков, 25 сентября 2026. В живой лекции у Tolk AI ещё и контекст: он помнит предыдущие фразы.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec night" id="films">
+  <section class="sec" id="styles">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-no mono rv" data-t="no2">02 — Фильмы и языки</span>
+      <div class="head">
+        <span class="no mono" data-t="no4">04 — Внешний вид</span>
         <div>
-          <h2 class="rv" data-t="f_h2">Фильмы в оригинале. И язык — заодно.</h2>
-          <p class="lede rv d1" data-t="f_lede">Включите сериал без перевода — Tolk покажет две строки: перевод и оригинал. Слышите фразу, видите, как она пишется, понимаете смысл. Через месяц половину фраз вы поймёте раньше, чем прочитаете.</p>
+          <h2 data-reveal data-t="v_h2">Шесть стилей. Выберите свой.</h2>
+          <p class="lede" data-reveal data-t="v_lede">Графит для лекций, Кино для фильмов, Жёлтые — когда фон пёстрый. Размер, ширина и место на экране — как вам удобно.</p>
         </div>
       </div>
-      <div class="rv">
-        <div class="film" aria-hidden="true">
-          <div class="scene"></div>
-          <div class="subs"><img class="on js-img" src="img/app/ru/sub-film.png" alt="" data-src="sub-film.png"></div>
-        </div>
-        <div class="film-meta mono"><span data-t="film_l">Стиль «Кино» · перевод и оригинал</span><span data-t="film_r">Netflix · YouTube · VLC · любой плеер</span></div>
+      <div class="styles-bar js-styles"></div>
+      <div class="frame styles-stage" data-video="hero" data-reveal>
+        <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+        <div class="subs js-style-subs"></div>
       </div>
-      <div class="learn">
-        <div class="rv">
-          <h3 data-t="st_h3">Шесть стилей — под фильм, лекцию и учёбу</h3>
-          <p style="margin-top:16px" data-t="st_p1">Графит, Стекло, Классика, Кино, Жёлтые, Светлые. Размер и ширину меняете как удобно, место на экране — просто перетащите субтитры мышью.</p>
-          <p style="margin-top:14px" data-t="st_p2">Учите язык — оставьте оригинал под переводом. Нужна только суть — выключите его, и останется одна строка.</p>
-        </div>
-        <figure class="figure rv d1" style="margin:0">
-          <img class="shot js-img" src="img/app/ru/look.webp" data-src="look.webp" alt="" width="1220" height="820" loading="lazy">
-          <figcaption data-t="look_cap">Настройки Tolk → «Внешний вид». Скриншот программы без обработки.</figcaption>
-        </figure>
+      <div class="facts" style="margin-top:110px">
+        <div class="fact"><b data-count="35">35</b><span data-t="f1">языков речи — от словацкого и чешского до японского</span></div>
+        <div class="fact"><b data-count="32">32</b><span data-t="f2">языка перевода, включая русский, украинский и английский</span></div>
+        <div class="fact"><b><span data-count="30">30</span><span data-t="h_unit"> ч</span></b><span data-t="f3">Tolk AI в месяц в любом тарифе — около 20 пар</span></div>
+        <div class="fact"><b data-count="0">0</b><span data-t="f4">секунд вашего звука уходит в интернет: речь распознаётся на компьютере</span></div>
       </div>
-    </div>
-  </section>
-
-  <section class="sec" id="sources">
-    <div class="wrap">
-      <div class="two">
-        <div>
-          <span class="sec-no mono rv" style="display:inline-block;width:180px" data-t="no3">03 — Звонки и вкладки</span>
-          <h2 class="rv" style="margin-top:30px" data-t="s_h2">Слушает только то, что вы выбрали.</h2>
-          <p class="lede rv d1" style="margin-top:24px" data-t="s_lede">Вкладка с лекцией, Zoom, Teams, Webex, Discord — или весь звук компьютера. Уведомления, музыка в соседней вкладке и голосовые в мессенджере не мешают.</p>
-          <ul class="list rv d2">
-            <li><span class="mono">01</span><span data-t="s_li1"><b>Вкладка браузера.</b> Chrome, Edge, Firefox, Opera — на Windows 11 без всяких расширений.</span></li>
-            <li><span class="mono">02</span><span data-t="s_li2"><b>Созвоны.</b> Zoom, Microsoft Teams, Webex, Google Meet, Discord — выберите программу, и Tolk слышит только её.</span></li>
-            <li><span class="mono">03</span><span data-t="s_li3"><b>Горячие клавиши.</b> Alt+Shift+T — включить или выключить перевод, Alt+Shift+H — спрятать субтитры.</span></li>
-          </ul>
-        </div>
-        <figure class="figure rv d1" style="margin:0 auto;max-width:560px">
-          <img class="shot-dlg js-img" src="img/app/ru/picker.webp" data-src="picker.webp" alt="" width="612" height="661" loading="lazy">
-          <figcaption data-t="picker_cap">«Что слушать»: вкладка браузера, программа или устройство.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="ai" style="background:var(--paper-lo)">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-no mono rv" data-t="no4">04 — Tolk AI</span>
-        <div>
-          <h2 class="rv" data-t="a_h2">Переводчик, который помнит, о чём речь.</h2>
-          <p class="lede rv d1" data-t="a_lede">Tolk AI держит в голове предыдущие фразы, поэтому падежи и роды сходятся, а начатая мысль не рвётся посередине. Сленг и крепкие словечки — нормальными словами вашего языка, имена и цифры — как есть.</p>
-        </div>
-      </div>
-      <div class="cols3">
-        <div class="col rv"><span class="mono muted" data-t="c1m">На компьютере</span><h3 data-t="c1h">Речь распознаётся у вас</h3><p data-t="c1p">Звук не уходит в интернет: распознавание работает прямо на компьютере. Для перевода отправляется только текст фразы.</p></div>
-        <div class="col rv d1"><span class="mono muted" data-t="c2m">В облаке</span><h3 data-t="c2h">Перевод — нейросеть Tolk AI</h3><p data-t="c2p">30 часов в месяц в любом тарифе. Кончились раньше — докупите пакет часов, а пока Tolk переводит через Google.</p></div>
-        <div class="col rv d2"><span class="mono muted" data-t="c3m">Без интернета</span><h3 data-t="c3h">Перевод не пропадает</h3><p data-t="c3p">Пропала сеть — Tolk переводит встроенной моделью прямо на компьютере. Проще, но без пауз и пустого экрана.</p></div>
-      </div>
-      <figure class="figure rv" style="margin:88px 0 0">
-        <img class="shot js-img" src="img/app/ru/profile.webp" data-src="profile.webp" alt="" width="1220" height="820" loading="lazy">
-        <figcaption data-t="profile_cap">Профиль: подписка, часы Tolk AI и когда они обновятся.</figcaption>
-      </figure>
     </div>
   </section>
 
   <section class="sec pricing" id="pricing">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-no mono rv" data-t="no5">05 — Цены</span>
+      <div class="head">
+        <span class="no mono" data-t="no5">05 — Цены</span>
         <div>
-          <h2 class="rv" data-t="p_h2">Одна подписка. Всё включено.</h2>
-          <p class="lede rv d1" data-t="p_lede">Любой тариф — это весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок, тем дешевле месяц.</p>
+          <h2 data-reveal data-t="p_h2">Одна подписка. Всё включено.</h2>
+          <p class="lede" data-reveal data-t="p_lede">Любой тариф — это весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок, тем дешевле месяц.</p>
         </div>
       </div>
-      <div class="plans js-plans rv"></div>
-      <div class="extra rv"><span class="mono muted" data-t="extra">Не хватило часов?</span><span class="js-topups"></span></div>
-      <p class="rates-note" data-t="rates">Цены в гривнах и крипте — по курсу monobank и CoinGecko, округлены. Точная сумма — в боте.</p>
-
-      <div class="paysteps">
-        <div class="rv">
+      <div class="plans js-plans" data-reveal></div>
+      <div class="extra"><span class="mono muted" data-t="extra">Не хватило часов?</span><span class="js-topups"></span></div>
+      <p class="note" data-t="rates">Цены в гривнах и крипте — по курсу monobank и CoinGecko, округлены. Точная сумма — в боте.</p>
+      <div class="pay">
+        <div data-reveal>
           <h3 data-t="pay_h3">Оплата — в Telegram</h3>
-          <p style="margin-top:14px;color:var(--ink-2)" data-t="pay_p">Кнопка «Купить» открывает нашего бота @TolkShopBot. Там же — продление, часы Tolk AI, ваши ключи и напоминание, когда подписка подходит к концу. Никаких автосписаний.</p>
+          <p style="margin-top:14px;color:var(--fg-2)" data-t="pay_p">Кнопка «Купить» открывает нашего бота @TolkShopBot. Там же — продление, часы Tolk AI, ваши ключи и напоминание, когда подписка подходит к концу. Никаких автосписаний.</p>
           <div class="methods js-methods"></div>
           <ul class="list">
             <li><span class="mono">01</span><span data-t="pay1">Выберите тариф и способ оплаты.</span></li>
@@ -220,36 +225,34 @@
             <li><span class="mono">03</span><span data-t="pay3">Ключ придёт в чат. Если открыли бота из Tolk — программа активируется сама.</span></li>
           </ul>
         </div>
-        <figure class="figure rv d1" style="margin:0 auto;max-width:620px">
-          <img class="shot-dlg js-img" src="img/app/ru/pay.webp" data-src="pay.webp" alt="" width="712" height="448" loading="lazy">
-          <figcaption data-t="pay_cap">Покупка из Tolk: QR-код для телефона или кнопка «Открыть Telegram» — ключ придёт сам.</figcaption>
+        <figure style="margin:0" data-reveal>
+          <img class="dlg-shot js-img" src="img/app/ru/pay.webp" data-src="pay.webp" alt="" width="712" height="448" loading="lazy">
+          <figcaption class="caption" data-t="pay_cap">Покупка из Tolk: QR-код для телефона или кнопка «Открыть Telegram» — ключ придёт сам.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section class="sec night" id="trial">
-    <div class="wrap trial-grid">
-      <div>
-        <div class="big-number rv">30<small data-t="min">мин</small></div>
-        <h2 class="rv d1" style="margin-top:40px" data-t="t_h2">Попробуйте на своей лекции.</h2>
-        <p class="lede rv d1" style="margin-top:22px" data-t="t_p">Скачайте Tolk и нажмите «Попробовать бесплатно»: полчаса полной версии с Tolk AI. Без карты и регистрации — один раз на компьютер.</p>
-        <div class="rv d2" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:34px">
-          <a class="btn btn-paper js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
-            <span data-t="cta_dl">Скачать для Windows</span></a>
-          <span class="mono muted" data-t="t_fine">Windows 10 и 11 · обновляется сам</span>
-        </div>
+  <section class="band trial" id="trial">
+    <div class="frame" data-video="ai">
+      <div class="media"><img class="scene" src="img/scene.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="wrap">
+      <div class="big" data-reveal>30<small data-t="min">мин</small></div>
+      <h2 style="margin-top:44px;max-width:11em" data-reveal data-t="t_h2">Попробуйте на своей лекции.</h2>
+      <p class="lede" style="margin-top:22px" data-reveal data-t="t_p">Скачайте Tolk и нажмите «Попробовать бесплатно»: полчаса полной версии с Tolk AI. Без карты и регистрации — один раз на компьютер.</p>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:36px" data-reveal>
+        <a class="btn btn-light js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+          <span data-t="cta_dl">Скачать для Windows</span></a>
+        <span class="mono muted" data-t="t_fine">Windows 10 и 11 · обновляется сам</span>
       </div>
-      <figure class="figure rv d1" style="margin:0 auto;max-width:520px">
-        <img class="shot js-img" src="img/app/ru/trial.webp" data-src="trial.webp" alt="" width="760" height="790" loading="lazy">
-      </figure>
     </div>
   </section>
 
   <section class="sec" id="faq">
     <div class="wrap split">
-      <span class="sec-no mono" data-t="no6">06 — Вопросы</span>
+      <span class="no mono" data-t="no6">06 — Вопросы</span>
       <div class="faq js-faq"></div>
     </div>
   </section>
@@ -257,10 +260,10 @@
 
 <footer class="foot">
   <div class="wrap">
-    <div class="word">Tolk</div>
+    <div class="word js-word" aria-label="Tolk"><span>T</span><span>o</span><span>l</span><span>k</span></div>
     <div class="row">
-      <a class="js-buy" href="https://t.me/TolkShopBot">Telegram · @TolkShopBot</a>
-      <a href="https://t.me/sethosint" data-t="support">Поддержка · @sethosint</a>
+      <a class="js-buy" href="https://t.me/TolkShopBot" target="_blank" rel="noopener">Telegram · @TolkShopBot</a>
+      <a href="https://t.me/sethosint" target="_blank" rel="noopener" data-t="support">Поддержка · @sethosint</a>
       <a href="privacy.html" data-t="privacy">Конфиденциальность</a>
       <a class="js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe" data-t="cta_dl">Скачать для Windows</a>
       <span class="grow"></span>
@@ -269,7 +272,10 @@
   </div>
 </footer>
 
-<script src="assets/texts.js?v=30"></script>
-<script src="assets/site.js?v=30"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js" defer></script>
+<script src="assets/texts.js?v=31" defer></script>
+<script src="assets/site.js?v=31" defer></script>
 </body>
 </html>
