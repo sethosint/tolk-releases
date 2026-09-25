@@ -5,26 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Tolk — оплата в Telegram</title>
-<meta name="theme-color" content="#f3f0e9">
+<meta name="theme-color" content="#f2eee6">
 <link rel="icon" href="img/favicon.png">
 <script>
   (function () { try { var t = localStorage.getItem("tolk-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {} })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,300..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=32">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=40">
 </head>
 <body>
 <!-- Оплата теперь только в Telegram-боте. Старые версии Tolk (2.9) открывают эту страницу с кодом компьютера и «watch»:
      она создаёт ссылку в бота — ключ всё равно придёт в программу сам. -->
-<header class="nav solid"><div class="wrap"><a class="logo" href="./"><img src="img/icon.png" alt="" width="28" height="28">Tolk</a></div></header>
+<header class="page-nav"><a class="brand" href="./"><span class="mark" aria-hidden="true"></span>Tolk</a></header>
 <main class="page">
   <div class="wrap">
-    <span class="mono muted" id="kick">Оплата в Telegram</span>
+    <p class="eyebrow" id="kick">Оплата в Telegram</p>
     <h1 id="title">Открываем бота Tolk…</h1>
     <p class="lede" id="text">Покупка, продление и часы Tolk AI — в нашем Telegram-боте @TolkShopBot. Ключ придёт в чат, а Tolk на этом компьютере активируется сам.</p>
-    <p style="margin-top:34px"><a class="btn btn-main" id="go" href="https://t.me/TolkShopBot">Открыть Telegram</a></p>
+    <p style="margin-top:34px"><a class="btn" id="go" href="https://t.me/TolkShopBot">Открыть Telegram</a></p>
   </div>
 </main>
 <script>

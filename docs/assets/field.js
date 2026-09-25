@@ -1,0 +1,417 @@
+// Tolk — живой фон сайта: одно облако частиц перетекает между состояниями по мере прокрутки.
+// 0 — гряды звука (первый экран), 1 — волна речи, 2 — фраза оригинала, 3 — перевод Tolk AI, 4 — окно с плашкой
+// субтитров (на неё встают настоящие субтитры Tolk), 5 — сетка (цены), 6 — пыль (вопросы). WebGL2, без библиотек.
+(function () {
+  "use strict";
+
+  const VS = `#version 300 es
+precision highp float;
+layout(location = 0) in vec3 aS0;
+layout(location = 1) in vec3 aS1;
+layout(location = 2) in vec3 aS2;
+layout(location = 3) in vec3 aS3;
+layout(location = 4) in vec3 aS4;
+layout(location = 5) in vec3 aS5;
+layout(location = 6) in vec3 aS6;
+layout(location = 7) in vec4 aR;   // x — задержка, y — фаза, z — размер, w — золотая частица
+layout(location = 8) in vec2 aM;   // x — место в волне речи (−1…1), y — глубина гряды (0 — дальняя, 1 — ближняя)
+uniform vec2 uView;
+uniform float uState, uTime, uIntro, uDpr, uSize;
+uniform vec3 uMouse;
+uniform vec4 uRidge;               // центр всплеска по x, его ширина, высота гряд
+uniform vec4 uWave;                // начало и конец волны по x, её высота
+out float vA;
+out float vAcc;
+
+vec3 S(int k) {
+  if (k == 0) return aS0;
+  if (k == 1) return aS1;
+  if (k == 2) return aS2;
+  if (k == 3) return aS3;
+  if (k == 4) return aS4;
+  if (k == 5) return aS5;
+  return aS6;
+}
+
+// движение внутри состояния: (x, y, яркость)
+vec3 live(int k, vec3 s) {
+  float t = uTime;
+  if (k == 0) {
+    float d = aM.y;
+    float env = 0.16 + 0.84 * exp(-pow((s.x - uRidge.x) / uRidge.y, 2.0));
+    float r = sin(s.x * 0.0105 + t * 0.9 + d * 7.0) * 0.5 + sin(s.x * 0.026 - t * 1.4 + d * 13.0) * 0.32
+            + sin(s.x * 0.057 + t * 2.1 + d * 3.0) * 0.18;
+    s.y -= pow(abs(r), 1.6) * env * uRidge.z * (0.3 + 0.7 * d);
+    return s;
+  }
+  if (k == 1) {
+    float u = clamp((s.x - uWave.x) / (uWave.y - uWave.x), 0.0, 1.0);
+    float edge = smoothstep(0.0, 0.14, u) * smoothstep(1.0, 0.86, u);
+    float syl = pow(abs(sin(s.x * 0.019 - t * 2.6)), 2.2) * (0.55 + 0.45 * sin(s.x * 0.0043 - t * 0.8));
+    float fine = 0.7 + 0.3 * sin(s.x * 0.21 + t * 8.0 + aR.y * 6.283);
+    s.y += aM.x * uWave.z * edge * (0.05 + 0.95 * syl) * fine;
+    return s;
+  }
+  if (k == 5) {
+    float dd = length(s.xy - uView * 0.5);
+    s.z *= 0.35 + 0.65 * (0.5 + 0.5 * sin(dd * 0.011 - t * 1.2));
+    return s;
+  }
+  if (k == 6) {
+    float sp = 5.0 + aR.z * 12.0;
+    s.y = mod(s.y - t * sp, uView.y + 60.0) - 30.0;
+    s.x += sin(t * 0.22 + aR.y * 6.283) * 16.0;
+    return s;
+  }
+  s.xy += vec2(sin(t * 1.3 + aR.y * 40.0), cos(t * 1.1 + aR.x * 40.0)) * 0.45;
+  return s;
+}
+
+void main() {
+  float st = clamp(uState, 0.0, 6.0);
+  int k = min(int(floor(st)), 5);
+  float m = st - float(k);
+  vec3 a = live(k, S(k));
+  vec3 b = live(k + 1, S(k + 1));
+  // переход бежит слева направо, у каждой частицы — своя задержка; в середине пути частицы подхватывает поток
+  float delay = aR.x * 0.28 + clamp(a.x / uView.x, 0.0, 1.0) * 0.3;
+  float e = clamp((m - delay) / 0.42, 0.0, 1.0);
+  e = e * e * (3.0 - 2.0 * e);
+  vec3 p = mix(a, b, e);
+  float fly = sin(3.14159265 * e);
+  p.xy += vec2(sin(p.y * 0.0065 + uTime * 0.55 + aR.y * 6.283), cos(p.x * 0.0058 - uTime * 0.45 + aR.x * 6.283))
+        * fly * (40.0 + 110.0 * aR.z);
+  // при загрузке частицы собираются из пыли
+  if (uIntro < 1.0) {
+    vec3 d0 = live(6, aS6);
+    float ie = clamp((uIntro - aR.x * 0.45) / 0.55, 0.0, 1.0);
+    ie = 1.0 - pow(1.0 - ie, 3.0);
+    p = mix(vec3(d0.xy, d0.z * 0.6), p, ie);
+  }
+  // курсор мягко расталкивает частицы
+  vec2 dm = p.xy - uMouse.xy;
+  float f = exp(-dot(dm, dm) / 16000.0) * uMouse.z;
+  p.xy += dm / (length(dm) + 1.0) * f * 42.0;
+  gl_Position = vec4(p.x / uView.x * 2.0 - 1.0, 1.0 - p.y / uView.y * 2.0, 0.0, 1.0);
+  gl_PointSize = (0.9 + aR.z * 1.3 + aR.w * 0.6) * uDpr * uSize;
+  vA = p.z;
+  vAcc = aR.w;
+}`;
+
+  const FS = `#version 300 es
+precision mediump float;
+in float vA;
+in float vAcc;
+uniform vec3 uInk, uGold;
+uniform float uAlpha;
+out vec4 o;
+void main() {
+  float d = length(gl_PointCoord - 0.5);
+  float a = smoothstep(0.5, 0.12, d) * vA * uAlpha;
+  if (a < 0.004) discard;
+  o = vec4(mix(uInk, uGold, vAcc), a);
+}`;
+
+  const THEMES = {
+    dark: { bg: [6 / 255, 7 / 255, 8 / 255], ink: [0.957, 0.945, 0.918], gold: [0.89, 0.741, 0.463], alpha: 0.62, size: 1.0, add: true },
+    light: { bg: [242 / 255, 238 / 255, 230 / 255], ink: [0.083, 0.075, 0.06], gold: [0.576, 0.396, 0.165], alpha: 0.72, size: 1.06, add: false },
+  };
+
+  function shader(gl, type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(s)); return null; }
+    return s;
+  }
+
+  // разметка: где на экране «сцена» каждого состояния (напротив текста главы)
+  function layout(W, H) {
+    if (W < 760) {
+      const f = { x: W * 0.07, y: H * 0.09, w: W * 0.86, h: H * 0.26 };
+      return { mob: true, focus: [null, f, f, f, f] };
+    }
+    const R = { x: W * 0.5, y: H * 0.17, w: W * 0.43, h: H * 0.62 };
+    const L = { x: W * 0.07, y: H * 0.17, w: W * 0.43, h: H * 0.62 };
+    return { mob: false, focus: [null, R, L, R, L] };
+  }
+
+  // цели одного состояния → в порядке слева направо (частица i всегда «i-я слева»: переходы текут, а не мечутся)
+  function ordered(n, tx, ty, ta, extra) {
+    const key = new Float64Array(n);
+    const SH = 1048576;
+    for (let j = 0; j < n; j++) key[j] = Math.round((tx[j] + 4000 + Math.random() * 3) * 16) * SH + j;
+    key.sort();
+    const out = new Float32Array(n * 3);
+    const ex = extra ? new Float32Array(n) : null;
+    for (let i = 0; i < n; i++) {
+      const j = key[i] - Math.floor(key[i] / SH) * SH;
+      out[i * 3] = tx[j]; out[i * 3 + 1] = ty[j]; out[i * 3 + 2] = ta[j];
+      if (ex) ex[i] = extra[j];
+    }
+    return { pos: out, extra: ex };
+  }
+
+  function wrapLines(ctx, str, maxW) {
+    const words = str.split(/\s+/), lines = [];
+    let line = "";
+    for (const w of words) {
+      const t = line ? line + " " + w : w;
+      if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t;
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  // пиксели фразы, набранной EB Garamond, внутри прямоугольника f
+  function textPixels(str, f, italic) {
+    const w = Math.max(40, Math.round(f.w)), h = Math.max(40, Math.round(f.h));
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    const ctx = c.getContext("2d", { willReadFrequently: true });
+    let size = Math.min(h * 0.34, 150), lines = [str];
+    for (let g = 0; g < 40; g++) {
+      ctx.font = `${italic ? "italic " : ""}500 ${size}px "EB Garamond", Georgia, serif`;
+      lines = wrapLines(ctx, str, w);
+      const widest = Math.max(...lines.map((l) => ctx.measureText(l).width));
+      if (lines.length <= 3 && lines.length * size * 1.04 <= h && widest <= w) break;
+      size *= 0.93;
+    }
+    ctx.fillStyle = "#fff";
+    const lh = size * 1.04;
+    let y = (h - lines.length * lh) / 2 + size * 0.78;
+    for (const l of lines) { ctx.fillText(l, 0, y); y += lh; }
+    const d = ctx.getImageData(0, 0, w, h).data;
+    const px = [];
+    for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) if (d[(yy * w + xx) * 4 + 3] > 130) px.push(f.x + xx, f.y + yy);
+    return px;
+  }
+
+  function create(canvas, opt) {
+    const gl = canvas.getContext("webgl2", { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: "high-performance" });
+    if (!gl) return null;
+    const vs = shader(gl, gl.VERTEX_SHADER, VS), fs = shader(gl, gl.FRAGMENT_SHADER, FS);
+    if (!vs || !fs) return null;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn(gl.getProgramInfoLog(prog)); return null; }
+    gl.useProgram(prog);
+    const U = {};
+    ["uView", "uState", "uTime", "uIntro", "uDpr", "uSize", "uMouse", "uRidge", "uWave", "uInk", "uGold", "uAlpha"]
+      .forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
+
+    const N = opt.count;
+    const vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    const stateBufs = [];
+    for (let k = 0; k < 7; k++) {
+      const b = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, b);
+      gl.bufferData(gl.ARRAY_BUFFER, N * 12, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(k);
+      gl.vertexAttribPointer(k, 3, gl.FLOAT, false, 0, 0);
+      stateBufs.push(b);
+    }
+    const aR = new Float32Array(N * 4);
+    for (let i = 0; i < N; i++) {
+      aR[i * 4] = Math.random(); aR[i * 4 + 1] = Math.random();
+      aR[i * 4 + 2] = Math.pow(Math.random(), 1.8); aR[i * 4 + 3] = Math.random() < 0.09 ? 1 : 0;
+    }
+    const rBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, rBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, aR, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(7);
+    gl.vertexAttribPointer(7, 4, gl.FLOAT, false, 0, 0);
+    const mBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, mBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, N * 8, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(8);
+    gl.vertexAttribPointer(8, 2, gl.FLOAT, false, 0, 0);
+
+    let W = 0, H = 0, dpr = 1, texts = { src: opt.src || "", dst: opt.dst || "" };
+    let ridge = [0, 1, 0, 0], wave = [0, 1, 0, 0], sub = null, theme = THEMES[opt.dark ? "dark" : "light"], bg = [0, 0, 0];
+    let target = 0, cur = 0, time = 0, intro = 0, started = false, last = 0;
+    const mouse = { x: -9999, y: -9999, s: 0, on: false };
+    const listeners = [];
+
+    function fill(n, gen) {
+      const tx = new Float32Array(n), ty = new Float32Array(n), ta = new Float32Array(n);
+      for (let j = 0; j < n; j++) gen(j, tx, ty, ta);
+      return [tx, ty, ta];
+    }
+    const dust = (tx, ty, ta, j, lo, hi) => { tx[j] = Math.random() * W; ty[j] = Math.random() * H; ta[j] = lo + Math.random() * (hi - lo); };
+
+    function build() {
+      W = document.documentElement.clientWidth; H = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, W * H > 2200000 ? 1.5 : 2);
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      const Lt = layout(W, H), S = [];
+      const mArr = new Float32Array(N * 2);
+
+      // 0 — гряды звука во всю ширину, всплеск справа от заголовка
+      {
+        const R = Lt.mob ? 34 : 58, y0 = H * (Lt.mob ? 0.09 : 0.15), y1 = H * (Lt.mob ? 0.33 : 0.8);
+        const depth = new Float32Array(N);
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          const row = Math.floor(Math.random() * R), t = row / (R - 1);
+          tx[j] = -0.03 * W + Math.random() * 1.06 * W;
+          ty[j] = y0 + (y1 - y0) * Math.pow(t, 1.5);
+          ta[j] = 0.1 + 0.9 * Math.pow(t, 1.2);
+          depth[j] = t;
+        });
+        const o = ordered(N, tx, ty, ta, depth);
+        S[0] = o.pos;
+        for (let i = 0; i < N; i++) mArr[i * 2 + 1] = o.extra[i];
+        ridge = [Lt.mob ? W * 0.55 : W * 0.64, W * (Lt.mob ? 0.34 : 0.3), H * (Lt.mob ? 0.07 : 0.16), 0];
+      }
+      // 1 — волна речи: слоги бегут справа налево
+      {
+        const f = Lt.focus[1], v = new Float32Array(N);
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          if (j < N * 0.88) {
+            tx[j] = f.x + Math.random() * f.w; ty[j] = f.y + f.h / 2; ta[j] = 0.9;
+            v[j] = (Math.random() + Math.random() + Math.random() + Math.random()) / 2 - 1;
+          } else { dust(tx, ty, ta, j, 0.03, 0.12); v[j] = 0; }
+        });
+        const o = ordered(N, tx, ty, ta, v);
+        S[1] = o.pos;
+        for (let i = 0; i < N; i++) mArr[i * 2] = o.extra[i];
+        wave = [f.x, f.x + f.w, f.h * 0.46, 0];
+      }
+      // 2, 3 — фраза оригинала и перевод Tolk AI, набранные частицами
+      [[2, texts.src, true], [3, texts.dst, false]].forEach(([k, str, italic]) => {
+        const px = str ? textPixels(str, Lt.focus[k], italic) : [];
+        const np = px.length / 2;
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          if (np && j < N * 0.76) {
+            const q = Math.floor(Math.random() * np) * 2;
+            tx[j] = px[q] + Math.random() - 0.5; ty[j] = px[q + 1] + Math.random() - 0.5; ta[j] = 1;
+          } else dust(tx, ty, ta, j, 0.04, 0.16);
+        });
+        S[k] = ordered(N, tx, ty, ta).pos;
+      });
+      // 4 — окно программы и плашка субтитров
+      {
+        const f = Lt.focus[4];
+        const ww = Math.min(f.w * 0.94, 780), wh = ww * 0.6;
+        const wx = f.x + (f.w - ww) / 2, wy = f.y + (f.h - wh) / 2;
+        const bw = ww * 0.82, bh = bw * 229 / 2380;
+        const bx = wx + (ww - bw) / 2, by = wy + wh - bh - wh * 0.09;
+        sub = { bar: { x: bx, y: by, w: bw, h: bh }, win: { x: wx, y: wy + 36, w: ww, h: wh - 36 } };
+        const r = 16, sides = [ww - 2 * r, wh - 2 * r, ww - 2 * r, wh - 2 * r], arc = Math.PI * r / 2;
+        const per = sides.reduce((s, v) => s + v, 0) + 4 * arc;
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          const u = j / N;
+          if (u < 0.24) {                                // рамка окна
+            let d = Math.random() * per, x = 0, y = 0;
+            const segs = [
+              [sides[0], (s) => [wx + r + s, wy]], [arc, (s) => { const a = -Math.PI / 2 + s / r; return [wx + ww - r + Math.cos(a) * r, wy + r + Math.sin(a) * r]; }],
+              [sides[1], (s) => [wx + ww, wy + r + s]], [arc, (s) => { const a = s / r; return [wx + ww - r + Math.cos(a) * r, wy + wh - r + Math.sin(a) * r]; }],
+              [sides[2], (s) => [wx + ww - r - s, wy + wh]], [arc, (s) => { const a = Math.PI / 2 + s / r; return [wx + r + Math.cos(a) * r, wy + wh - r + Math.sin(a) * r]; }],
+              [sides[3], (s) => [wx, wy + wh - r - s]], [arc, (s) => { const a = Math.PI + s / r; return [wx + r + Math.cos(a) * r, wy + r + Math.sin(a) * r]; }],
+            ];
+            for (const [len, at] of segs) { if (d <= len) { [x, y] = at(d); break; } d -= len; }
+            tx[j] = x + (Math.random() - 0.5) * 1.2; ty[j] = y + (Math.random() - 0.5) * 1.2; ta[j] = 0.8;
+          } else if (u < 0.28) {                         // строка заголовка окна
+            tx[j] = wx + Math.random() * ww; ty[j] = wy + 34 + (Math.random() - 0.5); ta[j] = 0.3;
+          } else if (u < 0.37) {                         // свечение экрана
+            tx[j] = wx + Math.random() * ww; ty[j] = wy + 36 + Math.random() * (wh - 36); ta[j] = 0.05;
+          } else if (u < 0.73) {                         // плашка субтитров
+            tx[j] = bx + Math.random() * bw; ty[j] = by + Math.random() * bh; ta[j] = 0.95;
+          } else dust(tx, ty, ta, j, 0.03, 0.12);
+        });
+        S[4] = ordered(N, tx, ty, ta).pos;
+      }
+      // 5 — сетка под ценами
+      {
+        const g = Lt.mob ? 22 : 30, cols = Math.ceil(W / g) + 1, rows = Math.ceil(H / g) + 1;
+        const ox = (W - (cols - 1) * g) / 2, oy = (H - (rows - 1) * g) / 2;
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          const cI = Math.floor(Math.random() * cols), rI = Math.floor(Math.random() * rows);
+          tx[j] = ox + cI * g + (Math.random() - 0.5) * 0.7; ty[j] = oy + rI * g + (Math.random() - 0.5) * 0.7; ta[j] = 0.011;
+        });
+        S[5] = ordered(N, tx, ty, ta).pos;
+      }
+      // 6 — пыль
+      {
+        const [tx, ty, ta] = fill(N, (j, tx, ty, ta) => {
+          tx[j] = Math.random() * W; ty[j] = Math.random() * (H + 60) - 30; ta[j] = 0.04 + 0.34 * Math.pow(Math.random(), 3);
+        });
+        S[6] = ordered(N, tx, ty, ta).pos;
+      }
+      for (let k = 0; k < 7; k++) { gl.bindBuffer(gl.ARRAY_BUFFER, stateBufs[k]); gl.bufferData(gl.ARRAY_BUFFER, S[k], gl.STATIC_DRAW); }
+      gl.bindBuffer(gl.ARRAY_BUFFER, mBuf);
+      gl.bufferData(gl.ARRAY_BUFFER, mArr, gl.STATIC_DRAW);
+    }
+
+    function paintTheme() {
+      bg = theme.bg;
+      gl.enable(gl.BLEND);
+      if (theme.add) gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE, gl.ONE, gl.ONE);
+      else gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    }
+
+    function frame(now) {
+      const dt = Math.min(0.05, (now - (last || now)) / 1000);
+      last = now;
+      time += dt;
+      cur += (target - cur) * (1 - Math.exp(-dt * 2.4));
+      if (Math.abs(target - cur) < 0.0005) cur = target;
+      if (started) intro = Math.min(1, intro + dt / 2.8);
+      mouse.s += ((mouse.on ? 1 : 0) - mouse.s) * (1 - Math.exp(-dt * 4));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.clearColor(bg[0], bg[1], bg[2], 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform2f(U.uView, W, H);
+      gl.uniform1f(U.uState, cur);
+      gl.uniform1f(U.uTime, time);
+      gl.uniform1f(U.uIntro, started ? intro : 0);
+      gl.uniform1f(U.uDpr, dpr);
+      gl.uniform1f(U.uSize, theme.size);
+      gl.uniform3f(U.uMouse, mouse.x, mouse.y, mouse.s);
+      gl.uniform4fv(U.uRidge, ridge);
+      gl.uniform4fv(U.uWave, wave);
+      gl.uniform3fv(U.uInk, theme.ink);
+      gl.uniform3fv(U.uGold, theme.gold);
+      gl.uniform1f(U.uAlpha, theme.alpha);
+      gl.drawArrays(gl.POINTS, 0, N);
+      listeners.forEach((fn) => fn(cur));
+      requestAnimationFrame(frame);
+    }
+
+    let rw = 0, rh = 0, timer = 0;
+    addEventListener("resize", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const w = document.documentElement.clientWidth, h = innerHeight;
+        if (w === rw && Math.abs(h - rh) < 140) return;       // на телефоне прячется адресная строка — не пересобираем
+        rw = w; rh = h; build();
+      }, 220);
+    });
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType === "touch") return;
+      mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => { mouse.on = false; });
+    canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); document.documentElement.classList.add("no-gl"); });
+
+    build();
+    rw = W; rh = H;
+    paintTheme();
+    requestAnimationFrame(frame);
+
+    return {
+      start() { started = true; },
+      setTarget(s) { target = s; },
+      jump(s) { target = s; cur = s; },
+      setTheme(dark) { theme = THEMES[dark ? "dark" : "light"]; paintTheme(); },
+      setTexts(src, dst) { texts = { src, dst }; build(); },
+      subRect() { return sub; },
+      onFrame(fn) { listeners.push(fn); },
+      get state() { return cur; },
+    };
+  }
+
+  window.TolkField = { create };
+})();

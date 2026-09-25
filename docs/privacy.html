@@ -5,29 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tolk — конфиденциальность · Privacy</title>
 <meta name="description" content="Как Tolk, расширение Tolk и бот @TolkShopBot обращаются с данными. How Tolk, the Tolk extension and @TolkShopBot handle data.">
-<meta name="theme-color" content="#f3f0e9">
+<meta name="theme-color" content="#f2eee6">
 <link rel="icon" href="img/favicon.png">
 <script>
   (function () { try { var t = localStorage.getItem("tolk-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {} })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,300..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=32">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=40">
 </head>
 <body>
-<header class="nav solid">
-  <div class="wrap">
-    <a class="logo" href="./"><img src="img/icon.png" alt="" width="28" height="28">Tolk</a>
-    <span class="grow"></span>
-    <div class="langs"><a class="link" href="#ru" style="font-size:12px">RU</a>&nbsp;&nbsp;<a class="link" href="#en" style="font-size:12px">EN</a></div>
-  </div>
+<header class="page-nav">
+  <a class="brand" href="./"><span class="mark" aria-hidden="true"></span>Tolk</a>
+  <nav class="links"><a href="#ru">RU</a><a href="#en">EN</a></nav>
 </header>
 
 <main class="page">
   <div class="wrap">
     <section id="ru" lang="ru">
-      <span class="mono muted">Конфиденциальность · обновлено 25 сентября 2026</span>
+      <p class="eyebrow">Конфиденциальность · обновлено 25 сентября 2026</p>
       <h1>Как Tolk обращается с данными</h1>
       <div class="box"><p>Звук никогда не покидает ваш компьютер. Для перевода отправляется только распознанный текст — и он нигде
         не сохраняется. Мы не продаём данные, не показываем рекламу и не следим за вами.</p></div>
@@ -75,7 +72,7 @@
     <hr>
 
     <section id="en" lang="en">
-      <span class="mono muted">Privacy · updated September 25, 2026</span>
+      <p class="eyebrow">Privacy · updated September 25, 2026</p>
       <h1>How Tolk handles your data</h1>
       <div class="box"><p>Audio never leaves your computer. Only recognised text is sent for translation, and it isn't stored
         anywhere. We don't sell data, show ads or track you.</p></div>
@@ -123,8 +120,8 @@
   </div>
 </main>
 
-<footer class="foot" style="padding:56px 0 40px">
-  <div class="wrap"><div class="row"><a href="./">Tolk</a><a href="https://t.me/TolkShopBot">Telegram · @TolkShopBot</a><span class="grow"></span><span>© 2026 Tolk</span></div></div>
+<footer class="page-foot">
+  <a class="link" href="./">Tolk</a><a class="link" href="https://t.me/TolkShopBot">Telegram · @TolkShopBot</a><span>© 2026 Tolk</span>
 </footer>
 </body>
 </html>

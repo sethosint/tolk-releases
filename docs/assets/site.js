@@ -1,6 +1,6 @@
-// Tolk — сайт: тема (система / вручную), язык, живые цены, «Купить» → бот, видео (Gemini) поверх кадра программы,
-// сравнение переводчиков, стили субтитров и движение: Lenis (плавная прокрутка) + GSAP ScrollTrigger.
-// Без GSAP (не загрузился, «меньше движения» в системе) всё видно и работает, просто без анимаций.
+// Tolk — сайт: тема (система / вручную), язык, живой фон из частиц (field.js), который по мере прокрутки проходит
+// звук → речь → перевод → субтитры → цены, живые цены из магазина, «Купить» → бот, стили субтитров, вопросы.
+// Движение — GSAP ScrollTrigger + SplitText + Lenis. Без WebGL или GSAP всё видно и работает, просто спокойнее.
 (function () {
   "use strict";
   const T = window.TOLK_TEXTS, CMP = window.TOLK_COMPARE || {};
@@ -11,28 +11,30 @@
   const root = document.documentElement;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  // «Меньше движения» в системе (в Windows — «Эффекты анимации» выключены) — анимация остаётся, но спокойнее:
-  // без инерционной прокрутки. Сайт без движения выглядел бы как слайд-шоу.
+  // «Меньше движения» в системе (в Windows — «Эффекты анимации» выключены): анимация остаётся, без инерционной прокрутки
   const gentle = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const reduce = false;
   const motion = Boolean(window.gsap && window.ScrollTrigger);
+  const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg>';
+  let field = null;
 
   // --- тема ---------------------------------------------------------------------------------------
   const sysDark = matchMedia("(prefers-color-scheme: dark)");
-  const theme = () => root.dataset.theme || (sysDark.matches ? "dark" : "light");
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === "dark" : sysDark.matches);
   function paintMeta() {
     if (!root.dataset.theme) return;
-    const c = root.dataset.theme === "dark" ? "#0c0c0e" : "#f3f0e9";
+    const c = root.dataset.theme === "dark" ? "#060708" : "#f2eee6";
     $$('meta[name="theme-color"]').forEach((m) => m.setAttribute("content", c));
   }
   $("#theme").addEventListener("click", () => {
-    const next = theme() === "dark" ? "light" : "dark";
+    const next = isDark() ? "light" : "dark";
     root.classList.add("theming");
     root.dataset.theme = next;
     try { localStorage.setItem("tolk-theme", next); } catch (e) { /* без хранилища */ }
     paintMeta();
-    setTimeout(() => root.classList.remove("theming"), 650);
+    if (field) field.setTheme(next === "dark");
+    setTimeout(() => root.classList.remove("theming"), 700);
   });
+  sysDark.addEventListener("change", () => { if (!root.dataset.theme && field) field.setTheme(sysDark.matches); });
   paintMeta();
 
   // --- язык ---------------------------------------------------------------------------------------
@@ -52,7 +54,6 @@
   };
   const eur = (p) => (lang === "en" ? "€" + Number(p).toFixed(2) : Number(p).toFixed(2).replace(".", ",") + " €");
   const hrs = (h) => num(h, 1).replace(/[.,]0$/, "");
-  const ARR = '<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg>';
   const amount = (x, cur) => (cur === "UAH" ? x + " ₴" : cur === "⭐" ? x + " ⭐" : x + " " + cur);
 
   function applyTexts() {
@@ -65,14 +66,14 @@
       });
     }
     $$(".langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-    $$(".js-img, .subs img[data-src]").forEach((img) => { img.src = `img/app/${lang}/${img.dataset.src}`; });
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
+    $(".js-pair").textContent = tx("pair");
   }
   $$(".langs button").forEach((b) => b.addEventListener("click", () => {
     try { localStorage.setItem("tolk-lang", b.dataset.lang); } catch (e) { /* без хранилища */ }
     const u = new URL(location.href);
     u.searchParams.set("lang", b.dataset.lang);
-    location.href = u.toString();                  // заново — чтобы вся анимация перестроилась под новый текст
+    location.href = u.toString();                  // заново — фон и анимация перестраиваются под новый текст
   }));
 
   // типографика: тире не начинает строку, короткие предлоги и союзы не висят в конце строки
@@ -82,87 +83,52 @@
     const nodes = [];
     while (w.nextNode()) nodes.push(w.currentNode);
     nodes.forEach((n) => {
-      if (n.parentElement.closest("script, style, .mq")) return;
       const t = n.nodeValue.replace(/\s+([—–])(?=\s)/g, " $1").replace(SHORT, "$1$2 ").replace(SHORT, "$1$2 ");
       if (t !== n.nodeValue) n.nodeValue = t;
     });
   }
 
-  // строки заголовка и слова крупной фразы — для анимации
-  function splitLines(el) {
-    el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i).map((s) => `<span class="line"><span>${s.trim()}</span></span>`).join("");
-  }
-  function splitWords(el) {
-    el.innerHTML = el.textContent.trim().split(/[ \t\n]+/).map((w) => `<span class="w">${w}</span>`).join(" ");
-  }
-
-  // --- сравнение: Google и Tolk AI ------------------------------------------------------------------
-  let mode = "t";
+  // --- глава III: одна фраза у Google и у Tolk AI ------------------------------------------------------
+  const phrase = (CMP[lang] || CMP.ru)[0];
   function renderCompare() {
     const box = $(".js-cmp");
-    if (!box) return;
-    const rows = CMP[lang] || CMP.ru || [];
-    box.innerHTML = rows.map((r, i) =>
-      `<div class="cmp-row" data-i="${i}"><p class="src">${r[0]}</p><p class="out"><span class="who"></span><span class="txt"></span></p></div>`).join("");
-    setMode(mode, false);
+    if (box) box.innerHTML = `<div class="src"><dt>${tx("src_lbl")}</dt><dd>${phrase[0]}</dd></div>`
+      + `<div class="g"><dt>${tx("who_g")}</dt><dd>${phrase[1]}</dd></div>`
+      + `<div class="t"><dt>${tx("who_t")}</dt><dd>${phrase[2]}</dd></div>`;
   }
-  function setMode(m, animate = true) {
-    mode = m;
-    const seg = $(".js-seg");
-    if (seg) {
-      const btns = $$("button", seg);
-      btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
-      const on = btns.find((b) => b.dataset.mode === m);
-      const pill = $(".pill", seg);
-      if (on && pill) { pill.style.left = on.offsetLeft + "px"; pill.style.width = on.offsetWidth + "px"; }
-    }
-    const rows = CMP[lang] || CMP.ru || [];
-    $$(".cmp-row").forEach((row, i) => {
-      const out = $(".out", row);
-      const put = () => {
-        $(".who", row).textContent = m === "t" ? tx("who_t") : tx("who_g");
-        $(".txt", row).textContent = rows[i][m === "t" ? 2 : 1];
-        row.classList.toggle("ai", m === "t");
-      };
-      if (!animate) return put();
-      setTimeout(() => {
-        out.classList.add("swap");
-        setTimeout(() => { put(); out.classList.remove("swap"); }, 320);
-      }, i * 90);
-    });
-  }
-  $$(".js-seg button").forEach((b) => b.addEventListener("click", () => { cmpTouched = true; setMode(b.dataset.mode); }));
-  let cmpTouched = false;
 
-  // --- стили субтитров ---------------------------------------------------------------------------------
+  // --- глава IV: стили субтитров (настоящие кадры программы) ---------------------------------------------
   const STYLES = ["graphite", "glass", "classic", "cinema", "yellow", "light"];
-  let styleTimer = null, styleIdx = 0;
-  function renderStyles() {
-    const bar = $(".js-styles"), box = $(".js-style-subs");
-    if (!bar || !box) return;
-    const names = tx("styles");
-    bar.innerHTML = STYLES.map((s, i) => `<button type="button" data-i="${i}" aria-pressed="${i === 0}">${names[i]}</button>`).join("");
-    box.innerHTML = STYLES.map((s, i) => `<img src="img/app/${lang}/style-${s}.png" alt="" class="${i === 0 ? "on" : ""}" loading="lazy">`).join("");
-    $$("button", bar).forEach((b) => b.addEventListener("click", () => { clearInterval(styleTimer); styleTimer = null; setStyle(Number(b.dataset.i)); }));
-  }
+  const subImg = $(".sub-live img");
+  let styleIdx = 0, styleTouched = false;
   function setStyle(i) {
     styleIdx = i;
     $$(".js-styles button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
-    $$(".js-style-subs img").forEach((im, k) => im.classList.toggle("on", k === i));
+    subImg.src = `img/app/${lang}/style-${STYLES[i]}.png`;
+  }
+  function renderStyles() {
+    const bar = $(".js-styles");
+    const names = tx("styles");
+    bar.innerHTML = STYLES.map((s, i) => `<button type="button" aria-pressed="${i === 0}">${names[i]}</button>`).join("");
+    $$("button", bar).forEach((b, i) => b.addEventListener("click", () => { styleTouched = true; setStyle(i); }));
+    STYLES.forEach((s) => { const im = new Image(); im.src = `img/app/${lang}/style-${s}.png`; });
+    setStyle(0);
   }
 
-  // --- вопросы ---------------------------------------------------------------------------------------
+  // --- вопросы -------------------------------------------------------------------------------------------
   function renderFaq() {
     const box = $(".js-faq");
-    if (!box) return;
-    box.innerHTML = tx("faq").map(([q, a]) => `<details><summary>${q}</summary><div class="a"><p>${a}</p></div></details>`).join("");
-    $$(".js-faq details").forEach((d) => {
+    const items = tx("faq").map(([q, a]) => `<details><summary>${q}</summary><div class="a"><p>${a}</p></div></details>`);
+    const half = Math.ceil(items.length / 2);
+    box.innerHTML = `<div class="col">${items.slice(0, half).join("")}</div><div class="col">${items.slice(half).join("")}</div>`;
+    $$(".js-buy", box).forEach((a) => { a.target = "_blank"; a.rel = "noopener"; });
+    $$("details", box).forEach((d) => {
       const s = $("summary", d), a = $(".a", d);
       s.addEventListener("click", (e) => {
-        if (!window.gsap || reduce) return;
+        if (!window.gsap) return;
         e.preventDefault();
-        if (d.open) gsap.to(a, { height: 0, duration: .45, ease: "power3.inOut", onComplete: () => { d.open = false; a.style.height = ""; } });
-        else { d.open = true; gsap.fromTo(a, { height: 0 }, { height: a.scrollHeight, duration: .6, ease: "expo.out", onComplete: () => { a.style.height = ""; } }); }
+        if (d.open) gsap.to(a, { height: 0, duration: .5, ease: "power3.inOut", onComplete: () => { d.open = false; a.style.height = ""; refreshSoon(); } });
+        else { d.open = true; gsap.fromTo(a, { height: 0 }, { height: a.scrollHeight, duration: .7, ease: "expo.out", onComplete: () => { a.style.height = ""; refreshSoon(); } }); }
       });
     });
   }
@@ -178,12 +144,6 @@
     ],
     topups: [{ id: "h8", hours: 7.5, price: "1.49" }, { id: "h30", hours: 30, price: "3.99" }, { id: "h75", hours: 75, price: "7.99" }],
     methods: [], month_h: 30,
-  };
-  const ICONS = {
-    mono: '<svg viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" rx="22" fill="#26272b"/><text x="48" y="58" text-anchor="middle" fill="#fff" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="27" letter-spacing="-1">mono</text></svg>',
-    usdt: '<svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="46" fill="#53ae94"/><path fill="#fff" d="M25 24h46v12H54v7.2c10.8.6 18.8 3 18.8 5.8s-8 5.2-18.8 5.8V74H42V54.8C31.2 54.2 23.2 51.8 23.2 49s8-5.2 18.8-5.8V36H25z"/><ellipse cx="48" cy="49" rx="21" ry="3.6" fill="#53ae94"/><path fill="#fff" d="M42 45.9v4.5c1.9.1 3.9.2 6 .2s4.1-.1 6-.2v-4.5c-1.9-.1-3.9-.2-6-.2s-4.1.1-6 .2z"/></svg>',
-    ton: '<svg viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" rx="26" fill="#2398ee"/><path fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round" d="M29 33h38l9 12-28 30-28-30z"/><path fill="#1f91ec" d="M58 36l3.2 8.8 8.8 3.2-8.8 3.2L58 60l-3.2-8.8L46 48l8.8-3.2z"/></svg>',
-    stars: '<svg viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" rx="22" fill="#fff4d0"/><path fill="#f3b50f" d="M48 14c2 0 3.5 1.2 4.4 3.2l6.6 13.8 15 2c4 .5 5.5 5.3 2.6 8L65.7 51.5l2.7 15c.7 3.9-3.3 6.8-6.8 5L48 64.2l-13.6 7.3c-3.5 1.8-7.5-1.1-6.8-5l2.7-15-10.9-10.5c-2.9-2.7-1.4-7.5 2.6-8l15-2 6.6-13.8C44.5 15.2 46 14 48 14z"/></svg>',
   };
   let catalog = null;
   async function loadPrices() {
@@ -209,7 +169,6 @@
   function renderPrices() {
     const c = catalog || FALLBACK;
     const box = $(".js-plans");
-    if (!box) return;
     const monthH = c.month_h || 30;
     box.innerHTML = c.plans.map((p) => {
       const title = (tx("plan") || {})[p.id] || p.title || p.id;
@@ -218,294 +177,188 @@
         : fill(tx("h_long"), { h: hrs(p.period_h), m: hrs(monthH) });
       const pm = p.days < 28 ? tx("per_week") : p.days < 40 ? "" : fill(tx("per_month"), { p: eur(p.per_month) });
       const save = p.save ? `<span class="save">${fill(tx("save"), { n: p.save })}</span>` : "";
-      return `<div class="plan${p.best ? " best" : ""}">
-        <div class="name mono"><span>${title}</span>${save}</div>
-        <div class="price">${eur(p.price)}</div>
-        <div class="pm">${pm}</div>
-        <div class="hours">${hours}</div>
-        <div class="alt">${altPrices(p.id, p.stars)}</div>
-        <a class="btn ${p.best ? "" : "btn-line"}" href="https://t.me/${BOT}?start=p_${p.id}" target="_blank" rel="noopener">${tx("buy")}${ARR}</a>
-      </div>`;
+      return `<article class="plan${p.best ? " best" : ""}">
+        <div class="nm"><span>${title}</span>${save}</div>
+        <p class="price">${eur(p.price)}</p>
+        <p class="pm">${pm}</p>
+        <p class="hours">${hours}</p>
+        <p class="alt">${altPrices(p.id, p.stars)}</p>
+        <a class="buy" href="https://t.me/${BOT}?start=p_${p.id}" target="_blank" rel="noopener">${tx("buy")}${ARR}</a>
+      </article>`;
     }).join("");
-    const tops = $(".js-topups");
-    if (tops) {
-      tops.innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ") +
-        ` <span class="muted">— ${tx("topup_tail")}</span>`;
-    }
-    const ms = $(".js-methods");
-    if (ms) {
-      ms.innerHTML = [["stars", "m_stars", "m_stars_s"], ["mono", "m_mono", "m_mono_s"], ["usdt", "m_usdt", "m_usdt_s"], ["ton", "m_ton", "m_ton_s"]]
-        .map(([ic, a, b]) => `<span class="method">${ICONS[ic]}<span>${tx(a)} <span class="muted">· ${tx(b)}</span></span></span>`).join("");
-    }
+    $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ");
   }
 
-  // --- видео: video/videos.json — какие ролики есть; без них — кадр из программы --------------------------------
-  async function setupVideos() {
-    let have = {};
+  // --- прокрутка → состояние фона, линия прогресса, главы, метка внизу -------------------------------------
+  let marks = [];
+  function measure() {
+    marks = $$("[data-state]").map((el) => ({ s: Number(el.dataset.state), top: el.getBoundingClientRect().top + scrollY }));
+  }
+  function stateAt(y) {
+    const vh = innerHeight;
+    let s = marks.length ? marks[0].s : 0;
+    for (let j = 1; j < marks.length; j++) {
+      const a = marks[j].top - vh * 0.85, b = marks[j].top - vh * 0.2;
+      if (y <= a) break;
+      s = marks[j - 1].s + Math.min(1, (y - a) / (b - a)) * (marks[j].s - marks[j - 1].s);
+    }
+    return s;
+  }
+  const nav = $("#nav"), bar = $(".progress i"), hs = $(".js-hs"), rails = $$(".rail li");
+  let lastIdx = -1;
+  function onScroll() {
+    const y = scrollY, s = stateAt(y);
+    if (field) field.setTarget(s);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+    nav.classList.toggle("scrolled", y > 20);
+    const idx = Math.round(s);
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      rails.forEach((li) => li.classList.toggle("on", Number(li.dataset.rail) === idx));
+      hs.textContent = tx("hs")[idx] || "";
+    }
+    root.classList.toggle("chrome-off", s > 4.6);         // внизу цены и подвал — метки не мешают тексту
+  }
+  let refreshTimer = 0;
+  function refreshSoon() {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => { measure(); if (window.ScrollTrigger) ScrollTrigger.refresh(); onScroll(); }, 120);
+  }
+
+  // субтитры программы встают на плашку из частиц, пока фон — в состоянии IV
+  const subLive = $(".sub-live");
+  let subShown = -1, autoAt = 0;
+  function onField(cur) {
+    const r = field.subRect();
+    if (!r) return;
+    const o = Math.max(0, Math.min(1, 1 - Math.abs(cur - 4) * 3.4));
+    if (o > 0.001 || subShown !== 0) {
+      subShown = o > 0.001 ? 1 : 0;
+      const w = r.win, b = r.bar;
+      subLive.style.width = w.w + "px";
+      subLive.style.height = w.h + "px";
+      subLive.style.transform = `translate3d(${w.x}px, ${w.y + (cur - 4) * -50}px, 0)`;
+      subLive.style.opacity = o.toFixed(3);
+      subImg.style.left = (b.x - w.x) + "px";
+      subImg.style.top = (b.y - w.y) + "px";
+      subImg.style.width = b.w + "px";
+      subImg.style.filter = o < 1 ? `blur(${((1 - o) * 8).toFixed(2)}px)` : "none";
+    }
+    // пока посетитель смотрит на главу IV и ничего не выбрал — стили сменяются сами
+    const now = performance.now();
+    if (o > 0.95 && !styleTouched && now - autoAt > 2600) { autoAt = now; if (subShown) setStyle((styleIdx + 1) % STYLES.length); }
+    if (o < 0.5) autoAt = now;
+  }
+
+  // --- фон -----------------------------------------------------------------------------------------------
+  async function startField() {
+    const canvas = $("#field");
+    if (!window.TolkField) { root.classList.add("no-gl"); return; }
+    const fonts = document.fonts ? Promise.all([
+      document.fonts.load('500 80px "EB Garamond"'), document.fonts.load('italic 500 80px "EB Garamond"'),
+    ]) : Promise.resolve();
+    await Promise.race([fonts, new Promise((r) => setTimeout(r, 2500))]);
+    const small = innerWidth < 760, cores = navigator.hardwareConcurrency || 4;
     try {
-      const r = await fetch("video/videos.json", { cache: "no-cache" });
-      if (r.ok) have = await r.json();
-    } catch (e) { /* роликов пока нет */ }
-    if (reduce) return;
-    const frames = $$("[data-video]").filter((f) => have[f.dataset.video]);
-    if (have.hero) { const c = $(".js-caption"); if (c) c.textContent = tx("caption_video"); }
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      const v = e.target._video;
-      if (!v) return;
-      if (e.isIntersecting) {
-        if (!v.src) { v.src = `video/${e.target.dataset.video}.mp4?v=${have[e.target.dataset.video]}`; v.load(); }
-        v.play().catch(() => {});
-      } else v.pause();
-    }), { rootMargin: "200px 0px" });
-    frames.forEach((f) => {
-      const media = $(".media", f);
-      const v = document.createElement("video");
-      v.muted = true; v.loop = true; v.playsInline = true; v.preload = "none";
-      v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
-      v.addEventListener("playing", () => media.classList.add("has-video"), { once: true });
-      const start = Number(f.dataset.start) || 0;
-      if (start) v.addEventListener("loadedmetadata", () => { if (v.duration) v.currentTime = start % v.duration; }, { once: true });
-      media.appendChild(v);
-      f._video = v;
-      io.observe(f);
-    });
-  }
-
-  // --- кадры субтитров на первом экране: меняются, текст «проявляется» слева направо ---------------------
-  function rotateSubs() {
-    const imgs = $$(".js-rotate img");
-    if (imgs.length < 2 || reduce) return;
-    let i = 0;
-    setInterval(() => {
-      const cur = imgs[i];
-      i = (i + 1) % imgs.length;
-      const nxt = imgs[i];
-      if (window.gsap) {
-        gsap.to(cur, { opacity: 0, duration: .45, ease: "power2.out", onComplete: () => cur.classList.remove("on") });
-        gsap.fromTo(nxt, { opacity: 1, clipPath: "inset(0 100% 0 0)" },
-                    { clipPath: "inset(0 0% 0 0)", duration: 1.3, delay: .25, ease: "power2.inOut", onStart: () => nxt.classList.add("on") });
-      } else { cur.classList.remove("on"); nxt.classList.add("on"); }
-    }, 4200);
-  }
-
-  // --- бегущая строка -------------------------------------------------------------------------------------
-  function marquee() {
-    const mq = $(".js-mq");
-    if (!mq) return null;
-    mq.innerHTML += mq.innerHTML;
-    if (!window.gsap) return null;
-    const loop = gsap.to(mq, { xPercent: -50, duration: 46, ease: "none", repeat: -1 });
-    loop.totalTime(loop.duration() * 50);          // запас, чтобы крутить и назад
-    return loop;
-  }
-
-  // --- цифры считаются, когда видны -----------------------------------------------------------------------
-  function counters() {
-    if (motion) $$("[data-count]").forEach((el) => { if (Number(el.dataset.count)) el.textContent = "0"; });
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      io.unobserve(e.target);
-      const to = Number(e.target.dataset.count);
-      if (!window.gsap || reduce || !to) return;
-      const o = { v: 0 };
-      gsap.to(o, { v: to, duration: 1.6, ease: "power3.out", onUpdate: () => { e.target.textContent = Math.round(o.v); } });
-    }), { threshold: .6 });
-    $$("[data-count]").forEach((el) => io.observe(el));
-  }
-
-  // --- шаги «как это работает» ----------------------------------------------------------------------------
-  let stepNow = 0;
-  function setStep(i) {
-    if (i === stepNow) return;
-    const panes = $$(".how-screen .pane"), steps = $$(".step");
-    steps.forEach((s, k) => s.classList.toggle("on", k === i));
-    const prev = panes[stepNow], next = panes[i];
-    stepNow = i;
-    if (window.gsap && !reduce) {
-      gsap.to(prev, { opacity: 0, y: -24, scale: .98, duration: .5, ease: "power2.in", onComplete: () => prev.classList.remove("on") });
-      next.classList.add("on");
-      gsap.fromTo(next, { opacity: 0, y: 36, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .9, ease: "expo.out", delay: .1 });
-    } else { panes.forEach((p, k) => p.classList.toggle("on", k === i)); }
+      field = TolkField.create(canvas, { count: small ? 42000 : cores <= 4 ? 70000 : 100000, src: phrase[0], dst: phrase[2], dark: isDark() });
+    } catch (e) { console.warn(e); field = null; }
+    if (!field) { root.classList.add("no-gl"); return; }
+    field.jump(stateAt(scrollY));
+    field.onFrame(onField);
+    root.classList.add("live-on");
   }
 
   // --- движение --------------------------------------------------------------------------------------------
+  function magnetic(els) {
+    if (!matchMedia("(pointer: fine)").matches) return;
+    els.forEach((b) => {
+      const xTo = gsap.quickTo(b, "x", { duration: .7, ease: "power3" }), yTo = gsap.quickTo(b, "y", { duration: .7, ease: "power3" });
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        xTo((e.clientX - r.left - r.width / 2) * .2); yTo((e.clientY - r.top - r.height / 2) * .3);
+      });
+      b.addEventListener("pointerleave", () => { xTo(0); yTo(0); });
+    });
+  }
+  const lines = (el, vars) => {
+    if (!window.SplitText) return gsap.from(el, { y: 40, opacity: 0, duration: 1.2, ease: "expo.out", ...vars });
+    return SplitText.create(el, { type: "lines", mask: "lines", linesClass: "sl", autoSplit: true,
+      onSplit: (self) => gsap.from(self.lines, { yPercent: 115, duration: 1.4, ease: "expo.out", stagger: .1, ...vars }) });
+  };
+
+  let lenis = null;
   function runMotion() {
     gsap.registerPlugin(ScrollTrigger);
-    let lenis = null;
+    if (window.SplitText) gsap.registerPlugin(SplitText);
     if (window.Lenis && !gentle) {
-      lenis = new Lenis({ lerp: .09, smoothWheel: true });
-      window.__lenis = lenis;
+      lenis = new Lenis({ lerp: .085, smoothWheel: true });
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((t) => lenis.raf(t * 1000));
       gsap.ticker.lagSmoothing(0);
     }
     $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
-      const t = a.getAttribute("href") === "#top" ? 0 : $(a.getAttribute("href"));
+      const id = a.getAttribute("href");
+      const t = id === "#top" ? 0 : $(id);
       if (t == null || !lenis) return;
       e.preventDefault();
-      lenis.scrollTo(t, { offset: -64, duration: 1.5 });
+      lenis.scrollTo(t, { duration: 1.8 });
     }));
 
-    // вход: строки заголовка поднимаются, кадр выезжает
-    const h1 = $(".js-lines");
-    splitLines(h1);
-    root.classList.remove("js-wait");
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    tl.from(".nav", { y: -24, opacity: 0, duration: 1.1 })
-      .from(".js-lines .line > span", { yPercent: 112, duration: 1.5, stagger: .12 }, .05)
-      .from(".hero [data-in]", { y: 26, opacity: 0, duration: 1.3, stagger: .12 }, .45)
-      .from(".stage", { clipPath: "inset(100% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", clearProps: "clipPath" }, .2)
-      .from(".js-hero-frame .media", { yPercent: 12, duration: 2.2 }, .2)
-      .from(".js-hero-frame .tag", { opacity: 0, y: -10, duration: 1 }, 1.3)
-      .from(".js-hero-frame .subs", { opacity: 0, duration: 1.2 }, 1.45);
-
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 901px)", () => {
-      // кадр первого экрана раскрывается на всю ширину, изображение внутри «отъезжает»
-      const f = $(".js-hero-frame");
-      gsap.set(".stage", { paddingLeft: 0, paddingRight: 0 });
-      gsap.set(f, { borderRadius: 0 });
-      gsap.fromTo(f, { clipPath: "inset(0% 5.5% 0% 5.5% round 24px)" }, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none",
-        scrollTrigger: { trigger: f, start: "top 85%", end: "top 8%", scrub: true } });
-      gsap.fromTo($(".media", f), { scale: 1.14 }, { scale: 1, ease: "none",
-        scrollTrigger: { trigger: f, start: "top bottom", end: "bottom top", scrub: true } });
-      gsap.to(".hero > .wrap", { yPercent: -18, opacity: .25, ease: "none",
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 40%", scrub: true } });
-
-      // сценарии: лента едет вбок, пока страница прокручивается вниз
-      const track = $(".js-track");
-      const dist = () => Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
-      const slide = gsap.to(track, { x: () => -dist(), ease: "none",
-        scrollTrigger: { trigger: ".cases", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
-      $$(".case").forEach((c) => {
-        gsap.fromTo($(".media", c), { xPercent: -6, scale: 1.16 }, { xPercent: 6, scale: 1.16, ease: "none",
-          scrollTrigger: { trigger: c, containerAnimation: slide, start: "left right", end: "right left", scrub: true } });
-      });
-
-      // тёмные полосы въезжают, раскрываясь до краёв
-      $$(".js-band, .trial").forEach((b) => {
-        gsap.fromTo(b, { clipPath: "inset(0% 3% 0% 3% round 36px)" }, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none",
-          scrollTrigger: { trigger: b, start: "top bottom", end: "top 25%", scrub: true } });
-      });
-      gsap.fromTo(".styles-stage", { clipPath: "inset(6% 8% 6% 8% round 28px)" }, { clipPath: "inset(0% 0% 0% 0% round 22px)", ease: "none",
-        scrollTrigger: { trigger: ".styles-stage", start: "top bottom", end: "center 60%", scrub: true } });
-      gsap.fromTo(".trial .media", { yPercent: -8, scale: 1.12 }, { yPercent: 8, scale: 1.12, ease: "none",
-        scrollTrigger: { trigger: ".trial", start: "top bottom", end: "bottom top", scrub: true } });
+    // главы: строки заголовка из-под маски, остальное — следом; при уходе глава тает и размывается
+    $$(".chapter").forEach((ch) => {
+      const card = $(".card", ch);
+      const st = { trigger: ch, start: "top 42%", toggleActions: "play none none reverse" };
+      lines($(".display", card), { scrollTrigger: st });
+      gsap.from($$(".eyebrow, .body, .spec > div, .note, .chips", card), { y: 26, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: st });
+      gsap.to(card, { opacity: 0, y: -60, filter: "blur(8px)", ease: "none",
+        scrollTrigger: { trigger: ch, start: "bottom 99%", end: "bottom 64%", scrub: true } });
     });
+    // первый экран уходит вверх, растворяясь
+    gsap.to(".hero .inner", { y: -80, opacity: 0, filter: "blur(6px)", ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 30%", scrub: true } });
 
-    // крупная фраза: слова загораются по мере прокрутки
-    const st = $(".js-words");
-    splitWords(st);
-    gsap.fromTo($$(".w", st), { opacity: .13 }, { opacity: 1, ease: "none", stagger: .06,
-      scrollTrigger: { trigger: st, start: "top 82%", end: "bottom 42%", scrub: true } });
+    // цены и вопросы
+    $$(".pricing .display, .outro .final .display").forEach((h) => lines(h, { scrollTrigger: { trigger: h, start: "top 85%", once: true } }));
+    gsap.from($$(".pricing .eyebrow, .pricing .head .body, .outro .eyebrow"), { y: 24, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .08,
+      scrollTrigger: { trigger: ".pricing", start: "top 70%", once: true } });
+    ScrollTrigger.batch(".plan, .faq details, .colophon > div, .pay-notes p, .final-cta", { start: "top 92%", once: true,
+      onEnter: (els) => gsap.from(els, { y: 34, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06 }) });
 
-    // шаги
-    $$(".step").forEach((s, i) => ScrollTrigger.create({ trigger: s, start: "top 55%", end: "bottom 55%",
-      onToggle: (self) => self.isActive && setStep(i) }));
-
-    // сравнение: сначала Google, при появлении — само переключается на Tolk AI
-    setMode("g", false);
-    ScrollTrigger.create({ trigger: ".js-cmp", start: "top 70%", once: true,
-      onEnter: () => setTimeout(() => { if (!cmpTouched) setMode("t"); }, 900) });
-
-    // стили — сами перебираются, пока посетитель не выбрал
-    ScrollTrigger.create({ trigger: ".styles-stage", start: "top 75%", once: true, onEnter: () => {
-      styleTimer = setInterval(() => setStyle((styleIdx + 1) % STYLES.length), 2600);
-    } });
-
-    // заголовки разделов — по строкам из-под маски; строки пересчитываются при смене ширины
-    if (window.SplitText) {
-      gsap.registerPlugin(SplitText);
-      $$("h2[data-reveal]").forEach((h) => {
-        h.removeAttribute("data-reveal");
-        SplitText.create(h, { type: "lines", mask: "lines", linesClass: "sl", autoSplit: true,
-          onSplit: (self) => gsap.from(self.lines, { yPercent: 118, duration: 1.4, ease: "expo.out", stagger: .09,
-            scrollTrigger: { trigger: h, start: "top 88%", once: true } }) });
-      });
-    }
-    $$(".no").forEach((n) => gsap.fromTo(n, { "--draw": 0 }, { "--draw": 1, duration: 1.6, ease: "expo.inOut",
-      scrollTrigger: { trigger: n, start: "top 90%", once: true } }));
-
-    // бегущая строка: быстрее при прокрутке, в сторону прокрутки
-    const loop = marquee();
-    if (loop) {
-      ScrollTrigger.create({ trigger: ".marquee", start: "top bottom", end: "bottom top", onUpdate: (self) => {
-        const boost = Math.min(5, Math.abs(self.getVelocity()) / 500);
-        gsap.to(loop, { timeScale: self.direction * (1 + boost), duration: .2, overwrite: true,
-          onComplete: () => gsap.to(loop, { timeScale: self.direction, duration: 1.2, ease: "power2.out" }) });
-      } });
-    }
-
-    // шапка: подчёркнут раздел, который сейчас на экране
-    $$(".nav nav a").forEach((a) => {
-      const sec = $(a.getAttribute("href"));
-      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 45%", end: "bottom 45%", onToggle: (st) => a.classList.toggle("on", st.isActive) });
-    });
-
-    // главные кнопки слегка тянутся за курсором
-    if (matchMedia("(pointer: fine)").matches) {
-      $$(".hero .btn, .trial .btn").forEach((b) => {
-        const xTo = gsap.quickTo(b, "x", { duration: .7, ease: "power3" }), yTo = gsap.quickTo(b, "y", { duration: .7, ease: "power3" });
-        b.addEventListener("pointermove", (e) => {
-          const r = b.getBoundingClientRect();
-          xTo((e.clientX - r.left - r.width / 2) * .22); yTo((e.clientY - r.top - r.height / 2) * .32);
-        });
-        b.addEventListener("pointerleave", () => { xTo(0); yTo(0); });
-      });
-    }
-
-    // появление блоков
-    $$("[data-reveal]").forEach((el) => gsap.from(el, { y: 56, opacity: 0, duration: 1.3, ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 90%", once: true } }));
-    ScrollTrigger.batch(".plan, .fact, .cmp-row, .faq details, .list li", { start: "top 92%", once: true,
-      onEnter: (els) => gsap.from(els, { y: 40, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .07 }) });
-
-    // подвал: буквы поднимаются
-    gsap.from(".js-word span", { yPercent: 100, opacity: 0, duration: 1.4, ease: "expo.out", stagger: .08,
-      scrollTrigger: { trigger: ".foot", start: "top 80%", once: true } });
-
-    // шапка: плотная после начала, прячется при прокрутке вниз
-    const nav = $("#nav");
-    ScrollTrigger.create({ start: 0, end: "max", onUpdate: (self) => {
-      const y = self.scroll();
-      nav.classList.toggle("solid", y > 12);
-      nav.classList.toggle("away", self.direction === 1 && y > 700);
-    } });
-
-    // проверка скриншотами: ?shot=<px> — прокрутить туда сразу после загрузки
-    const shot = Number(new URLSearchParams(location.search).get("shot"));
-    if (shot) setTimeout(() => { if (lenis) lenis.scrollTo(shot, { immediate: true }); else scrollTo(0, shot); ScrollTrigger.update(); }, 1200);
-
-    const refresh = () => ScrollTrigger.refresh();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
-    addEventListener("load", refresh);
+    magnetic($$(".hero .btn, .final .btn"));
+    addEventListener("load", refreshSoon);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshSoon);
   }
 
-  function runStatic() {
-    root.classList.remove("js-wait");
-    marquee();
-    const nav = $("#nav");
-    const onScroll = () => nav.classList.toggle("solid", scrollY > 12);
-    onScroll();
-    addEventListener("scroll", onScroll, { passive: true });
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) setStep($$(".step").indexOf(e.target));
-    }), { rootMargin: "-45% 0px -45% 0px" });
-    $$(".step").forEach((s) => io.observe(s));
-    setMode("t", false);
+  function intro() {
+    const boot = $("#boot");
+    boot.classList.add("done");
+    if (field) field.start();
+    if (!motion) return;
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: .15 });
+    tl.from(".nav > *", { y: -14, opacity: 0, duration: 1.2, stagger: .05 }, 0)
+      .add(() => { lines($(".js-h1"), { delay: 0 }); }, .1)
+      .from(".hero [data-in]", { y: 28, opacity: 0, duration: 1.4, stagger: .1 }, .45)
+      .from(".hud, .rail, .progress", { opacity: 0, duration: 1.4, clearProps: "opacity" }, .8);
   }
 
+  // --- старт ---------------------------------------------------------------------------------------------
   applyTexts();
   renderCompare();
-  addEventListener("resize", () => setMode(mode, false));
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setMode(mode, false));
   renderStyles();
   renderFaq();
   renderPrices();
-  $$("h1, h2, h3, .lede, .statement .js-words, .step p, .case-meta p, .faq, .fine, .caption").forEach(typograph);
-  if (motion) runMotion(); else runStatic();
-  rotateSubs();
-  counters();
-  setupVideos();
-  loadPrices();
+  $$(".display, .lede, .body, .faq, .fine, .pay-notes, .spec dd").forEach(typograph);
+  measure();
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", refreshSoon);
+  onScroll();
+  if (motion) runMotion();
+  const booted = startField();
+  Promise.race([booted, new Promise((r) => setTimeout(r, 3000))]).then(() => { measure(); onScroll(); intro(); });
+  loadPrices().then(refreshSoon);
+
+  // проверка скриншотами: ?shot=<px> — прокрутить туда сразу после загрузки
+  const shot = Number(new URLSearchParams(location.search).get("shot"));
+  if (shot) setTimeout(() => { scrollTo(0, shot); if (field) field.jump(stateAt(shot)); onScroll(); }, 3400);
 })();
