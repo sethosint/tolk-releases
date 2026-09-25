@@ -2,931 +2,274 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tolk — понимайте любую речь в ту же секунду</title>
-<meta name="description" content="Живые субтитры с переводом поверх всех окон: лекции, фильмы, созвоны в Zoom, Teams и Webex, изучение языков. Словацкий, английский и ещё 90 языков. 30 минут бесплатно.">
-<meta name="theme-color" content="#07070a">
-<meta property="og:title" content="Tolk — живой перевод любой речи">
-<meta property="og:description" content="Субтитры с переводом поверх всех окон — пока человек ещё говорит.">
-<meta property="og:image" content="img/icon.png">
-<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolk — субтитры с переводом для лекций, фильмов и созвонов</title>
+<meta name="description" content="Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна: лекции, фильма, созвона. Для студентов в Словакии — словацкий, английский и ещё 33 языка.">
+<meta name="theme-color" content="#f3f0e9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tolk — субтитры с переводом поверх любого окна">
+<meta property="og:description" content="Лекции, фильмы и созвоны на любом языке — с переводом в реальном времени. Windows 10 и 11.">
+<meta property="og:image" content="https://sethosint.github.io/tolk-releases/img/og.jpg">
+<link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css">
-<style>
-  .progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 60; transform-origin: 0 0; transform: scaleX(0);
-    background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); box-shadow: 0 0 12px rgba(217,187,133,.6); }
-  section.sec { padding: clamp(90px, 12vw, 160px) 0; }
-  .sec-head { max-width: 780px; margin-bottom: clamp(40px, 6vw, 70px); }
-  .sec-head h2 { margin-top: 18px; }
-  .sec-head p { margin: 20px 0 0; }
-  .center { text-align: center; margin-left: auto; margin-right: auto; }
-  .center .overline { justify-content: center; }
-
-  /* ---------- первый экран ---------- */
-  .hero { min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: 120px 0 70px; position: relative; overflow: hidden; }
-  .hero canvas#wave { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .9; }
-  .hero:after { content: ""; position: absolute; inset: auto 0 0; height: 30%; background: linear-gradient(transparent, var(--bg)); z-index: 0; pointer-events: none; }
-  .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; gap: clamp(30px, 5vw, 80px); align-items: center; }
-  .hero h1 { font-size: clamp(46px, 6.6vw, 96px); letter-spacing: -.045em; line-height: .98; margin-top: 22px; }
-  .hero h1 .serif { display: block; font-size: 1.08em; letter-spacing: -.02em; margin-top: .05em; }
-  .hero .lead { margin: 28px 0 0; max-width: 560px; }
-  .cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
-  .trial { position: relative; display: inline-flex; align-items: center; gap: 12px; margin-top: 26px; padding: 7px 18px 7px 7px; border-radius: 999px;
-    background: rgba(217,187,133,.06); color: var(--text2); font-size: 14.5px; text-decoration: none; transition: transform .6s var(--out), background .4s; }
-  .trial:hover { transform: translateY(-2px); background: rgba(217,187,133,.11); }
-  .trial:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-    background: conic-gradient(from var(--ang), rgba(217,187,133,.1), var(--gold-a), rgba(217,187,133,.1) 30%, rgba(217,187,133,.1) 65%, var(--gold-b), rgba(217,187,133,.1));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 5s linear infinite; }
-  .trial .t30 { position: relative; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--gold-a); flex: none;
-    background: radial-gradient(circle at 50% 35%, rgba(246,231,198,.16), rgba(0,0,0,.25)); }
-  .trial .t30:before { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 2px; animation: spin 2.4s linear infinite;
-    background: conic-gradient(from var(--ang), var(--gold-a), rgba(217,187,133,.08) 70%, var(--gold-a));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-  .trial b { color: var(--text); }
-  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-  @keyframes spin { to { --ang: 360deg; } }
-
-  /* экран-витрина */
-  .stage { position: relative; perspective: 1400px; }
-  .device { position: relative; aspect-ratio: 16 / 10.4; border-radius: 26px; overflow: hidden; transform-style: preserve-3d;
-    background: #0d0d11; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 80px 160px -40px rgba(0,0,0,.95), 0 0 0 1px rgba(217,187,133,.08), 0 0 120px -30px rgba(217,187,133,.25);
-    transform: rotateY(-9deg) rotateX(5deg); transition: transform 1.2s var(--out); }
-  .device .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: rgba(255,255,255,.035); border-bottom: 1px solid var(--line); }
-  .device .bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a44; }
-  .device .bar span { margin-left: 12px; font-size: 11.5px; color: var(--text3); font-weight: 600; }
-  .device .live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; color: #e87c7c; font-style: normal; }
-  .device .live:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #e87c7c; animation: blink 1.4s infinite; }
-  @keyframes blink { 50% { opacity: .25; } }
-  .scene { position: absolute; inset: 34px 0 0; overflow: hidden; }
-  .scene .bg { position: absolute; inset: 0; background: radial-gradient(60% 70% at 30% 35%, #3a2f22, transparent 70%), radial-gradient(50% 60% at 80% 70%, #1e2233, transparent 70%), #0e0d12; }
-  .scene .slide { position: absolute; left: 7%; top: 12%; width: 46%; aspect-ratio: 4/3; border-radius: 12px; background: linear-gradient(160deg, #f4efe6, #d9d2c4); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); padding: 5% 6%; }
-  .scene .slide b { display: block; font-size: clamp(9px, 1.1vw, 14px); color: #2a241c; letter-spacing: -.01em; }
-  .scene .slide i { display: block; height: 5px; margin-top: 9%; border-radius: 3px; background: #b9ae9a; }
-  .scene .slide i:nth-of-type(2) { width: 80%; } .scene .slide i:nth-of-type(3) { width: 60%; }
-  .scene .slide em { position: absolute; left: 8%; right: 8%; bottom: 10%; height: 34%; border-left: 2px solid #8c7b5f; border-bottom: 2px solid #8c7b5f; }
-  .scene .slide em:after { content: ""; position: absolute; inset: 10% 5% 0 5%; background: linear-gradient(170deg, transparent 45%, #c18f4d 46%, #c18f4d 49%, transparent 50%); }
-  .scene .who { position: absolute; right: 9%; bottom: 26%; width: 22%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #d8c2a3 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #3b3244 0 45%, transparent 46%); opacity: .9; }
-  .scene .who:after { content: ""; position: absolute; inset: -12%; border-radius: 50%; border: 2px solid rgba(217,187,133,.5); animation: speak 1.6s ease-in-out infinite; }
-  @keyframes speak { 50% { transform: scale(1.08); opacity: .3; } }
-  .subs { position: absolute; left: 5%; right: 5%; bottom: 6%; padding: 14px 18px; border-radius: 16px; background: rgba(10,10,13,.78);
-    backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,.7); }
-  .subs .o { font-size: clamp(10px, 1vw, 13px); color: #938d84; min-height: 1.4em; }
-  .subs .t { font-size: clamp(13px, 1.45vw, 19px); font-weight: 700; letter-spacing: -.01em; min-height: 1.4em; margin-top: 3px; }
-  .subs .t span { opacity: 0; filter: blur(4px); display: inline-block; transition: opacity .5s var(--out), filter .5s var(--out), transform .5s var(--out); transform: translateY(4px); }
-  .subs .t span.in { opacity: 1; filter: none; transform: none; }
-  .chip { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; font-size: 13px; font-weight: 700;
-    background: rgba(18,18,24,.8); border: 1px solid var(--line2); backdrop-filter: blur(14px); box-shadow: 0 20px 44px -12px rgba(0,0,0,.8); animation: float 7s ease-in-out infinite; white-space: nowrap; }
-  .chip b { color: var(--gold-a); }
-  .chip.c1 { left: -26px; top: 16%; } .chip.c2 { right: -20px; top: -18px; animation-delay: -2s; } .chip.c3 { right: 8%; bottom: -22px; animation-delay: -4s; }
-  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); }
-  @keyframes float { 50% { transform: translateY(-12px); } }
-  @media (max-width: 980px) { .hero .wrap { grid-template-columns: 1fr; } .stage { margin-top: 20px; } .device { transform: none; } .chip.c1 { left: 6px; } .chip.c2 { right: 6px; } }
-  @media (max-width: 560px) { .chip.c2 { display: none; } }
-
-  /* бегущая строка */
-  .marquee { padding: 34px 0 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.012); }
-  .marquee .cap { text-align: center; color: var(--text3); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 22px; }
-  .rail { display: flex; width: max-content; gap: 56px; padding-bottom: 26px; animation: rail 40s linear infinite; }
-  .rail span { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; letter-spacing: -.02em; color: rgba(246,242,234,.34); white-space: nowrap; transition: color .4s; }
-  .rail span:hover { color: var(--gold-a); }
-  .rail span.hl { color: rgba(246,231,198,.8); }
-  .mask { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .marquee:hover .rail { animation-play-state: paused; }
-  @keyframes rail { to { transform: translateX(-50%); } }
-
-  /* ---------- сценарии: закреплённый экран листает сцены ---------- */
-  .story { position: relative; }
-  .story .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 90px); }
-  .story .texts { padding: 20vh 0 30vh; }
-  .chapter { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; opacity: .22; transition: opacity .8s var(--out); }
-  .chapter.on { opacity: 1; }
-  .chapter .num { font-family: var(--serif); font-style: italic; font-size: 64px; line-height: 1; }
-  .chapter h3 { font-size: clamp(30px, 3.6vw, 48px); margin: 14px 0 16px; }
-  .chapter p { color: var(--text2); font-size: 18px; margin: 0; max-width: 480px; }
-  .chapter ul { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; }
-  .chapter li { display: flex; gap: 12px; color: var(--text2); }
-  .chapter li:before { content: ""; flex: none; width: 18px; height: 1px; margin-top: 12px; background: var(--gold-b); }
-  .story .pin { position: sticky; top: 12vh; height: 76vh; display: grid; place-items: center; }
-  .screen2 { position: relative; width: 100%; aspect-ratio: 16 / 10.5; border-radius: 28px; overflow: hidden; background: #0c0c10; perspective: 1200px;
-    border: 1px solid rgba(255,255,255,.1); box-shadow: 0 80px 160px -50px rgba(0,0,0,.95), 0 0 140px -40px rgba(217,187,133,.28); }
-  .sc { position: absolute; inset: 0; opacity: 0; transform: scale(1.06) rotateX(8deg); filter: blur(10px); transition: opacity 1s var(--out), transform 1.2s var(--out), filter 1s var(--out); }
-  .sc.on { opacity: 1; transform: none; filter: none; }
-  .sc .tag { position: absolute; left: 22px; top: 18px; z-index: 2; display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 12px; font-size: 12.5px; font-weight: 800;
-    background: rgba(10,10,13,.7); border: 1px solid var(--line2); backdrop-filter: blur(8px); }
-  .sc .tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
-  .sc .cap2 { position: absolute; left: 6%; right: 6%; bottom: 7%; padding: 16px 20px; border-radius: 18px; background: rgba(8,8,11,.8); border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(12px); }
-  .sc .cap2 .o { color: #9a938a; font-size: clamp(11px, 1.05vw, 14px); }
-  .sc .cap2 .t { font-weight: 700; font-size: clamp(14px, 1.6vw, 21px); margin-top: 4px; letter-spacing: -.01em; }
-  .sc.lecture { background: radial-gradient(60% 70% at 28% 35%, #3a2f22, transparent 70%), radial-gradient(50% 60% at 82% 60%, #20253a, transparent 70%), #0e0d12; }
-  .sc.lecture .slide { position: absolute; left: 8%; top: 16%; width: 44%; aspect-ratio: 4/3; border-radius: 12px; background: linear-gradient(160deg, #f4efe6, #d8d0c1); padding: 5% 6%; box-shadow: 0 30px 60px -20px #000; }
-  .sc.lecture .slide b { color: #2a241c; font-size: clamp(10px, 1.2vw, 15px); }
-  .sc.lecture .slide i { display: block; height: 6px; margin-top: 8%; border-radius: 3px; background: #b9ae9a; }
-  .sc.movie { background: linear-gradient(180deg, #000 0 11%, transparent 11% 89%, #000 89%), radial-gradient(70% 90% at 70% 40%, #2c6a73, transparent 60%), radial-gradient(60% 80% at 20% 70%, #a4602b, transparent 60%), #10141a; }
-  .sc.movie .sun { position: absolute; right: 18%; top: 22%; width: 18%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, #ffd9a0, #f09b4b 55%, transparent 70%); filter: blur(2px); }
-  .sc.movie .hill { position: absolute; left: -10%; right: -10%; bottom: 11%; height: 36%; background: radial-gradient(60% 100% at 30% 100%, #0b1016 60%, transparent 61%), radial-gradient(70% 100% at 80% 100%, #0e141b 60%, transparent 61%); }
-  .sc.call { background: #111217; padding: 64px 5% 32%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sc.call .tile { border-radius: 14px; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 42%, var(--c) 0 16%, transparent 17%), radial-gradient(ellipse at 50% 100%, var(--c2) 0 38%, transparent 39%), #1b1d24; }
-  .sc.call .tile.talk { box-shadow: 0 0 0 2px var(--gold-b), 0 0 30px rgba(217,187,133,.3); }
-  .sc.call .tile span { position: absolute; left: 10px; bottom: 8px; font-size: 11px; font-weight: 700; color: #cfc8bd; background: rgba(0,0,0,.45); padding: 3px 8px; border-radius: 8px; }
-  .sc.call .apps { position: absolute; right: 20px; top: 18px; display: flex; gap: 6px; }
-  .sc.call .apps b { font-size: 11px; font-weight: 800; padding: 6px 9px; border-radius: 9px; background: rgba(255,255,255,.08); color: var(--text2); }
-  .sc.call .apps b.hl { background: rgba(217,187,133,.18); color: var(--gold-a); }
-  .sc.learn { background: radial-gradient(60% 80% at 70% 30%, #332a4a, transparent 65%), radial-gradient(60% 70% at 20% 80%, #3a2f22, transparent 65%), #0e0d13; }
-  .sc.learn .card { position: absolute; right: 7%; top: 16%; width: 38%; padding: 16px 18px; border-radius: 16px; background: rgba(246,242,234,.95); color: #1d1a16; box-shadow: 0 30px 60px -20px #000; animation: float 6s ease-in-out infinite; border: 0; }
-  .sc.learn .card small { color: #8a7f6f; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 10px; }
-  .sc.learn .card b { display: block; font-size: clamp(15px, 1.8vw, 22px); margin: 4px 0; }
-  .sc.learn .card span { color: #5c5447; font-size: clamp(11px, 1.1vw, 14px); }
-  .sc.learn .cap2 .o { color: #f1e6cf; font-size: clamp(13px, 1.4vw, 18px); font-weight: 700; }
-  .sc.learn .cap2 .o u { text-decoration: none; background: linear-gradient(transparent 62%, rgba(217,187,133,.45) 62%); }
-  .sc.learn .cap2 .t { color: #a39c92; font-size: clamp(12px, 1.2vw, 15px); font-weight: 600; }
-  .dots { position: absolute; right: -26px; top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
-  .dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.18); transition: all .5s var(--out); }
-  .dots i.on { height: 22px; border-radius: 4px; background: var(--gold-b); }
-  @media (max-width: 980px) {
-    .story .wrap { grid-template-columns: 1fr; }
-    .story .pin { position: sticky; top: 72px; height: auto; padding: 14px 0; z-index: 2; background: linear-gradient(var(--bg) 85%, transparent); order: -1; }
-    .story .texts { padding: 4vh 0 10vh; }
-    .chapter { min-height: 62vh; }
-    .dots { display: none; }
-  }
-
-  /* ---------- изучение языков ---------- */
-  .learn-band { position: relative; border-radius: 34px; overflow: hidden; padding: clamp(34px, 6vw, 70px); border: 1px solid var(--line);
-    background: radial-gradient(80% 120% at 0% 0%, rgba(217,187,133,.14), transparent 60%), radial-gradient(70% 100% at 100% 100%, rgba(110,90,200,.12), transparent 60%), var(--bg2); }
-  .learn-band .cols { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
-  .learn-band h2 { font-size: clamp(32px, 4.4vw, 58px); margin-top: 16px; }
-  .pts { display: grid; gap: 14px; }
-  .pt { display: flex; gap: 16px; padding: 18px; border-radius: 20px; background: rgba(0,0,0,.25); border: 1px solid var(--line); transition: transform .6s var(--out), border-color .4s; }
-  .pt:hover { transform: translateX(6px); border-color: rgba(217,187,133,.4); }
-  .pt .ic { width: 44px; height: 44px; flex: none; border-radius: 14px; display: grid; place-items: center; background: rgba(217,187,133,.1); color: var(--gold-a); }
-  .pt .ic svg { width: 22px; height: 22px; }
-  .pt b { display: block; font-size: 16.5px; }
-  .pt span { color: var(--text2); font-size: 14.5px; }
-  @media (max-width: 900px) { .learn-band .cols { grid-template-columns: 1fr; } }
-
-  /* ---------- возможности ---------- */
-  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-  .card { position: relative; overflow: hidden; border-radius: var(--r); padding: 30px; background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
-    border: 1px solid var(--line); transition: transform .8s var(--out), border-color .5s; transform-style: preserve-3d; }
-  .card:before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s;
-    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(217,187,133,.14), transparent 45%); }
-  .card:hover:before { opacity: 1; }
-  .card:hover { border-color: rgba(217,187,133,.28); }
-  .card h3 { font-size: 23px; letter-spacing: -.025em; margin-top: 18px; }
-  .card p { color: var(--text2); margin: 10px 0 0; font-size: 15.5px; }
-  .card .ico { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; background: rgba(217,187,133,.1); color: var(--gold-a); border: 1px solid rgba(217,187,133,.2); }
-  .card .ico svg { width: 24px; height: 24px; }
-  .span3 { grid-column: span 3; } .span2 { grid-column: span 2; } .span4 { grid-column: span 4; }
-  @media (max-width: 980px) { .bento { grid-template-columns: 1fr 1fr; } .span3, .span2, .span4 { grid-column: span 2; } }
-  @media (max-width: 620px) { .bento { grid-template-columns: 1fr; } .span3, .span2, .span4 { grid-column: auto; } }
-  .pairs { display: grid; gap: 10px; margin-top: 24px; }
-  .pair { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 12px 14px; border-radius: 14px; background: rgba(0,0,0,.28); border: 1px solid var(--line); font-size: 14.5px;
-    opacity: 0; transform: translateX(-14px); transition: all .9s var(--out); }
-  .card.in .pair { opacity: 1; transform: none; }
-  .card.in .pair:nth-child(2) { transition-delay: .15s; } .card.in .pair:nth-child(3) { transition-delay: .3s; }
-  .pair s { text-decoration: none; color: var(--text3); font-family: var(--mono); font-size: 13px; }
-  .pair b { color: var(--gold-a); }
-  .eq { display: flex; gap: 4px; align-items: flex-end; height: 44px; margin-top: 22px; }
-  .eq i { flex: 1; border-radius: 3px; background: linear-gradient(var(--gold-a), var(--gold-c)); height: 30%; animation: eq 1.1s ease-in-out infinite; animation-delay: calc(var(--k) * -0.13s); opacity: .85; }
-  @keyframes eq { 50% { height: 100%; } }
-  .tabsmock { display: flex; gap: 6px; margin-top: 22px; }
-  .tabsmock span { flex: 1; padding: 10px; border-radius: 10px 10px 4px 4px; background: rgba(255,255,255,.05); font-size: 12px; color: var(--text3); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tabsmock span.on { background: rgba(217,187,133,.14); color: var(--gold-a); box-shadow: inset 0 -2px 0 var(--gold-b); }
-  .langcloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-  .langcloud span { padding: 7px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,.05); border: 1px solid var(--line); color: var(--text2); transition: all .4s var(--out); }
-  .langcloud span:hover { color: #1a1309; background: var(--gold-b); transform: translateY(-3px); }
-
-  /* цифры */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .stat { padding: 30px; border-radius: var(--r); border: 1px solid var(--line); background: rgba(255,255,255,.02); }
-  .stat .n { font-size: clamp(44px, 5vw, 68px); font-weight: 800; letter-spacing: -.05em; line-height: 1; }
-  .stat .l { color: var(--text2); margin-top: 12px; font-size: 15px; }
-  @media (max-width: 900px) { .stats { grid-template-columns: 1fr 1fr; } }
-
-  /* шаги */
-  .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .steps svg.line { position: absolute; left: 0; right: 0; top: 36px; width: 100%; height: 4px; overflow: visible; }
-  .steps svg.line path { stroke: url(#lg); stroke-width: 2; fill: none; stroke-dasharray: 1200; stroke-dashoffset: 1200; transition: stroke-dashoffset 2.2s var(--out); }
-  .steps.in svg.line path { stroke-dashoffset: 0; }
-  .stepc { position: relative; padding: 0 6px; }
-  .stepc .k { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-style: italic; font-size: 34px; color: #1a1309;
-    background: radial-gradient(circle at 35% 30%, var(--gold-a), var(--gold-b) 55%, var(--gold-c)); box-shadow: 0 20px 50px -14px rgba(217,187,133,.6); position: relative; z-index: 1; }
-  .stepc h3 { font-size: 23px; margin-top: 24px; }
-  .stepc p { color: var(--text2); margin: 10px 0 0; }
-  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; gap: 34px; } .steps svg.line { display: none; } }
-
-  /* галерея */
-  .gallery { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: start; }
-  .gtabs { display: grid; gap: 10px; }
-  .gtabs button { position: relative; overflow: hidden; text-align: left; padding: 18px 20px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,.02); color: var(--text2);
-    font: 700 16px var(--sans); cursor: pointer; transition: all .5s var(--out); }
-  .gtabs button small { display: block; font-weight: 500; font-size: 13.5px; color: var(--text3); margin-top: 4px; }
-  .gtabs button.on { color: var(--text); border-color: rgba(217,187,133,.45); background: rgba(217,187,133,.07); }
-  .gtabs button i { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--gold-c), var(--gold-a)); }
-  .gtabs button.on i { animation: fill 6s linear forwards; }
-  @keyframes fill { to { width: 100%; } }
-  .gview { position: relative; aspect-ratio: 1220 / 820; border-radius: 26px; overflow: hidden; border: 1px solid var(--line2); background: #0c0c10; box-shadow: 0 60px 140px -50px rgba(0,0,0,.95); }
-  .gview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 0; transform: scale(1.04); transition: opacity 1s var(--out), transform 1.4s var(--out); }
-  .gview img.on { opacity: 1; transform: none; }
-  @media (max-width: 900px) { .gallery { grid-template-columns: 1fr; } .gtabs { grid-template-columns: 1fr 1fr; } }
-
-  /* тарифы */
-  .seg { display: inline-flex; padding: 5px; border-radius: 999px; background: rgba(255,255,255,.04); border: 1px solid var(--line); position: relative; margin: 0 auto 44px; }
-  .seg button { position: relative; z-index: 1; border: 0; background: none; color: var(--text2); font: 700 14.5px var(--sans); padding: 12px 22px; border-radius: 999px; cursor: pointer; transition: color .4s; }
-  .seg button.on { color: #1a1309; }
-  .seg .knob { position: absolute; top: 5px; bottom: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); transition: left .6s var(--out), width .6s var(--out); }
-  .prices { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: stretch; }
-  .prices.packs { grid-template-columns: repeat(3, minmax(0, 320px)); justify-content: center; }
-  .price { position: relative; display: flex; flex-direction: column; padding: 26px 22px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
-    transition: transform .8s var(--out), border-color .5s, box-shadow .6s; }
-  .price:before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .5s;
-    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(217,187,133,.12), transparent 50%); }
-  .price:hover:before { opacity: 1; }
-  .price:hover { transform: translateY(-8px); border-color: rgba(217,187,133,.35); box-shadow: 0 40px 80px -40px rgba(0,0,0,.9); }
-  .price.best { background: linear-gradient(180deg, rgba(217,187,133,.14), rgba(217,187,133,.03)); border-color: transparent; }
-  .price.best:after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; animation: spin 7s linear infinite;
-    background: conic-gradient(from var(--ang), rgba(217,187,133,.18), var(--gold-a), rgba(217,187,133,.18) 35%, rgba(217,187,133,.18) 60%, var(--gold-b), rgba(217,187,133,.18));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-  .price .nm { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text2); display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-  .price .badge { font-size: 9.5px; letter-spacing: .08em; color: #1a1309; background: linear-gradient(180deg, var(--gold-a), var(--gold-b)); padding: 4px 8px; border-radius: 999px; }
-  .price .sum { font-size: 44px; font-weight: 800; letter-spacing: -.045em; margin-top: 16px; line-height: 1; }
-  .price .per { color: var(--text3); font-size: 13.5px; margin-top: 8px; min-height: 20px; }
-  .price .hrs { margin: 20px 0; padding: 14px; border-radius: 16px; background: rgba(0,0,0,.28); border: 1px solid var(--line); }
-  .price .hrs b { display: block; font-size: 26px; letter-spacing: -.03em; }
-  .price .hrs span { color: var(--text3); font-size: 12.5px; }
-  .price ul { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; flex: 1; }
-  .price li { display: flex; gap: 9px; font-size: 13.5px; color: var(--text2); }
-  .price li:before { content: "✓"; color: var(--gold-b); font-weight: 800; }
-  .price .btn { width: 100%; }
-  @media (max-width: 1100px) { .prices { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 760px) { .prices, .prices.packs { grid-template-columns: 1fr; } }
-  .payrow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 22px; margin-top: 44px; color: var(--text3); font-size: 14px; }
-  .payrow .ic { display: inline-flex; align-items: center; gap: 10px; color: var(--text2); font-weight: 700; }
-  .payrow .ic span { width: 34px; height: 34px; border-radius: 10px; overflow: hidden; display: block; }
-  .payrow svg { width: 100%; height: 100%; display: block; }
-
-  /* скоро */
-  .soon { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .soon .card { padding: 28px; }
-  .pill { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; color: var(--gold-a); border: 1px solid rgba(217,187,133,.4); background: rgba(217,187,133,.08); }
-  .wavebar { display: flex; gap: 3px; align-items: center; height: 36px; margin-top: 20px; }
-  .wavebar i { flex: 1; border-radius: 3px; background: linear-gradient(var(--gold-a), var(--gold-c)); animation: eq 1.4s ease-in-out infinite; animation-delay: calc(var(--k) * -0.09s); height: 20%; opacity: .8; }
-  @media (max-width: 900px) { .soon { grid-template-columns: 1fr; } }
-
-  /* вопросы */
-  .faq { max-width: 860px; margin: 0 auto; }
-  .qa { border-bottom: 1px solid var(--line); }
-  .qa button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 4px; background: none; border: 0; color: var(--text); text-align: left;
-    font: 700 clamp(17px, 1.8vw, 20px) var(--sans); letter-spacing: -.015em; cursor: pointer; }
-  .qa button i { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line2); position: relative; transition: transform .6s var(--out), background .4s; }
-  .qa button i:before, .qa button i:after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.6px; background: var(--gold-b); transform: translate(-50%, -50%); }
-  .qa button i:after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .6s var(--out); }
-  .qa.open button i { transform: rotate(180deg); background: rgba(217,187,133,.1); }
-  .qa.open button i:after { transform: translate(-50%, -50%) rotate(0deg); }
-  .qa .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--out); }
-  .qa.open .ans { grid-template-rows: 1fr; }
-  .qa .ans > div { overflow: hidden; }
-  .qa .ans p { margin: 0; padding: 0 4px 26px; color: var(--text2); max-width: 720px; }
-
-  /* финал */
-  .final { text-align: center; padding: clamp(110px, 16vw, 200px) 0; position: relative; overflow: hidden; }
-  .final:before { content: ""; position: absolute; left: 50%; top: 50%; width: 900px; height: 900px; transform: translate(-50%, -50%); border-radius: 50%;
-    background: radial-gradient(circle, rgba(217,187,133,.18), transparent 60%); animation: breathe 8s ease-in-out infinite; pointer-events: none; }
-  @keyframes breathe { 50% { transform: translate(-50%, -50%) scale(1.15); opacity: .7; } }
-  .final h2 { font-size: clamp(48px, 8vw, 120px); letter-spacing: -.05em; line-height: .95; }
-  .final .cta { justify-content: center; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=30">
 </head>
 <body>
-<div class="progress" id="progress"></div>
-<div class="curtain" aria-hidden="true"><i></i></div>
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="img/icon.png" alt="">Tolk</a>
-    <nav class="links"><a href="#uses" data-i="n_uses"></a><a href="#features" data-i="n_features"></a><a href="#pricing" data-i="n_pricing"></a><a href="#faq" data-i="n_faq"></a></nav>
-    <div class="grow"></div>
-    <div class="langs" id="langs"><button data-l="ru">RU</button><button data-l="uk">UA</button><button data-l="sk">SK</button><button data-l="en">EN</button></div>
-    <a class="btn btn-gold btn-sm" href="pay.html" data-pay data-i="n_buy"></a>
+    <a class="logo" href="./"><img src="img/icon.png" alt="" width="28" height="28">Tolk</a>
+    <nav aria-label="Разделы">
+      <a href="#lectures" data-t="nav_lectures">Лекции</a>
+      <a href="#films" data-t="nav_films">Фильмы и языки</a>
+      <a href="#ai" data-t="nav_ai">Tolk AI</a>
+      <a href="#pricing" data-t="nav_price">Цены</a>
+      <a href="#faq" data-t="nav_faq">Вопросы</a>
+    </nav>
+    <span class="grow"></span>
+    <div class="langs" role="group" aria-label="Язык">
+      <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="sk">SK</button><button data-lang="en">EN</button>
+    </div>
+    <a class="btn btn-ink js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe"><span data-t="nav_dl">Скачать</span><span class="long" data-t="nav_dl_long">&nbsp;для Windows</span></a>
   </div>
 </header>
 
-<main id="top">
+<main>
   <section class="hero">
-    <canvas id="wave" aria-hidden="true"></canvas>
     <div class="wrap">
-      <div>
-        <div class="overline rv" data-i="h_over"></div>
-        <h1><span class="words" data-w="h_a"></span><span class="serif gold words" data-w="h_b"></span></h1>
-        <p class="lead rv d2" data-i="h_lead"></p>
-        <div class="cta rv d3">
-          <a class="btn btn-gold dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg><span data-i="dl"></span></a>
-          <a class="btn btn-glass" href="#pricing" data-i="h_prices"></a>
+      <div class="hero-top">
+        <div>
+          <p class="kicker mono rv"><span class="dot"></span><span data-t="kicker">Tolk 3.0 · перевод в реальном времени</span></p>
+          <h1 class="rv d1" data-t="h1">Лекция идёт по‑словацки. Субтитры — по‑русски.</h1>
         </div>
-        <a class="trial dl rv d4" href="#"><span class="t30">30</span><span data-ih="trial"></span></a>
+        <div class="side rv d2">
+          <p class="lede" data-t="lede">Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна — лекции в Teams, записи на YouTube, фильма или созвона. Термины, сокращения и сленг переводит по смыслу.</p>
+          <div class="ctas">
+            <a class="btn btn-ink js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+              <span data-t="cta_dl">Скачать для Windows</span></a>
+            <a class="link js-buy" href="https://t.me/TolkShopBot" data-t="cta_buy">Купить в Telegram</a>
+          </div>
+          <p class="fine" data-t="fine">30 минут Tolk AI бесплатно · без регистрации · Windows 10 и 11</p>
+        </div>
       </div>
-      <div class="stage rv d2" id="stage">
-        <div class="device" id="device">
-          <div class="bar"><i></i><i></i><i></i><span data-i="d_tab"></span><em class="live">LIVE</em></div>
-          <div class="scene">
-            <div class="bg"></div>
-            <div class="slide"><b>Makroekonómia · Inflácia</b><i></i><i></i><i></i><em></em></div>
-            <div class="who"></div>
-            <div class="subs"><div class="o" id="d-o"></div><div class="t" id="d-t"></div></div>
+
+      <div class="stage rv d2">
+        <div class="screen" aria-hidden="true">
+          <div class="bar"><i></i><i></i><i></i><span data-t="tab">Makroekonómia II — prednáška 4 · YouTube</span></div>
+          <div class="slide">
+            <div class="dept" data-t="s_dept">Katedra ekonómie · Makroekonómia II</div>
+            <div class="title" data-t="s_title">Monetárna politika ECB</div>
+            <ul>
+              <li data-t="s_b1">Inflačný cieľ: 2 % v strednodobom horizonte</li>
+              <li data-t="s_b2">Nástroje: kľúčové úrokové sadzby, operácie na voľnom trhu</li>
+              <li data-t="s_b3">Transmisný mechanizmus menovej politiky</li>
+            </ul>
+            <div class="chart">
+              <svg viewBox="0 0 340 200" fill="none">
+                <text x="0" y="12" fill="#8b93a5" font-family="Inter, sans-serif" font-size="11" data-t="s_chart">HICP, eurozóna (%)</text>
+                <line x1="0" y1="190" x2="310" y2="190" stroke="#d6d9e0"/>
+                <line x1="0" y1="140" x2="310" y2="140" stroke="#3c5a8f" stroke-dasharray="4 5" stroke-width="1.4"/>
+                <text x="316" y="144" fill="#3c5a8f" font-family="Inter, sans-serif" font-size="11">2 %</text>
+                <polyline points="0,160 28,158 56,150 84,120 112,62 140,34 168,58 196,104 224,126 252,136 280,142 310,140"
+                          stroke="#13203a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="140" cy="34" r="4" fill="#13203a"/>
+              </svg>
+            </div>
+            <div class="s-foot"><span data-t="s_foot1">Prednáška 4 · 14. 10.</span><span data-t="s_foot2">12 / 38</span></div>
+          </div>
+          <div class="subs js-subs">
+            <img class="on" src="img/app/ru/sub-lecture-1.png" alt="" data-src="sub-lecture-1.png">
+            <img src="img/app/ru/sub-lecture-2.png" alt="" data-src="sub-lecture-2.png">
+            <img src="img/app/ru/sub-lecture-3.png" alt="" data-src="sub-lecture-3.png">
           </div>
         </div>
-        <div class="chip c1"><span class="dot"></span><span data-i="chip1"></span></div>
-        <div class="chip c2"><b data-i="chip2b"></b><span data-i="chip2"></span></div>
-        <div class="chip c3">✨ <span data-i="chip3"></span></div>
+        <div class="timeline mono" aria-hidden="true"><span class="js-tc">00:41:12</span><span class="track"><b class="js-bar"></b></span><span>01:30:00</span></div>
+        <p class="caption" data-t="caption">Субтитры — настоящий кадр из Tolk 3.0, стиль «Графит». Слайд лекции — для примера.</p>
       </div>
     </div>
   </section>
 
-  <div class="marquee">
-    <div class="cap" data-i="mq"></div>
-    <div class="mask"><div class="rail" id="rail"></div></div>
+  <div class="with">
+    <div class="wrap">
+      <span class="mono" data-t="with">Работает с</span>
+      <span class="app">YouTube</span><span class="app">Microsoft Teams</span><span class="app">Zoom</span><span class="app">Webex</span>
+      <span class="app">Google Meet</span><span class="app">Moodle</span><span class="app">Netflix</span><span class="app">VLC</span>
+      <span class="app" data-t="with_any">и любой программой со звуком</span>
+    </div>
   </div>
 
-  <section class="sec story" id="uses">
+  <section class="sec" id="lectures">
     <div class="wrap">
-      <div class="texts" id="chapters"></div>
-      <div class="pin">
-        <div class="screen2" id="screen2">
-          <div class="sc lecture on" data-sc="0"><div class="tag"><i></i><span data-i="sc0_tag"></span></div>
-            <div class="slide"><b>Menová politika</b><i></i><i style="width:78%"></i><i style="width:56%"></i></div>
-            <div class="cap2"><div class="o">Toto si určite zapíšte, lebo to bude na skúške.</div><div class="t" data-i="sc0_t"></div></div></div>
-          <div class="sc movie" data-sc="1"><div class="sun"></div><div class="hill"></div><div class="tag"><i></i><span data-i="sc1_tag"></span></div>
-            <div class="cap2"><div class="o">I never thought I'd say this, but… we're gonna need a bigger boat.</div><div class="t" data-i="sc1_t"></div></div></div>
-          <div class="sc call" data-sc="2"><div class="tag"><i></i><span data-i="sc2_tag"></span></div>
-            <div class="apps"><b>Zoom</b><b>Teams</b><b class="hl">Webex</b><b>Meet</b></div>
-            <div class="tile talk" style="--c:#d8b48a;--c2:#4a3b56"><span>Anna · Dublin</span></div><div class="tile" style="--c:#c9a07d;--c2:#2f4a5a"><span>Marek</span></div>
-            <div class="tile" style="--c:#e2c7a4;--c2:#5a3e2f"><span>Sofia</span></div><div class="tile" style="--c:#b98f6d;--c2:#38405a"><span data-i="you"></span></div>
-            <div class="cap2"><div class="o">Let's circle back on the budget and lock the timeline by Friday.</div><div class="t" data-i="sc2_t"></div></div></div>
-          <div class="sc learn" data-sc="3"><div class="tag"><i></i><span data-i="sc3_tag"></span></div>
-            <div class="card"><small data-i="sc3_word"></small><b>take it for granted</b><span data-i="sc3_mean"></span></div>
-            <div class="cap2"><div class="o">You shouldn't <u>take it for granted</u>, you know.</div><div class="t" data-i="sc3_t"></div></div></div>
+      <div class="sec-head">
+        <span class="sec-no mono rv" data-t="no1">01 — Лекции</span>
+        <div>
+          <h2 class="rv" data-t="l_h2">Понимает университет, а не только слова.</h2>
+          <p class="lede rv d1" data-t="l_lede">Преподаватель говорит быстро, с терминами и шутками. Tolk AI знает, что zápočet — это зачёт, písomka — контрольная, а AIS — система с расписанием и оценками. Переводит по смыслу — как однокурсник, который давно тут учится.</p>
         </div>
-        <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
       </div>
-    </div>
-  </section>
-
-  <section class="sec" style="padding-top:20px">
-    <div class="wrap">
-      <div class="learn-band rv">
-        <div class="cols">
-          <div><div class="overline" data-i="l_over"></div><h2 class="words" data-w="l_h"></h2><p class="lead" data-i="l_p" style="margin:22px 0 0"></p></div>
-          <div class="pts" id="lpts"></div>
+      <div class="split">
+        <span></span>
+        <div>
+          <div class="pairs js-pairs"></div>
+          <div class="facts">
+            <div class="fact rv"><b>35</b><span data-t="f1">языков речи — от словацкого и чешского до японского</span></div>
+            <div class="fact rv d1"><b data-t="f2n">30 ч</b><span data-t="f2">Tolk AI в месяц в любом тарифе — это около 20 пар по 90 минут</span></div>
+            <div class="fact rv d2"><b>2</b><span data-t="f3">строки на экране: перевод и оригинал — видно, что именно сказали</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec" id="features">
+  <section class="sec night" id="films">
     <div class="wrap">
-      <div class="sec-head"><div class="overline rv" data-i="f_over"></div><h2 class="words" data-w="f_h"></h2><p class="lead rv" data-i="f_p"></p></div>
-      <div class="bento">
-        <div class="card span4 rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg></div>
-          <h3 data-i="f1_h"></h3><p data-i="f1_p"></p><div class="pairs" id="pairs"></div></div>
-        <div class="card span2 rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 9h18"/></svg></div>
-          <h3 data-i="f2_h"></h3><p data-i="f2_p"></p><div class="tabsmock"><span>Gmail</span><span class="on">Makroekonómia</span><span>Docs</span></div></div>
-        <div class="card span2 rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 15h16M7 19h10"/><rect x="3" y="4" width="18" height="8" rx="2"/></svg></div>
-          <h3 data-i="f3_h"></h3><p data-i="f3_p"></p><div class="eq" id="eq"></div></div>
-        <div class="card span2 rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 12h6M9 16h4"/></svg></div>
-          <h3 data-i="f4_h"></h3><p data-i="f4_p"></p></div>
-        <div class="card span2 rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></div>
-          <h3 data-i="f5_h"></h3><p data-i="f5_p"></p></div>
-        <div class="card span3 rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
-          <h3 data-i="f6_h"></h3><p data-i="f6_p"></p><div class="langcloud" id="langcloud"></div></div>
-        <div class="card span3 rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M13 3L4 14h7l-1 7 9-11h-7z"/></svg></div>
-          <h3 data-i="f7_h"></h3><p data-i="f7_p"></p></div>
+      <div class="sec-head">
+        <span class="sec-no mono rv" data-t="no2">02 — Фильмы и языки</span>
+        <div>
+          <h2 class="rv" data-t="f_h2">Фильмы в оригинале. И язык — заодно.</h2>
+          <p class="lede rv d1" data-t="f_lede">Включите сериал без перевода — Tolk покажет две строки: перевод и оригинал. Слышите фразу, видите, как она пишется, понимаете смысл. Через месяц половину фраз вы поймёте раньше, чем прочитаете.</p>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="film" aria-hidden="true">
+          <div class="scene"></div>
+          <div class="subs"><img class="on js-img" src="img/app/ru/sub-film.png" alt="" data-src="sub-film.png"></div>
+        </div>
+        <div class="film-meta mono"><span data-t="film_l">Стиль «Кино» · перевод и оригинал</span><span data-t="film_r">Netflix · YouTube · VLC · любой плеер</span></div>
+      </div>
+      <div class="learn">
+        <div class="rv">
+          <h3 data-t="st_h3">Шесть стилей — под фильм, лекцию и учёбу</h3>
+          <p style="margin-top:16px" data-t="st_p1">Графит, Стекло, Классика, Кино, Жёлтые, Светлые. Размер и ширину меняете как удобно, место на экране — просто перетащите субтитры мышью.</p>
+          <p style="margin-top:14px" data-t="st_p2">Учите язык — оставьте оригинал под переводом. Нужна только суть — выключите его, и останется одна строка.</p>
+        </div>
+        <figure class="figure rv d1" style="margin:0">
+          <img class="shot js-img" src="img/app/ru/look.webp" data-src="look.webp" alt="" width="1220" height="820" loading="lazy">
+          <figcaption data-t="look_cap">Настройки Tolk → «Внешний вид». Скриншот программы без обработки.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0">
-    <div class="wrap"><div class="stats" id="stats"></div></div>
-  </section>
-
-  <section class="sec" style="padding-top:40px">
+  <section class="sec" id="sources">
     <div class="wrap">
-      <div class="sec-head"><div class="overline rv" data-i="s_over"></div><h2 class="words" data-w="s_h"></h2></div>
-      <div class="steps" id="steps">
-        <svg class="line" preserveAspectRatio="none" viewBox="0 0 1000 4"><defs><linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="#a9824c"/><stop offset="1" stop-color="#f6e7c6"/></linearGradient></defs><path d="M60 2 H940"/></svg>
+      <div class="two">
+        <div>
+          <span class="sec-no mono rv" style="display:inline-block;width:180px" data-t="no3">03 — Звонки и вкладки</span>
+          <h2 class="rv" style="margin-top:30px" data-t="s_h2">Слушает только то, что вы выбрали.</h2>
+          <p class="lede rv d1" style="margin-top:24px" data-t="s_lede">Вкладка с лекцией, Zoom, Teams, Webex, Discord — или весь звук компьютера. Уведомления, музыка в соседней вкладке и голосовые в мессенджере не мешают.</p>
+          <ul class="list rv d2">
+            <li><span class="mono">01</span><span data-t="s_li1"><b>Вкладка браузера.</b> Chrome, Edge, Firefox, Opera — на Windows 11 без всяких расширений.</span></li>
+            <li><span class="mono">02</span><span data-t="s_li2"><b>Созвоны.</b> Zoom, Microsoft Teams, Webex, Google Meet, Discord — выберите программу, и Tolk слышит только её.</span></li>
+            <li><span class="mono">03</span><span data-t="s_li3"><b>Горячие клавиши.</b> Alt+Shift+T — включить или выключить перевод, Alt+Shift+H — спрятать субтитры.</span></li>
+          </ul>
+        </div>
+        <figure class="figure rv d1" style="margin:0 auto;max-width:560px">
+          <img class="shot-dlg js-img" src="img/app/ru/picker.webp" data-src="picker.webp" alt="" width="612" height="661" loading="lazy">
+          <figcaption data-t="picker_cap">«Что слушать»: вкладка браузера, программа или устройство.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:40px">
+  <section class="sec" id="ai" style="background:var(--paper-lo)">
     <div class="wrap">
-      <div class="sec-head"><div class="overline rv" data-i="g_over"></div><h2 class="words" data-w="g_h"></h2></div>
-      <div class="gallery rv"><div class="gtabs" id="gtabs"></div><div class="gview" id="gview"></div></div>
+      <div class="sec-head">
+        <span class="sec-no mono rv" data-t="no4">04 — Tolk AI</span>
+        <div>
+          <h2 class="rv" data-t="a_h2">Переводчик, который помнит, о чём речь.</h2>
+          <p class="lede rv d1" data-t="a_lede">Tolk AI держит в голове предыдущие фразы, поэтому падежи и роды сходятся, а начатая мысль не рвётся посередине. Сленг и крепкие словечки — нормальными словами вашего языка, имена и цифры — как есть.</p>
+        </div>
+      </div>
+      <div class="cols3">
+        <div class="col rv"><span class="mono muted" data-t="c1m">На компьютере</span><h3 data-t="c1h">Речь распознаётся у вас</h3><p data-t="c1p">Звук не уходит в интернет: распознавание работает прямо на компьютере. Для перевода отправляется только текст фразы.</p></div>
+        <div class="col rv d1"><span class="mono muted" data-t="c2m">В облаке</span><h3 data-t="c2h">Перевод — нейросеть Tolk AI</h3><p data-t="c2p">30 часов в месяц в любом тарифе. Кончились раньше — докупите пакет часов, а пока Tolk переводит через Google.</p></div>
+        <div class="col rv d2"><span class="mono muted" data-t="c3m">Без интернета</span><h3 data-t="c3h">Перевод не пропадает</h3><p data-t="c3p">Пропала сеть — Tolk переводит встроенной моделью прямо на компьютере. Проще, но без пауз и пустого экрана.</p></div>
+      </div>
+      <figure class="figure rv" style="margin:88px 0 0">
+        <img class="shot js-img" src="img/app/ru/profile.webp" data-src="profile.webp" alt="" width="1220" height="820" loading="lazy">
+        <figcaption data-t="profile_cap">Профиль: подписка, часы Tolk AI и когда они обновятся.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="sec" id="pricing">
+  <section class="sec pricing" id="pricing">
     <div class="wrap">
-      <div class="sec-head center"><div class="overline rv" data-i="p_over"></div><h2 class="words" data-w="p_h"></h2><p class="lead rv" data-i="p_p"></p></div>
-      <div style="text-align:center"><div class="seg" id="ptabs"><span class="knob"></span><button data-t="plans" data-i="p_tab1"></button><button data-t="hours" data-i="p_tab2"></button></div></div>
-      <div class="prices" id="prices"></div>
-      <div class="payrow" id="payrow"></div>
+      <div class="sec-head">
+        <span class="sec-no mono rv" data-t="no5">05 — Цены</span>
+        <div>
+          <h2 class="rv" data-t="p_h2">Одна подписка. Всё включено.</h2>
+          <p class="lede rv d1" data-t="p_lede">Любой тариф — это весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок, тем дешевле месяц.</p>
+        </div>
+      </div>
+      <div class="plans js-plans rv"></div>
+      <div class="extra rv"><span class="mono muted" data-t="extra">Не хватило часов?</span><span class="js-topups"></span></div>
+      <p class="rates-note" data-t="rates">Цены в гривнах и крипте — по курсу monobank и CoinGecko, округлены. Точная сумма — в боте.</p>
+
+      <div class="paysteps">
+        <div class="rv">
+          <h3 data-t="pay_h3">Оплата — в Telegram</h3>
+          <p style="margin-top:14px;color:var(--ink-2)" data-t="pay_p">Кнопка «Купить» открывает нашего бота @TolkShopBot. Там же — продление, часы Tolk AI, ваши ключи и напоминание, когда подписка подходит к концу. Никаких автосписаний.</p>
+          <div class="methods js-methods"></div>
+          <ul class="list">
+            <li><span class="mono">01</span><span data-t="pay1">Выберите тариф и способ оплаты.</span></li>
+            <li><span class="mono">02</span><span data-t="pay2">Звёздами Telegram — ключ приходит сразу. Картой или криптой — пришлите скриншот оплаты, проверка обычно до 15 минут.</span></li>
+            <li><span class="mono">03</span><span data-t="pay3">Ключ придёт в чат. Если открыли бота из Tolk — программа активируется сама.</span></li>
+          </ul>
+        </div>
+        <figure class="figure rv d1" style="margin:0 auto;max-width:620px">
+          <img class="shot-dlg js-img" src="img/app/ru/pay.webp" data-src="pay.webp" alt="" width="712" height="448" loading="lazy">
+          <figcaption data-t="pay_cap">Покупка из Tolk: QR-код для телефона или кнопка «Открыть Telegram» — ключ придёт сам.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:20px">
-    <div class="wrap">
-      <div class="sec-head"><div class="overline rv" data-i="so_over"></div><h2 class="words" data-w="so_h"></h2><p class="lead rv" data-i="so_p"></p></div>
-      <div class="soon" id="soon"></div>
+  <section class="sec night" id="trial">
+    <div class="wrap trial-grid">
+      <div>
+        <div class="big-number rv">30<small data-t="min">мин</small></div>
+        <h2 class="rv d1" style="margin-top:40px" data-t="t_h2">Попробуйте на своей лекции.</h2>
+        <p class="lede rv d1" style="margin-top:22px" data-t="t_p">Скачайте Tolk и нажмите «Попробовать бесплатно»: полчаса полной версии с Tolk AI. Без карты и регистрации — один раз на компьютер.</p>
+        <div class="rv d2" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:34px">
+          <a class="btn btn-paper js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+            <span data-t="cta_dl">Скачать для Windows</span></a>
+          <span class="mono muted" data-t="t_fine">Windows 10 и 11 · обновляется сам</span>
+        </div>
+      </div>
+      <figure class="figure rv d1" style="margin:0 auto;max-width:520px">
+        <img class="shot js-img" src="img/app/ru/trial.webp" data-src="trial.webp" alt="" width="760" height="790" loading="lazy">
+      </figure>
     </div>
   </section>
 
   <section class="sec" id="faq">
-    <div class="wrap">
-      <div class="sec-head center"><div class="overline rv" data-i="q_over"></div><h2 class="words" data-w="q_h"></h2></div>
-      <div class="faq" id="faqlist"></div>
-    </div>
-  </section>
-
-  <section class="final">
-    <div class="wrap">
-      <h2><span class="words" data-w="fin_a"></span><br><span class="serif gold words" data-w="fin_b"></span></h2>
-      <p class="lead rv" data-i="fin_p" style="margin:26px auto 0;max-width:560px"></p>
-      <div class="cta rv d2"><a class="btn btn-gold dl" href="#"><span data-i="dl"></span></a><a class="btn btn-glass" href="pay.html" data-pay data-i="n_buy"></a></div>
+    <div class="wrap split">
+      <span class="sec-no mono" data-t="no6">06 — Вопросы</span>
+      <div class="faq js-faq"></div>
     </div>
   </section>
 </main>
 
-<footer class="foot"><div class="wrap"><a class="brand" href="#top"><img src="img/icon.png" alt="">Tolk</a><span style="flex:1"></span>
-  <a href="pay.html" data-pay data-i="n_buy"></a><a href="privacy.html" data-i="ft_privacy"></a>
-  <a href="https://github.com/sethosint/tolk-releases/releases" target="_blank" rel="noopener" data-i="ft_versions"></a>
-  <a href="https://t.me/sethosint" target="_blank" rel="noopener" data-i="ft_tg"></a></div></footer>
+<footer class="foot">
+  <div class="wrap">
+    <div class="word">Tolk</div>
+    <div class="row">
+      <a class="js-buy" href="https://t.me/TolkShopBot">Telegram · @TolkShopBot</a>
+      <a href="https://t.me/sethosint" data-t="support">Поддержка · @sethosint</a>
+      <a href="privacy.html" data-t="privacy">Конфиденциальность</a>
+      <a class="js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe" data-t="cta_dl">Скачать для Windows</a>
+      <span class="grow"></span>
+      <span>© 2026 Tolk</span>
+    </div>
+  </div>
+</footer>
 
-<script src="assets/icons.js"></script>
-<script>
-const APPS = ["Zoom", "Microsoft Teams", "Webex", "Google Meet", "Discord", "YouTube", "Netflix", "Chrome", "Edge", "Firefox", "Opera", "VLC", "Twitch", "Moodle", "BigBlueButton", "Spotify"];
-const HL = ["Webex", "Zoom", "Microsoft Teams", "YouTube"];
-const T = {
-  ru: {
-    n_uses: "Сценарии", n_features: "Возможности", n_pricing: "Тарифы", n_faq: "Вопросы", n_buy: "Купить",
-    h_over: "Живой перевод речи · Windows", h_a: "Понимайте любую речь", h_b: "в ту же секунду",
-    h_lead: "Tolk слушает лекцию, фильм или созвон и показывает субтитры с переводом поверх всех окон — пока человек ещё говорит. Словацкий, английский и ещё 90 языков.",
-    dl: "Скачать для Windows", h_prices: "Смотреть тарифы", trial: "<b>30 минут бесплатно</b> — без оплаты и регистрации",
-    d_tab: "Makroekonómia — prednáška", chip1: "Словацкий → русский", chip2b: "0,7 с", chip2: " до перевода", chip3: "понимает сленг и термины",
-    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Это точно будет на экзамене, так что запишите."],
-           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Зачёт получите, если сдадите оба задания вовремя."],
-           ["Na cvičení si to vyskúšate na konkrétnych príkladoch.", "На семинаре попробуете это на конкретных примерах."],
-           ["Bro, the prof ate with that last slide, no cap.", "Бро, профессор просто разорвал последним слайдом, без шуток."]],
-    mq: "Работает с любым звуком на компьютере",
-    chapters: [
-      ["Лекции и конференции", "Словацкая лекция — по-русски, пока профессор говорит", "Онлайн или в аудитории — Tolk переводит на лету и понимает язык университета.", ["Термины курса: зачёт, zadanie, cvičenie, AIS", "Микрофон ноутбука, вкладка или Zoom", "Свой словарь имён и предметов"]],
-      ["Фильмы и сериалы", "Любой фильм — без ожидания озвучки", "Новинки, аниме, стримы и YouTube — с переводом прямо поверх видео, в любом плеере.", ["Netflix, YouTube, VLC и любой браузер", "Стиль «Кино» — как в кинотеатре", "Не мешает смотреть: только субтитры"]],
-      ["Созвоны", "Созвон на английском — как на родном", "Zoom, Microsoft Teams, Webex, Google Meet и Discord: слушаете только нужную программу, остальные звуки не мешают.", ["Одна программа или одна вкладка", "Деловая лексика и быстрые фразы", "Ничего не нужно подключать к созвону"]],
-      ["Изучение языков", "Смотрите в оригинале — и учите язык", "Оригинал и перевод одновременно: слышите живую речь, видите смысл, запоминаете слова.", ["Двойные субтитры: оригинал + перевод", "Сленг и идиомы — понятным языком", "Идеально для фильмов, подкастов и лекций"]],
-    ],
-    sc0_tag: "Лекция · словацкий → русский", sc0_t: "Это обязательно запишите — это будет на экзамене.",
-    sc1_tag: "Фильм · английский → русский", sc1_t: "Никогда не думал, что скажу это, но… нам нужна лодка побольше.",
-    sc2_tag: "Созвон · английский → украинский", sc2_t: "Повернімося до бюджету й зафіксуймо терміни до п'ятниці.", you: "Вы",
-    sc3_tag: "Учу английский · оригинал + перевод", sc3_word: "Новая фраза", sc3_mean: "воспринимать как должное", sc3_t: "Знаешь, не стоит воспринимать это как должное.",
-    l_over: "Для изучения языков", l_h: "Лучший способ выучить язык — живая речь",
-    l_p: "Смотрите фильмы, лекции и стримы в оригинале: Tolk показывает перевод рядом с оригиналом, и язык начинает звучать понятно уже с первых дней.",
-    lpts: [["Оригинал и перевод вместе", "Слышите, как говорят на самом деле, и сразу понимаете смысл."], ["Сленг и живая речь", "no cap, lowkey, ty vole — нейросеть объясняет, а не переводит дословно."], ["Свой словарь", "Добавьте слова и термины — Tolk будет переводить их по-вашему."]],
-    f_over: "Возможности", f_h: "Переводит так, как говорят люди", f_p: "Никаких ключей и настроек: запустили — и видите перевод. Всё остальное Tolk подбирает сам под ваш компьютер.",
-    f1_h: "Нейросеть Tolk AI", f1_p: "Понимает сленг, идиомы, термины и даже оговорки распознавания — и переводит естественно, а не слово в слово.",
-    pairs: [["no cap, I'm cooked", "без шуток, мне конец"], ["zápočtovka v piatok", "зачётная работа в пятницу"], ["let's circle back", "давай вернёмся к этому"]],
-    f2_h: "Одна вкладка или программа", f2_p: "Только звук выбранной вкладки браузера или программы — музыка и уведомления не мешают.",
-    f3_h: "Субтитры поверх всего", f3_p: "7 стилей, любой размер и место на экране. Работает поверх игр, видео и созвонов.",
-    f4_h: "Ваш словарь", f4_p: "Имена, предметы, термины — переводятся именно так, как вам нужно.",
-    f5_h: "Приватно", f5_p: "Звук не покидает компьютер: речь распознаётся локально, на перевод уходит только текст.",
-    f6_h: "90+ языков речи, 30+ перевода", f6_p: "Язык определяется сам — даже если собеседник переключается.",
-    langs: ["Slovenčina", "English", "Čeština", "Deutsch", "Polski", "Українська", "Русский", "Español", "Français", "Italiano", "日本語", "中文", "한국어", "Türkçe"],
-    f7_h: "Настраивается сам", f7_p: "Tolk подбирает распознавание под ваш процессор и видеокарту — работает даже на простом ноутбуке.",
-    stats: [["0,7", "с", "в среднем до перевода"], ["90", "+", "языков речи"], ["30", "+", "языков перевода"], ["24", "ч", "нейросети в месяц"]],
-    s_over: "Как начать", s_h: "Три шага — и вы понимаете всё",
-    steps: [["Скачайте Tolk", "Установка — за минуту, Windows 10 и 11. Всё настроится само."], ["Попробуйте 30 минут", "Бесплатно, без оплаты и регистрации: одна кнопка в окне активации."], ["Выберите тариф", "От 1,5 € в неделю. Оплата картой monobank, USDT, TON или звёздами Telegram."]],
-    g_over: "Программа", g_h: "Красиво внутри так же, как снаружи",
-    gallery: [["look", "Внешний вид", "7 стилей субтитров и живое превью"], ["picker", "Что слушать", "Вкладка браузера или одна программа"], ["profile", "Профиль", "Часы нейросети: сколько использовано"], ["trial", "30 минут бесплатно", "Пробный период одной кнопкой"]],
-    p_over: "Тарифы", p_h: "Выберите свой срок", p_p: "Любой тариф — это полный Tolk. Отличается только срок: чем дольше, тем дешевле месяц. 24 часа нейросети на каждые 30 дней у всех одинаково.",
-    p_tab1: "Подписка", p_tab2: "Часы нейросети",
-    plan: { week: "Неделя", month: "Месяц", quarter: "3 месяца", half: "Полгода", year: "Год" },
-    per: { week: "7 дней", month: "31 день", quarter: "≈ %s в месяц", half: "≈ %s в месяц", year: "≈ %s в месяц" },
-    hrs_total: "нейросети за весь срок", hrs_week: "нейросети на неделю", h: "ч", best: "Выгоднее всего", buy: "Купить",
-    feats: ["Все языки и стили", "Вкладки и программы", "Продление с даты окончания"],
-    pack: "Tolk AI", pack_sub: "не сгорают до конца подписки", pack_feats: ["Добавятся к вашему ключу", "Сразу после оплаты", "Переезжают при продлении"],
-    pay_note: "Цены в гривнах и крипте — по живому курсу", pay_m: { mono: "monobank", usdt: "USDT", ton: "TON", stars: "Звёзды Telegram" },
-    so_over: "Скоро", so_h: "Что появится в Tolk", so_p: "Уже в работе — придут сами, с автообновлением.",
-    soon: [["Озвучка перевода", "Tolk читает перевод голосом и приглушает оригинал — как дубляж в кино."], ["Конспект лекции", "После занятия нейросеть соберёт главное: темы, термины, даты зачётов."], ["Перевод слайдов", "Текст на слайдах и на экране — целиком на вашем языке."]],
-    soon_pill: "Скоро",
-    q_over: "Вопросы", q_h: "Частые вопросы",
-    faq: [
-      ["Можно попробовать бесплатно?", "Да — 30 минут перевода нейросетью бесплатно, без оплаты и регистрации. Скачайте Tolk и в окне активации нажмите «Попробовать бесплатно»."],
-      ["Сколько часов нейросети в тарифе?", "24 часа на каждые 30 дней в любом тарифе (в недельном — 6 часов): за 3 месяца — 72 часа, за полгода — 144, за год — 288. Сколько использовано — видно в профиле в часах и процентах. Не хватит — пополните часы, они добавятся сразу."],
-      ["Как оплатить?", "На странице оплаты: картой monobank (в гривнах по курсу банка), USDT, TON или звёздами Telegram. После перевода приложите квитанцию или скрин — продавец подтвердит оплату, обычно за несколько минут."],
-      ["Купил — как получить ключ?", "Если платили по кнопке «Купить» в программе — ключ придёт в Tolk сам. Если на сайте — вы получите код активации TOLK-XXXX-XXXX-XXXX: вставьте его в окне активации."],
-      ["Подойдёт для лекций на словацком?", "Да, это главный сценарий. Онлайн-лекция — выберите вкладку или программу (Zoom, Teams, Webex), лекция в аудитории — микрофон ноутбука. Термины курса добавьте в словарь."],
-      ["Как переводить только одну вкладку?", "В Tolk откройте «Перевод и звук → Что слушать» и выберите вкладку: один раз подключите расширение (около минуты), дальше — один щелчок по значку Tolk на нужной вкладке."],
-      ["Windows пишет «Система Windows защитила ваш компьютер»", "Так Windows реагирует на новые программы без платной подписи. Нажмите «Подробнее» → «Выполнить в любом случае»."],
-      ["Можно на нескольких компьютерах?", "Подписка привязана к одному компьютеру. Сменили компьютер или переустановили Windows — напишите в Telegram, поможем."],
-      ["Что с приватностью?", "Звук никуда не отправляется: речь распознаётся на вашем компьютере. Для перевода уходит только распознанный текст, и он нигде не сохраняется."]],
-    fin_a: "Смотрите и понимайте", fin_b: "на любом языке", fin_p: "Первые 30 минут — бесплатно. Потом — от 1,5 € в неделю.",
-    ft_privacy: "Конфиденциальность", ft_versions: "Все версии", ft_tg: "Поддержка в Telegram",
-  },
-  uk: {
-    n_uses: "Сценарії", n_features: "Можливості", n_pricing: "Тарифи", n_faq: "Питання", n_buy: "Купити",
-    h_over: "Живий переклад мовлення · Windows", h_a: "Розумійте будь-яке мовлення", h_b: "тієї ж секунди",
-    h_lead: "Tolk слухає лекцію, фільм чи дзвінок і показує субтитри з перекладом поверх усіх вікон — поки людина ще говорить. Словацька, англійська й ще 90 мов.",
-    dl: "Завантажити для Windows", h_prices: "Дивитися тарифи", trial: "<b>30 хвилин безкоштовно</b> — без оплати й реєстрації",
-    d_tab: "Makroekonómia — prednáška", chip1: "Словацька → українська", chip2b: "0,7 с", chip2: " до перекладу", chip3: "розуміє сленг і терміни",
-    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Це точно буде на іспиті, тож запишіть."],
-           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Залік отримаєте, якщо здасте обидва завдання вчасно."],
-           ["Na cvičení si to vyskúšate na konkrétnych príkladoch.", "На семінарі спробуєте це на конкретних прикладах."],
-           ["Bro, the prof ate with that last slide, no cap.", "Бро, професор просто розірвав останнім слайдом, без жартів."]],
-    mq: "Працює з будь-яким звуком на комп'ютері",
-    chapters: [
-      ["Лекції та конференції", "Словацька лекція — українською, поки професор говорить", "Онлайн чи в аудиторії — Tolk перекладає на льоту й розуміє мову університету.", ["Терміни курсу: залік, zadanie, cvičenie, AIS", "Мікрофон ноутбука, вкладка чи Zoom", "Свій словник імен і предметів"]],
-      ["Фільми та серіали", "Будь-який фільм — без чекання на озвучку", "Новинки, аніме, стріми й YouTube — з перекладом просто поверх відео, у будь-якому плеєрі.", ["Netflix, YouTube, VLC і будь-який браузер", "Стиль «Кіно» — як у кінотеатрі", "Не заважає дивитися: лише субтитри"]],
-      ["Дзвінки", "Дзвінок англійською — як рідною", "Zoom, Microsoft Teams, Webex, Google Meet і Discord: слухаєте лише потрібну програму, інші звуки не заважають.", ["Одна програма чи одна вкладка", "Ділова лексика й швидкі фрази", "Нічого не треба підключати до дзвінка"]],
-      ["Вивчення мов", "Дивіться в оригіналі — і вчіть мову", "Оригінал і переклад одночасно: чуєте живе мовлення, бачите зміст, запам'ятовуєте слова.", ["Подвійні субтитри: оригінал + переклад", "Сленг та ідіоми — зрозумілою мовою", "Ідеально для фільмів, подкастів і лекцій"]],
-    ],
-    sc0_tag: "Лекція · словацька → українська", sc0_t: "Це обов'язково запишіть — це буде на іспиті.",
-    sc1_tag: "Фільм · англійська → українська", sc1_t: "Ніколи не думав, що скажу це, але… нам потрібен більший човен.",
-    sc2_tag: "Дзвінок · англійська → українська", sc2_t: "Повернімося до бюджету й зафіксуймо терміни до п'ятниці.", you: "Ви",
-    sc3_tag: "Вчу англійську · оригінал + переклад", sc3_word: "Нова фраза", sc3_mean: "сприймати як належне", sc3_t: "Знаєш, не варто сприймати це як належне.",
-    l_over: "Для вивчення мов", l_h: "Найкращий спосіб вивчити мову — живе мовлення",
-    l_p: "Дивіться фільми, лекції й стріми в оригіналі: Tolk показує переклад поруч з оригіналом, і мова звучить зрозуміло вже з перших днів.",
-    lpts: [["Оригінал і переклад разом", "Чуєте, як говорять насправді, і одразу розумієте зміст."], ["Сленг і живе мовлення", "no cap, lowkey, ty vole — нейромережа пояснює, а не перекладає дослівно."], ["Свій словник", "Додайте слова й терміни — Tolk перекладатиме їх по-вашому."]],
-    f_over: "Можливості", f_h: "Перекладає так, як говорять люди", f_p: "Жодних ключів і налаштувань: запустили — і бачите переклад. Решту Tolk підбирає сам під ваш комп'ютер.",
-    f1_h: "Нейромережа Tolk AI", f1_p: "Розуміє сленг, ідіоми, терміни й навіть обмовки розпізнавання — і перекладає природно, а не слово в слово.",
-    pairs: [["no cap, I'm cooked", "без жартів, мені кінець"], ["zápočtovka v piatok", "залікова робота в п'ятницю"], ["let's circle back", "повернімося до цього"]],
-    f2_h: "Одна вкладка чи програма", f2_p: "Лише звук вибраної вкладки браузера чи програми — музика й сповіщення не заважають.",
-    f3_h: "Субтитри поверх усього", f3_p: "7 стилів, будь-який розмір і місце на екрані. Працює поверх ігор, відео й дзвінків.",
-    f4_h: "Ваш словник", f4_p: "Імена, предмети, терміни — перекладаються саме так, як вам треба.",
-    f5_h: "Приватно", f5_p: "Звук не залишає комп'ютер: мовлення розпізнається локально, на переклад іде лише текст.",
-    f6_h: "90+ мов мовлення, 30+ перекладу", f6_p: "Мова визначається сама — навіть якщо співрозмовник перемикається.",
-    langs: ["Slovenčina", "English", "Čeština", "Deutsch", "Polski", "Українська", "Русский", "Español", "Français", "Italiano", "日本語", "中文", "한국어", "Türkçe"],
-    f7_h: "Налаштовується сам", f7_p: "Tolk підбирає розпізнавання під ваш процесор і відеокарту — працює навіть на простому ноутбуці.",
-    stats: [["0,7", "с", "у середньому до перекладу"], ["90", "+", "мов мовлення"], ["30", "+", "мов перекладу"], ["24", "год", "нейромережі на місяць"]],
-    s_over: "Як почати", s_h: "Три кроки — і ви розумієте все",
-    steps: [["Завантажте Tolk", "Встановлення — за хвилину, Windows 10 і 11. Усе налаштується само."], ["Спробуйте 30 хвилин", "Безкоштовно, без оплати й реєстрації: одна кнопка у вікні активації."], ["Оберіть тариф", "Від 1,5 € на тиждень. Оплата карткою monobank, USDT, TON або зірками Telegram."]],
-    g_over: "Програма", g_h: "Гарно всередині так само, як і зовні",
-    gallery: [["look", "Зовнішній вигляд", "7 стилів субтитрів і живе прев'ю"], ["picker", "Що слухати", "Вкладка браузера чи одна програма"], ["profile", "Профіль", "Години нейромережі: скільки використано"], ["trial", "30 хвилин безкоштовно", "Пробний період однією кнопкою"]],
-    p_over: "Тарифи", p_h: "Оберіть свій термін", p_p: "Будь-який тариф — це повний Tolk. Відрізняється лише термін: що довше, то дешевший місяць. 24 години нейромережі на кожні 30 днів у всіх однаково.",
-    p_tab1: "Підписка", p_tab2: "Години нейромережі",
-    plan: { week: "Тиждень", month: "Місяць", quarter: "3 місяці", half: "Пів року", year: "Рік" },
-    per: { week: "7 днів", month: "31 день", quarter: "≈ %s на місяць", half: "≈ %s на місяць", year: "≈ %s на місяць" },
-    hrs_total: "нейромережі за весь термін", hrs_week: "нейромережі на тиждень", h: "год", best: "Найвигідніше", buy: "Купити",
-    feats: ["Усі мови й стилі", "Вкладки й програми", "Продовження з дати закінчення"],
-    pack: "Tolk AI", pack_sub: "не згорають до кінця підписки", pack_feats: ["Додадуться до вашого ключа", "Одразу після оплати", "Переїжджають при продовженні"],
-    pay_note: "Ціни в гривнях і крипті — за живим курсом", pay_m: { mono: "monobank", usdt: "USDT", ton: "TON", stars: "Зірки Telegram" },
-    so_over: "Незабаром", so_h: "Що з'явиться в Tolk", so_p: "Уже в роботі — прийдуть самі, з автооновленням.",
-    soon: [["Озвучення перекладу", "Tolk читає переклад голосом і приглушує оригінал — як дубляж у кіно."], ["Конспект лекції", "Після заняття нейромережа збере головне: теми, терміни, дати заліків."], ["Переклад слайдів", "Текст на слайдах і на екрані — повністю вашою мовою."]],
-    soon_pill: "Незабаром",
-    q_over: "Питання", q_h: "Часті питання",
-    faq: [
-      ["Можна спробувати безкоштовно?", "Так — 30 хвилин перекладу нейромережею безкоштовно, без оплати й реєстрації. Завантажте Tolk і у вікні активації натисніть «Спробувати безкоштовно»."],
-      ["Скільки годин нейромережі в тарифі?", "24 години на кожні 30 днів у будь-якому тарифі (у тижневому — 6 годин): за 3 місяці — 72 години, за пів року — 144, за рік — 288. Скільки використано — видно в профілі в годинах і відсотках. Не вистачить — поповніть години, вони додадуться одразу."],
-      ["Як оплатити?", "На сторінці оплати: карткою monobank (у гривнях за курсом банку), USDT, TON або зірками Telegram. Після переказу додайте квитанцію чи скрін — продавець підтвердить оплату, зазвичай за кілька хвилин."],
-      ["Купив — як отримати ключ?", "Якщо платили за кнопкою «Купити» в програмі — ключ прийде в Tolk сам. Якщо на сайті — ви отримаєте код активації TOLK-XXXX-XXXX-XXXX: вставте його у вікні активації."],
-      ["Підійде для лекцій словацькою?", "Так, це головний сценарій. Онлайн-лекція — оберіть вкладку чи програму (Zoom, Teams, Webex), лекція в аудиторії — мікрофон ноутбука. Терміни курсу додайте в словник."],
-      ["Як перекладати лише одну вкладку?", "У Tolk відкрийте «Переклад і звук → Що слухати» й оберіть вкладку: один раз підключіть розширення (близько хвилини), далі — один клік по значку Tolk на потрібній вкладці."],
-      ["Windows пише «Систему Windows захищено»", "Так Windows реагує на нові програми без платного підпису. Натисніть «Докладніше» → «Однаково запустити»."],
-      ["Можна на кількох комп'ютерах?", "Підписка прив'язана до одного комп'ютера. Змінили комп'ютер чи перевстановили Windows — напишіть у Telegram, допоможемо."],
-      ["Що з приватністю?", "Звук нікуди не надсилається: мовлення розпізнається на вашому комп'ютері. Для перекладу йде лише розпізнаний текст, і він ніде не зберігається."]],
-    fin_a: "Дивіться й розумійте", fin_b: "будь-якою мовою", fin_p: "Перші 30 хвилин — безкоштовно. Далі — від 1,5 € на тиждень.",
-    ft_privacy: "Конфіденційність", ft_versions: "Усі версії", ft_tg: "Підтримка в Telegram",
-  },
-  sk: {
-    n_uses: "Scenáre", n_features: "Možnosti", n_pricing: "Plány", n_faq: "Otázky", n_buy: "Kúpiť",
-    h_over: "Živý preklad reči · Windows", h_a: "Rozumejte akejkoľvek reči", h_b: "v tej istej sekunde",
-    h_lead: "Tolk počúva prednášku, film či hovor a zobrazuje titulky s prekladom nad všetkými oknami — kým človek ešte hovorí. Slovenčina, angličtina a ďalších 90 jazykov.",
-    dl: "Stiahnuť pre Windows", h_prices: "Pozrieť plány", trial: "<b>30 minút zadarmo</b> — bez platby a registrácie",
-    d_tab: "Makroekonómia — prednáška", chip1: "Slovenčina → ruština", chip2b: "0,7 s", chip2: " do prekladu", chip3: "rozumie slangu a termínom",
-    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "Это точно будет на экзамене, так что запишите."],
-           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "Зачёт получите, если сдадите оба задания вовремя."],
-           ["Na cvičení si to vyskúšate na konkrétnych príkladoch.", "На семинаре попробуете это на конкретных примерах."],
-           ["Bro, the prof ate with that last slide, no cap.", "Kámo, profesor tým posledným slajdom úplne zabil, bez srandy."]],
-    mq: "Funguje s akýmkoľvek zvukom v počítači",
-    chapters: [
-      ["Prednášky a konferencie", "Slovenská prednáška — v rodnom jazyku, kým profesor hovorí", "Online aj v posluchárni — Tolk prekladá za chodu a rozumie univerzitnému jazyku.", ["Termíny kurzu: zápočet, zadanie, cvičenie, AIS", "Mikrofón notebooku, karta alebo Zoom", "Vlastný slovník mien a predmetov"]],
-      ["Filmy a seriály", "Akýkoľvek film — bez čakania na dabing", "Novinky, anime, streamy a YouTube — s prekladom priamo nad videom, v akomkoľvek prehrávači.", ["Netflix, YouTube, VLC a akýkoľvek prehliadač", "Štýl „Kino“ — ako v kine", "Neprekáža pri pozeraní: len titulky"]],
-      ["Hovory", "Hovor v angličtine — ako v rodnom jazyku", "Zoom, Microsoft Teams, Webex, Google Meet a Discord: počúvate len vybraný program, ostatné zvuky neprekážajú.", ["Jeden program alebo jedna karta", "Biznis slovník a rýchle frázy", "K hovoru netreba nič pripájať"]],
-      ["Učenie sa jazykov", "Pozerajte v origináli — a učte sa jazyk", "Originál a preklad naraz: počujete živú reč, vidíte význam, pamätáte si slová.", ["Dvojité titulky: originál + preklad", "Slang a idiómy — zrozumiteľne", "Ideálne na filmy, podcasty a prednášky"]],
-    ],
-    sc0_tag: "Prednáška · slovenčina → ruština", sc0_t: "Это обязательно запишите — это будет на экзамене.",
-    sc1_tag: "Film · angličtina → slovenčina", sc1_t: "Nikdy som si nemyslel, že to poviem, ale… potrebujeme väčšiu loď.",
-    sc2_tag: "Hovor · angličtina → ukrajinčina", sc2_t: "Повернімося до бюджету й зафіксуймо терміни до п'ятниці.", you: "Vy",
-    sc3_tag: "Učím sa angličtinu · originál + preklad", sc3_word: "Nová fráza", sc3_mean: "brať ako samozrejmosť", sc3_t: "Vieš, nemal by si to brať ako samozrejmosť.",
-    l_over: "Na učenie sa jazykov", l_h: "Najlepší spôsob, ako sa naučiť jazyk — živá reč",
-    l_p: "Pozerajte filmy, prednášky a streamy v origináli: Tolk ukazuje preklad vedľa originálu a jazyk znie zrozumiteľne už od prvých dní.",
-    lpts: [["Originál a preklad spolu", "Počujete, ako sa naozaj hovorí, a hneď rozumiete významu."], ["Slang a živá reč", "no cap, lowkey, ty vole — AI vysvetľuje, nie doslovne prekladá."], ["Vlastný slovník", "Pridajte slová a termíny — Tolk ich preloží po vašom."]],
-    f_over: "Možnosti", f_h: "Prekladá tak, ako ľudia hovoria", f_p: "Žiadne kľúče ani nastavenia: spustíte — a vidíte preklad. Všetko ostatné si Tolk vyberie sám podľa vášho počítača.",
-    f1_h: "Neurónová sieť Tolk AI", f1_p: "Rozumie slangu, idiómom, termínom aj chybám rozpoznávania — a prekladá prirodzene, nie slovo po slove.",
-    pairs: [["no cap, I'm cooked", "bez srandy, je so mnou koniec"], ["zápočtovka v piatok", "зачётная работа в пятницу"], ["let's circle back", "vráťme sa k tomu"]],
-    f2_h: "Jedna karta alebo program", f2_p: "Len zvuk vybranej karty prehliadača či programu — hudba a upozornenia neprekážajú.",
-    f3_h: "Titulky nad všetkým", f3_p: "7 štýlov, ľubovoľná veľkosť a miesto na obrazovke. Funguje nad hrami, videami aj hovormi.",
-    f4_h: "Váš slovník", f4_p: "Mená, predmety, termíny — preložia sa presne tak, ako potrebujete.",
-    f5_h: "Súkromne", f5_p: "Zvuk neopúšťa počítač: reč sa rozpoznáva lokálne, na preklad ide len text.",
-    f6_h: "90+ jazykov reči, 30+ prekladu", f6_p: "Jazyk sa rozpozná sám — aj keď rečník prepína.",
-    langs: ["Slovenčina", "English", "Čeština", "Deutsch", "Polski", "Українська", "Русский", "Español", "Français", "Italiano", "日本語", "中文", "한국어", "Türkçe"],
-    f7_h: "Nastaví sa sám", f7_p: "Tolk si vyberie rozpoznávanie podľa vášho procesora a grafiky — funguje aj na obyčajnom notebooku.",
-    stats: [["0,7", "s", "v priemere do prekladu"], ["90", "+", "jazykov reči"], ["30", "+", "jazykov prekladu"], ["24", "h", "AI mesačne"]],
-    s_over: "Ako začať", s_h: "Tri kroky — a rozumiete všetkému",
-    steps: [["Stiahnite Tolk", "Inštalácia za minútu, Windows 10 a 11. Všetko sa nastaví samo."], ["Vyskúšajte 30 minút", "Zadarmo, bez platby a registrácie: jedno tlačidlo v okne aktivácie."], ["Vyberte si plán", "Od 1,5 € týždenne. Platba kartou monobank, USDT, TON alebo hviezdičkami Telegramu."]],
-    g_over: "Program", g_h: "Krásny vnútri rovnako ako zvonku",
-    gallery: [["look", "Vzhľad", "7 štýlov titulkov a živý náhľad"], ["picker", "Čo počúvať", "Karta prehliadača alebo jeden program"], ["profile", "Profil", "Hodiny AI: koľko ste využili"], ["trial", "30 minút zadarmo", "Skúšobná verzia jedným tlačidlom"]],
-    p_over: "Plány", p_h: "Vyberte si obdobie", p_p: "Každý plán je plný Tolk. Líši sa len obdobie: čím dlhšie, tým lacnejší mesiac. 24 hodín AI na každých 30 dní pre všetkých rovnako.",
-    p_tab1: "Predplatné", p_tab2: "Hodiny AI",
-    plan: { week: "Týždeň", month: "Mesiac", quarter: "3 mesiace", half: "Pol roka", year: "Rok" },
-    per: { week: "7 dní", month: "31 dní", quarter: "≈ %s mesačne", half: "≈ %s mesačne", year: "≈ %s mesačne" },
-    hrs_total: "AI za celé obdobie", hrs_week: "AI na týždeň", h: "h", best: "Najvýhodnejšie", buy: "Kúpiť",
-    feats: ["Všetky jazyky a štýly", "Karty a programy", "Predĺženie od dátumu konca"],
-    pack: "Tolk AI", pack_sub: "nepropadajú do konca predplatného", pack_feats: ["Pridajú sa k vášmu kľúču", "Hneď po zaplatení", "Prenesú sa pri predĺžení"],
-    pay_note: "Ceny v hrivnách a krypte — podľa živého kurzu", pay_m: { mono: "monobank", usdt: "USDT", ton: "TON", stars: "Hviezdy Telegram" },
-    so_over: "Čoskoro", so_h: "Čo pribudne v Tolku", so_p: "Už na tom pracujeme — príde samo s automatickou aktualizáciou.",
-    soon: [["Dabing prekladu", "Tolk číta preklad hlasom a stlmí originál — ako dabing v kine."], ["Výpisky z prednášky", "Po hodine AI zhrnie to hlavné: témy, termíny, dátumy zápočtov."], ["Preklad slajdov", "Text na slajdoch a na obrazovke — celý vo vašom jazyku."]],
-    soon_pill: "Čoskoro",
-    q_over: "Otázky", q_h: "Časté otázky",
-    faq: [
-      ["Dá sa to vyskúšať zadarmo?", "Áno — 30 minút prekladu AI zadarmo, bez platby a registrácie. Stiahnite Tolk a v okne aktivácie kliknite na „Vyskúšať zadarmo“."],
-      ["Koľko hodín AI je v pláne?", "24 hodín na každých 30 dní v každom pláne (v týždennom 6 hodín): za 3 mesiace 72 hodín, za pol roka 144, za rok 288. Koľko ste využili, vidno v profile v hodinách aj percentách. Ak nebude stačiť, doplňte hodiny — pridajú sa hneď."],
-      ["Ako zaplatiť?", "Na stránke platby: kartou monobank (v hrivnách podľa kurzu banky), USDT, TON alebo hviezdičkami Telegramu. Po platbe priložte potvrdenie alebo screenshot — predajca platbu potvrdí, zvyčajne za pár minút."],
-      ["Kúpil som — ako dostanem kľúč?", "Ak ste platili cez tlačidlo „Kúpiť“ v programe, kľúč príde do Tolku sám. Ak na stránke, dostanete aktivačný kód TOLK-XXXX-XXXX-XXXX: vložte ho v okne aktivácie."],
-      ["Hodí sa na slovenské prednášky?", "Áno, to je hlavný scenár. Online prednáška — vyberte kartu alebo program (Zoom, Teams, Webex), prednáška v posluchárni — mikrofón notebooku. Termíny kurzu pridajte do slovníka."],
-      ["Ako prekladať len jednu kartu?", "V Tolku otvorte „Preklad a zvuk → Čo počúvať“ a vyberte kartu: raz pripojte rozšírenie (asi minúta), potom stačí kliknúť na ikonu Tolk na vybranej karte."],
-      ["Windows píše „Systém Windows ochránil váš počítač“", "Tak Windows reaguje na nové programy bez platného podpisu. Kliknite na „Ďalšie informácie“ → „Spustiť aj tak“."],
-      ["Dá sa to používať na viacerých počítačoch?", "Predplatné je viazané na jeden počítač. Zmenili ste počítač alebo preinštalovali Windows — napíšte do Telegramu, pomôžeme."],
-      ["A súkromie?", "Zvuk sa nikam neposiela: reč sa rozpoznáva vo vašom počítači. Na preklad ide len rozpoznaný text a nikde sa neukladá."]],
-    fin_a: "Pozerajte a rozumejte", fin_b: "v akomkoľvek jazyku", fin_p: "Prvých 30 minút zadarmo. Potom od 1,5 € týždenne.",
-    ft_privacy: "Ochrana súkromia", ft_versions: "Všetky verzie", ft_tg: "Podpora v Telegrame",
-  },
-  en: {
-    n_uses: "Use cases", n_features: "Features", n_pricing: "Pricing", n_faq: "FAQ", n_buy: "Buy",
-    h_over: "Live speech translation · Windows", h_a: "Understand any speech", h_b: "the moment it's spoken",
-    h_lead: "Tolk listens to a lecture, a movie or a call and shows translated subtitles over every window — while the person is still talking. Slovak, English and 90 more languages.",
-    dl: "Download for Windows", h_prices: "See pricing", trial: "<b>30 minutes free</b> — no payment, no sign-up",
-    d_tab: "Makroekonómia — prednáška", chip1: "Slovak → English", chip2b: "0.7 s", chip2: " to translate", chip3: "gets slang and jargon",
-    demo: [["Toto bude určite na skúške, takže si to zapíšte.", "This will definitely be on the exam, so write it down."],
-           ["Zápočet dostanete, ak odovzdáte obe zadania načas.", "You'll get the credit if you hand in both assignments on time."],
-           ["Na cvičení si to vyskúšate na konkrétnych príkladoch.", "In the seminar you'll try it on real examples."],
-           ["Ty vole, to bolo brutálne, vôbec som nestíhal.", "Wow, that was brutal, I couldn't keep up at all."]],
-    mq: "Works with any sound on your computer",
-    chapters: [
-      ["Lectures & conferences", "A Slovak lecture — in your language, while the professor talks", "Online or in the hall — Tolk translates on the fly and speaks university.", ["Course terms: zápočet, zadanie, cvičenie, AIS", "Laptop mic, a browser tab or Zoom", "Your own dictionary of names and subjects"]],
-      ["Movies & series", "Any movie — no waiting for a dub", "New releases, anime, streams and YouTube — translated right over the video, in any player.", ["Netflix, YouTube, VLC and any browser", "“Cinema” style — like at the movies", "Nothing in the way: just subtitles"]],
-      ["Calls", "An English call — like it's your native tongue", "Zoom, Microsoft Teams, Webex, Google Meet and Discord: listen to one app only, other sounds stay out.", ["One app or one tab", "Business talk and fast phrases", "Nothing to add to the call"]],
-      ["Language learning", "Watch in the original — and learn the language", "Original and translation at once: hear real speech, see the meaning, remember the words.", ["Dual subtitles: original + translation", "Slang and idioms, made clear", "Perfect for movies, podcasts and lectures"]],
-    ],
-    sc0_tag: "Lecture · Slovak → English", sc0_t: "Make sure you write this down — it will be on the exam.",
-    sc1_tag: "Movie · English → Russian", sc1_t: "Никогда не думал, что скажу это, но… нам нужна лодка побольше.",
-    sc2_tag: "Call · English → Ukrainian", sc2_t: "Повернімося до бюджету й зафіксуймо терміни до п'ятниці.", you: "You",
-    sc3_tag: "Learning English · original + translation", sc3_word: "New phrase", sc3_mean: "to not value something", sc3_t: "Знаешь, не стоит воспринимать это как должное.",
-    l_over: "For language learners", l_h: "The best way to learn a language is real speech",
-    l_p: "Watch movies, lectures and streams in the original: Tolk shows the translation next to the original, so the language starts to make sense from day one.",
-    lpts: [["Original and translation together", "Hear how people really talk and get the meaning instantly."], ["Slang and live speech", "no cap, lowkey, ty vole — the AI explains instead of translating word for word."], ["Your own dictionary", "Add words and terms — Tolk translates them your way."]],
-    f_over: "Features", f_h: "Translates the way people actually talk", f_p: "No keys, no setup: start it and see the translation. Tolk tunes everything else to your computer.",
-    f1_h: "Tolk AI", f1_p: "Gets slang, idioms, jargon and even speech-recognition slips — and translates naturally, not word by word.",
-    pairs: [["no cap, I'm cooked", "без шуток, мне конец"], ["zápočtovka v piatok", "credit test on Friday"], ["let's circle back", "давай вернёмся к этому"]],
-    f2_h: "One tab or one app", f2_p: "Only the sound of the tab or app you pick — music and notifications stay out.",
-    f3_h: "Subtitles over everything", f3_p: "7 styles, any size, anywhere on screen. Works over games, videos and calls.",
-    f4_h: "Your dictionary", f4_p: "Names, subjects, terms — translated exactly the way you need.",
-    f5_h: "Private", f5_p: "Audio never leaves your computer: speech is recognized locally, only text is translated.",
-    f6_h: "90+ speech languages, 30+ targets", f6_p: "The language is detected automatically — even when speakers switch.",
-    langs: ["Slovenčina", "English", "Čeština", "Deutsch", "Polski", "Українська", "Русский", "Español", "Français", "Italiano", "日本語", "中文", "한국어", "Türkçe"],
-    f7_h: "Tunes itself", f7_p: "Tolk picks the recognition setup for your CPU and GPU — it runs even on a basic laptop.",
-    stats: [["0.7", "s", "average time to translate"], ["90", "+", "speech languages"], ["30", "+", "translation languages"], ["24", "h", "of AI a month"]],
-    s_over: "Getting started", s_h: "Three steps and you understand everything",
-    steps: [["Download Tolk", "A one-minute install for Windows 10 and 11. Everything sets itself up."], ["Try 30 minutes", "Free, no payment, no sign-up: one button in the activation window."], ["Pick a plan", "From €1.5 a week. Pay with a monobank card, USDT, TON or Telegram Stars."]],
-    g_over: "The app", g_h: "As beautiful inside as outside",
-    gallery: [["look", "Appearance", "7 subtitle styles and a live preview"], ["picker", "What to listen to", "One browser tab or one app"], ["profile", "Profile", "AI hours: how much is used"], ["trial", "30 minutes free", "A free trial in one click"]],
-    p_over: "Pricing", p_h: "Choose your period", p_p: "Every plan is the full Tolk. Only the period differs: the longer, the cheaper each month. 24 hours of AI every 30 days — the same for everyone.",
-    p_tab1: "Subscription", p_tab2: "AI hours",
-    plan: { week: "Week", month: "Month", quarter: "3 months", half: "6 months", year: "Year" },
-    per: { week: "7 days", month: "31 days", quarter: "≈ %s a month", half: "≈ %s a month", year: "≈ %s a month" },
-    hrs_total: "of AI for the whole period", hrs_week: "of AI for the week", h: "h", best: "Best value", buy: "Buy",
-    feats: ["All languages and styles", "Tabs and apps", "Renewal from the end date"],
-    pack: "Tolk AI", pack_sub: "don't expire until your plan ends", pack_feats: ["Added to your key", "Right after payment", "Carried over on renewal"],
-    pay_note: "Hryvnia and crypto prices follow the live rate", pay_m: { mono: "monobank", usdt: "USDT", ton: "TON", stars: "Telegram Stars" },
-    so_over: "Coming soon", so_h: "What's next in Tolk", so_p: "Already in the works — it'll arrive by itself with an auto-update.",
-    soon: [["Voice-over translation", "Tolk reads the translation aloud and lowers the original — like a movie dub."], ["Lecture notes", "After class the AI collects what matters: topics, terms, exam dates."], ["Slide translation", "Text on slides and on screen — fully in your language."]],
-    soon_pill: "Soon",
-    q_over: "FAQ", q_h: "Frequently asked questions",
-    faq: [
-      ["Can I try it for free?", "Yes — 30 minutes of AI translation for free, no payment and no sign-up. Download Tolk and click “Try it free” in the activation window."],
-      ["How many AI hours does a plan include?", "24 hours every 30 days on every plan (6 hours on the weekly one): 72 hours for 3 months, 144 for 6 months, 288 for a year. Your profile shows usage in hours and percent. Need more? Top up — the hours are added right away."],
-      ["How do I pay?", "On the payment page: a monobank card (in hryvnias at the bank's rate), USDT, TON or Telegram Stars. After the transfer, attach a receipt or screenshot — the seller confirms, usually within minutes."],
-      ["I paid — how do I get the key?", "If you paid through “Buy” in the app, the key arrives in Tolk by itself. If you paid on the website, you get an activation code TOLK-XXXX-XXXX-XXXX: paste it in the activation window."],
-      ["Does it work for Slovak lectures?", "Yes, that's the main use case. Online lecture — pick the tab or app (Zoom, Teams, Webex); lecture hall — the laptop mic. Add course terms to your dictionary."],
-      ["How do I translate just one tab?", "In Tolk open “Translation & sound → What to listen to” and choose a tab: connect the extension once (about a minute), then one click on the Tolk icon on the right tab."],
-      ["Windows says “Windows protected your PC”", "That's how Windows treats new apps without a paid signature. Click “More info” → “Run anyway”."],
-      ["Can I use it on several computers?", "A plan is bound to one computer. New computer or reinstalled Windows? Message us on Telegram and we'll help."],
-      ["What about privacy?", "Audio never leaves your computer: speech is recognized locally. Only the recognized text goes out for translation, and it isn't stored anywhere."]],
-    fin_a: "Watch and understand", fin_b: "in any language", fin_p: "The first 30 minutes are free. Then from €1.5 a week.",
-    ft_privacy: "Privacy", ft_versions: "All versions", ft_tg: "Support on Telegram",
-  },
-};
-
-const $ = (s) => document.querySelector(s);
-const $$ = (s) => [...document.querySelectorAll(s)];
-const esc = tolkEsc;
-const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-let lang = tolkLang(), cat = null, ptab = "plans";
-const d = () => T[lang];
-const fmt = (s, ...a) => a.reduce((x, v) => x.replace("%s", v), s);
-const FALLBACK = { plans: [{ id: "week", price: "1.5", currency: "EUR", days: 7, period_h: 6, per_month: 6.43 }, { id: "month", price: "5", currency: "EUR", days: 31, period_h: 24, per_month: 5 },
-  { id: "quarter", price: "13", currency: "EUR", days: 92, period_h: 72, per_month: 4.33 }, { id: "half", price: "24", currency: "EUR", days: 183, period_h: 144, per_month: 4 },
-  { id: "year", price: "42", currency: "EUR", days: 366, period_h: 288, per_month: 3.5, best: true }],
-  topups: [{ id: "h6", hours: 6, price: "1.5", currency: "EUR" }, { id: "h24", hours: 24, price: "4", currency: "EUR" }, { id: "h60", hours: 60, price: "8", currency: "EUR" }] };
-
-function money(p, cur) {
-  const loc = { ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB" }[lang];
-  const s = Number(p).toLocaleString(loc, { maximumFractionDigits: 2 });
-  return cur === "EUR" ? (lang === "en" ? "€" + s : s + " €") : s + " " + cur;
-}
-function splitWords(el, text) {
-  el.classList.remove("in");
-  el.innerHTML = text.split(" ").map((w, i) => `<span class="w"><span style="transition-delay:${i * 0.06}s">${esc(w)}</span></span>`).join(" ");
-}
-
-function applyLang() {
-  document.documentElement.lang = lang;
-  $$("[data-i]").forEach((el) => { const v = d()[el.dataset.i]; if (typeof v === "string") el.textContent = v; });
-  $$("[data-ih]").forEach((el) => { el.innerHTML = d()[el.dataset.ih] || ""; });
-  $$("[data-w]").forEach((el) => splitWords(el, d()[el.dataset.w] || ""));
-  $$("#langs button").forEach((b) => b.classList.toggle("on", b.dataset.l === lang));
-  $("#rail").innerHTML = [...APPS, ...APPS].map((a) => `<span class="${HL.includes(a) ? "hl" : ""}">${esc(a)}</span>`).join("");
-  $("#chapters").innerHTML = d().chapters.map(([k, h, p, li], i) => `<div class="chapter ${i ? "" : "on"}" data-ch="${i}"><div class="num gold">0${i + 1}</div>
-    <div class="overline" style="margin-top:14px">${esc(k)}</div><h3>${esc(h)}</h3><p>${esc(p)}</p><ul>${li.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
-  const ic = ['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10M4 12h16M4 17h8"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12c4-7 12-7 16 0-4 7-12 7-16 0z"/><circle cx="12" cy="12" r="2.5"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 12h6M9 16h4"/></svg>'];
-  $("#lpts").innerHTML = d().lpts.map(([b, s], i) => `<div class="pt rv d${i + 1}"><div class="ic">${ic[i]}</div><div><b>${esc(b)}</b><span>${esc(s)}</span></div></div>`).join("");
-  $("#pairs").innerHTML = d().pairs.map(([a, b]) => `<div class="pair"><s>${esc(a)}</s><span style="color:var(--text3)">→</span><b>${esc(b)}</b></div>`).join("");
-  $("#eq").innerHTML = Array.from({ length: 28 }, (_, k) => `<i style="--k:${k}"></i>`).join("");
-  $("#langcloud").innerHTML = d().langs.map((l) => `<span>${esc(l)}</span>`).join("");
-  $("#stats").innerHTML = d().stats.map(([n, u, l], i) => `<div class="stat rv d${i}"><div class="n gold"><span data-count="${esc(n)}">0</span>${esc(u)}</div><div class="l">${esc(l)}</div></div>`).join("");
-  $("#steps").querySelectorAll(".stepc").forEach((x) => x.remove());
-  $("#steps").insertAdjacentHTML("beforeend", d().steps.map(([h, p], i) => `<div class="stepc rv d${i + 1}"><div class="k">${i + 1}</div><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join(""));
-  $("#gtabs").innerHTML = d().gallery.map(([id, t, s], i) => `<button data-g="${i}"><span>${esc(t)}</span><small>${esc(s)}</small><i></i></button>`).join("");
-  $("#gview").innerHTML = d().gallery.map(([id, t]) => `<img src="img/${lang}/${id}.jpg" alt="${esc(t)}" loading="lazy">`).join("");
-  $("#soon").innerHTML = d().soon.map(([t, p], i) => `<div class="card rv d${i + 1}"><span class="pill">${esc(d().soon_pill)}</span><h3>${esc(t)}</h3><p>${esc(p)}</p>
-    ${i === 0 ? `<div class="wavebar">${Array.from({ length: 34 }, (_, k) => `<i style="--k:${k}"></i>`).join("")}</div>` : ""}</div>`).join("");
-  $("#faqlist").innerHTML = d().faq.map(([q, a]) => `<div class="qa rv"><button>${esc(q)}<i></i></button><div class="ans"><div><p>${esc(a)}</p></div></div></div>`).join("");
-  $$(".qa button").forEach((b) => b.onclick = () => b.parentElement.classList.toggle("open"));
-  $("#payrow").innerHTML = `<span>${esc(d().pay_note)}</span>` + ["mono", "usdt", "ton", "stars"].map((k) => `<span class="ic"><span>${tolkIcon(k)}</span>${esc(d().pay_m[k])}</span>`).join("");
-  drawPrices(); gallery(0); observe(); cards(); demo.restart(); onScroll();
-}
-$$("#langs button").forEach((b) => b.onclick = () => { lang = b.dataset.l; tolkSaveLang(lang); applyLang(); });
-
-// --- тарифы -------------------------------------------------------------------------------------------
-function drawPrices() {
-  const c = cat || FALLBACK, box = $("#prices");
-  $$("#ptabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === ptab));
-  const on = $("#ptabs button.on"), knob = $("#ptabs .knob");
-  if (on) { knob.style.left = on.offsetLeft + "px"; knob.style.width = on.offsetWidth + "px"; }
-  box.classList.toggle("packs", ptab === "hours");
-  if (ptab === "plans") {
-    box.innerHTML = c.plans.map((p) => {
-      const per = p.days >= 28 && p.id !== "month" ? fmt(d().per[p.id] || "", money(p.per_month, p.currency)) : d().per[p.id] || "";
-      const h = p.period_h || p.ai_h;
-      return `<div class="price ${p.best ? "best" : ""} rv"><div class="nm">${esc(d().plan[p.id] || p.title)}${p.best ? `<span class="badge">${esc(d().best)}</span>` : ""}</div>
-        <div class="sum ${p.best ? "gold" : ""}">${money(p.price, p.currency)}</div><div class="per">${esc(per)}</div>
-        <div class="hrs"><b class="gold">${esc(String(h).replace(".", ","))} ${esc(d().h)}</b><span>${esc(p.days < 28 ? d().hrs_week : d().hrs_total)}</span></div>
-        <ul>${d().feats.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-        <a class="btn ${p.best ? "btn-gold" : "btn-glass"}" href="pay.html?item=${esc(p.id)}" data-pay>${esc(d().buy)}</a></div>`;
-    }).join("");
-  } else {
-    box.innerHTML = c.topups.map((t, i) => `<div class="price ${i === 1 ? "best" : ""} rv"><div class="nm">${esc(d().pack)}</div>
-      <div class="sum ${i === 1 ? "gold" : ""}">+${esc(t.hours)} ${esc(d().h)}</div><div class="per">${money(t.price, t.currency)} · ${esc(d().pack_sub)}</div>
-      <ul style="margin-top:20px">${d().pack_feats.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-      <a class="btn ${i === 1 ? "btn-gold" : "btn-glass"}" href="pay.html?tab=hours&item=${esc(t.id)}" data-pay>${esc(d().buy)}</a></div>`).join("");
-  }
-  bindPay(); observe(); cards();
-}
-$$("#ptabs button").forEach((b) => b.onclick = () => { ptab = b.dataset.t; drawPrices(); });
-let rz = 0;
-addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(drawPrices, 150); });
-fetch(TOLK_SHOP + "/api/plans?v=2&lang=ru", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((j) => { if (j && j.plans) { cat = j; drawPrices(); } }).catch(() => {});
-
-function bindPay() {
-  $$("[data-pay]").forEach((a) => { if (a.dataset.bound) return; a.dataset.bound = 1; a.addEventListener("click", (e) => {
-    e.preventDefault(); const u = new URL(a.getAttribute("href"), location.href); u.searchParams.set("lang", lang); tolkGo(u.pathname.split("/").pop() + u.search); }); });
-}
-
-// --- галерея ------------------------------------------------------------------------------------------
-let gi = 0, gt = 0;
-function gallery(i) {
-  gi = i;
-  $$("#gtabs button").forEach((b, k) => { b.classList.remove("on"); void b.offsetWidth; b.classList.toggle("on", k === i); b.onclick = () => gallery(k); });
-  $$("#gview img").forEach((im, k) => im.classList.toggle("on", k === i));
-  clearTimeout(gt); gt = setTimeout(() => gallery((gi + 1) % d().gallery.length), 6000);
-}
-
-// --- витрина: субтитры печатаются по словам -----------------------------------------------------------
-const demo = {
-  i: 0, t: 0,
-  restart() { clearTimeout(this.t); this.i = 0; this.play(); },
-  play() {
-    const [o, tr] = d().demo[this.i % d().demo.length], O = $("#d-o"), Tt = $("#d-t");
-    const ow = o.split(" "); let k = 0; O.textContent = ""; Tt.innerHTML = tr.split(" ").map((w) => `<span>${esc(w)}</span>`).join(" ");
-    const tw = $$("#d-t span");
-    const step = () => {
-      if (k < ow.length) { O.textContent = ow.slice(0, ++k).join(" "); const show = Math.floor(k / ow.length * tw.length) - 1;
-        tw.forEach((s, j) => s.classList.toggle("in", j <= show)); this.t = setTimeout(step, RM ? 30 : 230); }
-      else { tw.forEach((s) => s.classList.add("in")); this.t = setTimeout(() => { this.i++; this.play(); }, 2600); }
-    };
-    step();
-  },
-};
-
-// --- появления, счётчики, линия шагов ------------------------------------------------------------------
-let io;
-function observe() {
-  if (!io) io = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; e.target.classList.add("in"); io.unobserve(e.target);
-    e.target.querySelectorAll("[data-count]").forEach(count); }), { threshold: .14, rootMargin: "0px 0px -6% 0px" });
-  $$(".rv:not(.in), .words:not(.in), .steps:not(.in), .card:not(.in), .stat:not(.in)").forEach((el) => io.observe(el));
-}
-function count(el) {
-  if (el.dataset.done) return; el.dataset.done = 1;
-  const raw = String(el.dataset.count), to = parseFloat(raw.replace(",", ".")), dec = /[.,]/.test(raw) ? 1 : 0, sep = raw.includes(",") ? "," : ".";
-  const t0 = performance.now(), dur = RM ? 1 : 1600;
-  const f = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4); el.textContent = (to * e).toFixed(dec).replace(".", sep); if (k < 1) requestAnimationFrame(f); };
-  requestAnimationFrame(f);
-}
-
-// --- карточки: подсветка за курсором и лёгкий наклон ------------------------------------------------------
-function cards() {
-  $$(".card, .price").forEach((c) => { if (c.dataset.fx) return; c.dataset.fx = 1;
-    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-      c.style.setProperty("--mx", x + "px"); c.style.setProperty("--my", y + "px");
-      if (!RM && c.classList.contains("card") && !c.closest(".sc")) c.style.transform = `perspective(900px) rotateX(${(0.5 - y / r.height) * 4}deg) rotateY(${(x / r.width - 0.5) * 5}deg)`; });
-    c.addEventListener("pointerleave", () => { c.style.transform = ""; }); });
-}
-
-// --- прокрутка: шапка, прогресс, сценарии, параллакс --------------------------------------------------------
-const nav = $("#nav"), prog = $("#progress");
-function onScroll() {
-  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
-  nav.classList.toggle("solid", y > 30);
-  prog.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
-  const chs = $$(".chapter");
-  let on = 0;
-  chs.forEach((c, i) => { if (c.getBoundingClientRect().top < innerHeight * .55) on = i; });
-  chs.forEach((c, i) => c.classList.toggle("on", i === on));
-  $$(".sc").forEach((s, i) => s.classList.toggle("on", i === on));
-  $$("#dots i").forEach((s, i) => s.classList.toggle("on", i === on));
-  if (!RM && innerWidth > 980) { const st = $("#stage"), r = st.getBoundingClientRect(); st.style.transform = `translateY(${Math.max(-60, Math.min(0, -r.top * 0.08))}px)`; }
-}
-addEventListener("scroll", onScroll, { passive: true });
-
-// --- витрина поворачивается за курсором, кнопки «притягиваются» ------------------------------------------------
-if (!RM && matchMedia("(pointer: fine)").matches) {
-  const dev = $("#device"), stage = $("#stage");
-  stage.addEventListener("pointermove", (e) => { const r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    dev.style.transform = `rotateY(${-9 + x * 14}deg) rotateX(${5 - y * 10}deg)`; });
-  stage.addEventListener("pointerleave", () => { dev.style.transform = ""; });
-  document.addEventListener("pointermove", (e) => { const b = e.target.closest && e.target.closest(".btn"); if (!b) return; const r = b.getBoundingClientRect();
-    b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px, ${(e.clientY - r.top - r.height / 2) * .28}px)`; });
-  document.addEventListener("pointerout", (e) => { const b = e.target.closest && e.target.closest(".btn"); if (b && !b.contains(e.relatedTarget)) b.style.transform = ""; });
-}
-
-// --- живая золотая звуковая волна на первом экране -------------------------------------------------------------
-(function wave() {
-  const cv = $("#wave"), cx = cv.getContext("2d");
-  let w, h, dpr, t = 0, mx = .5, my = .5, run = true;
-  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-  size(); addEventListener("resize", size);
-  addEventListener("pointermove", (e) => { mx = e.clientX / innerWidth; my = e.clientY / innerHeight; }, { passive: true });
-  new IntersectionObserver((es) => { const was = run; run = es[0].isIntersecting; if (run && !was) requestAnimationFrame(frame); }).observe(cv);
-  const lines = 7;
-  function frame() {
-    if (!run) return;
-    t += RM ? 0 : 0.006;
-    cx.clearRect(0, 0, w, h);
-    const g = cx.createRadialGradient(w * (0.2 + mx * 0.6), h * (0.3 + my * 0.4), 0, w * .5, h * .5, Math.max(w, h) * .8);
-    g.addColorStop(0, "rgba(217,187,133,.10)"); g.addColorStop(1, "rgba(0,0,0,0)");
-    cx.fillStyle = g; cx.fillRect(0, 0, w, h);
-    for (let L = 0; L < lines; L++) {
-      const amp = h * (0.05 + L * 0.012) * (0.8 + my * 0.4), y0 = h * (0.62 + L * 0.018), ph = t * (1 + L * 0.13) + L;
-      cx.beginPath();
-      for (let x = 0; x <= w; x += 8) {
-        const k = x / w, env = Math.sin(Math.PI * k) ** 1.4;
-        const y = y0 + env * amp * (Math.sin(k * 9 + ph * 2) * 0.6 + Math.sin(k * 23 - ph * 3) * 0.25 + Math.sin(k * 3 + ph) * 0.4);
-        x ? cx.lineTo(x, y) : cx.moveTo(x, y);
-      }
-      const a = 0.05 + (lines - L) * 0.028;
-      const lg = cx.createLinearGradient(0, 0, w, 0);
-      lg.addColorStop(0, "rgba(169,130,76,0)"); lg.addColorStop(.5, `rgba(246,231,198,${a * 2.2})`); lg.addColorStop(1, "rgba(169,130,76,0)");
-      cx.strokeStyle = lg; cx.lineWidth = L === 0 ? 1.8 : 1; cx.stroke();
-    }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
-
-$$("a.dl").forEach((a) => { a.href = TOLK_DOWNLOAD; });
-applyLang();
-bindPay();
-</script>
+<script src="assets/texts.js?v=30"></script>
+<script src="assets/site.js?v=30"></script>
 </body>
 </html>
