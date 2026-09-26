@@ -164,13 +164,13 @@
   // --- цены (живой курс из магазина; без ответа — запасные) ----------------------------------------------
   const FALLBACK = {
     plans: [
-      { id: "week", price: "1.99", stars: 155, days: 7, period_h: 7.5, per_month: null, save: 0 },
-      { id: "month", price: "6.99", stars: 555, days: 31, period_h: 30, per_month: 6.99, save: 0 },
-      { id: "quarter", price: "17.49", stars: 1395, days: 92, period_h: 90, per_month: 5.83, save: 17 },
-      { id: "half", price: "29.99", stars: 2395, days: 183, period_h: 180, per_month: 5, save: 28 },
-      { id: "year", price: "49.99", stars: 3995, days: 366, period_h: 360, per_month: 4.17, save: 40, best: true },
+      { id: "week", price: "2.49", stars: 195, days: 7, period_h: 7.5, per_month: null, save: 0 },
+      { id: "month", price: "8.99", stars: 715, days: 31, period_h: 30, per_month: 8.99, save: 0 },
+      { id: "quarter", price: "21.99", stars: 1755, days: 92, period_h: 90, per_month: 7.33, save: 18 },
+      { id: "half", price: "37.49", stars: 2995, days: 183, period_h: 180, per_month: 6.25, save: 30 },
+      { id: "year", price: "62.49", stars: 4995, days: 366, period_h: 360, per_month: 5.21, save: 42, best: true },
     ],
-    topups: [{ id: "h8", hours: 7.5, price: "1.49" }, { id: "h30", hours: 30, price: "3.99" }, { id: "h75", hours: 75, price: "7.99" }],
+    topups: [{ id: "h8", hours: 7.5, price: "1.99" }, { id: "h30", hours: 30, price: "4.99" }, { id: "h75", hours: 75, price: "9.99" }],
     methods: [], month_h: 30,
   };
   let catalog = null;
