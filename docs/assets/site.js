@@ -1,5 +1,6 @@
 // Tolk — сайт: тема (система / вручную), язык, живой фон из частиц (field.js), который по мере прокрутки проходит
-// звук → речь → перевод → субтитры → цены, живые цены из магазина, «Купить» → бот, стили субтитров, вопросы.
+// звук → перевод → субтитры → цены, живые цены из магазина, «Купить» → бот, настоящие фразы Google / Tolk AI по очереди,
+// настоящие субтитры Tolk, которые можно тянуть мышью, вопросы.
 // Движение — GSAP ScrollTrigger + SplitText + Lenis. Без WebGL или GSAP всё видно и работает, просто спокойнее.
 (function () {
   "use strict";
@@ -67,7 +68,6 @@
     }
     $$(".langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
-    $(".js-pair").textContent = tx("pair");
   }
   $$(".langs button").forEach((b) => b.addEventListener("click", () => {
     try { localStorage.setItem("tolk-lang", b.dataset.lang); } catch (e) { /* без хранилища */ }
@@ -88,18 +88,46 @@
     });
   }
 
-  // --- глава III: одна фраза у Google и у Tolk AI ------------------------------------------------------
-  const phrase = (CMP[lang] || CMP.ru)[0];
+  // --- глава «Перевод»: настоящие фразы по очереди (оригинал → Google → Tolk AI) ------------------------------
+  const ROWS = CMP[lang] || CMP.ru;
+  const CMP_MS = 5600;
+  let cmpIdx = 0, cmpActive = false, cmpAt = 0;
+  const pad = (n) => String(n).padStart(2, "0");
   function renderCompare() {
-    const box = $(".js-cmp");
-    if (box) box.innerHTML = `<div class="src"><dt>${tx("src_lbl")}</dt><dd>${phrase[0]}</dd></div>`
-      + `<div class="g"><dt>${tx("who_g")}</dt><dd>${phrase[1]}</dd></div>`
-      + `<div class="t"><dt>${tx("who_t")}</dt><dd>${phrase[2]}</dd></div>`;
+    const box = $(".cmp-rows");
+    box.innerHTML = `<div class="src"><dt>${tx("src_lbl")}</dt><dd></dd></div>`
+      + `<div class="g"><dt>${tx("who_g")}</dt><dd></dd></div>`
+      + `<div class="t"><dt>${tx("who_t")}</dt><dd></dd></div>`;
+    showRow(0, false);
+    $(".js-cmp-prev").addEventListener("click", () => { showRow(cmpIdx - 1); });
+    $(".js-cmp-next").addEventListener("click", () => { showRow(cmpIdx + 1); });
+  }
+  function showRow(i, animate = true) {
+    cmpIdx = (i + ROWS.length) % ROWS.length;
+    cmpAt = performance.now();
+    const row = ROWS[cmpIdx];
+    $(".js-cmp-n").textContent = `${pad(cmpIdx + 1)} / ${pad(ROWS.length)}`;
+    $$(".cmp-rows dd").forEach((dd, k) => {
+      const put = () => { dd.textContent = row[k]; typograph(dd); };
+      if (!animate) return put();
+      setTimeout(() => {
+        dd.classList.add("swap");
+        setTimeout(() => { put(); dd.classList.remove("swap"); }, 380);
+      }, k * 110);
+    });
+  }
+  function tickCompare(now) {
+    const barI = $(".cmp-bar i");
+    const p = cmpActive ? Math.min(1, (now - cmpAt) / CMP_MS) : 0;
+    barI.style.transform = `scaleX(${p})`;
+    if (!cmpActive) cmpAt = now;
+    else if (p >= 1) showRow(cmpIdx + 1);
+    requestAnimationFrame(tickCompare);
   }
 
-  // --- глава IV: стили субтитров (настоящие кадры программы) ---------------------------------------------
+  // --- глава «Субтитры»: настоящие кадры Tolk; их можно тянуть мышью, частицы светятся под ними -------------
   const STYLES = ["graphite", "glass", "classic", "cinema", "yellow", "light"];
-  const subImg = $(".sub-live img");
+  const subLive = $(".sub-live"), subImg = $(".sub-live img");
   let styleIdx = 0, styleTouched = false;
   function setStyle(i) {
     styleIdx = i;
@@ -189,7 +217,7 @@
     $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ");
   }
 
-  // --- прокрутка → состояние фона, линия прогресса, главы, метка внизу -------------------------------------
+  // --- прокрутка → состояние фона и линия прогресса ------------------------------------------------------
   let marks = [];
   function measure() {
     marks = $$("[data-state]").map((el) => ({ s: Number(el.dataset.state), top: el.getBoundingClientRect().top + scrollY }));
@@ -204,21 +232,14 @@
     }
     return s;
   }
-  const nav = $("#nav"), bar = $(".progress i"), hs = $(".js-hs"), rails = $$(".rail li");
-  let lastIdx = -1;
+  const nav = $("#nav"), bar = $(".progress i");
   function onScroll() {
     const y = scrollY, s = stateAt(y);
     if (field) field.setTarget(s);
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
     nav.classList.toggle("scrolled", y > 20);
-    const idx = Math.round(s);
-    if (idx !== lastIdx) {
-      lastIdx = idx;
-      rails.forEach((li) => li.classList.toggle("on", Number(li.dataset.rail) === idx));
-      hs.textContent = tx("hs")[idx] || "";
-    }
-    root.classList.toggle("chrome-off", s > 4.6);         // внизу цены и подвал — метки не мешают тексту
+    cmpActive = Math.abs(s - 2) < 0.45;
   }
   let refreshTimer = 0;
   function refreshSoon() {
@@ -226,47 +247,70 @@
     refreshTimer = setTimeout(() => { measure(); if (window.ScrollTrigger) ScrollTrigger.refresh(); onScroll(); }, 120);
   }
 
-  // субтитры программы встают на плашку из частиц, пока фон — в состоянии IV
-  const subLive = $(".sub-live");
+  // субтитры: видны, пока фон — в состоянии «Субтитры»; тянутся мышью или пальцем, свечение из частиц идёт следом
+  const drag = { cx: 0, cy: 0, w: 0, on: false, dx: 0, dy: 0, moved: false };
   let subShown = -1, autoAt = 0;
-  function onField(cur) {
-    const r = field.subRect();
-    if (!r) return;
-    const o = Math.max(0, Math.min(1, 1 - Math.abs(cur - 4) * 3.4));
-    if (o > 0.001 || subShown !== 0) {
-      subShown = o > 0.001 ? 1 : 0;
-      const w = r.win, b = r.bar;
-      subLive.style.width = w.w + "px";
-      subLive.style.height = w.h + "px";
-      subLive.style.transform = `translate3d(${w.x}px, ${w.y + (cur - 4) * -50}px, 0)`;
-      subLive.style.opacity = o.toFixed(3);
-      subImg.style.left = (b.x - w.x) + "px";
-      subImg.style.top = (b.y - w.y) + "px";
-      subImg.style.width = b.w + "px";
-      subImg.style.filter = o < 1 ? `blur(${((1 - o) * 8).toFixed(2)}px)` : "none";
+  const subH = () => drag.w * ((subImg.naturalHeight / subImg.naturalWidth) || 0.0962);
+  function placeSub(cur) {
+    const o = Math.max(0, Math.min(1, 1 - Math.abs(cur - 3) * 3.2));
+    if (o <= 0.001 && subShown === 0 && !drag.on) return o;
+    subShown = o > 0.001 ? 1 : 0;
+    const h = subH();
+    subLive.style.width = drag.w + "px";
+    subLive.style.transform = `translate3d(${drag.cx - drag.w / 2}px, ${drag.cy - h / 2 + (cur - 3) * -46}px, 0) scale(${0.96 + 0.04 * o})`;
+    subLive.style.opacity = o.toFixed(3);
+    subLive.style.filter = o < 1 ? `blur(${((1 - o) * 10).toFixed(2)}px)` : "none";
+    subLive.classList.toggle("grab", o > 0.6);
+    return o;
+  }
+  function onField(cur, rebuilt) {
+    if (rebuilt || !drag.w) {
+      const d = field.subDefault();
+      Object.assign(drag, { cx: d.cx, cy: d.cy, w: d.w });
+      field.setSub(drag.cx, drag.cy, drag.w);
     }
-    // пока посетитель смотрит на главу IV и ничего не выбрал — стили сменяются сами
+    const o = placeSub(cur);
+    // пока посетитель смотрит на главу и ничего не выбрал — стили сменяются сами
     const now = performance.now();
-    if (o > 0.95 && !styleTouched && now - autoAt > 2600) { autoAt = now; if (subShown) setStyle((styleIdx + 1) % STYLES.length); }
+    if (o > 0.95 && !styleTouched && !drag.on && now - autoAt > 2800) { autoAt = now; setStyle((styleIdx + 1) % STYLES.length); }
     if (o < 0.5) autoAt = now;
   }
+  subLive.addEventListener("pointerdown", (e) => {
+    if (!subLive.classList.contains("grab")) return;
+    drag.on = true; drag.dx = e.clientX - drag.cx; drag.dy = e.clientY - drag.cy;
+    subLive.setPointerCapture(e.pointerId);
+    subLive.classList.add("dragging");
+    e.preventDefault();
+  });
+  subLive.addEventListener("pointermove", (e) => {
+    if (!drag.on) return;
+    const hw = drag.w / 2, hh = subH() / 2;
+    drag.cx = Math.max(hw + 8, Math.min(innerWidth - hw - 8, e.clientX - drag.dx));
+    drag.cy = Math.max(hh + 70, Math.min(innerHeight - hh - 8, e.clientY - drag.dy));
+    if (field) { field.setSub(drag.cx, drag.cy, drag.w); placeSub(field.state); }
+    if (!drag.moved) { drag.moved = true; subLive.classList.add("moved"); }
+  });
+  const endDrag = () => { drag.on = false; subLive.classList.remove("dragging"); };
+  subLive.addEventListener("pointerup", endDrag);
+  subLive.addEventListener("pointercancel", endDrag);
 
   // --- фон -----------------------------------------------------------------------------------------------
   async function startField() {
     const canvas = $("#field");
     if (!window.TolkField) { root.classList.add("no-gl"); return; }
     const fonts = document.fonts ? Promise.all([
-      document.fonts.load('500 80px "EB Garamond"'), document.fonts.load('italic 500 80px "EB Garamond"'),
+      document.fonts.load('400 80px "EB Garamond"'), document.fonts.load('italic 400 80px "EB Garamond"'),
     ]) : Promise.resolve();
-    await Promise.race([fonts, new Promise((r) => setTimeout(r, 2500))]);
+    await Promise.race([fonts, new Promise((r) => setTimeout(r, 1800))]);
     const small = innerWidth < 760, cores = navigator.hardwareConcurrency || 4;
     try {
-      field = TolkField.create(canvas, { count: small ? 42000 : cores <= 4 ? 70000 : 100000, src: phrase[0], dst: phrase[2], dark: isDark() });
+      field = TolkField.create(canvas, { count: small ? 42000 : cores <= 4 ? 70000 : 100000, dark: isDark() });
     } catch (e) { console.warn(e); field = null; }
     if (!field) { root.classList.add("no-gl"); return; }
     field.jump(stateAt(scrollY));
     field.onFrame(onField);
     root.classList.add("live-on");
+    subImg.addEventListener("load", () => placeSub(field.state));
   }
 
   // --- движение --------------------------------------------------------------------------------------------
@@ -310,7 +354,7 @@
       const card = $(".card", ch);
       const st = { trigger: ch, start: "top 42%", toggleActions: "play none none reverse" };
       lines($(".display", card), { scrollTrigger: st });
-      gsap.from($$(".eyebrow, .body, .spec > div, .note, .chips", card), { y: 26, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: st });
+      gsap.from($$(".eyebrow, .body, .spec > div, .cmp-nav, .note, .chips", card), { y: 26, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: st });
       gsap.to(card, { opacity: 0, y: -60, filter: "blur(8px)", ease: "none",
         scrollTrigger: { trigger: ch, start: "bottom 99%", end: "bottom 64%", scrub: true } });
     });
@@ -339,7 +383,7 @@
     tl.from(".nav > *", { y: -14, opacity: 0, duration: 1.2, stagger: .05 }, 0)
       .add(() => { lines($(".js-h1"), { delay: 0 }); }, .1)
       .from(".hero [data-in]", { y: 28, opacity: 0, duration: 1.4, stagger: .1 }, .45)
-      .from(".hud, .rail, .progress", { opacity: 0, duration: 1.4, clearProps: "opacity" }, .8);
+      .from(".progress", { opacity: 0, duration: 1.4, clearProps: "opacity" }, .8);
   }
 
   // --- старт ---------------------------------------------------------------------------------------------
@@ -357,6 +401,7 @@
   const booted = startField();
   Promise.race([booted, new Promise((r) => setTimeout(r, 3000))]).then(() => { measure(); onScroll(); intro(); });
   loadPrices().then(refreshSoon);
+  requestAnimationFrame(tickCompare);
 
   // проверка скриншотами: ?shot=<px> — прокрутить туда сразу после загрузки
   const shot = Number(new URLSearchParams(location.search).get("shot"));

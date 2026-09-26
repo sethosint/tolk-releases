@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tolk — перевод онлайн-лекций, созвонов и фильмов в реальном времени</title>
+<title>Tolk — субтитры с переводом для онлайн-лекций</title>
 <meta name="description" content="Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна: онлайн-лекции в Teams, записи в Moodle, созвона, фильма. Windows 10 и 11.">
 <meta name="theme-color" content="#f2eee6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#060708" media="(prefers-color-scheme: dark)">
@@ -24,20 +24,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=40">
+<link rel="stylesheet" href="assets/site.css?v=41">
 </head>
 <body>
 
 <canvas id="field" aria-hidden="true"></canvas>
 <div class="atmos" aria-hidden="true"></div>
-<div class="sub-live" aria-hidden="true"><img alt=""></div>
+<div class="sub-live" aria-hidden="true"><img alt="" draggable="false"><span class="drag-hint" data-t="drag">Перетащите</span></div>
 
 <header class="nav chrome" id="nav">
   <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Tolk</a>
-  <nav class="links" aria-label="Разделы">
-    <a href="#pricing" data-t="nav_price">Цены</a>
-    <a href="#faq" data-t="nav_faq">Вопросы</a>
-  </nav>
   <div class="langs" role="group" aria-label="Язык">
     <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="sk">SK</button><button data-lang="en">EN</button>
   </div>
@@ -50,93 +46,74 @@
 
 <div class="progress chrome" aria-hidden="true"><i></i></div>
 
-<aside class="rail chrome" aria-hidden="true">
-  <ol>
-    <li data-rail="1"><b>I</b><span data-t="r1">Звук</span></li>
-    <li data-rail="2"><b>II</b><span data-t="r2">Речь</span></li>
-    <li data-rail="3"><b>III</b><span data-t="r3">Перевод</span></li>
-    <li data-rail="4"><b>IV</b><span data-t="r4">Субтитры</span></li>
-    <li data-rail="5"><b>V</b><span data-t="r5">Цены</span></li>
-  </ol>
-</aside>
 
-<div class="hud chrome" aria-hidden="true"><i class="live"></i><span class="js-pair">SK → RU</span><span class="sep">·</span><span class="js-hs">готов</span></div>
 
 <main id="top">
 
   <section class="panel hero" data-state="0">
     <div class="inner">
-      <p class="eyebrow" data-in data-t="h_eyebrow">Tolk 3.0 · Windows 10 и 11</p>
-      <h1 class="display js-h1" data-t="h1">Всё, что звучит, —<br><em>на вашем языке.</em></h1>
-      <p class="lede" data-in data-t="lede">Онлайн-лекция в Teams, запись в Moodle, созвон или фильм — Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна.</p>
+      <h1 class="display js-h1" data-t="h1">Понимайте пары<br><em>с первого дня.</em></h1>
+      <p class="lede" data-in data-t="lede">Tolk переводит преподавателя, пока он говорит. Субтитры появляются поверх Teams, Zoom или браузера, и их можно читать, как в кино.</p>
       <div class="ctas" data-in>
         <a class="btn js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
           <span data-t="cta_dl">Скачать для Windows</span></a>
         <a class="ghost js-buy" href="https://t.me/TolkShopBot" target="_blank" rel="noopener"><span data-t="cta_buy">Купить в Telegram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></a>
       </div>
-      <p class="fine" data-in data-t="fine">30 минут Tolk AI бесплатно · без регистрации</p>
+      <p class="fine" data-in data-t="fine">Первые 30 минут бесплатно, регистрация не нужна</p>
     </div>
-    <div class="cue" data-in><span data-t="cue">Листайте</span><i></i></div>
   </section>
 
   <section class="panel chapter left" data-state="1">
     <div class="inner">
       <div class="card">
-        <p class="eyebrow"><b>I</b> — <span data-t="c1_k">Звук</span></p>
-        <h2 class="display" data-t="c1_h">Слышит только <em>нужное.</em></h2>
-        <p class="body" data-t="c1_p">Выберите вкладку с лекцией, Teams, Zoom или весь звук компьютера — уведомления и музыка из других программ не помешают. На Windows 11 — без всяких расширений.</p>
+        <p class="eyebrow" data-t="c1_k">Звук</p>
+        <h2 class="display" data-t="c1_h">Выберите, <em>что переводить.</em></h2>
+        <p class="body" data-t="c1_p">Вкладку с парой, Teams, Zoom или весь звук компьютера. Музыку и уведомления из других программ Tolk не слышит.</p>
         <dl class="spec">
           <div><dt data-t="c1_a">Источник</dt><dd data-t="c1_av">вкладка, программа или весь звук</dd></div>
           <div><dt data-t="c1_b">Где работает</dt><dd>Teams, Zoom, Meet, YouTube, Moodle, Discord</dd></div>
-          <div><dt data-t="c1_c">Звук в интернет</dt><dd data-t="c1_cv">0 секунд</dd></div>
+          <div><dt data-t="c1_c">Звук в интернет</dt><dd data-t="c1_cv">не уходит: речь распознаётся на компьютере</dd></div>
         </dl>
       </div>
     </div>
   </section>
 
-  <section class="panel chapter right" data-state="2">
+  <section class="panel chapter left" data-state="2">
     <div class="inner">
-      <div class="card">
-        <p class="eyebrow"><b>II</b> — <span data-t="c2_k">Речь</span></p>
-        <h2 class="display" data-t="c2_h">Понимает речь <em>прямо на компьютере.</em></h2>
-        <p class="body" data-t="c2_p">Распознавание работает на вашем ноутбуке: звук никуда не уходит, а текст появляется, пока преподаватель ещё договаривает фразу.</p>
-        <dl class="spec">
-          <div><dt data-t="c2_a">Языков речи</dt><dd data-t="c2_av">35 — от словацкого до японского</dd></div>
-          <div><dt data-t="c2_b">Где</dt><dd data-t="c2_bv">на вашем компьютере</dd></div>
-          <div><dt data-t="c2_c">Видеокарта</dt><dd data-t="c2_cv">не обязательна</dd></div>
-        </dl>
+      <div class="card wide">
+        <p class="eyebrow" data-t="c2_k">Перевод</p>
+        <h2 class="display" data-t="c2_h">Понимает, <em>как говорят студенты.</em></h2>
+        <p class="body" data-t="c2_p">Обычный переводчик путается в сленге и сокращениях. Tolk AI знает, что такое «intrák» и «zápočet», и помнит, о чём говорили минуту назад.</p>
+        <div class="cmp js-cmp">
+          <dl class="spec cmp-rows"></dl>
+          <div class="cmp-nav">
+            <span class="cmp-n js-cmp-n">01 / 04</span>
+            <span class="cmp-bar"><i></i></span>
+            <button type="button" class="cmp-btn js-cmp-prev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6m0 0 5-5m-5 5 5 5"/></svg></button>
+            <button type="button" class="cmp-btn js-cmp-next" aria-label="Дальше"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></button>
+          </div>
+        </div>
+        <p class="note" data-t="c2_note">Настоящие ответы обоих переводчиков, сентябрь 2026.</p>
       </div>
     </div>
   </section>
 
-  <section class="panel chapter left" data-state="3">
+  <section class="panel chapter right" data-state="3">
     <div class="inner">
       <div class="card">
-        <p class="eyebrow"><b>III</b> — Tolk AI</p>
-        <h2 class="display" data-t="c3_h">Переводит смысл, <em>а не слова.</em></h2>
-        <p class="body" data-t="c3_p">Tolk AI знает студенческий сленг и помнит, о чём говорили минуту назад. Вот одна и та же фраза:</p>
-        <dl class="spec cmp js-cmp"></dl>
-        <p class="note" data-t="c3_note">Настоящие ответы обоих переводчиков, сентябрь 2026.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel chapter right" data-state="4">
-    <div class="inner">
-      <div class="card">
-        <p class="eyebrow"><b>IV</b> — <span data-t="c4_k">Субтитры</span></p>
-        <h2 class="display" data-t="c4_h">Поверх <em>любого окна.</em></h2>
-        <p class="body" data-t="c4_p">Субтитры висят над лекцией, фильмом или созвоном. Перетащите их мышью, выберите размер и один из шести стилей:</p>
+        <p class="eyebrow" data-t="c3_k">Субтитры</p>
+        <h2 class="display" data-t="c3_h">Там, где <em>вам удобно.</em></h2>
+        <p class="body" data-t="c3_p">Субтитры висят поверх всех окон. Их можно перетащить мышью (попробуйте прямо здесь) и выбрать стиль:</p>
         <div class="chips js-styles" role="group"></div>
       </div>
     </div>
   </section>
 
-  <section class="section pricing" id="pricing" data-state="5">
+  <section class="section pricing" id="pricing" data-state="4">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><b>V</b> — <span data-t="p_k">Цены</span></p>
+        <p class="eyebrow" data-t="p_k">Цены</p>
         <h2 class="display" data-t="p_h">Одна подписка. <em>Всё включено.</em></h2>
         <p class="body" data-t="p_lede">Весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок — тем дешевле месяц.</p>
       </div>
@@ -149,11 +126,11 @@
     </div>
   </section>
 
-  <section class="section outro" id="faq" data-state="6">
+  <section class="section outro" id="faq" data-state="5">
     <div class="wrap">
       <div class="faq-grid">
         <div class="head">
-          <p class="eyebrow"><b>VI</b> — <span data-t="q_k">Вопросы</span></p>
+          <p class="eyebrow" data-t="q_k">Вопросы</p>
         </div>
         <div class="faq js-faq"></div>
       </div>
@@ -190,8 +167,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js" defer></script>
-<script src="assets/texts.js?v=40" defer></script>
-<script src="assets/field.js?v=40" defer></script>
-<script src="assets/site.js?v=40" defer></script>
+<script src="assets/texts.js?v=41" defer></script>
+<script src="assets/field.js?v=41" defer></script>
+<script src="assets/site.js?v=41" defer></script>
 </body>
 </html>
