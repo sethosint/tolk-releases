@@ -235,7 +235,7 @@ void main() {
       W = document.documentElement.clientWidth; H = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, W * H > 2200000 ? 1.5 : 2);
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-      Lt = layout(W, H);
+      Lt = (opt.layout || layout)(W, H);             // своя разметка — для баннеров бота (tools/bot_art.html)
       const S = [], mArr = new Float32Array(N * 2);
 
       // 0 — гряды звука во всю ширину, всплеск справа от заголовка
