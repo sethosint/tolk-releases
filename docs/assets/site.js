@@ -126,7 +126,7 @@
   }
 
   // --- глава «Субтитры»: настоящие кадры Tolk; их можно тянуть мышью, частицы светятся под ними -------------
-  const STYLES = ["graphite", "glass", "classic", "cinema", "yellow", "light"];
+  const STYLES = ["graphite", "glass", "minimal", "classic", "light", "contrast"];
   const subLive = $(".sub-live"), subImg = $(".sub-live img");
   let styleIdx = 0, styleTouched = false;
   function setStyle(i) {
@@ -164,13 +164,18 @@
   // --- цены (живой курс из магазина; без ответа — запасные) ----------------------------------------------
   const FALLBACK = {
     plans: [
-      { id: "week", price: "2.49", stars: 195, days: 7, period_h: 7.5, per_month: null, save: 0 },
-      { id: "month", price: "8.99", stars: 715, days: 31, period_h: 30, per_month: 8.99, save: 0 },
-      { id: "quarter", price: "21.99", stars: 1755, days: 92, period_h: 90, per_month: 7.33, save: 18 },
-      { id: "half", price: "37.49", stars: 2995, days: 183, period_h: 180, per_month: 6.25, save: 30 },
-      { id: "year", price: "62.49", stars: 4995, days: 366, period_h: 360, per_month: 5.21, save: 42, best: true },
+      { id: "week", price: "2.49", stars: 200, days: 7, period_h: 7.5, per_month: null, save: 0 },
+      { id: "month", price: "8.99", stars: 750, days: 31, period_h: 30, per_month: 8.99, save: 0 },
+      { id: "quarter", price: "21.99", stars: 1750, days: 92, period_h: 90, per_month: 7.33, save: 18 },
+      { id: "half", price: "37.49", stars: 3000, days: 183, period_h: 180, per_month: 6.25, save: 30 },
+      { id: "year", price: "62.49", stars: 5000, days: 366, period_h: 360, per_month: 5.21, save: 42, best: true },
+      { id: "pro_week", price: "3.49", stars: 300, days: 7, period_h: 7.5, per_month: null, save: 0, pro: true },
+      { id: "pro_month", price: "12.99", stars: 1100, days: 31, period_h: 30, per_month: 12.99, save: 0, pro: true },
+      { id: "pro_quarter", price: "32.99", stars: 2750, days: 92, period_h: 90, per_month: 11, save: 15, pro: true },
+      { id: "pro_half", price: "54.99", stars: 4500, days: 183, period_h: 180, per_month: 9.17, save: 29, pro: true },
+      { id: "pro_year", price: "89.99", stars: 7500, days: 366, period_h: 360, per_month: 7.5, save: 42, pro: true },
     ],
-    topups: [{ id: "h8", hours: 7.5, price: "1.99" }, { id: "h30", hours: 30, price: "4.99" }, { id: "h75", hours: 75, price: "9.99" }],
+    topups: [{ id: "h8", hours: 7.5, price: "1.99" }, { id: "h30", hours: 30, price: "6.99" }, { id: "h75", hours: 75, price: "14.99" }],
     methods: [], month_h: 30,
   };
   let catalog = null;
@@ -194,11 +199,19 @@
     const b = [get("usdt"), get("ton")].filter(Boolean);
     return (a.length ? `<span>≈ ${a.join(" · ")}</span>` : "") + (b.length ? `<span>${b.join(" · ")}</span>` : "");
   }
+  let proView = false;
   function renderPrices() {
     const c = catalog || FALLBACK;
     const box = $(".js-plans");
     const monthH = c.month_h || 30;
-    box.innerHTML = c.plans.map((p) => {
+    const tabs = $(".js-plan-tabs");
+    const hasPro = c.plans.some((p) => p.pro);
+    tabs.hidden = !hasPro;
+    $$("button", tabs).forEach((b) => { b.textContent = tx(b.dataset.v === "pro" ? "tab_pro" : "tab_std"); b.setAttribute("aria-pressed", String((b.dataset.v === "pro") === proView)); });
+    const lede = $(".js-pro-lede");
+    lede.hidden = !(hasPro && proView);
+    lede.textContent = tx("pro_lede");
+    box.innerHTML = c.plans.filter((p) => Boolean(p.pro) === (hasPro && proView)).map((p) => {
       const title = (tx("plan") || {})[p.id] || p.title || p.id;
       const hours = p.days < 28 ? fill(tx("h_week"), { h: hrs(p.period_h) })
         : p.days < 40 ? fill(tx("h_month"), { h: hrs(p.period_h) })
@@ -216,6 +229,8 @@
     }).join("");
     $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ");
   }
+
+  $$(".js-plan-tabs button").forEach((b) => b.addEventListener("click", () => { proView = b.dataset.v === "pro"; renderPrices(); }));
 
   // --- прокрутка → состояние фона и линия прогресса ------------------------------------------------------
   let marks = [];

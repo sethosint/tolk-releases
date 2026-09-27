@@ -100,17 +100,22 @@ window.TOLK_TEXTS = {
   "styles": [
    "Графит",
    "Стекло",
+   "Без подложки",
    "Классика",
-   "Кино",
-   "Жёлтые",
-   "Светлые"
+   "Светлые",
+   "Контраст"
   ],
   "plan": {
    "week": "Неделя",
    "month": "Месяц",
    "quarter": "3 месяца",
    "half": "Полгода",
-   "year": "Год"
+   "year": "Год",
+   "pro_week": "Pro · Неделя",
+   "pro_month": "Pro · Месяц",
+   "pro_quarter": "Pro · 3 месяца",
+   "pro_half": "Pro · Полгода",
+   "pro_year": "Pro · Год"
   },
   "per_month": "{p} в месяц",
   "per_week": "7 дней",
@@ -130,12 +135,20 @@ window.TOLK_TEXTS = {
     "Распознаёт 35 языков речи: словацкий, чешский, английский, немецкий, польский, украинский и другие. Переводит на 32 языка — включая русский, украинский, английский и словацкий."
    ],
    [
-    "Нужно ли расширение для браузера?",
-    "На Windows 11 — нет: выберите в Tolk браузер, и он услышит вкладку. Расширение Tolk пригодится, если в браузере одновременно звучит несколько вкладок, а переводить нужно одну, — и на Windows 10."
+    "Работает в Zoom, Teams, Webex?",
+    "Да — в любой программе и на любом сайте со звуком: Zoom, Teams, Webex, Meet, Discord, YouTube, запись лекции в браузере. Tolk слушает звук, а не саму программу."
+   ],
+   [
+    "Что такое Tolk Pro и конспекты?",
+    "Tolk Pro — всё, что в обычной подписке, и конспекты лекций. Нажмите «Записать лекцию»: Tolk сохранит расшифровку и слайды с экрана, найдёт презентацию на сайте кафедры (например, kmti.fei.tuke.sk) или возьмёт ваш файл и через минуту соберёт конспект: темы, определения, формулы, сроки зачётов."
+   ],
+   [
+    "Работает в любом браузере?",
+    "Да: Chrome, Edge, Opera, Brave, Vivaldi, Firefox и другие. На Windows 11 расширение не нужно — выберите в Tolk браузер, и он услышит его звук. Расширение Tolk пригодится, если в браузере звучит несколько вкладок, а переводить нужно одну, — и на Windows 10."
    ],
    [
     "Tolk слушает микрофон? Куда уходит звук?",
-    "Tolk слушает только тот звук, который вы выбрали, и распознаёт его на вашем компьютере. В интернет уходит только текст фразы — для перевода. Подробнее — в <a class=\"link\" href=\"privacy.html\">политике конфиденциальности</a>."
+    "Tolk слушает только тот звук, который вы выбрали, и распознаёт речь на вашем компьютере. Для точного перевода фраза по защищённому соединению уходит на сервер Tolk и нейросети — и нигде не хранится. Подробнее — в <a class=\"link\" href=\"privacy.html\">политике конфиденциальности</a>."
    ],
    [
     "Что будет, когда кончатся часы Tolk AI?",
@@ -143,7 +156,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Как оплатить и когда придёт ключ?",
-    "В Telegram-боте <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Звёздами Telegram — ключ приходит сразу; картой monobank, USDT или TON — после проверки, обычно до 15 минут. Ключ придёт в чат, а Tolk, из которого вы открыли бота, активируется сам."
+    "В Telegram-боте <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Звёздами Telegram — ключ приходит сразу; украинской картой, USDT или TON — после проверки, обычно до 15 минут. Ключ придёт в чат, а Tolk, из которого вы открыли бота, активируется сам."
    ],
    [
     "Подписка продлевается сама?",
@@ -155,7 +168,10 @@ window.TOLK_TEXTS = {
    ]
   ],
   "c2_note": "Настоящие ответы обоих переводчиков, сентябрь 2026.",
-  "drag": "Перетащите"
+  "drag": "Перетащите",
+  "tab_std": "Обычная",
+  "tab_pro": "Pro — с конспектами",
+  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 120 конспектов в месяц."
  },
  "uk": {
   "title": "Tolk — субтитри з перекладом для онлайн-лекцій",
@@ -171,19 +187,19 @@ window.TOLK_TEXTS = {
   "c1_a": "Джерело",
   "c1_av": "вкладка, програма або весь звук",
   "c1_b": "Де працює",
-  "c1_c": "Звук в інтернет",
-  "c1_cv": "не йде: мовлення розпізнається на комп'ютері",
+  "c1_c": "Приватність",
+  "c1_cv": "мовлення розпізнається на комп'ютері, фрази для перекладу не зберігаються",
   "c2_k": "Переклад",
   "c2_h": "Розуміє, <em>як говорять студенти.</em>",
   "c2_p": "Звичайний перекладач плутається в сленгу й скороченнях. Tolk AI знає, що таке «intrák» і «zápočet», і пам'ятає, про що говорили хвилину тому.",
   "c3_h": "Там, де <em>вам зручно.</em>",
   "c3_p": "Субтитри висять поверх усіх вікон. Їх можна перетягнути мишею (спробуйте просто тут) і вибрати стиль:",
   "p_k": "Ціни",
-  "p_h": "Одна підписка. <em>Усе включено.</em>",
+  "p_h": "Тарифи Tolk. <em>Усе включено.</em>",
   "p_lede": "Увесь Tolk і 30 годин Tolk AI на кожні 30 днів. Що довший строк — то дешевший місяць.",
   "extra": "Забракло годин?",
-  "pay_line": "Купівля — у боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: зірки Telegram, картка monobank, USDT або TON. Без автосписань.",
-  "rates": "Ціни в гривнях і крипті — за курсом monobank і CoinGecko, округлені. Точна сума — у боті.",
+  "pay_line": "Купівля — у боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: зірки Telegram, українська картка, USDT або TON. Без автосписань.",
+  "rates": "Ціни в гривнях і крипті — за поточним курсом, округлені. Точна сума — у боті.",
   "q_k": "Питання",
   "t_h": "Спробуйте <em>на своїй лекції.</em>",
   "t_fine": "Пів години повної версії з Tolk AI — без картки й реєстрації.",
@@ -196,17 +212,22 @@ window.TOLK_TEXTS = {
   "styles": [
    "Графіт",
    "Скло",
+   "Без підкладки",
    "Класика",
-   "Кіно",
-   "Жовті",
-   "Світлі"
+   "Світлі",
+   "Контраст"
   ],
   "plan": {
    "week": "Тиждень",
    "month": "Місяць",
    "quarter": "3 місяці",
    "half": "Пів року",
-   "year": "Рік"
+   "year": "Рік",
+   "pro_week": "Pro · Тиждень",
+   "pro_month": "Pro · Місяць",
+   "pro_quarter": "Pro · 3 місяці",
+   "pro_half": "Pro · Пів року",
+   "pro_year": "Pro · Рік"
   },
   "per_month": "{p} на місяць",
   "per_week": "7 днів",
@@ -227,12 +248,20 @@ window.TOLK_TEXTS = {
     "Розпізнає 35 мов мовлення: словацьку, чеську, англійську, німецьку, польську, українську та інші. Перекладає на 32 мови — зокрема українську, російську, англійську й словацьку."
    ],
    [
-    "Чи потрібне розширення для браузера?",
-    "На Windows 11 — ні: оберіть у Tolk браузер, і він почує вкладку. Розширення Tolk знадобиться, якщо в браузері одночасно звучить кілька вкладок, а перекладати треба одну, — і на Windows 10."
+    "Працює в Zoom, Teams, Webex?",
+    "Так — у будь-якій програмі й на будь-якому сайті зі звуком: Zoom, Teams, Webex, Meet, Discord, YouTube, запис лекції в браузері. Tolk слухає звук, а не саму програму."
+   ],
+   [
+    "Що таке Tolk Pro і конспекти?",
+    "Tolk Pro — усе, що у звичайній підписці, і конспекти лекцій. Натисніть «Записати лекцію»: Tolk збереже розшифровку і слайди з екрана, знайде презентацію на сайті кафедри (наприклад, kmti.fei.tuke.sk) або візьме ваш файл і за хвилину складе конспект: теми, означення, формули, терміни заліків."
+   ],
+   [
+    "Працює в будь-якому браузері?",
+    "Так: Chrome, Edge, Opera, Brave, Vivaldi, Firefox та інші. На Windows 11 розширення не потрібне — оберіть у Tolk браузер, і він почує його звук. Розширення Tolk знадобиться, якщо в браузері звучить кілька вкладок, а перекладати треба одну, — і на Windows 10."
    ],
    [
     "Tolk слухає мікрофон? Куди йде звук?",
-    "Tolk слухає лише той звук, який ви обрали, і розпізнає його на вашому комп'ютері. В інтернет іде лише текст фрази — для перекладу. Докладніше — в <a class=\"link\" href=\"privacy.html\">політиці конфіденційності</a>."
+    "Tolk слухає лише той звук, який ви обрали, і розпізнає мовлення на вашому комп'ютері. Для точного перекладу фраза захищеним з'єднанням іде на сервер Tolk і нейромережі — і ніде не зберігається. Докладніше — в <a class=\"link\" href=\"privacy.html\">політиці конфіденційності</a>."
    ],
    [
     "Що буде, коли закінчаться години Tolk AI?",
@@ -240,7 +269,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Як оплатити й коли прийде ключ?",
-    "У Telegram-боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Зірками Telegram — ключ приходить одразу; карткою monobank, USDT або TON — після перевірки, зазвичай до 15 хвилин. Ключ прийде в чат, а Tolk, з якого ви відкрили бота, активується сам."
+    "У Telegram-боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Зірками Telegram — ключ приходить одразу; українською карткою, USDT або TON — після перевірки, зазвичай до 15 хвилин. Ключ прийде в чат, а Tolk, з якого ви відкрили бота, активується сам."
    ],
    [
     "Підписка продовжується сама?",
@@ -254,7 +283,10 @@ window.TOLK_TEXTS = {
   "c1_k": "Звук",
   "c2_note": "Справжні відповіді обох перекладачів, вересень 2026.",
   "c3_k": "Субтитри",
-  "drag": "Перетягніть"
+  "drag": "Перетягніть",
+  "tab_std": "Звичайна",
+  "tab_pro": "Pro — з конспектами",
+  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 120 конспектів на місяць."
  },
  "sk": {
   "title": "Tolk — titulky s prekladom na online prednášky",
@@ -270,19 +302,19 @@ window.TOLK_TEXTS = {
   "c1_a": "Zdroj",
   "c1_av": "karta, program alebo celý zvuk",
   "c1_b": "Kde funguje",
-  "c1_c": "Zvuk na internet",
-  "c1_cv": "neodchádza: reč sa rozpoznáva v počítači",
+  "c1_c": "Súkromie",
+  "c1_cv": "reč sa rozpoznáva v počítači, frázy na preklad sa neukladajú",
   "c2_k": "Preklad",
   "c2_h": "Rozumie, <em>ako hovoria študenti.</em>",
   "c2_p": "Bežný prekladač sa stráca v slangu a skratkách. Tolk AI vie, čo znamená „no cap“ a „mid“, a pamätá si, o čom bola reč pred minútou.",
   "c3_h": "Tam, kde <em>vám to vyhovuje.</em>",
   "c3_p": "Titulky sú nad všetkými oknami. Môžete ich potiahnuť myšou (vyskúšajte to priamo tu) a vybrať si štýl:",
   "p_k": "Ceny",
-  "p_h": "Jedno predplatné. <em>Všetko v cene.</em>",
+  "p_h": "Tarify Tolk. <em>Všetko v cene.</em>",
   "p_lede": "Celý Tolk a 30 hodín Tolk AI na každých 30 dní. Čím dlhšie obdobie, tým lacnejší mesiac.",
   "extra": "Nestačili hodiny?",
-  "pay_line": "Nákup v bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: hviezdy Telegram, karta monobank, USDT alebo TON. Žiadne automatické platby.",
-  "rates": "Ceny v hrivnách a krypte — podľa kurzu monobank a CoinGecko, zaokrúhlené. Presná suma je v bote.",
+  "pay_line": "Nákup v bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: hviezdy Telegram, ukrajinská karta, USDT alebo TON. Bez automatických platieb.",
+  "rates": "Ceny v hrivnách a krypte — podľa aktuálneho kurzu, zaokrúhlené. Presná suma je v bote.",
   "q_k": "Otázky",
   "t_h": "Vyskúšajte <em>na svojej prednáške.</em>",
   "t_fine": "Pol hodiny plnej verzie s Tolk AI — bez karty a registrácie.",
@@ -295,17 +327,22 @@ window.TOLK_TEXTS = {
   "styles": [
    "Grafit",
    "Sklo",
+   "Bez pozadia",
    "Klasika",
-   "Kino",
-   "Žlté",
-   "Svetlé"
+   "Svetlé",
+   "Kontrast"
   ],
   "plan": {
    "week": "Týždeň",
    "month": "Mesiac",
    "quarter": "3 mesiace",
    "half": "Pol roka",
-   "year": "Rok"
+   "year": "Rok",
+   "pro_week": "Pro · Týždeň",
+   "pro_month": "Pro · Mesiac",
+   "pro_quarter": "Pro · 3 mesiace",
+   "pro_half": "Pro · Pol roka",
+   "pro_year": "Pro · Rok"
   },
   "per_month": "{p} mesačne",
   "per_week": "7 dní",
@@ -326,12 +363,20 @@ window.TOLK_TEXTS = {
     "Rozpoznáva 35 jazykov reči: slovenčinu, češtinu, angličtinu, nemčinu, poľštinu, ukrajinčinu a ďalšie. Prekladá do 32 jazykov — aj do slovenčiny, angličtiny, ukrajinčiny a ruštiny."
    ],
    [
-    "Potrebujem rozšírenie prehliadača?",
-    "Na Windows 11 nie: v Tolku vyberte prehliadač a počuje kartu. Rozšírenie Tolk sa hodí, keď v prehliadači naraz hrá viac kariet a prekladať treba jednu — a na Windows 10."
+    "Funguje v Zoome, Teams, Webexe?",
+    "Áno — v akomkoľvek programe a na akejkoľvek stránke so zvukom: Zoom, Teams, Webex, Meet, Discord, YouTube, záznam prednášky v prehliadači. Tolk počúva zvuk, nie samotný program."
+   ],
+   [
+    "Čo je Tolk Pro a poznámky?",
+    "Tolk Pro je všetko z bežného predplatného a navyše poznámky z prednášok. Stlačte „Nahrať prednášku“: Tolk uloží prepis a slajdy z obrazovky, nájde prezentáciu na stránke katedry (napríklad kmti.fei.tuke.sk) alebo použije váš súbor a za minútu zostaví poznámky: témy, definície, vzorce, termíny zápočtov."
+   ],
+   [
+    "Funguje v každom prehliadači?",
+    "Áno: Chrome, Edge, Opera, Brave, Vivaldi, Firefox a ďalšie. Vo Windows 11 rozšírenie netreba — vyberte v Tolku prehliadač a Tolk bude počuť jeho zvuk. Rozšírenie Tolk sa hodí, keď v prehliadači hrá viac kariet a prekladať treba jednu, — a vo Windows 10."
    ],
    [
     "Počúva Tolk mikrofón? Kam ide zvuk?",
-    "Tolk počúva len zvuk, ktorý vyberiete, a rozpoznáva ho vo vašom počítači. Na internet ide len text vety — na preklad. Viac v <a class=\"link\" href=\"privacy.html\">zásadách ochrany súkromia</a>."
+    "Tolk počúva len zvuk, ktorý ste vybrali, a reč rozpoznáva vo vašom počítači. Pre presný preklad ide fráza šifrovaným spojením na server Tolk a neurónovej sieti — a nikde sa neukladá. Viac v <a class=\"link\" href=\"privacy.html\">zásadách ochrany súkromia</a>."
    ],
    [
     "Čo sa stane, keď sa minú hodiny Tolk AI?",
@@ -339,7 +384,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Ako zaplatiť a kedy príde kľúč?",
-    "V Telegram bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Hviezdami Telegram — kľúč príde hneď; kartou monobank, USDT alebo TON — po kontrole, zvyčajne do 15 minút. Kľúč príde do chatu a Tolk, z ktorého ste bota otvorili, sa aktivuje sám."
+    "V Telegram bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Hviezdami Telegram — kľúč príde hneď; ukrajinskou kartou, USDT alebo TON — po kontrole, zvyčajne do 15 minút. Kľúč príde do chatu a Tolk, z ktorého ste bota otvorili, sa aktivuje sám."
    ],
    [
     "Predlžuje sa predplatné samo?",
@@ -353,7 +398,10 @@ window.TOLK_TEXTS = {
   "c1_k": "Zvuk",
   "c2_note": "Skutočné odpovede oboch prekladačov, september 2026.",
   "c3_k": "Titulky",
-  "drag": "Potiahnite"
+  "drag": "Potiahnite",
+  "tab_std": "Bežné",
+  "tab_pro": "Pro — s poznámkami",
+  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 120 poznámok mesačne."
  },
  "en": {
   "title": "Tolk — translated subtitles for online lectures",
@@ -369,19 +417,19 @@ window.TOLK_TEXTS = {
   "c1_a": "Source",
   "c1_av": "a tab, an app or all sound",
   "c1_b": "Works with",
-  "c1_c": "Audio sent online",
-  "c1_cv": "none: speech is recognised on your computer",
+  "c1_c": "Privacy",
+  "c1_cv": "speech is recognised on your computer; phrases sent for translation aren't stored",
   "c2_k": "Translation",
   "c2_h": "Gets <em>student slang.</em>",
   "c2_p": "A regular translator trips over slang and abbreviations. Tolk AI knows what “intrák” and “zápočet” mean, and remembers what was said a minute ago.",
   "c3_h": "Wherever <em>suits you.</em>",
   "c3_p": "Subtitles float above every window. Drag them with the mouse (try it right here) and pick a style:",
   "p_k": "Pricing",
-  "p_h": "One subscription. <em>Everything included.</em>",
+  "p_h": "Tolk plans. <em>Everything included.</em>",
   "p_lede": "All of Tolk plus 30 hours of Tolk AI every 30 days. The longer the plan, the cheaper the month.",
   "extra": "Need more hours?",
-  "pay_line": "Buy in the <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a> bot: Telegram Stars, monobank card, USDT or TON. No automatic charges.",
-  "rates": "Hryvnia and crypto prices follow the monobank and CoinGecko rates, rounded. The exact amount is shown in the bot.",
+  "pay_line": "Buy in the <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a> bot: Telegram Stars, Ukrainian card, USDT or TON. No automatic charges.",
+  "rates": "Hryvnia and crypto prices follow the current rate, rounded. The exact amount is shown in the bot.",
   "q_k": "FAQ",
   "t_h": "Try it on <em>your own lecture.</em>",
   "t_fine": "Half an hour of the full version with Tolk AI — no card, no sign-up.",
@@ -394,17 +442,22 @@ window.TOLK_TEXTS = {
   "styles": [
    "Graphite",
    "Glass",
+   "No backdrop",
    "Classic",
-   "Cinema",
-   "Yellow",
-   "Light"
+   "Light",
+   "Contrast"
   ],
   "plan": {
    "week": "Week",
    "month": "Month",
    "quarter": "3 months",
    "half": "6 months",
-   "year": "Year"
+   "year": "Year",
+   "pro_week": "Pro · Week",
+   "pro_month": "Pro · Month",
+   "pro_quarter": "Pro · 3 months",
+   "pro_half": "Pro · 6 months",
+   "pro_year": "Pro · Year"
   },
   "per_month": "{p} a month",
   "per_week": "7 days",
@@ -425,12 +478,20 @@ window.TOLK_TEXTS = {
     "It recognises 35 spoken languages — Slovak, Czech, English, German, Polish, Ukrainian and more — and translates into 32, including English, Slovak, Ukrainian and Russian."
    ],
    [
-    "Do I need a browser extension?",
-    "Not on Windows 11: choose your browser in Tolk and it hears the tab. The Tolk extension helps when several tabs are playing at once and you need just one — and on Windows 10."
+    "Does it work in Zoom, Teams, Webex?",
+    "Yes — in any app or website with sound: Zoom, Teams, Webex, Meet, Discord, YouTube, a lecture recording in the browser. Tolk listens to the sound, not to the app itself."
    ],
    [
-    "Does Tolk listen to my microphone? Where does the audio go?",
-    "Tolk listens only to the sound you choose and recognises it on your computer. Only the text of each sentence goes online, for translation. More in the <a class=\"link\" href=\"privacy.html\">privacy policy</a>."
+    "What is Tolk Pro and the notes?",
+    "Tolk Pro is everything in the regular plan plus lecture notes. Press “Record lecture”: Tolk saves the transcript and the on-screen slides, finds the presentation on the department site (e.g. kmti.fei.tuke.sk) or takes your file, and in a minute writes notes: topics, definitions, formulas, deadlines."
+   ],
+   [
+    "Does it work in any browser?",
+    "Yes: Chrome, Edge, Opera, Brave, Vivaldi, Firefox and others. On Windows 11 you don't need the extension — pick your browser in Tolk and it hears its sound. The Tolk extension helps when several tabs play at once and you need just one — and on Windows 10."
+   ],
+   [
+    "Does Tolk listen to my mic? Where does the audio go?",
+    "Tolk only listens to the sound you picked and recognises speech on your computer. For an accurate translation the phrase goes over an encrypted connection to the Tolk server and the AI model — and isn't stored anywhere. More in the <a class=\"link\" href=\"privacy.html\">privacy policy</a>."
    ],
    [
     "What happens when my Tolk AI hours run out?",
@@ -438,7 +499,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "How do I pay, and when do I get the key?",
-    "In the Telegram bot <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. With Telegram Stars the key arrives instantly; with a monobank card, USDT or TON it comes after a check, usually within 15 minutes. The key arrives in the chat, and the Tolk you opened the bot from activates itself."
+    "In the Telegram bot <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. With Telegram Stars the key arrives instantly; with a Ukrainian card, USDT or TON it comes after a check, usually within 15 minutes. The key arrives in the chat, and the Tolk you opened the bot from activates itself."
    ],
    [
     "Does the subscription renew automatically?",
@@ -452,6 +513,9 @@ window.TOLK_TEXTS = {
   "c1_k": "Sound",
   "c2_note": "Real answers from both translators, September 2026.",
   "c3_k": "Subtitles",
-  "drag": "Drag me"
+  "drag": "Drag me",
+  "tab_std": "Regular",
+  "tab_pro": "Pro — with notes",
+  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 120 notes a month."
  }
 };

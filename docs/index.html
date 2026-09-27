@@ -2,16 +2,18 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-k/SYIfOfDIsyEJsd/MJdaeee+cZFoX4JwJMsFnBSN1g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://tolk-shop.seth-gamingmain.workers.dev; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tolk — субтитры с переводом для онлайн-лекций</title>
-<meta name="description" content="Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна: онлайн-лекции в Teams, записи в Moodle, созвона, фильма. Windows 10 и 11.">
+<meta name="description" content="Tolk слышит звук компьютера и через долю секунды показывает перевод поверх любого окна: онлайн-лекции в Teams, Zoom и Webex, созвона, фильма. Windows 10 и 11.">
 <meta name="theme-color" content="#f2eee6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#060708" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tolk — всё, что звучит, на вашем языке">
 <meta property="og:description" content="Онлайн-лекции, созвоны и фильмы на любом языке — с переводом в реальном времени. Windows 10 и 11.">
 <meta property="og:image" content="https://sethosint.github.io/tolk-releases/img/og.jpg">
-<link rel="icon" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="img/tolk-t-64.png">
+<link rel="apple-touch-icon" href="img/icon.png">
 <script>
   // тема: сохранённая вручную или системная (без мигания при загрузке)
   (function () {
@@ -24,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=41">
+<link rel="stylesheet" href="assets/site.css?v=42">
 </head>
 <body>
 
@@ -33,7 +35,7 @@
 <div class="sub-live" aria-hidden="true"><img alt="" draggable="false"><span class="drag-hint" data-t="drag">Перетащите</span></div>
 
 <header class="nav chrome" id="nav">
-  <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Tolk</a>
+  <a class="brand" href="#top"><svg class="tmark" viewBox="0 0 28 28" aria-hidden="true"><rect x=".75" y=".75" width="26.5" height="26.5" rx="7.8" fill="#141518" stroke="rgba(244,241,234,.18)" stroke-width=".8"/><text x="7.4" y="20.4" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="19.5" fill="#f4f1ea">t</text><circle cx="18.7" cy="18.5" r="2.5" fill="#e3bd76"/></svg><span>Tolk</span></a>
   <div class="langs" role="group" aria-label="Язык">
     <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="sk">SK</button><button data-lang="en">EN</button>
   </div>
@@ -72,8 +74,8 @@
         <p class="body" data-t="c1_p">Вкладку с парой, Teams, Zoom или весь звук компьютера. Музыку и уведомления из других программ Tolk не слышит.</p>
         <dl class="spec">
           <div><dt data-t="c1_a">Источник</dt><dd data-t="c1_av">вкладка, программа или весь звук</dd></div>
-          <div><dt data-t="c1_b">Где работает</dt><dd>Teams, Zoom, Meet, YouTube, Moodle, Discord</dd></div>
-          <div><dt data-t="c1_c">Звук в интернет</dt><dd data-t="c1_cv">не уходит: речь распознаётся на компьютере</dd></div>
+          <div><dt data-t="c1_b">Где работает</dt><dd>Zoom, Teams, Webex, Meet, YouTube, Discord</dd></div>
+          <div><dt data-t="c1_c">Приватность</dt><dd data-t="c1_cv">речь распознаётся на компьютере, фразы для перевода не хранятся</dd></div>
         </dl>
       </div>
     </div>
@@ -114,14 +116,16 @@
     <div class="wrap">
       <div class="head">
         <p class="eyebrow" data-t="p_k">Цены</p>
-        <h2 class="display" data-t="p_h">Одна подписка. <em>Всё включено.</em></h2>
+        <h2 class="display" data-t="p_h">Тарифы Tolk. <em>Всё включено.</em></h2>
         <p class="body" data-t="p_lede">Весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок — тем дешевле месяц.</p>
       </div>
+      <div class="plan-tabs js-plan-tabs" role="tablist"><button type="button" data-v="std" aria-pressed="true">Обычная</button><button type="button" data-v="pro" aria-pressed="false">Pro — с конспектами</button></div>
+      <p class="pro-lede js-pro-lede" hidden></p>
       <div class="plans js-plans"></div>
       <div class="pay-notes">
         <p><span class="mono-k" data-t="extra">Не хватило часов?</span> <span class="js-topups"></span></p>
-        <p data-t="pay_line">Покупка — в боте <a class="link js-buy" href="https://t.me/TolkShopBot">@TolkShopBot</a>: звёзды Telegram, карта monobank, USDT или TON. Без автосписаний.</p>
-        <p class="note" data-t="rates">Цены в гривнах и крипте — по курсу monobank и CoinGecko, округлены. Точная сумма — в боте.</p>
+        <p data-t="pay_line">Покупка — в боте <a class="link js-buy" href="https://t.me/TolkShopBot">@TolkShopBot</a>: звёзды Telegram, украинская карта, USDT или TON. Без автосписаний.</p>
+        <p class="note" data-t="rates">Цены в гривнах и крипте — по текущему курсу, округлены. Точная сумма — в боте.</p>
       </div>
     </div>
   </section>
@@ -163,12 +167,12 @@
   <div class="boot-bar"><i></i></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js" defer></script>
-<script src="assets/texts.js?v=41" defer></script>
-<script src="assets/field.js?v=41" defer></script>
-<script src="assets/site.js?v=41" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/SplitText.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/texts.js?v=42" defer></script>
+<script src="assets/field.js?v=42" defer></script>
+<script src="assets/site.js?v=42" defer></script>
 </body>
 </html>

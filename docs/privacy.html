@@ -6,14 +6,14 @@
 <title>Tolk — конфиденциальность · Privacy</title>
 <meta name="description" content="Как Tolk, расширение Tolk и бот @TolkShopBot обращаются с данными. How Tolk, the Tolk extension and @TolkShopBot handle data.">
 <meta name="theme-color" content="#f2eee6">
-<link rel="icon" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="img/tolk-t-64.png">
 <script>
   (function () { try { var t = localStorage.getItem("tolk-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {} })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=40">
+<link rel="stylesheet" href="assets/site.css?v=42">
 </head>
 <body>
 <header class="page-nav">
@@ -24,20 +24,34 @@
 <main class="page">
   <div class="wrap">
     <section id="ru" lang="ru">
-      <p class="eyebrow">Конфиденциальность · обновлено 25 сентября 2026</p>
+      <p class="eyebrow">Конфиденциальность · обновлено 27 сентября 2026</p>
       <h1>Как Tolk обращается с данными</h1>
-      <div class="box"><p>Звук никогда не покидает ваш компьютер. Для перевода отправляется только распознанный текст — и он нигде
-        не сохраняется. Мы не продаём данные, не показываем рекламу и не следим за вами.</p></div>
+      <div class="box"><p>Речь распознаётся на вашем компьютере. Для точного перевода фразы по защищённому соединению уходят на сервер
+        Tolk и нейросеть — и нигде не сохраняются. Мы не продаём данные, не показываем рекламу и не следим за вами.</p></div>
 
       <h2>Программа Tolk</h2>
       <ul>
-        <li>Речь распознаётся на вашем компьютере. Звук никуда не отправляется.</li>
+        <li>Речь распознаётся на вашем компьютере.</li>
         <li>Для перевода распознанные фрагменты текста (несколько слов и короткий контекст перед ними) по защищённому соединению
           уходят на сервер Tolk, а он передаёт их нейросети-переводчику (через OpenRouter). Если нейросеть недоступна, фрагмент
-          переводит Google Переводчик. Тексты на сервере Tolk не сохраняются.</li>
+          переводит Google Переводчик.</li>
+        <li>«Дослушивание» Tolk AI (можно выключить в разделе «Перевод»): когда фраза закончилась, её звук (несколько секунд)
+          вместе с черновиком перевода уходит на сервер Tolk и нейросеть — она заново расслышивает фразу и уточняет перевод.</li>
+        <li>Ни звук, ни тексты на сервере Tolk не сохраняются.</li>
         <li>Сервер Tolk хранит только то, что нужно для подписки: ключ лицензии, обезличенный код компьютера, тариф и сколько
           часов Tolk AI использовано.</li>
         <li>Статистика в профиле (время перевода, число слов) хранится только на вашем компьютере.</li>
+      </ul>
+
+      <h2>Конспекты лекций (Tolk Pro)</h2>
+      <ul>
+        <li>Запись лекции, снимки слайдов с экрана, прикреплённые презентации и готовые конспекты хранятся только на вашем
+          компьютере — в папке «Документы\Tolk\Lectures». Слайды снимаются, только пока идёт запись лекции; субтитры Tolk
+          на снимки не попадают.</li>
+        <li>Когда вы нажимаете «Сделать конспект», расшифровка, презентация и снимки слайдов этой лекции по защищённому
+          соединению уходят на сервер Tolk и нейросеть (через OpenRouter) — и не сохраняются. Сервер считает только число
+          конспектов для лимита тарифа.</li>
+        <li>Поиск презентации обращается к сайту кафедры (например, kmti.fei.tuke.sk) напрямую с вашего компьютера.</li>
       </ul>
 
       <h2>Бот @TolkShopBot: покупка и ключи</h2>
@@ -72,20 +86,33 @@
     <hr>
 
     <section id="en" lang="en">
-      <p class="eyebrow">Privacy · updated September 25, 2026</p>
+      <p class="eyebrow">Privacy · updated September 27, 2026</p>
       <h1>How Tolk handles your data</h1>
-      <div class="box"><p>Audio never leaves your computer. Only recognised text is sent for translation, and it isn't stored
-        anywhere. We don't sell data, show ads or track you.</p></div>
+      <div class="box"><p>Speech is recognised on your computer. For an accurate translation, phrases go over an encrypted
+        connection to the Tolk server and the AI model — and aren't stored anywhere. We don't sell data, show ads or track you.</p></div>
 
       <h2>The Tolk app</h2>
       <ul>
-        <li>Speech is recognised on your computer. Audio is never sent anywhere.</li>
+        <li>Speech is recognised on your computer.</li>
         <li>For translation, recognised text fragments (a few words plus a short preceding context) are sent over an encrypted
           connection to the Tolk server, which passes them to an AI translation model (via OpenRouter). If the AI is unavailable,
-          Google Translate translates the fragment. The Tolk server doesn't store these texts.</li>
+          Google Translate translates the fragment.</li>
+        <li>Tolk AI “final pass” (you can turn it off under Translation): when a phrase ends, its audio (a few seconds) and the
+          draft translation go to the Tolk server and the AI model, which hears the phrase again and refines the translation.</li>
+        <li>Neither audio nor text is stored on the Tolk server.</li>
         <li>The Tolk server keeps only what the subscription needs: the license key, an anonymous computer code, the plan and how
           many Tolk AI hours were used.</li>
         <li>Profile statistics (translation time, word count) are stored only on your computer.</li>
+      </ul>
+
+      <h2>Lecture notes (Tolk Pro)</h2>
+      <ul>
+        <li>Lecture recordings, on-screen slide captures, attached presentations and finished notes stay on your computer — in
+          “Documents\Tolk\Lectures”. Slides are captured only while a lecture is being recorded; Tolk's subtitles are not
+          included.</li>
+        <li>When you press “Make notes”, that lecture's transcript, presentation and slide captures go over an encrypted connection
+          to the Tolk server and the AI model (via OpenRouter) and aren't stored. The server only counts notes for the plan limit.</li>
+        <li>The presentation search contacts the department website (e.g. kmti.fei.tuke.sk) directly from your computer.</li>
       </ul>
 
       <h2>The @TolkShopBot bot: purchases and keys</h2>
