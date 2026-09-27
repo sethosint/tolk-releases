@@ -156,7 +156,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Как оплатить и когда придёт ключ?",
-    "В Telegram-боте <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Звёздами Telegram — ключ приходит сразу; украинской картой, USDT или TON — после проверки, обычно до 15 минут. Ключ придёт в чат, а Tolk, из которого вы открыли бота, активируется сам."
+    "В Telegram-боте <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Украинской картой, USDT или TON — ключ придёт после проверки оплаты, обычно до 15 минут. Ключ придёт в чат, а Tolk, из которого вы открыли бота, активируется сам."
    ],
    [
     "Подписка продлевается сама?",
@@ -198,7 +198,7 @@ window.TOLK_TEXTS = {
   "p_h": "Тарифи Tolk. <em>Усе включено.</em>",
   "p_lede": "Увесь Tolk і 30 годин Tolk AI на кожні 30 днів. Що довший строк — то дешевший місяць.",
   "extra": "Забракло годин?",
-  "pay_line": "Купівля — у боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: зірки Telegram, українська картка, USDT або TON. Без автосписань.",
+  "pay_line": "Купівля — у боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: українська картка, USDT або TON. Без автосписань.",
   "rates": "Ціни в гривнях і крипті — за поточним курсом, округлені. Точна сума — у боті.",
   "q_k": "Питання",
   "t_h": "Спробуйте <em>на своїй лекції.</em>",
@@ -269,7 +269,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Як оплатити й коли прийде ключ?",
-    "У Telegram-боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Зірками Telegram — ключ приходить одразу; українською карткою, USDT або TON — після перевірки, зазвичай до 15 хвилин. Ключ прийде в чат, а Tolk, з якого ви відкрили бота, активується сам."
+    "У Telegram-боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Українською карткою, USDT або TON — ключ прийде після перевірки оплати, зазвичай до 15 хвилин. Ключ прийде в чат, а Tolk, з якого ви відкрили бота, активується сам."
    ],
    [
     "Підписка продовжується сама?",
@@ -313,7 +313,7 @@ window.TOLK_TEXTS = {
   "p_h": "Tarify Tolk. <em>Všetko v cene.</em>",
   "p_lede": "Celý Tolk a 30 hodín Tolk AI na každých 30 dní. Čím dlhšie obdobie, tým lacnejší mesiac.",
   "extra": "Nestačili hodiny?",
-  "pay_line": "Nákup v bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: hviezdy Telegram, ukrajinská karta, USDT alebo TON. Bez automatických platieb.",
+  "pay_line": "Nákup v bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: ukrajinská karta, USDT alebo TON. Bez automatických platieb.",
   "rates": "Ceny v hrivnách a krypte — podľa aktuálneho kurzu, zaokrúhlené. Presná suma je v bote.",
   "q_k": "Otázky",
   "t_h": "Vyskúšajte <em>na svojej prednáške.</em>",
@@ -384,7 +384,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Ako zaplatiť a kedy príde kľúč?",
-    "V Telegram bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Hviezdami Telegram — kľúč príde hneď; ukrajinskou kartou, USDT alebo TON — po kontrole, zvyčajne do 15 minút. Kľúč príde do chatu a Tolk, z ktorého ste bota otvorili, sa aktivuje sám."
+    "V Telegram bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Ukrajinskou kartou, USDT alebo TON — kľúč príde po kontrole platby, zvyčajne do 15 minút. Kľúč príde do chatu a Tolk, z ktorého ste bota otvorili, sa aktivuje sám."
    ],
    [
     "Predlžuje sa predplatné samo?",
@@ -428,7 +428,7 @@ window.TOLK_TEXTS = {
   "p_h": "Tolk plans. <em>Everything included.</em>",
   "p_lede": "All of Tolk plus 30 hours of Tolk AI every 30 days. The longer the plan, the cheaper the month.",
   "extra": "Need more hours?",
-  "pay_line": "Buy in the <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a> bot: Telegram Stars, Ukrainian card, USDT or TON. No automatic charges.",
+  "pay_line": "Buy in the <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a> bot: Ukrainian card, USDT or TON. No automatic charges.",
   "rates": "Hryvnia and crypto prices follow the current rate, rounded. The exact amount is shown in the bot.",
   "q_k": "FAQ",
   "t_h": "Try it on <em>your own lecture.</em>",
@@ -499,7 +499,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "How do I pay, and when do I get the key?",
-    "In the Telegram bot <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. With Telegram Stars the key arrives instantly; with a Ukrainian card, USDT or TON it comes after a check, usually within 15 minutes. The key arrives in the chat, and the Tolk you opened the bot from activates itself."
+    "In the Telegram bot <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>. Pay with a Ukrainian card, USDT or TON — the key arrives after the payment is checked, usually within 15 minutes. The key arrives in the chat, and the Tolk you opened the bot from activates itself."
    ],
    [
     "Does the subscription renew automatically?",

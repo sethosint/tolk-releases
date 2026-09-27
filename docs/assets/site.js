@@ -195,7 +195,7 @@
       const p = m && m.prices && m.prices[id];
       return p && p.price && !p.unavailable ? amount(want === "stars" ? p.price : num(p.price, 2), p.currency) : "";
     };
-    const a = [get("card"), get("stars") || (stars ? stars + " ⭐" : "")].filter(Boolean);
+    const a = [get("card")].filter(Boolean);
     const b = [get("usdt"), get("ton")].filter(Boolean);
     return (a.length ? `<span>≈ ${a.join(" · ")}</span>` : "") + (b.length ? `<span>${b.join(" · ")}</span>` : "");
   }
