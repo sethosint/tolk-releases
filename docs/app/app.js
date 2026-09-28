@@ -28,12 +28,11 @@
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
       t_help: "Как начать", t_help_s: "3 шага и ответы", t_review: "Отзыв", t_review_s: "оценить Tolk", t_review_done: "ваша оценка: {n} из 5",
-      t_admin: "Панель продавца", t_admin_s: "оплаты, ключи, отзывы, посты",
       l_download: "Скачать Tolk для Windows", l_download_s: "Windows 10 и 11", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
       l_support: "Поддержка", l_support_s: "ответим лично", l_lang: "Язык",
       o_wait: "Заказ ждёт оплаты", o_check: "Проверяем оплату",
       plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Обычная", pro: "Pro · конспекты",
-      pro_lede: "Всё, что в обычной, плюс конспекты лекций: Tolk запишет пару, снимет слайды и соберёт конспект за минуту. До 120 конспектов в месяц.",
+      pro_lede: "Всё, что в обычной, плюс конспекты лекций: Tolk запишет пару, снимет слайды и соберёт конспект за минуту. До 60 конспектов в месяц.",
       std_lede: "Весь Tolk и нейросеть Tolk AI. Часы обновляются каждые 30 дней; кончились раньше — Tolk переводит через Google, а часы можно докупить.",
       gift_lede: "После оплаты в чат придёт открытка с кодом — перешлите её другу. Код включается на любом компьютере с Windows, срок пойдёт с момента активации.",
       m_renew: "Продлить", m_new: "Новый ключ", m_new_s: "Код для другого компьютера — вставляется в Tolk вручную.",
@@ -72,7 +71,7 @@
       help_t: "Как начать", h1: "Скачайте Tolk для Windows и установите.",
       h2: "Откройте Tolk и вставьте ключ — в окне активации или «Профиль → Ввести ключ». Если покупали из программы, ключ встанет сам.",
       h3: "Выберите, что слушать — вкладку с парой, Zoom, Teams или Webex — и нажмите «Начать перевод».",
-      h_trial: "Без ключа первые 30 минут — бесплатно.", faq_t: "Вопросы",
+      h_trial: "Первые 30 минут — бесплатно: кнопка «30 минут бесплатно» на главной.", t_trial: "30 минут бесплатно", t_trial_s: "Tolk AI без оплаты — один раз", tr_t: "30 минут *бесплатно*", tr_p: "Всё как в полной версии: нейросеть Tolk AI, вкладки браузера, все языки. Один раз на аккаунт и на компьютер.", tr_btn: "Получить 30 минут", tr_applied: "Готово! Tolk на вашем компьютере уже активирован — вернитесь в программу и включите перевод.", tr_code: "Код пробного периода", tr_how: "Откройте Tolk и вставьте код — в окне активации или в «Профиль → Ввести ключ». Ещё нет Tolk — скачайте его.", tr_used: "Пробный период на этом аккаунте уже был — выберите тариф.", tr_used_pc: "На этом компьютере пробный период уже был — выберите тариф.", tr_busy: "Сегодня пробных запусков уже много — попробуйте завтра.", faq_t: "Вопросы",
       f1q: "Что такое часы Tolk AI?",
       f1a: "Время работы нейросети Tolk AI: она дослушивает каждую фразу и переводит точно. В подписке — {m} ч в месяц, часы обновляются каждые 30 дней. Кончились раньше — Tolk переводит через Google, а часы можно докупить.",
       f2q: "Продление не съест оставшиеся дни?", f2a: "Нет. Новый срок начинается после текущего — ни один день не пропадает. Tolk на компьютере подхватит новый ключ сам.",
@@ -132,12 +131,11 @@
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
       t_help: "Як почати", t_help_s: "3 кроки й відповіді", t_review: "Відгук", t_review_s: "оцінити Tolk", t_review_done: "ваша оцінка: {n} з 5",
-      t_admin: "Панель продавця", t_admin_s: "оплати, ключі, відгуки, пости",
       l_download: "Завантажити Tolk для Windows", l_download_s: "Windows 10 і 11", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
       l_support: "Підтримка", l_support_s: "відповімо особисто", l_lang: "Мова",
       o_wait: "Замовлення чекає на оплату", o_check: "Перевіряємо оплату",
       plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Звичайна", pro: "Pro · конспекти",
-      pro_lede: "Усе, що у звичайній, плюс конспекти лекцій: Tolk запише пару, зніме слайди й складе конспект за хвилину. До 120 конспектів на місяць.",
+      pro_lede: "Усе, що у звичайній, плюс конспекти лекцій: Tolk запише пару, зніме слайди й складе конспект за хвилину. До 60 конспектів на місяць.",
       std_lede: "Увесь Tolk і нейромережа Tolk AI. Години оновлюються кожні 30 днів; скінчилися раніше — Tolk перекладає через Google, а години можна докупити.",
       gift_lede: "Після оплати в чат прийде листівка з кодом — перешліть її другові. Код вмикається на будь-якому комп'ютері з Windows, строк піде з моменту активації.",
       m_renew: "Продовжити", m_new: "Новий ключ", m_new_s: "Код для іншого комп'ютера — вставляється в Tolk вручну.",
@@ -176,7 +174,7 @@
       help_t: "Як почати", h1: "Завантажте Tolk для Windows і встановіть.",
       h2: "Відкрийте Tolk і вставте ключ — у вікні активації або «Профіль → Ввести ключ». Якщо купували з програми, ключ стане сам.",
       h3: "Оберіть, що слухати — вкладку з парою, Zoom, Teams або Webex — і натисніть «Почати переклад».",
-      h_trial: "Без ключа перші 30 хвилин — безкоштовно.", faq_t: "Питання",
+      h_trial: "Перші 30 хвилин — безкоштовно: кнопка «30 хвилин безкоштовно» на головній.", t_trial: "30 хвилин безкоштовно", t_trial_s: "Tolk AI без оплати — один раз", tr_t: "30 хвилин *безкоштовно*", tr_p: "Усе як у повній версії: нейромережа Tolk AI, вкладки браузера, усі мови. Один раз на акаунт і на комп'ютер.", tr_btn: "Отримати 30 хвилин", tr_applied: "Готово! Tolk на вашому комп'ютері вже активовано — поверніться в програму й увімкніть переклад.", tr_code: "Код пробного періоду", tr_how: "Відкрийте Tolk і вставте код — у вікні активації або в «Профіль → Ввести ключ». Ще немає Tolk — завантажте його.", tr_used: "Пробний період на цьому акаунті вже був — оберіть тариф.", tr_used_pc: "На цьому комп'ютері пробний період уже був — оберіть тариф.", tr_busy: "Сьогодні пробних запусків уже багато — спробуйте завтра.", faq_t: "Питання",
       f1q: "Що таке години Tolk AI?",
       f1a: "Час роботи нейромережі Tolk AI: вона дослуховує кожну фразу й перекладає точно. У підписці — {m} год на місяць, години оновлюються кожні 30 днів. Скінчилися раніше — Tolk перекладає через Google, а години можна докупити.",
       f2q: "Продовження не з'їсть решту днів?", f2a: "Ні. Новий строк починається після поточного — жоден день не пропадає. Tolk на комп'ютері підхопить новий ключ сам.",
@@ -236,12 +234,11 @@
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
       t_help: "Ako začať", t_help_s: "3 kroky a odpovede", t_review: "Recenzia", t_review_s: "ohodnotiť Tolk", t_review_done: "vaše hodnotenie: {n} z 5",
-      t_admin: "Panel predajcu", t_admin_s: "platby, kľúče, recenzie, príspevky",
       l_download: "Stiahnuť Tolk pre Windows", l_download_s: "Windows 10 a 11", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
       l_support: "Podpora", l_support_s: "odpovieme osobne", l_lang: "Jazyk",
       o_wait: "Objednávka čaká na platbu", o_check: "Kontrolujeme platbu",
       plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Bežné", pro: "Pro · poznámky",
-      pro_lede: "Všetko z bežného a navyše poznámky z prednášok: Tolk nahrá prednášku, zachytí slajdy a za minútu zostaví poznámky. Do 120 poznámok mesačne.",
+      pro_lede: "Všetko z bežného a navyše poznámky z prednášok: Tolk nahrá prednášku, zachytí slajdy a za minútu zostaví poznámky. Do 60 poznámok mesačne.",
       std_lede: "Celý Tolk aj neurónová sieť Tolk AI. Hodiny sa obnovujú každých 30 dní; ak sa minú skôr, Tolk prekladá cez Google a hodiny si môžete dokúpiť.",
       gift_lede: "Po zaplatení príde do chatu pohľadnica s kódom — prepošlite ju kamarátovi. Kód funguje na akomkoľvek počítači s Windows, predplatné začne plynúť od aktivácie.",
       m_renew: "Predĺžiť", m_new: "Nový kľúč", m_new_s: "Kód pre iný počítač — vkladá sa do Tolku ručne.",
@@ -280,7 +277,7 @@
       help_t: "Ako začať", h1: "Stiahnite si Tolk pre Windows a nainštalujte ho.",
       h2: "Otvorte Tolk a vložte kľúč — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ak ste kupovali z programu, kľúč sa nastaví sám.",
       h3: "Vyberte, čo počúvať — kartu s prednáškou, Zoom, Teams alebo Webex — a stlačte „Spustiť preklad“.",
-      h_trial: "Bez kľúča je prvých 30 minút zadarmo.", faq_t: "Otázky",
+      h_trial: "Prvých 30 minút je zadarmo: tlačidlo „30 minút zadarmo“ na úvode.", t_trial: "30 minút zadarmo", t_trial_s: "Tolk AI bez platby — raz", tr_t: "30 minút *zadarmo*", tr_p: "Všetko ako v plnej verzii: neurónová sieť Tolk AI, karty prehliadača, všetky jazyky. Raz na účet a na počítač.", tr_btn: "Získať 30 minút", tr_applied: "Hotovo! Tolk na vašom počítači je už aktivovaný — vráťte sa do programu a zapnite preklad.", tr_code: "Kód skúšobnej doby", tr_how: "Otvorte Tolk a vložte kód — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ešte nemáte Tolk? Stiahnite si ho.", tr_used: "Skúšobná doba na tomto účte už bola — vyberte si tarif.", tr_used_pc: "Na tomto počítači skúšobná doba už bola — vyberte si tarif.", tr_busy: "Dnes je skúšobných spustení už veľa — skúste to zajtra.", faq_t: "Otázky",
       f1q: "Čo sú hodiny Tolk AI?",
       f1a: "Čas práce neurónovej siete Tolk AI: dopočúva každú vetu a prekladá presne. V predplatnom je {m} h mesačne, hodiny sa obnovujú každých 30 dní. Ak sa minú skôr, Tolk prekladá cez Google a hodiny si môžete dokúpiť.",
       f2q: "Neprepadne predĺžením zvyšok dní?", f2a: "Nie. Nové obdobie začne po aktuálnom — neprepadne ani jeden deň. Tolk v počítači si nový kľúč vezme sám.",
@@ -340,12 +337,11 @@
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
       t_help: "Getting started", t_help_s: "3 steps and answers", t_review: "Review", t_review_s: "rate Tolk", t_review_done: "your rating: {n} of 5",
-      t_admin: "Seller panel", t_admin_s: "payments, keys, reviews, posts",
       l_download: "Download Tolk for Windows", l_download_s: "Windows 10 and 11", l_channel: "Tolk channel", l_channel_s: "news and updates",
       l_support: "Support", l_support_s: "we reply personally", l_lang: "Language",
       o_wait: "Order awaiting payment", o_check: "Checking your payment",
       plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Standard", pro: "Pro · lecture notes",
-      pro_lede: "Everything in Standard plus lecture notes: Tolk records the lecture, captures the slides and writes notes in a minute. Up to 120 notes a month.",
+      pro_lede: "Everything in Standard plus lecture notes: Tolk records the lecture, captures the slides and writes notes in a minute. Up to 60 notes a month.",
       std_lede: "All of Tolk and the Tolk AI translator. Hours refill every 30 days; if they run out early, Tolk translates via Google and you can top up.",
       gift_lede: "After payment you'll get a gift card with a code in the chat — forward it to your friend. The code works on any Windows computer; the subscription starts when it's activated.",
       m_renew: "Renew", m_new: "New key", m_new_s: "A code for another computer — paste it into Tolk.",
@@ -384,7 +380,7 @@
       help_t: "Getting started", h1: "Download Tolk for Windows and install it.",
       h2: "Open Tolk and paste your key — in the activation window or in Profile → Enter key. If you bought from the app, the key is set automatically.",
       h3: "Pick what to listen to — the lecture tab, Zoom, Teams or Webex — and press Start translation.",
-      h_trial: "The first 30 minutes without a key are free.", faq_t: "Questions",
+      h_trial: "The first 30 minutes are free: tap “30 minutes free” on the home screen.", t_trial: "30 minutes free", t_trial_s: "Tolk AI with no payment — once", tr_t: "30 minutes *free*", tr_p: "Everything as in the full version: Tolk AI, browser tabs, every language. Once per account and per computer.", tr_btn: "Get 30 minutes", tr_applied: "Done! Tolk on your computer is already activated — go back to the app and turn translation on.", tr_code: "Trial code", tr_how: "Open Tolk and paste the code — in the activation window or in Profile → Enter key. No Tolk yet? Download it.", tr_used: "This account has already had a trial — pick a plan.", tr_used_pc: "This computer has already had a trial — pick a plan.", tr_busy: "Too many trials today — please try tomorrow.", faq_t: "Questions",
       f1q: "What are Tolk AI hours?",
       f1a: "Time the Tolk AI translator works: it re-listens to every phrase and translates precisely. A subscription has {m} h a month, refilled every 30 days. If they run out early, Tolk translates via Google and you can top up.",
       f2q: "Does renewing waste the days I have left?", f2a: "No. The new period starts after the current one — you don't lose a single day. Tolk on your computer picks up the new key itself.",
@@ -534,7 +530,6 @@
   }
   const api = (path, body = {}) => call(path, { headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
   const apiForm = (path, fd) => call(path, { body: fd });
-  const apiBlob = (path, body) => call(path, { headers: { "content-type": "application/json" }, body: JSON.stringify(body) }, "blob");
   const errText = (r) => t({ net: "err_net", auth: "err_auth", too_many: "err_many", rate: "err_rate", stale: "err_stale", plan: "err_stale",
                              method: "err_stale", order: "err_stale", nokey: "err_nokey", too_big: "err_big", type: "err_type",
                              ref_taken: "ref_taken", ref_code: "ref_code", ref_self: "ref_self", ref_already: "ref_already", ref_old: "ref_old",
@@ -692,13 +687,13 @@
     }
     const tiles = [];
     if (k && k.usage) tiles.push(tile("clock", t("t_hours"), t("t_hours_s"), () => go("hours", { serial: k.serial })));
+    if (S.trial && S.trial.can) tiles.push(tile("clock", t("t_trial"), t("t_trial_s"), () => go("trial"), true));
     tiles.push(tile("key", t("t_keys"), t("t_keys_s"), () => go("keys")));
     tiles.push(tile("gift", t("t_gift"), t("t_gift_s"), () => go("plans", { gift: true })));
     if (S.ref && S.ref.on) tiles.push(tile("users", t("t_invite"), t("t_invite_s", { h: num(S.ref.hours), f: num(S.ref.friend) }), () => go("invite")));
     tiles.push(tile("help", t("t_help"), t("t_help_s"), () => go("help")));
     tiles.push(tile("star", t("t_review"), S.review ? t("t_review_done", { n: S.review.n }) : t("t_review_s"), () => go("review")));
     if (tiles.length % 2) tiles[tiles.length - 1].classList.add("wide");
-    if (S.admin) tiles.push(tile("shield", t("t_admin"), t("t_admin_s"), () => go("admin", { tab: "home" }), true));
     bits.push(h("div.tiles", null, tiles));
     const links = [li("download", t("l_download"), t("l_download_s"), () => openLink(S.links.site))];
     if (S.links.channel) links.push(li("horn", t("l_channel"), t("l_channel_s"), () => openTg(S.links.channel)));
@@ -1073,6 +1068,32 @@
   };
 
   // как начать и вопросы
+  // пробный период: кнопка → ключ сам приходит в Tolk (пришли из программы) или код для ввода в Tolk
+  VIEWS.trial = async (p) => {
+    const tr = S.trial || {};
+    const res = p.res || (tr.used ? (tr.code ? { code: tr.code } : { error: "trial_used" }) : null);
+    const [t1, t2] = t("tr_t").split("*");
+    const head = hero("menu", title2(t1.trim(), t2));
+    if (!res) {
+      return { node: [head, h("p.lede", { text: t("tr_p") })],
+        main: { text: t("tr_btn"), fn: async () => {
+          const r = await api("trial");
+          if (r && (r.ok || r.error)) {
+            S.trial = { ...tr, used: true, can: false, code: r.code || tr.code || null };
+            p.res = r;
+            rerender();
+          }
+        } } };
+    }
+    if (res.applied) return { node: [head, h("p.note", { text: t("tr_applied") })], main: { text: t("home"), fn: home } };
+    if (res.code) {
+      return { node: [head, h("div.sec", null, copyRow(t("tr_code"), res.code)), h("p.note", { text: t("tr_how") })],
+        main: { text: t("download"), fn: () => openLink(S.links.site) } };
+    }
+    const msg = { trial_used: "tr_used", trial_used_pc: "tr_used_pc", trial_busy: "tr_busy" }[res.error] || "tr_busy";
+    return { node: [head, h("p.note", { text: t(msg) })], main: { text: t("cta_buy"), fn: () => go("plans") } };
+  };
+
   VIEWS.help = async () => ({
     node: [hero("help", h("h1", null, h("em", { text: t("help_t") }))),
       h("ol.how", null, h("li", { text: t("h1") }), h("li", { text: t("h2") }), h("li", { text: t("h3") })),
@@ -1095,233 +1116,6 @@
         back();
       } } }, h("span.radio"), h("span.tx", null, h("b", { text: name })))))],
   });
-
-  // ------------------------------------------------------------------------------------------- панель продавца (по-русски)
-  const ADM_TABS = [["home", "Обзор"], ["orders", "Оплаты"], ["keys", "Ключи"], ["codes", "Коды"], ["reviews", "Отзывы"], ["post", "Пост"]];
-  VIEWS.admin = async (p) => {
-    p.tab = p.tab || "home";
-    const tabs = h("div.tabs", { role: "tablist" }, ADM_TABS.map(([id, name]) => h("button", { type: "button", role: "tab", "aria-pressed": String(p.tab === id),
-      on: { click: () => { p.tab = id; haptic(); rerender(); } } }, name)));
-    const body = await ADMIN_TABS[p.tab](p);
-    return { node: [h("h2.h2", null, "Панель ", h("em", { text: "продавца" })), tabs, body.node], main: body.main || null };
-  };
-  const stat = (v, label) => h("div.stat", null, h("b", { text: String(v) }), h("span", { text: label }));
-  const topRef = (list) => (list && list.length ? h("div.sec", null, h("p.sec-t", { text: "Лучшие приглашающие" }), h("div.list", null,
-    list.map((x) => h("div.li", null, ic("users"), h("span.tx", null, (x.name || "без имени") + (x.code ? ` · ${x.code}` : ""),
-      h("small", { text: `привели покупателей: ${x.n} · получили ${num(x.h)} ч Tolk AI` })))))) : null);
-  const when = (iso) => (iso ? new Date(iso).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "");
-  const keyLine = (k) => (k.revoked ? "отозван" : k.expires ? `${k.status === "active" ? "до" : "закончился"} ${date(k.expires)}` : "навсегда");
-  const ADMIN_TABS = {
-    async home(p) {
-      const r = await api("admin/home");
-      if (r.error) return { node: h("p.empty", { text: errText(r) }) };
-      return { node: h("div", null, h("div.stats", null,
-          stat(r.pending, "ждут проверки"), stat(r.sales, "продаж за месяц"),
-          stat(eur(r.eur), "выручка за месяц"), stat(`${num(r.ai_spent, 2)} / ${r.ai_limit} $`, "Tolk AI за месяц"),
-          stat(r.active, "действующих ключей"), stat(r.trial, "пробных"),
-          stat(r.rating == null ? "—" : `${num(r.rating)} ★`, `отзывов: ${r.reviews}`), stat(r.invites, "покупок по приглашениям")),
-        r.channel ? null : h("p.note", { text: "Канал не подключён: посты, отзывы и новости версий заработают, когда ссылка на канал появится в настройках бота (CHANNEL_URL)." }),
-        topRef(r.top_ref)),
-        main: r.pending ? { text: `Проверить оплаты (${r.pending})`, fn: () => { p.tab = "orders"; rerender(); } } : null };
-    },
-    async orders() {
-      const r = await api("admin/orders");
-      if (r.error) return { node: h("p.empty", { text: errText(r) }) };
-      if (!r.orders.length) return { node: h("p.empty", { text: "Неподтверждённых оплат нет." }) };
-      return { node: h("div.sec", null, r.orders.map(orderCard)) };
-    },
-    async keys(p) {
-      const q = h("input", { type: "search", placeholder: "Номер ключа, код компьютера или TOLK-…", enterkeyhint: "search" });
-      q.value = p.q || "";
-      const res = h("div.sec");
-      const find = async () => {
-        p.q = q.value.trim();
-        if (!p.q) return;
-        q.blur();
-        res.replaceChildren(h("div.skel"));
-        const r = await api("admin/find", { q: p.q });
-        res.replaceChildren(r.key ? keyCard(r.key) : r.code ? h("div.key", null, h("h3", { text: r.code.title }),
-          h("p.meta", { text: `${r.code.code} · ${r.code.revoked ? "отменён" : r.code.used ? "уже введён" : "не введён"}${r.code.note ? " · " + r.code.note : ""}` }))
-          : h("p.empty", { text: r.error ? errText(r) : "Ничего не нашлось." }));
-      };
-      q.addEventListener("keydown", (e) => { if (e.key === "Enter") find(); });
-      const box = h("div", null, q, res);
-      const list = await api("admin/keys", { page: p.page || 0 });
-      if (!list.error) {
-        if (!list.keys.length) box.append(h("p.empty", { text: "Ключей на компьютерах пока нет: проданный код станет ключом, когда покупатель введёт его в Tolk. Код ищется по TOLK-…" }));
-        else box.append(h("div.sec", null, h("p.sec-t", { text: `Ключи · стр. ${list.page + 1} из ${list.pages}` }), h("div.list", null, list.keys.map((k) =>
-          li("key", `№${k.serial} · ${k.title}`, keyLine(k) + (k.note ? " · " + k.note : ""),
-             () => { q.value = String(k.serial); find(); window.scrollTo({ top: 0, behavior: "smooth" }); })))));
-        if (list.pages > 1) {
-          const pg = (label, to, off) => h("button.btn", { type: "button", disabled: off || null, on: tap(() => { p.page = to; rerender(); }) }, label);
-          box.append(h("div.row2", null, pg("‹ Назад", list.page - 1, list.page === 0), pg("Дальше ›", list.page + 1, list.page >= list.pages - 1)));
-        }
-      }
-      if (p.q) setTimeout(find, 0);
-      return { node: box, main: { text: "Найти", fn: find } };
-    },
-    async codes(p) {
-      p.kind = p.kind || "plan";
-      p.plan = p.plan || "month";
-      p.hours = p.hours || 30;
-      p.n = p.n || 1;
-      const out = h("div.sec");
-      const chips = (items, cur, set) => h("div.chips", null, items.map(([v, name]) => h("button.chip", { type: "button", "aria-pressed": String(v === cur),
-        on: tap(() => { set(v); rerender(); }) }, name)));
-      const node = h("div", null,
-        chips([["plan", "Подписка"], ["hours", "Часы Tolk AI"]], p.kind, (v) => { p.kind = v; }),
-        p.kind === "plan" ? chips(S.shop.plans.map((x) => [x.id, x.title]), p.plan, (v) => { p.plan = v; })
-          : chips(S.shop.topups.map((x) => [x.hours, `+${num(x.hours)} ч`]), p.hours, (v) => { p.hours = v; }),
-        chips([[1, "1 код"], [3, "3 кода"], [5, "5 кодов"]], p.n, (v) => { p.n = v; }),
-        h("p.note", { text: "Бесплатные коды — для друзей, конкурсов и замены. Вводятся в Tolk: окно активации или «Профиль → Ввести ключ»." }), out);
-      const issue = async () => {
-        if (!(await confirmBox(`Выпустить ${p.n} бесплатн${p.n === 1 ? "ый код" : "ых кода"}?`))) return;
-        setMain({ text: t("wait"), busy: true, disabled: true });
-        const r = await api("admin/code", p.kind === "plan" ? { kind: "plan", plan: p.plan, n: p.n } : { kind: "hours", hours: p.hours, n: p.n });
-        setMain({ text: "Выпустить ещё", fn: issue });
-        if (r.error) { toast(errText(r)); return; }
-        haptic("success");
-        out.replaceChildren(...r.codes.map((c) => copyRow("Код", c)));
-      };
-      return { node, main: { text: "Выпустить", fn: issue } };
-    },
-    async reviews() {
-      const r = await api("admin/reviews");
-      if (r.error) return { node: h("p.empty", { text: errText(r) }) };
-      const head = h("div.stats", null, stat(r.rating == null ? "—" : `${num(r.rating)} ★`, "средняя оценка"), stat(r.count, "оценок"));
-      if (!r.reviews.length) return { node: h("div", null, head, h("p.empty", { text: "Письменных отзывов пока нет." })) };
-      return { node: h("div", null, head, h("div.sec", null, r.reviews.map((x) => {
-        const card = h("div.order", null, h("div.hd", null, h("b", { text: "★".repeat(x.n) + "☆".repeat(5 - x.n) }), h("span.muted", { text: when(x.at) })),
-          h("p", { text: `«${x.text}»` }), h("p.muted", { text: "— " + (x.name || "без имени") }));
-        if (x.posted) card.append(h("p.note", { text: "Опубликован в канале." }));
-        else if (!x.pub) card.append(h("p.note", { text: "Покупатель не разрешил публикацию." }));
-        else if (!r.channel) card.append(h("p.note", { text: "Можно опубликовать, когда подключите канал." }));
-        else if (r.channel) {
-          card.append(h("div.row2", null, h("button.btn", { type: "button", on: { click: async (e) => {
-            const b = e.currentTarget;
-            b.disabled = true;
-            const res = await api("admin/review_post", { id: x.id });
-            if (res.ok) { haptic("success"); toast("Опубликовано в канале"); rerender(); } else { b.disabled = false; toast(res.message || errText(res)); }
-          } } }, h("span", { html: icon("horn") }), "В канал")));
-        }
-        return card;
-      }))) };
-    },
-    async post(p) {
-      if (!S.links.channel) return { node: h("p.empty", { text: "Канал не подключён — ссылка на него задаётся в настройках бота (CHANNEL_URL)." }) };
-      const text = h("textarea", { rows: 7, maxlength: 4000, placeholder: "Текст поста. **жирный**, __курсив__, ссылки — как есть.",
-                                   on: { input: () => { p.text = text.value; } } });
-      text.value = p.text || "";
-      const input = h("input", { type: "file", accept: "image/jpeg,image/png,image/webp", hidden: true });
-      const drop = h("button.drop", { type: "button", on: { click: () => input.click() } });
-      const paint = () => {
-        drop.replaceChildren();
-        drop.classList.toggle("has", Boolean(p.file));
-        if (p.file) drop.append(h("img", { src: URL.createObjectURL(p.file), alt: "" }));
-        drop.append(h("span", { html: icon(p.file ? "check" : "upload") }), h("b", { text: p.file ? "Фото прикреплено" : "Добавить фото (необязательно)" }));
-      };
-      input.addEventListener("change", async () => { const f = input.files && input.files[0]; if (f) { p.file = await shrink(f); paint(); } });
-      paint();
-      const btns = h("input", { type: "checkbox", on: { change: () => { p.buttons = btns.checked; } } });
-      btns.checked = p.buttons !== false;
-      const node = h("div.sec", null, text, h("div.sec", null, drop, input),
-        h("label.toggle", null, btns, h("span", { text: "Кнопки «Скачать Tolk» и «Купить в боте» под постом" })),
-        p.file ? h("button.btn.quiet", { type: "button", on: tap(() => { p.file = null; rerender(); }) }, "Убрать фото") : null,
-        p.last ? h("button.btn.bad", { type: "button", on: { click: async () => {
-          if (!(await confirmBox("Удалить последний пост из канала?"))) return;
-          const r = await api("admin/post_delete", { id: p.last });
-          toast(r.ok ? "Удалено" : "Не удалось — старые посты удаляйте в самом канале");
-          p.last = null;
-          rerender();
-        } } }, "Удалить последний пост") : null);
-      return { node, main: { text: "Опубликовать в канале", fn: async () => {
-        if (!text.value.trim() && !p.file) { toast("Пустой пост"); return; }
-        if (p.file && text.value.length > 1000) { toast("С фото текст — до 1000 знаков"); return; }
-        if (!(await confirmBox("Опубликовать в канале?"))) return;
-        setMain({ text: t("wait"), busy: true, disabled: true });
-        const fd = new FormData();
-        fd.append("text", text.value);
-        fd.append("buttons", btns.checked ? "1" : "0");
-        if (p.file) fd.append("file", p.file, "post.jpg");
-        const r = await apiForm("admin/post", fd);
-        if (r.error) { toast(r.message || errText(r)); rerender(); return; }
-        haptic("success");
-        toast("Опубликовано");
-        Object.assign(p, { text: "", file: null, last: r.id });
-        rerender();
-      } } };
-    },
-  };
-
-  function orderCard(o) {
-    const b = o.buyer || {};
-    const who = [b.name, b.user ? "@" + b.user : ""].filter(Boolean).join(" ") || "покупатель";
-    const shot = h("div.shot");
-    if (o.receipt === "photo") {
-      shot.append(h("span.spin"));
-      apiBlob("admin/receipt", { id: o.id }).then((blob) => {
-        shot.replaceChildren();
-        if (!blob) { shot.append(h("p.muted", { text: "Квитанцию не удалось загрузить" })); return; }
-        const url = URL.createObjectURL(blob);
-        shot.append(h("img", { src: url, alt: "квитанция", on: { click: () => {
-          const lb = h("div.lightbox", { on: { click: () => lb.remove() } }, h("img", { src: url, alt: "" }));
-          document.body.append(lb);
-        } } }));
-      });
-    } else if (o.receipt === "document") {
-      shot.append(h("button.btn", { type: "button", on: { click: async () => {
-        const blob = await apiBlob("admin/receipt", { id: o.id });
-        if (blob) window.open(URL.createObjectURL(blob), "_blank"); else toast("Файл не загрузился");
-      } } }, "Открыть файл квитанции"));
-    }
-    const row = (k, v) => (v ? [h("dt", { text: k }), typeof v === "string" ? h("dd", { text: v }) : h("dd", null, v)] : null);
-    const whoEl = b.user ? h("a", { href: "#", text: who, on: { click: (e) => { e.preventDefault(); openTg("https://t.me/" + b.user); } } }) : who;
-    return h("div.order", null,
-      h("div.hd", null, h("b", { text: `${o.gift ? "🎁 " : ""}${o.title} · ${o.price} ${o.currency}` }), h("span.muted", { text: o.eur ? "≈ " + eur(o.eur) : "" })),
-      h("dl", null, row("Способ", o.method || ""), row("Код", o.code || "—"), row("Кто", whoEl), row("Коммент.", o.note),
-        row("Куда", o.qty > 1 ? `ключей: ${o.qty} — ${o.gift ? "подарки-открытки" : "один покупателю, остальные открытками друзьям"}`
-          : o.gift ? "подарок — код-открытка" : o.target ? `часы к ключу №${o.target}` : o.machine ? "ключ на компьютер покупателя" : "код для Tolk"),
-        row("Продление", o.renew_from ? "с " + date(o.renew_from) : ""), row("Когда", when(o.claimed || o.created))),
-      o.receipt ? shot : h("p.note", { text: o.claimed ? "Покупатель прислал только текст." : "Квитанции ещё нет — заказ ждёт оплаты." }),
-      h("div.row2", null,
-        h("button.btn.primary", { type: "button", on: { click: (e) => decide(o, true, e.currentTarget) } }, "✅ Деньги пришли"),
-        h("button.btn.bad", { type: "button", on: { click: (e) => decide(o, false, e.currentTarget) } }, "❌ Нет оплаты")));
-  }
-  async function decide(o, ok, btnEl) {
-    if (!(await confirmBox(ok ? `Подтвердить оплату ${o.price} ${o.currency} и выдать ${o.kind === "topup" ? "часы" : "ключ"}?` : "Отклонить: оплата не найдена?"))) return;
-    btnEl.disabled = true;
-    const r = await api("admin/decide", { id: o.id, ok });
-    if (r.error) { toast(errText(r)); btnEl.disabled = false; return; }
-    haptic("success");
-    toast(ok ? "Готово — покупатель получил ключ" : "Покупатель получил отказ");
-    rerender();
-  }
-  function keyCard(k) {
-    const card = h("div.key", null, h("div.top", null, h("div", null, h("h3", { text: `№${k.serial} · ${k.title}` }),
-      h("p.meta", { text: `${keyLine(k)}${k.issued ? " · выдан " + date(k.issued) : ""}${k.via ? " · " + k.via : ""}` })),
-      h("span.status." + (k.status === "active" ? "ok" : "bad"), { text: k.revoked ? "отозван" : k.status === "active" ? "действует" : "закончился" })));
-    if (!k.unl && k.usage && k.usage.total_h != null) card.append(meter({ ...k.usage, resets: null }, true));
-    if (k.code) card.append(copyRow("Код", k.code));
-    if (k.machine) card.append(copyRow("Компьютер", k.machine));
-    if (k.chat) card.append(h("p.meta", { text: `Покупатель: чат ${k.chat}` }));
-    const act = async (body, msg) => {
-      const r = await api("admin/key", { serial: k.serial, ...body });
-      if (r.error) { toast(errText(r)); return; }
-      haptic("success");
-      toast(msg);
-      card.replaceWith(keyCard(r.key));
-    };
-    card.append(h("div.chips", null,
-      S.shop.topups.map((x) => h("button.chip", { type: "button", on: tap(() => act({ act: "hours", hours: x.hours }, `+${num(x.hours)} ч добавлено`)) }, `+${num(x.hours)} ч`)),
-      h("button.chip", { type: "button", on: tap(async () => {
-        if (await confirmBox(k.revoked ? "Вернуть ключ?" : "Отозвать ключ? Tolk AI на нём перестанет работать.")) act({ act: "revoke" }, k.revoked ? "Ключ снова работает" : "Ключ отозван");
-      }) }, k.revoked ? "Вернуть" : "Отозвать")));
-    const note = h("input", { type: "text", maxlength: 80, placeholder: "Заметка к ключу (Enter — сохранить)", enterkeyhint: "done" });
-    note.value = k.note || "";
-    note.addEventListener("keydown", (e) => { if (e.key === "Enter") { note.blur(); act({ act: "note", note: note.value }, "Заметка сохранена"); } });
-    card.append(note);
-    return card;
-  }
 
   // ------------------------------------------------------------------------------------------- запуск
   function theme() {
@@ -1356,9 +1150,8 @@
     else if (a === "hours") add("hours", { serial: n });
     else if (a === "gift") add("plans", { gift: true });
     else if (a === "item" && b) add(S.shop.topups.some((x) => x.id === b) ? "hours" : "plans", { item: b, pro: /^pro_/.test(b) || undefined });
-    else if (["keys", "invite", "review", "help", "lang"].includes(a)) add(a);
+    else if (["keys", "invite", "review", "help", "lang", "trial"].includes(a)) add(a);
     else if (a === "order" && S.order) add("pay", { id: S.order.id, order: S.order });
-    else if (a === "admin" && S.admin) add("admin", { tab: b || "home" });
     render();
   }
   async function boot() {

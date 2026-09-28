@@ -174,7 +174,7 @@ window.TOLK_TEXTS = {
   "drag": "Перетащите",
   "tab_std": "Обычная",
   "tab_pro": "Pro — с конспектами",
-  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 120 конспектов в месяц."
+  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 60 конспектов в месяц."
  },
  "uk": {
   "title": "Tolk — субтитри з перекладом для онлайн-лекцій",
@@ -292,7 +292,7 @@ window.TOLK_TEXTS = {
   "drag": "Перетягніть",
   "tab_std": "Звичайна",
   "tab_pro": "Pro — з конспектами",
-  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 120 конспектів на місяць."
+  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 60 конспектів на місяць."
  },
  "sk": {
   "title": "Tolk — titulky s prekladom na online prednášky",
@@ -410,7 +410,7 @@ window.TOLK_TEXTS = {
   "drag": "Potiahnite",
   "tab_std": "Bežné",
   "tab_pro": "Pro — s poznámkami",
-  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 120 poznámok mesačne."
+  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 60 poznámok mesačne."
  },
  "en": {
   "title": "Tolk — translated subtitles for online lectures",
@@ -528,6 +528,6 @@ window.TOLK_TEXTS = {
   "drag": "Drag me",
   "tab_std": "Regular",
   "tab_pro": "Pro — with notes",
-  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 120 notes a month."
+  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 60 notes a month."
  }
 };
