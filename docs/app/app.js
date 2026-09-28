@@ -28,7 +28,7 @@
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
       t_help: "Как начать", t_help_s: "3 шага и ответы", t_review: "Отзыв", t_review_s: "оценить Tolk", t_review_done: "ваша оценка: {n} из 5",
-      l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
+      promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
       l_support: "Поддержка", l_support_s: "ответим лично", l_lang: "Язык",
       o_wait: "Заказ ждёт оплаты", o_check: "Проверяем оплату",
       plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Обычная", pro: "Pro · конспекты",
@@ -131,7 +131,7 @@
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
       t_help: "Як почати", t_help_s: "3 кроки й відповіді", t_review: "Відгук", t_review_s: "оцінити Tolk", t_review_done: "ваша оцінка: {n} з 5",
-      l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
+      promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
       l_support: "Підтримка", l_support_s: "відповімо особисто", l_lang: "Мова",
       o_wait: "Замовлення чекає на оплату", o_check: "Перевіряємо оплату",
       plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Звичайна", pro: "Pro · конспекти",
@@ -234,7 +234,7 @@
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
       t_help: "Ako začať", t_help_s: "3 kroky a odpovede", t_review: "Recenzia", t_review_s: "ohodnotiť Tolk", t_review_done: "vaše hodnotenie: {n} z 5",
-      l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
+      promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
       l_support: "Podpora", l_support_s: "odpovieme osobne", l_lang: "Jazyk",
       o_wait: "Objednávka čaká na platbu", o_check: "Kontrolujeme platbu",
       plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Bežné", pro: "Pro · poznámky",
@@ -337,7 +337,7 @@
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
       t_help: "Getting started", t_help_s: "3 steps and answers", t_review: "Review", t_review_s: "rate Tolk", t_review_done: "your rating: {n} of 5",
-      l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
+      promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
       l_support: "Support", l_support_s: "we reply personally", l_lang: "Language",
       o_wait: "Order awaiting payment", o_check: "Checking your payment",
       plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Standard", pro: "Pro · lecture notes",
@@ -473,6 +473,10 @@
   const eur = (p) => { const s = Number(p).toFixed(2); return L === "en" ? "€" + s : s.replace(".", ",") + " €"; };
   const dec = (v) => (L === "en" ? String(v) : String(v).replace(".", ","));
   const money = (price, cur) => (cur === "UAH" ? `${price} ₴` : cur === "EUR" ? eur(price) : cur === "⭐" || cur === "XTR" ? `${price} ⭐` : `${dec(price)} ${cur}`);
+  const whenShort = (iso) => {
+    const d = new Date(iso);
+    return `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  };
   const date = (iso) => {
     if (!iso) return "";
     const [y, m, d] = String(iso).slice(0, 10).split("-");
@@ -680,6 +684,11 @@
         copyRow(t("k_code"), ready.code)));
     }
     if (S.ref_by && !k) bits.push(refBanner());
+    if (S.promo && !o) {                         // скидка после пробного — на первую подписку
+      bits.push(h("button.notice", { type: "button", on: tap(() => go("plans")) }, h("span.dot"),
+        h("span.tx", null, t("promo_t", { p: S.promo.pct }), h("small", { text: t("promo_s", { d: whenShort(S.promo.until) }) })),
+        h("span.chev", { html: icon("chev") })));
+    }
     if (o) {
       bits.push(h("button.notice", { type: "button", on: tap(() => go("pay", { id: o.id, order: o })) }, h("span.dot"),
         h("span.tx", null, o.state === "claimed" ? t("o_check") : t("o_wait"), h("small", { text: `${o.title}${o.qty > 1 ? " × " + o.qty : ""} · ${money(o.price, o.currency)}` })),
