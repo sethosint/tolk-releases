@@ -92,6 +92,13 @@ window.TOLK_COMPARE = {
 };
 window.TOLK_TEXTS = {
  "ru": {
+  "cta_dl": "Скачать для {os}",
+  "dl_other": "Другие системы:",
+  "mac_arm": "Mac (Apple M)",
+  "mac_intel": "Mac (Intel)",
+  "hint_mac": "macOS 13+, бета. Если Mac не даёт открыть: Настройки → Конфиденциальность и безопасность → «Всё равно открыть».",
+  "hint_linux": "Бета. Установка без root: sh Tolk-Setup-Linux.run — Tolk появится в меню приложений.",
+  "f1v": "Windows 10 и 11 · macOS 13+ и Linux — бета",
   "title": "Tolk — субтитры с переводом для онлайн-лекций",
   "pair": "SK → RU",
   "src_lbl": "Оригинал",
@@ -131,7 +138,7 @@ window.TOLK_TEXTS = {
   "faq": [
    [
     "Что нужно, чтобы Tolk работал?",
-    "Windows 10 или 11 и интернет для Tolk AI. Видеокарта не обязательна: Tolk сам подберёт модель распознавания под ваш компьютер."
+    "Windows 10 или 11, macOS 13+ или Linux (последние две — бета) и интернет для Tolk AI. Видеокарта не обязательна: Tolk сам подберёт модель распознавания под ваш компьютер."
    ],
    [
     "Какие языки он понимает?",
@@ -177,12 +184,17 @@ window.TOLK_TEXTS = {
   "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 60 конспектов в месяц."
  },
  "uk": {
+  "dl_other": "Інші системи:",
+  "mac_arm": "Mac (Apple M)",
+  "mac_intel": "Mac (Intel)",
+  "hint_mac": "macOS 13+, бета. Якщо Mac не дає відкрити: Параметри → Приватність і безпека → «Усе одно відкрити».",
+  "hint_linux": "Бета. Встановлення без root: sh Tolk-Setup-Linux.run — Tolk з’явиться в меню застосунків.",
   "title": "Tolk — субтитри з перекладом для онлайн-лекцій",
   "pair": "SK → UK",
   "nav_dl": "Завантажити",
   "h1": "Розумійте пари<br><em>з першого дня.</em>",
   "lede": "Tolk перекладає викладача, поки він говорить. Субтитри з'являються поверх Teams, Zoom чи браузера, і їх можна читати, як у кіно.",
-  "cta_dl": "Завантажити для Windows",
+  "cta_dl": "Завантажити для {os}",
   "cta_buy": "Купити в Telegram",
   "fine": "Перші 30 хвилин безкоштовно, реєстрація не потрібна",
   "c1_h": "Оберіть, <em>що перекладати.</em>",
@@ -207,7 +219,7 @@ window.TOLK_TEXTS = {
   "t_h": "Спробуйте <em>на своїй лекції.</em>",
   "t_fine": "Пів години повної версії з Tolk AI — без картки й реєстрації.",
   "f1k": "Платформа",
-  "f1v": "Windows 10 і 11 · оновлюється сам",
+  "f1v": "Windows 10 і 11 · macOS 13+ і Linux — бета",
   "f2k": "Купівля й ключі",
   "f3k": "Підтримка",
   "f4k": "Дані",
@@ -247,7 +259,7 @@ window.TOLK_TEXTS = {
   "faq": [
    [
     "Що потрібно, щоб Tolk працював?",
-    "Windows 10 або 11 та інтернет для Tolk AI. Відеокарта не обов'язкова: Tolk сам добере модель розпізнавання під ваш комп'ютер."
+    "Windows 10 або 11, macOS 13+ чи Linux (дві останні — бета) та інтернет для Tolk AI. Відеокарта не обов'язкова: Tolk сам добере модель розпізнавання під ваш комп'ютер."
    ],
    [
     "Які мови він розуміє?",
@@ -295,12 +307,17 @@ window.TOLK_TEXTS = {
   "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 60 конспектів на місяць."
  },
  "sk": {
+  "dl_other": "Iné systémy:",
+  "mac_arm": "Mac (Apple M)",
+  "mac_intel": "Mac (Intel)",
+  "hint_mac": "macOS 13+, beta. Ak ho Mac nechce otvoriť: Nastavenia → Súkromie a bezpečnosť → „Aj tak otvoriť“.",
+  "hint_linux": "Beta. Inštalácia bez root: sh Tolk-Setup-Linux.run — Tolk sa objaví v ponuke aplikácií.",
   "title": "Tolk — titulky s prekladom na online prednášky",
   "pair": "EN → SK",
   "nav_dl": "Stiahnuť",
   "h1": "Rozumejte prednáškam<br><em>od prvého dňa.</em>",
   "lede": "Tolk prekladá prednášajúceho, kým hovorí. Titulky sa zobrazia nad Teams, Zoomom alebo prehliadačom a čítate ich ako vo filme.",
-  "cta_dl": "Stiahnuť pre Windows",
+  "cta_dl": "Stiahnuť pre {os}",
   "cta_buy": "Kúpiť v Telegrame",
   "fine": "Prvých 30 minút zadarmo, bez registrácie",
   "c1_h": "Vyberte, <em>čo prekladať.</em>",
@@ -325,7 +342,7 @@ window.TOLK_TEXTS = {
   "t_h": "Vyskúšajte <em>na svojej prednáške.</em>",
   "t_fine": "Pol hodiny plnej verzie s Tolk AI — bez karty a registrácie.",
   "f1k": "Platforma",
-  "f1v": "Windows 10 a 11 · aktualizuje sa sám",
+  "f1v": "Windows 10 a 11 · macOS 13+ a Linux — beta",
   "f2k": "Nákup a kľúče",
   "f3k": "Podpora",
   "f4k": "Údaje",
@@ -365,7 +382,7 @@ window.TOLK_TEXTS = {
   "faq": [
    [
     "Čo potrebujem, aby Tolk fungoval?",
-    "Windows 10 alebo 11 a internet pre Tolk AI. Grafická karta nie je nutná: Tolk si sám vyberie model rozpoznávania podľa vášho počítača."
+    "Windows 10 alebo 11, macOS 13+ či Linux (posledné dva v bete) a internet pre Tolk AI. Grafická karta nie je nutná: Tolk si sám vyberie model rozpoznávania podľa vášho počítača."
    ],
    [
     "Ktorým jazykom rozumie?",
@@ -413,12 +430,17 @@ window.TOLK_TEXTS = {
   "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 60 poznámok mesačne."
  },
  "en": {
+  "dl_other": "Other systems:",
+  "mac_arm": "Mac (Apple silicon)",
+  "mac_intel": "Mac (Intel)",
+  "hint_mac": "macOS 13+, beta. If your Mac won’t open it: Settings → Privacy & Security → “Open Anyway”.",
+  "hint_linux": "Beta. Installs without root: sh Tolk-Setup-Linux.run — Tolk appears in your app menu.",
   "title": "Tolk — translated subtitles for online lectures",
   "pair": "SK → EN",
   "nav_dl": "Download",
   "h1": "Understand lectures<br><em>from day one.</em>",
   "lede": "Tolk translates your lecturer while they speak. Subtitles appear over Teams, Zoom or your browser, and you read them like a film.",
-  "cta_dl": "Download for Windows",
+  "cta_dl": "Download for {os}",
   "cta_buy": "Buy in Telegram",
   "fine": "First 30 minutes free, no sign-up",
   "c1_h": "Choose <em>what to translate.</em>",
@@ -443,7 +465,7 @@ window.TOLK_TEXTS = {
   "t_h": "Try it on <em>your own lecture.</em>",
   "t_fine": "Half an hour of the full version with Tolk AI — no card, no sign-up.",
   "f1k": "Platform",
-  "f1v": "Windows 10 and 11 · updates itself",
+  "f1v": "Windows 10 and 11 · macOS 13+ and Linux — beta",
   "f2k": "Purchase and keys",
   "f3k": "Support",
   "f4k": "Data",
@@ -483,7 +505,7 @@ window.TOLK_TEXTS = {
   "faq": [
    [
     "What do I need to run Tolk?",
-    "Windows 10 or 11 and an internet connection for Tolk AI. A graphics card isn't required: Tolk picks a speech-recognition model that suits your computer."
+    "Windows 10 or 11, macOS 13+ or Linux (the last two in beta) and an internet connection for Tolk AI. A graphics card isn't required: Tolk picks a speech-recognition model that suits your computer."
    ],
    [
     "Which languages does it understand?",

@@ -88,6 +88,41 @@
     });
   }
 
+  // --- скачать: установщик для системы посетителя, остальные — строкой ниже ------------------------------
+  const REL = "https://github.com/sethosint/tolk-releases/releases/latest/download/";
+  const DL = {
+    win: { file: "Tolk-Setup.exe", name: "Windows" },
+    mac: { file: "Tolk-macOS-arm64.dmg", name: "macOS", k: "mac_arm" },
+    macx: { file: "Tolk-macOS-x86_64.dmg", name: "macOS", k: "mac_intel" },
+    linux: { file: "Tolk-Setup-Linux.run", name: "Linux" },
+  };
+  function pickOS() {
+    const ua = navigator.userAgent || "";
+    const p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    if (/iPhone|iPad|iPod|Android/i.test(ua)) return "win";             // с телефона — обычно ищут для ноутбука
+    if (/mac/i.test(p) || /Macintosh/.test(ua)) return "mac";
+    if (/linux|X11/i.test(p) || /Linux|X11/.test(ua)) return /CrOS/.test(ua) ? "win" : "linux";
+    return "win";
+  }
+  function renderDownloads(os) {
+    const d = DL[os];
+    $$(".js-dl").forEach((a) => { a.href = REL + d.file; });
+    $$('.js-dl [data-t="cta_dl"]').forEach((el) => { el.textContent = fill(tx("cta_dl"), { os: d.name }); });
+    const hint = os === "win" ? "" : tx(os === "linux" ? "hint_linux" : "hint_mac");
+    $$(".js-os-hint").forEach((el) => { el.textContent = hint; el.hidden = !hint; });
+    const links = Object.keys(DL).filter((o) => o !== os)
+      .map((o) => `<a class="link" href="${REL + DL[o].file}">${DL[o].k ? tx(DL[o].k) : DL[o].name}</a>`);
+    $$(".js-os-alt").forEach((el) => { el.innerHTML = `${tx("dl_other")} ${links.join(" · ")}`; });
+  }
+  function initDownloads() {
+    const os = pickOS();
+    renderDownloads(os);
+    if (os === "mac" && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      navigator.userAgentData.getHighEntropyValues(["architecture"])    // Chrome на Mac с Intel
+        .then((v) => { if (v.architecture === "x86") renderDownloads("macx"); }).catch(() => {});
+    }
+  }
+
   // --- глава «Перевод»: настоящие фразы по очереди (оригинал → Google → Tolk AI) ------------------------------
   const ROWS = CMP[lang] || CMP.ru;
   const CMP_MS = 5600;
@@ -407,11 +442,12 @@
 
   // --- старт ---------------------------------------------------------------------------------------------
   applyTexts();
+  initDownloads();
   renderCompare();
   renderStyles();
   renderFaq();
   renderPrices();
-  $$(".display, .lede, .body, .faq, .fine, .pay-notes, .spec dd").forEach(typograph);
+  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd").forEach(typograph);
   measure();
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", refreshSoon);
