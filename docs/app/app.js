@@ -82,6 +82,40 @@
       f6q: "Что-то не работает", f6a: "Напишите в поддержку — ответим лично и поможем.",
       lang_t: "Язык",
       ready_t: "Ключ готов — вставьте его в Tolk", ready_s: "окно активации или «Профиль → Ввести ключ»",
+      qty_t: "Сколько ключей",
+      qty_tier: "от {n} — −{p} %",
+      qty_own: "Первый ключ — ваш, остальные придут в чат открытками для друзей.",
+      qty_gift: "Каждый подарок придёт отдельной открыткой.",
+      qty_sum: "{n} × {p}",
+      qty_save: "скидка {p} %",
+      per_key: "{p} за ключ",
+      bulk_ok: "Ключи готовы: первый — ваш, остальные — для друзей. Открытки с ними уже в чате.",
+      gifts_ok: "Подарки готовы — открытки с кодами уже в чате. Перешлите каждому другу свою.",
+      key_friend: "Ключ для друга",
+      key_share: "🔑 Держи ключ Tolk — субтитры с переводом поверх любого окна. Ключ: {c}",
+      k_bulk_new: "для друга · ещё не активирован",
+      k_bulk_used: "для друга · активирован",
+      inv_code: "Ваш код приглашения",
+      inv_code_s: "Друг откроет ссылку — или введёт этот код в приложении Tolk.",
+      inv_change: "Придумать свой код",
+      inv_code_ph: "Например, OLEH",
+      inv_save: "Сохранить",
+      inv_saved: "Код сохранён — старая ссылка тоже работает",
+      inv_left: "Смен осталось: {n}.",
+      fc_t: "Есть код друга?",
+      fc_ph: "Код или ссылка приглашения",
+      fc_apply: "Применить",
+      fc_ok: "Приглашение принято: купите подписку от месяца — получите +{f} ч Tolk AI.",
+      rb_t: "Приглашение от {name}",
+      rb_t0: "Приглашение от друга",
+      rb_s: "Купите подписку от месяца — получите +{f} ч Tolk AI в подарок.",
+      ref_taken: "Этот код уже занят — придумайте другой.",
+      ref_code: "Код не найден — проверьте буквы и цифры.",
+      ref_self: "Это ваш собственный код 🙂",
+      ref_already: "Вы уже пришли по приглашению.",
+      ref_old: "Код друга — только для новых покупателей.",
+      ref_many: "Код можно поменять не больше 5 раз.",
+      ref_fmt: "3–16 латинских букв или цифр, без пробелов.",
     },
     uk: {
       out_t: "Відкрийте Tolk у Telegram", out_p: "Цей застосунок працює всередині бота @TolkShopBot.", out_b: "Відкрити бота",
@@ -152,6 +186,40 @@
       f6q: "Щось не працює", f6a: "Напишіть у підтримку — відповімо особисто й допоможемо.",
       lang_t: "Мова",
       ready_t: "Ключ готовий — вставте його в Tolk", ready_s: "вікно активації або «Профіль → Ввести ключ»",
+      qty_t: "Скільки ключів",
+      qty_tier: "від {n} — −{p} %",
+      qty_own: "Перший ключ — ваш, решта прийдуть у чат листівками для друзів.",
+      qty_gift: "Кожен подарунок прийде окремою листівкою.",
+      qty_sum: "{n} × {p}",
+      qty_save: "знижка {p} %",
+      per_key: "{p} за ключ",
+      bulk_ok: "Ключі готові: перший — ваш, решта — для друзів. Листівки з ними вже в чаті.",
+      gifts_ok: "Подарунки готові — листівки з кодами вже в чаті. Перешліть кожному другові свою.",
+      key_friend: "Ключ для друга",
+      key_share: "🔑 Тримай ключ Tolk — субтитри з перекладом поверх будь-якого вікна. Ключ: {c}",
+      k_bulk_new: "для друга · ще не активовано",
+      k_bulk_used: "для друга · активовано",
+      inv_code: "Ваш код запрошення",
+      inv_code_s: "Друг відкриє посилання — або введе цей код у застосунку Tolk.",
+      inv_change: "Придумати свій код",
+      inv_code_ph: "Наприклад, OLEH",
+      inv_save: "Зберегти",
+      inv_saved: "Код збережено — старе посилання теж працює",
+      inv_left: "Змін залишилось: {n}.",
+      fc_t: "Маєте код друга?",
+      fc_ph: "Код або посилання запрошення",
+      fc_apply: "Застосувати",
+      fc_ok: "Запрошення прийнято: купіть підписку від місяця — отримаєте +{f} год Tolk AI.",
+      rb_t: "Запрошення від {name}",
+      rb_t0: "Запрошення від друга",
+      rb_s: "Купіть підписку від місяця — отримаєте +{f} год Tolk AI у подарунок.",
+      ref_taken: "Цей код уже зайнятий — придумайте інший.",
+      ref_code: "Код не знайдено — перевірте літери й цифри.",
+      ref_self: "Це ваш власний код 🙂",
+      ref_already: "Ви вже прийшли за запрошенням.",
+      ref_old: "Код друга — лише для нових покупців.",
+      ref_many: "Код можна змінити не більше 5 разів.",
+      ref_fmt: "3–16 латинських літер або цифр, без пробілів.",
     },
     sk: {
       out_t: "Otvorte Tolk v Telegrame", out_p: "Táto aplikácia funguje vnútri bota @TolkShopBot.", out_b: "Otvoriť bota",
@@ -222,6 +290,40 @@
       f6q: "Niečo nefunguje", f6a: "Napíšte podpore — odpovieme osobne a pomôžeme.",
       lang_t: "Jazyk",
       ready_t: "Kľúč je pripravený — vložte ho do Tolku", ready_s: "okno aktivácie alebo „Profil → Zadať kľúč“",
+      qty_t: "Koľko kľúčov",
+      qty_tier: "od {n} — −{p} %",
+      qty_own: "Prvý kľúč je váš, ostatné prídu do chatu ako pohľadnice pre kamarátov.",
+      qty_gift: "Každý darček príde ako samostatná pohľadnica.",
+      qty_sum: "{n} × {p}",
+      qty_save: "zľava {p} %",
+      per_key: "{p} za kľúč",
+      bulk_ok: "Kľúče sú pripravené: prvý je váš, ostatné pre kamarátov. Pohľadnice sú už v chate.",
+      gifts_ok: "Darčeky sú pripravené — pohľadnice s kódmi sú už v chate. Každému kamarátovi pošlite jeho.",
+      key_friend: "Kľúč pre kamaráta",
+      key_share: "🔑 Tu máš kľúč Tolk — titulky s prekladom nad akýmkoľvek oknom. Kľúč: {c}",
+      k_bulk_new: "pre kamaráta · ešte neaktivovaný",
+      k_bulk_used: "pre kamaráta · aktivovaný",
+      inv_code: "Váš kód pozvánky",
+      inv_code_s: "Kamarát otvorí odkaz — alebo zadá tento kód v aplikácii Tolk.",
+      inv_change: "Vymyslieť vlastný kód",
+      inv_code_ph: "Napríklad OLEH",
+      inv_save: "Uložiť",
+      inv_saved: "Kód je uložený — starý odkaz tiež funguje",
+      inv_left: "Zostáva zmien: {n}.",
+      fc_t: "Máte kód od kamaráta?",
+      fc_ph: "Kód alebo odkaz pozvánky",
+      fc_apply: "Použiť",
+      fc_ok: "Pozvánka prijatá: kúpte si predplatné aspoň na mesiac — dostanete +{f} h Tolk AI.",
+      rb_t: "Pozvánka od {name}",
+      rb_t0: "Pozvánka od kamaráta",
+      rb_s: "Kúpte si predplatné aspoň na mesiac — dostanete +{f} h Tolk AI navyše.",
+      ref_taken: "Tento kód je už obsadený — vymyslite iný.",
+      ref_code: "Kód sa nenašiel — skontrolujte písmená a číslice.",
+      ref_self: "To je váš vlastný kód 🙂",
+      ref_already: "Už ste prišli cez pozvánku.",
+      ref_old: "Kód kamaráta je len pre nových zákazníkov.",
+      ref_many: "Kód sa dá zmeniť najviac 5-krát.",
+      ref_fmt: "3–16 latinských písmen alebo číslic, bez medzier.",
     },
     en: {
       out_t: "Open Tolk in Telegram", out_p: "This app works inside the @TolkShopBot bot.", out_b: "Open the bot",
@@ -292,6 +394,40 @@
       f6q: "Something doesn't work", f6a: "Message support — we reply personally and will help.",
       lang_t: "Language",
       ready_t: "Your key is ready — paste it into Tolk", ready_s: "the activation window or Profile → Enter key",
+      qty_t: "How many keys",
+      qty_tier: "{n}+ — −{p}%",
+      qty_own: "The first key is yours; the rest arrive in the chat as cards for your friends.",
+      qty_gift: "Each gift arrives as its own card.",
+      qty_sum: "{n} × {p}",
+      qty_save: "{p}% off",
+      per_key: "{p} per key",
+      bulk_ok: "Your keys are ready: the first is yours, the rest are for friends. The cards are already in the chat.",
+      gifts_ok: "Your gifts are ready — the cards with codes are in the chat. Forward each friend their card.",
+      key_friend: "Key for a friend",
+      key_share: "🔑 Here's a Tolk key — translated subtitles on top of any window. Key: {c}",
+      k_bulk_new: "for a friend · not activated yet",
+      k_bulk_used: "for a friend · activated",
+      inv_code: "Your invitation code",
+      inv_code_s: "Your friend opens the link — or enters this code in the Tolk app.",
+      inv_change: "Make your own code",
+      inv_code_ph: "e.g. OLEH",
+      inv_save: "Save",
+      inv_saved: "Code saved — the old link still works",
+      inv_left: "Changes left: {n}.",
+      fc_t: "Have a friend's code?",
+      fc_ph: "Invitation code or link",
+      fc_apply: "Apply",
+      fc_ok: "Invitation accepted: buy a subscription of a month or longer and get +{f} h of Tolk AI.",
+      rb_t: "Invitation from {name}",
+      rb_t0: "Invitation from a friend",
+      rb_s: "Buy a subscription of a month or longer and get +{f} h of Tolk AI as a gift.",
+      ref_taken: "That code is taken — try another.",
+      ref_code: "Code not found — check the letters and digits.",
+      ref_self: "That's your own code 🙂",
+      ref_already: "You've already joined by invitation.",
+      ref_old: "A friend's code is for new customers only.",
+      ref_many: "The code can be changed up to 5 times.",
+      ref_fmt: "3–16 Latin letters or digits, no spaces.",
     },
   };
   const LANGS = [["ru", "Русский"], ["uk", "Українська"], ["sk", "Slovenčina"], ["en", "English"]];
@@ -400,7 +536,9 @@
   const apiForm = (path, fd) => call(path, { body: fd });
   const apiBlob = (path, body) => call(path, { headers: { "content-type": "application/json" }, body: JSON.stringify(body) }, "blob");
   const errText = (r) => t({ net: "err_net", auth: "err_auth", too_many: "err_many", rate: "err_rate", stale: "err_stale", plan: "err_stale",
-                             method: "err_stale", order: "err_stale", nokey: "err_nokey", too_big: "err_big", type: "err_type" }[r.error] || "err_any");
+                             method: "err_stale", order: "err_stale", nokey: "err_nokey", too_big: "err_big", type: "err_type",
+                             ref_taken: "ref_taken", ref_code: "ref_code", ref_self: "ref_self", ref_already: "ref_already", ref_old: "ref_old",
+                             ref_many: "ref_many" }[r.error] || "err_any");
   async function refresh() {
     const r = await api("state");
     if (!r.error) { S = r; L = r.lang || L; }
@@ -464,8 +602,8 @@
     return w ? eur(w.price) : "";
   };
   // способ оплаты по умолчанию — первый, у которого есть цена на этот товар
-  function pickMethod(p) {
-    const priceOf = (m) => (m.prices && m.prices[p.item]) || null;
+  function pickMethod(p, prices = null) {                        // prices — цены за несколько ключей (quote)
+    const priceOf = (m) => (prices ? prices[m.id] : m.prices && m.prices[p.item]) || null;
     const ok = (m) => priceOf(m) && !priceOf(m).unavailable;
     if (!S.shop.methods.some((m) => m.id === p.method && ok(m))) p.method = (S.shop.methods.find(ok) || {}).id || null;
     const m = S.shop.methods.find((mm) => mm.id === p.method);
@@ -484,6 +622,47 @@
     });
   }
   const payMain = (pr, body) => (pr ? { text: t("pay_btn", { a: money(pr.price, pr.currency) }), fn: () => startOrder(body) } : null);
+
+  // сколько ключей: от 3 и от 5 — скидка (BULK на сервере); первый ключ — покупателю, остальные — открытками друзьям
+  function qtyStepper(p) {
+    const max = S.shop.max_qty || 10;
+    const set = (v) => { p.qty = Math.min(max, Math.max(1, v)); haptic(); rerender(); };
+    const hint = (S.shop.bulk || []).map((x) => t("qty_tier", { n: x.min, p: x.pct })).join(" · ");
+    return h("div.qty", null, h("span.tx", null, h("b", { text: t("qty_t") }), hint ? h("small", { text: hint }) : null),
+      h("span.stepper", null,
+        h("button", { type: "button", "aria-label": "−1", disabled: p.qty <= 1 || null, on: { click: () => set(p.qty - 1) } }, "−"),
+        h("output", { text: String(p.qty), "aria-live": "polite" }),
+        h("button", { type: "button", "aria-label": "+1", disabled: p.qty >= max || null, on: { click: () => set(p.qty + 1) } }, "+")));
+  }
+
+  // приглашение: баннер «от кого» и поле «код друга» (для тех, кто пришёл без ссылки)
+  const refBanner = () => h("div.notice", null, ic("gift"), h("span.tx", null,
+    S.ref_by.name ? t("rb_t", { name: S.ref_by.name }) : t("rb_t0"), h("small", { text: t("rb_s", { f: num(S.ref.friend) }) })));
+  function friendCode() {
+    const input = h("input", { type: "text", placeholder: t("fc_ph"), autocomplete: "off", spellcheck: "false", enterkeyhint: "done", maxlength: 80 });
+    const apply = async () => {
+      const v = input.value.trim();
+      if (!v) { input.focus(); return; }
+      const r = await api("ref/apply", { code: v });
+      if (r.error) { haptic("error"); toast(errText(r)); return; }
+      haptic("success");
+      toast(t("fc_ok", { f: num(r.friend) }));
+      await refresh();
+      rerender();
+    };
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") apply(); });
+    return h("details.sec", null, h("summary", { text: t("fc_t") }), h("div.fc-row", null, input, h("button.btn", { type: "button", on: tap(apply) }, t("fc_apply"))));
+  }
+  // пересылка приглашения карточкой (картинка + кнопка) — Telegram 8.0+; иначе — обычная ссылка
+  async function shareInvite(r) {
+    if (tg.shareMessage && tg.isVersionAtLeast && tg.isVersionAtLeast("8.0")) {
+      const s = await api("ref/share");
+      if (s.id) {
+        try { tg.shareMessage(s.id, (sent) => { if (sent) haptic("success"); }); return; } catch (e) { /* ниже — обычная ссылка */ }
+      }
+    }
+    share(r.link, r.share_text);
+  }
 
   // ------------------------------------------------------------------------------------------- экраны покупателя
   const VIEWS = {};
@@ -505,9 +684,10 @@
       bits.push(h("div.card", null, h("b", { text: t("ready_t") }), h("p.muted", { text: `${ready.title} · ${t("ready_s")}` }),
         copyRow(t("k_code"), ready.code)));
     }
+    if (S.ref_by && !k) bits.push(refBanner());
     if (o) {
       bits.push(h("button.notice", { type: "button", on: tap(() => go("pay", { id: o.id, order: o })) }, h("span.dot"),
-        h("span.tx", null, o.state === "claimed" ? t("o_check") : t("o_wait"), h("small", { text: `${o.title} · ${money(o.price, o.currency)}` })),
+        h("span.tx", null, o.state === "claimed" ? t("o_check") : t("o_wait"), h("small", { text: `${o.title}${o.qty > 1 ? " × " + o.qty : ""} · ${money(o.price, o.currency)}` })),
         h("span.chev", { html: icon("chev") })));
     }
     const tiles = [];
@@ -540,7 +720,13 @@
     if (p.pro === undefined) p.pro = Boolean(target && target.pro);
     const list = shop.plans.filter((x) => x.pro === Boolean(p.pro && hasPro));
     if (!list.some((x) => x.id === p.item)) p.item = (list.find((x) => /month/.test(x.id)) || list[0] || {}).id;
-    const { priceOf, pr } = pickMethod(p);
+    p.qty = target ? 1 : p.qty || 1;
+    if (p.qty > 1 && (!p.qc || p.qc.k !== p.item + ":" + p.qty)) {  // цены за несколько ключей считает сервер (тот же курс)
+      const q = await api("quote", { item: p.item, qty: p.qty });
+      p.qc = q.error ? null : { ...q, k: p.item + ":" + p.qty };
+      if (q.error) toast(errText(q));
+    }
+    const { priceOf, pr } = pickMethod(p, p.qty > 1 ? (p.qc ? p.qc.prices : {}) : null);
     const head = p.gift ? title2(t("gift_a"), t("gift_b")) : h("h1", null, h("em", { text: target ? t("renew") : t("plans") }));
     const bits = [hero(p.gift ? "gift" : "plans", target ? h("p.eyebrow", { text: target.title }) : null, head)];
     if (hasPro) {
@@ -549,6 +735,8 @@
       bits.push(h("div.seg", null, seg(false, t("std")), seg(true, t("pro"))));
     }
     bits.push(h("p.lede", { text: p.gift ? t("gift_lede") : p.pro ? t("pro_lede") : t("std_lede") }));
+    if (!p.gift && S.ref_by) bits.push(refBanner());
+    else if (!p.gift && S.ref && S.ref.can) bits.push(friendCode());
     if (!p.gift && renewable.length) {
       const chip = (on, label, fn) => h("button.chip", { type: "button", "aria-pressed": String(on), on: { click: () => { fn(); haptic(); rerender(); } } }, label);
       bits.push(h("div.chips", null, renewable.map((k) => chip(p.serial === k.serial, `${t("m_renew")}: ${k.title}`, () => { p.serial = k.serial; })),
@@ -567,8 +755,22 @@
       d.setUTCDate(d.getUTCDate() + 1);
       bits.push(h("p.note", { text: t("renew_from", { d: date(d.toISOString()) }) }));
     }
+    if (!target) {
+      bits.push(qtyStepper(p));
+      if (p.qty > 1) {
+        bits.push(h("p.note", { text: t(p.gift ? "qty_gift" : "qty_own") }));
+        const unit = Number((list.find((x) => x.id === p.item) || {}).price || 0);
+        if (p.qc) {
+          bits.push(h("div.card.sum", null,
+            h("div.row", null, h("span", { text: t("qty_sum", { n: p.qty, p: eur(unit) }) }), p.qc.pct ? h("s", { text: eur(unit * p.qty) }) : null,
+              h("b", { text: eur(p.qc.eur) })),
+            h("small.muted", { text: [p.qc.pct ? t("qty_save", { p: p.qc.pct }) : "", t("per_key", { p: eur(p.qc.eur / p.qty) })].filter(Boolean).join(" · ") })));
+        }
+      }
+    }
     bits.push(h("div.sec", { role: "radiogroup" }, h("p.sec-t", { text: t("pay_with") }), methodList(p, priceOf)));
-    return { node: bits, main: payMain(pr, { item: p.item, method: p.method, serial: p.serial || undefined, gift: p.gift || undefined }) };
+    return { node: bits, main: payMain(pr, { item: p.item, method: p.method, serial: p.serial || undefined, gift: p.gift || undefined,
+                                             qty: p.qty > 1 ? p.qty : undefined }) };
   };
 
   // часы Tolk AI к ключу
@@ -625,7 +827,7 @@
     }
     const bits = [h("div.center", null, h("span.status.wait", { text: t("s_" + o.state) })),
       h("div.amount", null, h("button.big", { type: "button", on: { click: () => copy(o.price) } }, money(o.price, o.currency)),
-        h("small", { text: o.title + (o.gift ? " · 🎁" : "") + (o.currency !== "EUR" && o.eur ? ` · ≈ ${eur(o.eur)}` : "") }))];
+        h("small", { text: o.title + (o.qty > 1 ? ` × ${o.qty}` : "") + (o.gift ? " · 🎁" : "") + (o.currency !== "EUR" && o.eur ? ` · ≈ ${eur(o.eur)}` : "") }))];
     schedule(o.id);
     if (o.state === "new" && m.kind !== "stars") {
       const s1 = h("div.step", null, h("b", { text: t(m.qr ? "st1_crypto" : "st1_card", { a: money(o.price, o.currency) }) }));
@@ -684,13 +886,18 @@
 
   function payDone(o) {
     const res = o.result || {};
-    const text = o.kind === "topup" ? t("paid_hours", { h: num(o.hours) }) : o.gift ? t("paid_gift") : o.machine ? t("paid_auto") : t("paid_manual");
+    const codes = o.kind === "topup" ? [] : res.codes || (res.code ? [res.code] : []);
+    const many = codes.length > 1;
+    const text = o.kind === "topup" ? t("paid_hours", { h: num(o.hours) }) : many ? t(o.gift ? "gifts_ok" : "bulk_ok")
+      : o.gift ? t("paid_gift") : o.machine ? t("paid_auto") : t("paid_manual");
     const bits = [h("div.done", null, h("div.ok", { html: icon("check") }), h("h2", { text: t("paid_t") }), h("p", { text }))];
-    if (res.code && o.kind !== "topup") bits.push(h("div.sec", null, copyRow(t("your_key"), res.code)));
-    if (res.code && o.gift) {
-      bits.push(h("div.sec", null, h("button.btn.primary", { type: "button", on: tap(() => share(S.links.site, t("gift_share", { c: res.code }))) },
-        h("span", { html: icon("send") }), t("share"))));
-    } else if (!o.machine && o.kind !== "topup") {
+    codes.forEach((c, i) => {
+      const own = !o.gift && i === 0;
+      const label = own ? t("your_key") : o.gift ? `🎁 ${t("k_code")}${many ? ` ${i + 1}` : ""}` : `${t("key_friend")} ${i}`;
+      bits.push(h("div.sec", null, copyRow(label, c), own ? null : h("button.btn.after-copy", { type: "button",
+        on: tap(() => share(S.links.site, t(o.gift ? "gift_share" : "key_share", { c }))) }, h("span", { html: icon("send") }), t("share"))));
+    });
+    if (!o.machine && o.kind !== "topup" && !o.gift) {
       bits.push(h("div.sec", null, h("button.btn", { type: "button", on: tap(() => openLink(S.links.site)) }, h("span", { html: icon("download") }), t("download"))));
     }
     if (S.order && S.order.id === o.id) S.order = null;
@@ -786,11 +993,13 @@
         if (acts.length) card.append(h("div.row2", null, acts));
         list.append(card);
       } else {
-        const sub = k.gift ? (k.used ? t("k_gift_used") : t("k_gift_new")) : k.used ? t("k_active") : t("k_unused");
-        const card = h("div.key", null, h("div.top", null, h("div", null, h("h3", { text: (k.gift ? "🎁 " : "") + k.title }), h("p.meta", { text: sub }))));
+        const sub = k.bulk ? t(k.used ? "k_bulk_used" : "k_bulk_new") : k.gift ? (k.used ? t("k_gift_used") : t("k_gift_new"))
+          : k.used ? t("k_active") : t("k_unused");
+        const card = h("div.key", null, h("div.top", null, h("div", null, h("h3", { text: (k.bulk ? "🔑 " : k.gift ? "🎁 " : "") + k.title }),
+          h("p.meta", { text: sub }))));
         if (!k.used) card.append(copyRow(t("k_code"), k.code));
         if (k.gift && !k.used) {
-          card.append(h("div.row2", null, h("button.btn", { type: "button", on: tap(() => share(S.links.site, t("gift_share", { c: k.code }))) },
+          card.append(h("div.row2", null, h("button.btn", { type: "button", on: tap(() => share(S.links.site, t(k.bulk ? "key_share" : "gift_share", { c: k.code }))) },
             h("span", { html: icon("send") }), t("share"))));
         }
         list.append(card);
@@ -802,16 +1011,36 @@
   };
 
   // пригласить друга
-  VIEWS.invite = async () => {
-    const r = await api("ref");
+  VIEWS.invite = async (p) => {
+    if (!p.r || p.r.error) p.r = await api("ref");
+    const r = p.r;
     const bits = [hero("invite", title2(t("inv_a"), t("inv_b")))];
     if (r.error || !r.on) return { node: [...bits, h("p.empty", { text: r.error ? errText(r) : "—" })] };
+    const input = h("input", { type: "text", maxlength: 16, placeholder: t("inv_code_ph"), autocomplete: "off", spellcheck: "false",
+                               autocapitalize: "characters", enterkeyhint: "done" });
+    const save = async () => {
+      const v = input.value.trim().replace(/^@/, "");
+      if (!/^[0-9A-Za-z]{3,16}$/.test(v)) { haptic("warning"); toast(t("ref_fmt")); return; }
+      const res = await api("ref/code", { code: v });
+      if (res.error) { haptic("error"); toast(errText(res)); return; }
+      haptic("success");
+      toast(t("inv_saved"));
+      p.r = res;
+      rerender();
+    };
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") save(); });
     bits.push(h("p.lede", { text: t("inv_lede", { h: num(r.hours), f: num(r.friend) }) }),
+      h("div.card.code-card", null, h("small.muted", { text: t("inv_code") }),
+        h("button.big-code", { type: "button", on: { click: () => copy(r.code) } }, r.code), h("p.muted", { text: t("inv_code_s") })),
       h("div.sec", null, copyRow(t("inv_link"), r.link, r.link.replace("https://", ""))),
+      r.changes_left > 0 ? h("details.sec", null, h("summary", { text: t("inv_change") }),
+        h("div.fc-row", null, input, h("button.btn", { type: "button", on: tap(save) }, t("inv_save"))),
+        h("p.note", { text: `${t("ref_fmt")} ${t("inv_left", { n: r.changes_left })}` })) : null,
       h("div.stats", null, h("div.stat", null, h("b", { text: String(r.n) }), h("span", { text: t("inv_n") })),
         h("div.stat", null, h("b", { text: `${num(r.got)} ${t("h_short")}` }), h("span", { text: t("inv_got") }))),
       h("p.note", { text: t("inv_rules") }));
-    return { node: bits, main: { text: t("inv_send"), fn: () => share(r.link, r.share_text) } };
+    if (S.ref && S.ref.can) bits.push(friendCode());
+    return { node: bits, main: { text: t("inv_send"), fn: () => shareInvite(r) } };
   };
 
   // отзыв: звёзды, пара слов, разрешение показать в канале (для 4–5 звёзд)
@@ -877,6 +1106,9 @@
     return { node: [h("h2.h2", null, "Панель ", h("em", { text: "продавца" })), tabs, body.node], main: body.main || null };
   };
   const stat = (v, label) => h("div.stat", null, h("b", { text: String(v) }), h("span", { text: label }));
+  const topRef = (list) => (list && list.length ? h("div.sec", null, h("p.sec-t", { text: "Лучшие приглашающие" }), h("div.list", null,
+    list.map((x) => h("div.li", null, ic("users"), h("span.tx", null, (x.name || "без имени") + (x.code ? ` · ${x.code}` : ""),
+      h("small", { text: `привели покупателей: ${x.n} · получили ${num(x.h)} ч Tolk AI` })))))) : null);
   const when = (iso) => (iso ? new Date(iso).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "");
   const keyLine = (k) => (k.revoked ? "отозван" : k.expires ? `${k.status === "active" ? "до" : "закончился"} ${date(k.expires)}` : "навсегда");
   const ADMIN_TABS = {
@@ -888,7 +1120,8 @@
           stat(eur(r.eur), "выручка за месяц"), stat(`${num(r.ai_spent, 2)} / ${r.ai_limit} $`, "Tolk AI за месяц"),
           stat(r.active, "действующих ключей"), stat(r.trial, "пробных"),
           stat(r.rating == null ? "—" : `${num(r.rating)} ★`, `отзывов: ${r.reviews}`), stat(r.invites, "покупок по приглашениям")),
-        r.channel ? null : h("p.note", { text: "Канал не подключён: посты, отзывы и новости версий заработают, когда ссылка на канал появится в настройках бота (CHANNEL_URL)." })),
+        r.channel ? null : h("p.note", { text: "Канал не подключён: посты, отзывы и новости версий заработают, когда ссылка на канал появится в настройках бота (CHANNEL_URL)." }),
+        topRef(r.top_ref)),
         main: r.pending ? { text: `Проверить оплаты (${r.pending})`, fn: () => { p.tab = "orders"; rerender(); } } : null };
     },
     async orders() {
@@ -1046,7 +1279,8 @@
     return h("div.order", null,
       h("div.hd", null, h("b", { text: `${o.gift ? "🎁 " : ""}${o.title} · ${o.price} ${o.currency}` }), h("span.muted", { text: o.eur ? "≈ " + eur(o.eur) : "" })),
       h("dl", null, row("Способ", o.method || ""), row("Код", o.code || "—"), row("Кто", whoEl), row("Коммент.", o.note),
-        row("Куда", o.gift ? "подарок — код-открытка" : o.target ? `часы к ключу №${o.target}` : o.machine ? "ключ на компьютер покупателя" : "код для Tolk"),
+        row("Куда", o.qty > 1 ? `ключей: ${o.qty} — ${o.gift ? "подарки-открытки" : "один покупателю, остальные открытками друзьям"}`
+          : o.gift ? "подарок — код-открытка" : o.target ? `часы к ключу №${o.target}` : o.machine ? "ключ на компьютер покупателя" : "код для Tolk"),
         row("Продление", o.renew_from ? "с " + date(o.renew_from) : ""), row("Когда", when(o.claimed || o.created))),
       o.receipt ? shot : h("p.note", { text: o.claimed ? "Покупатель прислал только текст." : "Квитанции ещё нет — заказ ждёт оплаты." }),
       h("div.row2", null,

@@ -259,3 +259,30 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .outside .tmark { width: 64px; height: 64px; margin: 0 auto 16px; }
 .outside h1 { font: 400 30px/1.1 var(--display); }
 .outside p { color: var(--ink-2); margin: 10px 0 18px; }
+
+/* несколько ключей, приглашения */
+.qty { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 11px 11px 11px 15px; border-radius: var(--r);
+  background: var(--card); border: 1px solid var(--line); }
+.qty .tx { flex: 1; min-width: 0; }
+.qty .tx b { display: block; font-weight: 600; }
+.qty .tx small { display: block; margin-top: 2px; color: var(--ink-3); font-size: 12.5px; }
+.qty .stepper { display: flex; align-items: center; gap: 2px; flex: none; padding: 3px; border-radius: 12px; background: var(--card-2); }
+.qty .stepper button { width: 38px; height: 38px; border: 0; border-radius: 10px; background: none; font-size: 21px; line-height: 1; }
+.qty .stepper button:active { background: var(--line); }
+.qty .stepper button[disabled] { opacity: .3; }
+.qty .stepper output { min-width: 28px; text-align: center; font: 600 17px/1 var(--mono); }
+.sum { margin-top: 10px; }
+.sum .row { display: flex; align-items: baseline; gap: 10px; }
+.sum .row span { flex: 1; color: var(--ink-2); }
+.sum .row s { color: var(--ink-3); font-size: 13.5px; }
+.sum .row b { font: 500 22px/1 var(--display); }
+.sum small { display: block; margin-top: 5px; }
+.notice > .ic { flex: none; color: var(--accent); }
+.notice > .ic svg { width: 22px; height: 22px; }
+.code-card { margin-top: 14px; text-align: center; }
+.code-card .big-code { display: block; margin: 6px auto 4px; padding: 4px 10px; border: 0; background: none; color: var(--gold);
+  font: 600 30px/1.15 var(--mono); letter-spacing: .08em; }
+.fc-row { display: flex; gap: 8px; padding: 2px 0 12px; }
+.fc-row input { flex: 1; min-width: 0; }
+.fc-row .btn { width: auto; flex: none; padding-left: 16px; padding-right: 16px; }
+.btn.after-copy { margin-top: 8px; }
