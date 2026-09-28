@@ -125,6 +125,9 @@ window.TOLK_TEXTS = {
   "h_long": "<b>{h} ч</b> Tolk AI — по {m} в месяц",
   "buy": "Купить",
   "topup": "+{h} ч — {p}",
+  "bulk_k": "Несколько ключей?",
+  "bulk_tier": "от {n} — −{p} %",
+  "bulk_tail": "в одном заказе — для группы или в подарок.",
   "faq": [
    [
     "Что нужно, чтобы Tolk работал?",
@@ -237,6 +240,9 @@ window.TOLK_TEXTS = {
   "h_long": "<b>{h} год</b> Tolk AI — по {m} на місяць",
   "buy": "Купити",
   "topup": "+{h} год — {p}",
+  "bulk_k": "Кілька ключів?",
+  "bulk_tier": "від {n} — −{p} %",
+  "bulk_tail": "в одному замовленні — для групи чи в подарунок.",
   "src_lbl": "Оригінал",
   "faq": [
    [
@@ -352,6 +358,9 @@ window.TOLK_TEXTS = {
   "h_long": "<b>{h} h</b> Tolk AI — {m} mesačne",
   "buy": "Kúpiť",
   "topup": "+{h} h — {p}",
+  "bulk_k": "Viac kľúčov?",
+  "bulk_tier": "od {n} — −{p} %",
+  "bulk_tail": "v jednej objednávke — pre skupinu alebo ako darček.",
   "src_lbl": "Originál",
   "faq": [
    [
@@ -467,6 +476,9 @@ window.TOLK_TEXTS = {
   "h_long": "<b>{h} h</b> of Tolk AI — {m} a month",
   "buy": "Buy",
   "topup": "+{h} h — {p}",
+  "bulk_k": "Several keys?",
+  "bulk_tier": "{n}+ keys — −{p}%",
+  "bulk_tail": "in one order — for a group or as gifts.",
   "src_lbl": "Original",
   "faq": [
    [

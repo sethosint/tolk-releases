@@ -168,7 +168,7 @@
       { id: "month", price: "8.99", stars: 750, days: 31, period_h: 30, per_month: 8.99, save: 0 },
       { id: "quarter", price: "21.99", stars: 1750, days: 92, period_h: 90, per_month: 7.33, save: 18 },
       { id: "half", price: "37.49", stars: 3000, days: 183, period_h: 180, per_month: 6.25, save: 30 },
-      { id: "year", price: "62.49", stars: 5000, days: 366, period_h: 360, per_month: 5.21, save: 42, best: true },
+      { id: "year", price: "69.99", stars: 5600, days: 366, period_h: 360, per_month: 5.83, save: 35, best: true },
       { id: "pro_week", price: "3.49", stars: 300, days: 7, period_h: 7.5, per_month: null, save: 0, pro: true },
       { id: "pro_month", price: "12.99", stars: 1100, days: 31, period_h: 30, per_month: 12.99, save: 0, pro: true },
       { id: "pro_quarter", price: "32.99", stars: 2750, days: 92, period_h: 90, per_month: 11, save: 15, pro: true },
@@ -176,6 +176,7 @@
       { id: "pro_year", price: "89.99", stars: 7500, days: 366, period_h: 360, per_month: 7.5, save: 42, pro: true },
     ],
     topups: [{ id: "h8", hours: 7.5, price: "1.99" }, { id: "h30", hours: 30, price: "6.99" }, { id: "h75", hours: 75, price: "14.99" }],
+    bulk: [{ min: 3, pct: 10 }, { min: 5, pct: 15 }],
     methods: [], month_h: 30,
   };
   let catalog = null;
@@ -228,6 +229,9 @@
       </article>`;
     }).join("");
     $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ");
+    const bulk = c.bulk || [];                          // скидка за несколько ключей — из настроек магазина
+    $(".js-bulk-line").hidden = !bulk.length;
+    $(".js-bulk").innerHTML = bulk.map((b) => `<b>${fill(tx("bulk_tier"), { n: b.min, p: b.pct })}</b>`).join(" · ") + " " + tx("bulk_tail");
   }
 
   $$(".js-plan-tabs button").forEach((b) => b.addEventListener("click", () => { proView = b.dataset.v === "pro"; renderPrices(); }));
