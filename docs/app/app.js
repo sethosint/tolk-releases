@@ -28,7 +28,7 @@
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
       t_help: "Как начать", t_help_s: "3 шага и ответы", t_review: "Отзыв", t_review_s: "оценить Tolk", t_review_done: "ваша оценка: {n} из 5",
-      promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
+      t_promo: "Промокод", t_promo_s: "скидка или часы", pc_have: "Есть промокод?", pc_ph: "Промокод", pc_apply: "Применить", pc_code_t: "−{p} % по промокоду {c}", pc_code_s: "на подписку · до {d}", pr_bad: "Такого промокода нет — проверьте написание", pr_expired: "Срок промокода закончился", pr_full: "Этот промокод уже разобрали", pr_used: "Вы уже вводили этот промокод", pr_nokey: "Часы по промокоду добавляются к действующей подписке — сначала купите её", promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
       l_support: "Поддержка", l_support_s: "ответим лично", l_lang: "Язык",
       o_wait: "Заказ ждёт оплаты", o_check: "Проверяем оплату",
       plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Обычная", pro: "Pro · конспекты",
@@ -131,7 +131,7 @@
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
       t_help: "Як почати", t_help_s: "3 кроки й відповіді", t_review: "Відгук", t_review_s: "оцінити Tolk", t_review_done: "ваша оцінка: {n} з 5",
-      promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
+      t_promo: "Промокод", t_promo_s: "знижка або години", pc_have: "Є промокод?", pc_ph: "Промокод", pc_apply: "Застосувати", pc_code_t: "−{p} % за промокодом {c}", pc_code_s: "на підписку · до {d}", pr_bad: "Такого промокоду немає — перевірте написання", pr_expired: "Термін промокоду закінчився", pr_full: "Цей промокод уже розібрали", pr_used: "Ви вже вводили цей промокод", pr_nokey: "Години за промокодом додаються до чинної підписки — спершу купіть її", promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
       l_support: "Підтримка", l_support_s: "відповімо особисто", l_lang: "Мова",
       o_wait: "Замовлення чекає на оплату", o_check: "Перевіряємо оплату",
       plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Звичайна", pro: "Pro · конспекти",
@@ -234,7 +234,7 @@
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
       t_help: "Ako začať", t_help_s: "3 kroky a odpovede", t_review: "Recenzia", t_review_s: "ohodnotiť Tolk", t_review_done: "vaše hodnotenie: {n} z 5",
-      promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
+      t_promo: "Promo kód", t_promo_s: "zľava alebo hodiny", pc_have: "Máte promo kód?", pc_ph: "Promo kód", pc_apply: "Použiť", pc_code_t: "−{p} % s promo kódom {c}", pc_code_s: "na predplatné · do {d}", pr_bad: "Taký promo kód neexistuje — skontrolujte ho", pr_expired: "Platnosť promo kódu skončila", pr_full: "Tento promo kód je už vyčerpaný", pr_used: "Tento promo kód ste už zadali", pr_nokey: "Hodiny z promo kódu sa pridávajú k platnému predplatnému — najprv si ho kúpte", promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
       l_support: "Podpora", l_support_s: "odpovieme osobne", l_lang: "Jazyk",
       o_wait: "Objednávka čaká na platbu", o_check: "Kontrolujeme platbu",
       plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Bežné", pro: "Pro · poznámky",
@@ -337,7 +337,7 @@
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
       t_help: "Getting started", t_help_s: "3 steps and answers", t_review: "Review", t_review_s: "rate Tolk", t_review_done: "your rating: {n} of 5",
-      promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
+      t_promo: "Promo code", t_promo_s: "discount or hours", pc_have: "Have a promo code?", pc_ph: "Promo code", pc_apply: "Apply", pc_code_t: "−{p}% with code {c}", pc_code_s: "on a subscription · until {d}", pr_bad: "No such promo code — check the spelling", pr_expired: "This promo code has expired", pr_full: "This promo code has been used up", pr_used: "You have already used this promo code", pr_nokey: "Promo hours go onto an active subscription — buy one first", promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
       l_support: "Support", l_support_s: "we reply personally", l_lang: "Language",
       o_wait: "Order awaiting payment", o_check: "Checking your payment",
       plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Standard", pro: "Pro · lecture notes",
@@ -452,6 +452,7 @@
     gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
     users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
     help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+    tag: '<path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.5 1.5 0 0 1 0 2.1l-6.2 6.2a1.5 1.5 0 0 1-2.1 0z"/><circle cx="8" cy="8" r="1.4"/>',
     star: '<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.5 1.1 6.3L12 17.3l-5.6 3 1.1-6.3-4.6-4.5 6.3-.9z"/>',
     download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
     send: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
@@ -537,7 +538,8 @@
   const errText = (r) => t({ net: "err_net", auth: "err_auth", too_many: "err_many", rate: "err_rate", stale: "err_stale", plan: "err_stale",
                              method: "err_stale", order: "err_stale", nokey: "err_nokey", too_big: "err_big", type: "err_type",
                              ref_taken: "ref_taken", ref_code: "ref_code", ref_self: "ref_self", ref_already: "ref_already", ref_old: "ref_old",
-                             ref_many: "ref_many" }[r.error] || "err_any");
+                             ref_many: "ref_many", bad: "pr_bad", expired: "pr_expired", full: "pr_full", used: "pr_used" }[r.error] ||
+                             (r.error === "nokey" && r.promo ? "pr_nokey" : "err_any"));
   async function refresh() {
     const r = await api("state");
     if (!r.error) { S = r; L = r.lang || L; }
@@ -602,7 +604,8 @@
   };
   // способ оплаты по умолчанию — первый, у которого есть цена на этот товар
   function pickMethod(p, prices = null) {                        // prices — цены за несколько ключей (quote)
-    const priceOf = (m) => (prices ? prices[m.id] : m.prices && m.prices[p.item]) || null;
+    const disc = !prices && !p.gift && promoOn(p.item) && S.promo.prices;         // скидка — цены от сервера, как в заказе
+    const priceOf = (m) => (prices ? prices[m.id] : disc && disc[m.id] ? disc[m.id][p.item] : m.prices && m.prices[p.item]) || null;
     const ok = (m) => priceOf(m) && !priceOf(m).unavailable;
     if (!S.shop.methods.some((m) => m.id === p.method && ok(m))) p.method = (S.shop.methods.find(ok) || {}).id || null;
     const m = S.shop.methods.find((mm) => mm.id === p.method);
@@ -686,7 +689,8 @@
     if (S.ref_by && !k) bits.push(refBanner());
     if (S.promo && !o) {                         // скидка после пробного — на первую подписку
       bits.push(h("button.notice", { type: "button", on: tap(() => go("plans")) }, h("span.dot"),
-        h("span.tx", null, t("promo_t", { p: S.promo.pct }), h("small", { text: t("promo_s", { d: whenShort(S.promo.until) }) })),
+        h("span.tx", null, S.promo.code ? t("pc_code_t", { p: S.promo.pct, c: S.promo.code }) : t("promo_t", { p: S.promo.pct }),
+          h("small", { text: t(S.promo.code ? "pc_code_s" : "promo_s", { d: whenShort(S.promo.until) }) })),
         h("span.chev", { html: icon("chev") })));
     }
     if (o) {
@@ -702,7 +706,8 @@
     if (S.ref && S.ref.on) tiles.push(tile("users", t("t_invite"), t("t_invite_s", { h: num(S.ref.hours), f: num(S.ref.friend) }), () => go("invite")));
     tiles.push(tile("help", t("t_help"), t("t_help_s"), () => go("help")));
     tiles.push(tile("star", t("t_review"), S.review ? t("t_review_done", { n: S.review.n }) : t("t_review_s"), () => go("review")));
-    if (tiles.length % 2) tiles[tiles.length - 1].classList.add("wide");
+    tiles.push(tile("tag", t("t_promo"), t("t_promo_s"), () => { promoOpen = true; go("plans", k && k.renewable ? { serial: k.serial } : {}); }));
+    if (tiles.filter((x) => !x.classList.contains("wide")).length % 2) tiles[tiles.length - 1].classList.add("wide");
     bits.push(h("div.tiles", null, tiles));
     const links = [li("download", t("l_download"), t("l_download_s"), () => openLink(S.links.site))];
     if (S.links.channel) links.push(li("horn", t("l_channel"), t("l_channel_s"), () => openTg(S.links.channel)));
@@ -713,6 +718,31 @@
       : ready ? { text: t("download"), fn: () => openLink(S.links.site) } : !k ? { text: t("cta_buy"), fn: () => go("plans") } : null;
     return { node: bits, main };
   };
+
+  // промокод: скидка (видна сразу в ценах) или часы Tolk AI (сразу на ключ)
+  const promoOn = (id) => Boolean(S.promo && (S.promo.items || []).includes(id));
+  let promoOpen = false;
+  function promoBox() {
+    if (!promoOpen) return h("button.linkbtn", { type: "button", text: t("pc_have"), on: tap(() => { promoOpen = true; rerender(); }) });
+    const inp = h("input.field", { type: "text", placeholder: t("pc_ph"), autocapitalize: "characters", spellcheck: "false", autocomplete: "off" });
+    const apply = async () => {
+      const code = inp.value.trim();
+      if (!code) { inp.focus(); return; }
+      btnA.disabled = true;
+      const r = await api("promo", { code });
+      btnA.disabled = false;
+      if (r.error) { haptic("error"); toast(errText({ ...r, promo: true })); return; }
+      haptic("success");
+      toast(r.text);
+      promoOpen = false;
+      await refresh();
+      rerender();
+    };
+    const btnA = h("button.btn.sm", { type: "button", text: t("pc_apply"), on: tap(apply) });
+    inp.addEventListener("keydown", (e) => { if (e.key === "Enter") apply(); });
+    setTimeout(() => inp.focus(), 50);
+    return h("div.promo-in", null, inp, btnA);
+  }
 
   // тарифы: покупка, продление ключа (serial), новый ключ (mode "new"), подарок (gift), Pro
   VIEWS.plans = async (p) => {
@@ -753,7 +783,9 @@
       h("span.tx", null, h("b", null, x.title, x.best ? h("span.badge", { text: t("best") }) : x.save ? h("span.badge", { text: `−${x.save}%` }) : null),
         h("small", { text: [x.period_h ? t("hours_all", { h: num(x.period_h) }) : "", x.days > 40 && x.per_month ? t("per_month", { p: eur(x.per_month) }) : ""]
           .filter(Boolean).join(" · ") })),
-      h("span.pr", null, h("b", { text: eur(x.price) }))))));
+      promoOn(x.id) ? h("span.pr", null, h("s", { text: eur(x.price) }), h("b", { text: eur(Number(x.price) * (1 - S.promo.pct / 100)) }))
+        : h("span.pr", null, h("b", { text: eur(x.price) }))))));
+    if (!p.gift && p.qty === 1) bits.push(promoBox());
     if (target && target.status === "active" && target.expires) {
       const d = new Date(target.expires + "T00:00:00Z");
       d.setUTCDate(d.getUTCDate() + 1);

@@ -286,3 +286,11 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .fc-row input { flex: 1; min-width: 0; }
 .fc-row .btn { width: auto; flex: none; padding-left: 16px; padding-right: 16px; }
 .btn.after-copy { margin-top: 8px; }
+
+/* промокод */
+.linkbtn { display: block; margin: 4px auto 14px; padding: 8px 12px; background: none; border: 0; color: var(--accent); font: 500 14px/1.3 var(--sans);
+  text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); text-underline-offset: 3px; cursor: pointer; }
+.promo-in { display: flex; gap: 8px; margin: 4px 0 14px; }
+.promo-in .field { flex: 1 1 auto; width: auto; min-width: 0; margin-top: 0; text-transform: uppercase; letter-spacing: .06em; }
+.promo-in .btn.sm { flex: none; width: auto; padding: 11px 18px; background: var(--accent); color: var(--on-accent); border-color: transparent; }
+.opt .pr s { display: block; color: var(--ink-3); font-size: 12px; text-decoration-thickness: 1px; }
