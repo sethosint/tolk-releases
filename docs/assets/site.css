@@ -10,21 +10,21 @@
   --mono: "Geist Mono", "Cascadia Mono", Consolas, monospace;
   --gutter: clamp(1.25rem, 4.6vw, 6.5rem);
   --ch: 132vh;
-  --ease: cubic-bezier(.16, 1, .3, 1);
+  --ease: cubic-bezier(.16, 1, .3, 1); --hot: #b4541c;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #060708; --ink: #f4f1ea; --ink-2: rgba(244, 241, 234, .68); --ink-3: rgba(244, 241, 234, .42);
     --line: rgba(244, 241, 234, .14); --accent: #e3bd76; --on-accent: #0b0906;
-    --scrim: rgba(6, 7, 8, .8); --scrim-0: rgba(6, 7, 8, 0);
+    --scrim: rgba(6, 7, 8, .8); --scrim-0: rgba(6, 7, 8, 0); --hot: #f4a06c;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #060708; --ink: #f4f1ea; --ink-2: rgba(244, 241, 234, .68); --ink-3: rgba(244, 241, 234, .42);
   --line: rgba(244, 241, 234, .14); --accent: #e3bd76; --on-accent: #0b0906;
-  --scrim: rgba(6, 7, 8, .8); --scrim-0: rgba(6, 7, 8, 0);
+  --scrim: rgba(6, 7, 8, .8); --scrim-0: rgba(6, 7, 8, 0); --hot: #f4a06c;
   color-scheme: dark;
 }
 
@@ -309,3 +309,17 @@ main { position: relative; z-index: 10; }
   background: none; border: 0; cursor: pointer; transition: background .4s, color .4s; }
 .plan-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .pro-lede { max-width: 46rem; margin: -.4rem 0 1.4rem; color: var(--ink-2); font-size: .95rem; line-height: 1.6; }
+
+/* акция: полоса над тарифами и зачёркнутая цена */
+.sale-band { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; margin: 0 0 1.6rem; padding: 1rem 1.2rem;
+  border: 1px solid color-mix(in srgb, #f08a4b 50%, var(--line)); border-radius: 14px;
+  background: linear-gradient(120deg, color-mix(in srgb, #f08a4b 14%, transparent), transparent 70%); }
+.sale-band .ey { font: 400 .62rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--hot); }
+.sale-band > b { font: 400 1.6rem/1.1 var(--display); }
+.sale-band span { font-size: .85rem; color: var(--ink-2); }
+.sale-band .left { margin-left: auto; }
+.sale-band .cd { font: 500 .9rem var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.plan .save.hot { color: var(--hot); }
+.plan .price s { display: block; font-size: .42em; color: var(--ink-3); text-decoration-thickness: 1px; margin-bottom: .2rem; }
+.plan.off .price { color: var(--hot); }
+.pay-notes s { color: var(--ink-3); }

@@ -28,11 +28,11 @@
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
       t_help: "Как начать", t_help_s: "3 шага и ответы", t_review: "Отзыв", t_review_s: "оценить Tolk", t_review_done: "ваша оценка: {n} из 5",
-      t_promo: "Промокод", t_promo_s: "скидка или часы", pc_have: "Есть промокод?", pc_ph: "Промокод", pc_apply: "Применить", pc_code_t: "−{p} % по промокоду {c}", pc_code_s: "на подписку · до {d}", pr_bad: "Такого промокода нет — проверьте написание", pr_expired: "Срок промокода закончился", pr_full: "Этот промокод уже разобрали", pr_used: "Вы уже вводили этот промокод", pr_nokey: "Часы по промокоду добавляются к действующей подписке — сначала купите её", promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
+      sale_eyebrow: "Ограниченное предложение", sale_t: "{d} на Tolk", sale_upto: "до −{p} %", sale_left: "осталось {t}", sale_until: "до {d}", sale_ends: "Цены вернутся {d}", t_promo: "Промокод", t_promo_s: "скидка или часы", pc_have: "Есть промокод?", pc_ph: "Промокод", pc_apply: "Применить", pc_code_t: "−{p} % по промокоду {c}", pc_code_s: "на подписку · до {d}", pr_bad: "Такого промокода нет — проверьте написание", pr_expired: "Срок промокода закончился", pr_full: "Этот промокод уже разобрали", pr_used: "Вы уже вводили этот промокод", pr_nokey: "Часы по промокоду добавляются к действующей подписке — сначала купите её", promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
       l_support: "Поддержка", l_support_s: "ответим лично", l_lang: "Язык",
       o_wait: "Заказ ждёт оплаты", o_check: "Проверяем оплату",
       plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Обычная", pro: "Pro · конспекты",
-      pro_lede: "Всё, что в обычной, плюс конспекты лекций: Tolk запишет пару, снимет слайды и соберёт конспект за минуту. До 60 конспектов в месяц.",
+      pro_lede: "Всё, что в обычной, плюс конспекты лекций: Tolk запишет пару, снимет слайды и соберёт конспект за минуту. До 45 конспектов в месяц.",
       std_lede: "Весь Tolk и нейросеть Tolk AI. Часы обновляются каждые 30 дней; кончились раньше — Tolk переводит через Google, а часы можно докупить.",
       gift_lede: "После оплаты в чат придёт открытка с кодом — перешлите её другу. Код включается на любом компьютере, срок пойдёт с момента активации.",
       m_renew: "Продлить", m_new: "Новый ключ", m_new_s: "Код для другого компьютера — вставляется в Tolk вручную.",
@@ -131,11 +131,11 @@
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
       t_help: "Як почати", t_help_s: "3 кроки й відповіді", t_review: "Відгук", t_review_s: "оцінити Tolk", t_review_done: "ваша оцінка: {n} з 5",
-      t_promo: "Промокод", t_promo_s: "знижка або години", pc_have: "Є промокод?", pc_ph: "Промокод", pc_apply: "Застосувати", pc_code_t: "−{p} % за промокодом {c}", pc_code_s: "на підписку · до {d}", pr_bad: "Такого промокоду немає — перевірте написання", pr_expired: "Термін промокоду закінчився", pr_full: "Цей промокод уже розібрали", pr_used: "Ви вже вводили цей промокод", pr_nokey: "Години за промокодом додаються до чинної підписки — спершу купіть її", promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
+      sale_eyebrow: "Обмежена пропозиція", sale_t: "{d} на Tolk", sale_upto: "до −{p} %", sale_left: "залишилось {t}", sale_until: "до {d}", sale_ends: "Ціни повернуться {d}", t_promo: "Промокод", t_promo_s: "знижка або години", pc_have: "Є промокод?", pc_ph: "Промокод", pc_apply: "Застосувати", pc_code_t: "−{p} % за промокодом {c}", pc_code_s: "на підписку · до {d}", pr_bad: "Такого промокоду немає — перевірте написання", pr_expired: "Термін промокоду закінчився", pr_full: "Цей промокод уже розібрали", pr_used: "Ви вже вводили цей промокод", pr_nokey: "Години за промокодом додаються до чинної підписки — спершу купіть її", promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
       l_support: "Підтримка", l_support_s: "відповімо особисто", l_lang: "Мова",
       o_wait: "Замовлення чекає на оплату", o_check: "Перевіряємо оплату",
       plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Звичайна", pro: "Pro · конспекти",
-      pro_lede: "Усе, що у звичайній, плюс конспекти лекцій: Tolk запише пару, зніме слайди й складе конспект за хвилину. До 60 конспектів на місяць.",
+      pro_lede: "Усе, що у звичайній, плюс конспекти лекцій: Tolk запише пару, зніме слайди й складе конспект за хвилину. До 45 конспектів на місяць.",
       std_lede: "Увесь Tolk і нейромережа Tolk AI. Години оновлюються кожні 30 днів; скінчилися раніше — Tolk перекладає через Google, а години можна докупити.",
       gift_lede: "Після оплати в чат прийде листівка з кодом — перешліть її другові. Код вмикається на будь-якому комп'ютері, строк піде з моменту активації.",
       m_renew: "Продовжити", m_new: "Новий ключ", m_new_s: "Код для іншого комп'ютера — вставляється в Tolk вручну.",
@@ -234,11 +234,11 @@
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
       t_help: "Ako začať", t_help_s: "3 kroky a odpovede", t_review: "Recenzia", t_review_s: "ohodnotiť Tolk", t_review_done: "vaše hodnotenie: {n} z 5",
-      t_promo: "Promo kód", t_promo_s: "zľava alebo hodiny", pc_have: "Máte promo kód?", pc_ph: "Promo kód", pc_apply: "Použiť", pc_code_t: "−{p} % s promo kódom {c}", pc_code_s: "na predplatné · do {d}", pr_bad: "Taký promo kód neexistuje — skontrolujte ho", pr_expired: "Platnosť promo kódu skončila", pr_full: "Tento promo kód je už vyčerpaný", pr_used: "Tento promo kód ste už zadali", pr_nokey: "Hodiny z promo kódu sa pridávajú k platnému predplatnému — najprv si ho kúpte", promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
+      sale_eyebrow: "Limitovaná ponuka", sale_t: "{d} na Tolk", sale_upto: "až −{p} %", sale_left: "zostáva {t}", sale_until: "do {d}", sale_ends: "Ceny sa vrátia {d}", t_promo: "Promo kód", t_promo_s: "zľava alebo hodiny", pc_have: "Máte promo kód?", pc_ph: "Promo kód", pc_apply: "Použiť", pc_code_t: "−{p} % s promo kódom {c}", pc_code_s: "na predplatné · do {d}", pr_bad: "Taký promo kód neexistuje — skontrolujte ho", pr_expired: "Platnosť promo kódu skončila", pr_full: "Tento promo kód je už vyčerpaný", pr_used: "Tento promo kód ste už zadali", pr_nokey: "Hodiny z promo kódu sa pridávajú k platnému predplatnému — najprv si ho kúpte", promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
       l_support: "Podpora", l_support_s: "odpovieme osobne", l_lang: "Jazyk",
       o_wait: "Objednávka čaká na platbu", o_check: "Kontrolujeme platbu",
       plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Bežné", pro: "Pro · poznámky",
-      pro_lede: "Všetko z bežného a navyše poznámky z prednášok: Tolk nahrá prednášku, zachytí slajdy a za minútu zostaví poznámky. Do 60 poznámok mesačne.",
+      pro_lede: "Všetko z bežného a navyše poznámky z prednášok: Tolk nahrá prednášku, zachytí slajdy a za minútu zostaví poznámky. Do 45 poznámok mesačne.",
       std_lede: "Celý Tolk aj neurónová sieť Tolk AI. Hodiny sa obnovujú každých 30 dní; ak sa minú skôr, Tolk prekladá cez Google a hodiny si môžete dokúpiť.",
       gift_lede: "Po zaplatení príde do chatu pohľadnica s kódom — prepošlite ju kamarátovi. Kód funguje na akomkoľvek počítači, predplatné začne plynúť od aktivácie.",
       m_renew: "Predĺžiť", m_new: "Nový kľúč", m_new_s: "Kód pre iný počítač — vkladá sa do Tolku ručne.",
@@ -337,11 +337,11 @@
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
       t_help: "Getting started", t_help_s: "3 steps and answers", t_review: "Review", t_review_s: "rate Tolk", t_review_done: "your rating: {n} of 5",
-      t_promo: "Promo code", t_promo_s: "discount or hours", pc_have: "Have a promo code?", pc_ph: "Promo code", pc_apply: "Apply", pc_code_t: "−{p}% with code {c}", pc_code_s: "on a subscription · until {d}", pr_bad: "No such promo code — check the spelling", pr_expired: "This promo code has expired", pr_full: "This promo code has been used up", pr_used: "You have already used this promo code", pr_nokey: "Promo hours go onto an active subscription — buy one first", promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
+      sale_eyebrow: "Limited offer", sale_t: "{d} off Tolk", sale_upto: "up to −{p}%", sale_left: "{t} left", sale_until: "until {d}", sale_ends: "Prices go back up {d}", t_promo: "Promo code", t_promo_s: "discount or hours", pc_have: "Have a promo code?", pc_ph: "Promo code", pc_apply: "Apply", pc_code_t: "−{p}% with code {c}", pc_code_s: "on a subscription · until {d}", pr_bad: "No such promo code — check the spelling", pr_expired: "This promo code has expired", pr_full: "This promo code has been used up", pr_used: "You have already used this promo code", pr_nokey: "Promo hours go onto an active subscription — buy one first", promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
       l_support: "Support", l_support_s: "we reply personally", l_lang: "Language",
       o_wait: "Order awaiting payment", o_check: "Checking your payment",
       plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Standard", pro: "Pro · lecture notes",
-      pro_lede: "Everything in Standard plus lecture notes: Tolk records the lecture, captures the slides and writes notes in a minute. Up to 60 notes a month.",
+      pro_lede: "Everything in Standard plus lecture notes: Tolk records the lecture, captures the slides and writes notes in a minute. Up to 45 notes a month.",
       std_lede: "All of Tolk and the Tolk AI translator. Hours refill every 30 days; if they run out early, Tolk translates via Google and you can top up.",
       gift_lede: "After payment you'll get a gift card with a code in the chat — forward it to your friend. The code works on any computer; the subscription starts when it's activated.",
       m_renew: "Renew", m_new: "New key", m_new_s: "A code for another computer — paste it into Tolk.",
@@ -681,6 +681,8 @@
       head.push(title2(t("new_1"), t("new_2")), h("p.sub", { text: t("new_sub", { p: minPrice() }) }));
     }
     const bits = [hero("menu", ...head)];
+    const sb = saleBanner(() => go("plans"));
+    if (sb) bits.push(sb);
     const ready = !k && (S.keys || []).find((c) => !c.serial && !c.used && !c.gift && c.kind === "plan");
     if (ready) {
       bits.push(h("div.card", null, h("b", { text: t("ready_t") }), h("p.muted", { text: `${ready.title} · ${t("ready_s")}` }),
@@ -717,6 +719,45 @@
     const main = o ? null : k && k.renewable ? { text: t("cta_renew"), fn: () => go("plans", { serial: k.serial }) }
       : ready ? { text: t("download"), fn: () => openLink(S.links.site) } : !k ? { text: t("cta_buy"), fn: () => go("plans") } : null;
     return { node: bits, main };
+  };
+
+  // акция: плашка «ограниченное предложение» с обратным отсчётом; цены в каталоге уже со скидкой, старые — в was
+  let saleTimer = 0;
+  const two = (n) => String(n).padStart(2, "0");
+  function countdown(ms) {
+    const s2 = Math.max(0, Math.floor(ms / 1000)), d = Math.floor(s2 / 86400);
+    return (d ? d + (L === "en" ? "d " : " " + ({ ru: "д", uk: "д", sk: "d" }[L] || "d") + " ") : "") +
+      `${two(Math.floor(s2 / 3600) % 24)}:${two(Math.floor(s2 / 60) % 60)}:${two(s2 % 60)}`;
+  }
+  function saleBanner(go2) {
+    const sv = S.shop && S.shop.sale;
+    if (!sv || Date.parse(sv.until) <= Date.now()) return null;
+    const disc = sv.same ? `−${sv.pct}${L === "en" ? "" : " "}%` : t("sale_upto", { p: sv.pct });
+    const left = h("b.cd");
+    const tick = () => {
+      const ms = Date.parse(sv.until) - Date.now();
+      if (ms <= 0) { clearInterval(saleTimer); refresh().then(rerender); return; }
+      left.textContent = countdown(ms);
+    };
+    clearInterval(saleTimer);
+    tick();
+    saleTimer = setInterval(() => { if (!left.isConnected) { clearInterval(saleTimer); return; } tick(); }, 1000);
+    const until = new Date(sv.until).toLocaleDateString({ ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB" }[L] || "ru-RU", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+    return h(go2 ? "button.sale" : "div.sale", go2 ? { type: "button", on: tap(go2) } : null,
+      h("span.sale-ey", { text: t("sale_eyebrow") }),
+      h("span.sale-t", { text: sv.title || t("sale_t", { d: disc }) }),
+      h("span.sale-row", null, h("span", { text: t("sale_until", { d: until }) }), h("span.sale-left", null, t("sale_left", { t: "" }).trim(), " ", left)));
+  }
+  // цена тарифа с акцией и промокодом (берётся бо́льшая скидка, как в заказе)
+  function shownPrice(x) {
+    const base = Number(x.was || x.price), sale = Number(x.sale_pct || 0);
+    const promo = promoOn(x.id) ? Number(S.promo.pct) : 0;
+    const now = promo > sale ? Math.round(base * (1 - promo / 100) * 100) / 100 : Number(x.price);
+    return { base, now, off: now < base, pct: Math.round((1 - now / base) * 100) };
+  }
+  const priceCell = (x) => {
+    const sp = shownPrice(x);
+    return sp.off ? h("span.pr", null, h("s", { text: eur(sp.base) }), h("b.hot", { text: eur(sp.now) })) : h("span.pr", null, h("b", { text: eur(x.price) }));
   };
 
   // промокод: скидка (видна сразу в ценах) или часы Tolk AI (сразу на ключ)
@@ -768,6 +809,8 @@
         on: { click: () => { p.pro = pro; p.item = null; haptic(); rerender(); } } }, label);
       bits.push(h("div.seg", null, seg(false, t("std")), seg(true, t("pro"))));
     }
+    const sb = saleBanner();
+    if (sb) bits.push(sb);
     bits.push(h("p.lede", { text: p.gift ? t("gift_lede") : p.pro ? t("pro_lede") : t("std_lede") }));
     if (!p.gift && S.ref_by) bits.push(refBanner());
     else if (!p.gift && S.ref && S.ref.can) bits.push(friendCode());
@@ -780,11 +823,11 @@
     bits.push(h("div.sec", { role: "radiogroup" }, list.map((x) => h("button.opt", { type: "button", role: "radio", "aria-checked": String(x.id === p.item),
       on: { click: () => { p.item = x.id; haptic(); rerender(); } } },
       h("span.radio"),
-      h("span.tx", null, h("b", null, x.title, x.best ? h("span.badge", { text: t("best") }) : x.save ? h("span.badge", { text: `−${x.save}%` }) : null),
+      h("span.tx", null, h("b", null, x.title, shownPrice(x).off ? h("span.badge.hot", { text: `−${shownPrice(x).pct}%` })
+        : x.best ? h("span.badge", { text: t("best") }) : x.save ? h("span.badge", { text: `−${x.save}%` }) : null),
         h("small", { text: [x.period_h ? t("hours_all", { h: num(x.period_h) }) : "", x.days > 40 && x.per_month ? t("per_month", { p: eur(x.per_month) }) : ""]
           .filter(Boolean).join(" · ") })),
-      promoOn(x.id) ? h("span.pr", null, h("s", { text: eur(x.price) }), h("b", { text: eur(Number(x.price) * (1 - S.promo.pct / 100)) }))
-        : h("span.pr", null, h("b", { text: eur(x.price) }))))));
+      priceCell(x)))));
     if (!p.gift && p.qty === 1) bits.push(promoBox());
     if (target && target.status === "active" && target.expires) {
       const d = new Date(target.expires + "T00:00:00Z");
@@ -826,8 +869,10 @@
       h("div.card", null, h("b", { text: t("hours_key", { t: target.title, u: keyStatus(target) }) }), meter(target.usage, true)),
       h("div.sec", { role: "radiogroup" }, tops.map((x) => h("button.opt", { type: "button", role: "radio", "aria-checked": String(x.id === p.item),
         on: { click: () => { p.item = x.id; haptic(); rerender(); } } }, h("span.radio"), h("span.tx", null, h("b", { text: t("pack", { h: num(x.hours) }) })),
-        h("span.pr", null, h("b", { text: eur(x.price) }))))),
+        priceCell(x)))),
       h("div.sec", { role: "radiogroup" }, h("p.sec-t", { text: t("pay_with") }), methodList(p, priceOf)));
+    const sb = saleBanner();
+    if (sb) bits.splice(1, 0, sb);
     return { node: bits, main: payMain(pr, { item: p.item, method: p.method, serial: p.serial }) };
   };
 

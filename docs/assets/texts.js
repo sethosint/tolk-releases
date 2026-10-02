@@ -181,7 +181,12 @@ window.TOLK_TEXTS = {
   "drag": "Перетащите",
   "tab_std": "Обычная",
   "tab_pro": "Pro — с конспектами",
-  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 60 конспектов в месяц."
+  "sale_ey": "Ограниченное предложение",
+  "sale_t": "{d} на Tolk",
+  "sale_upto": "до −{p} %",
+  "sale_until": "до {d}",
+  "sale_left": "осталось",
+  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 45 конспектов в месяц."
  },
  "uk": {
   "dl_other": "Інші системи:",
@@ -305,7 +310,12 @@ window.TOLK_TEXTS = {
   "drag": "Перетягніть",
   "tab_std": "Звичайна",
   "tab_pro": "Pro — з конспектами",
-  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 60 конспектів на місяць."
+  "sale_ey": "Обмежена пропозиція",
+  "sale_t": "{d} на Tolk",
+  "sale_upto": "до −{p} %",
+  "sale_until": "до {d}",
+  "sale_left": "залишилось",
+  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 45 конспектів на місяць."
  },
  "sk": {
   "dl_other": "Iné systémy:",
@@ -429,7 +439,12 @@ window.TOLK_TEXTS = {
   "drag": "Potiahnite",
   "tab_std": "Bežné",
   "tab_pro": "Pro — s poznámkami",
-  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 60 poznámok mesačne."
+  "sale_ey": "Limitovaná ponuka",
+  "sale_t": "{d} na Tolk",
+  "sale_upto": "až −{p} %",
+  "sale_until": "do {d}",
+  "sale_left": "zostáva",
+  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 45 poznámok mesačne."
  },
  "en": {
   "dl_other": "Other systems:",
@@ -553,6 +568,11 @@ window.TOLK_TEXTS = {
   "drag": "Drag me",
   "tab_std": "Regular",
   "tab_pro": "Pro — with notes",
-  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 60 notes a month."
+  "sale_ey": "Limited offer",
+  "sale_t": "{d} off Tolk",
+  "sale_upto": "up to −{p}%",
+  "sale_until": "until {d}",
+  "sale_left": "left",
+  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 45 notes a month."
  }
 };

@@ -199,18 +199,18 @@
   // --- цены (живой курс из магазина; без ответа — запасные) ----------------------------------------------
   const FALLBACK = {
     plans: [
-      { id: "week", price: "2.49", stars: 200, days: 7, period_h: 7.5, per_month: null, save: 0 },
-      { id: "month", price: "8.99", stars: 750, days: 31, period_h: 30, per_month: 8.99, save: 0 },
-      { id: "quarter", price: "22.99", stars: 1850, days: 92, period_h: 90, per_month: 7.66, save: 15 },
-      { id: "half", price: "44.99", stars: 3600, days: 183, period_h: 180, per_month: 7.5, save: 17 },
-      { id: "year", price: "87.99", stars: 7000, days: 366, period_h: 360, per_month: 7.33, save: 18, best: true },
-      { id: "pro_week", price: "3.49", stars: 300, days: 7, period_h: 7.5, per_month: null, save: 0, pro: true },
-      { id: "pro_month", price: "12.99", stars: 1100, days: 31, period_h: 30, per_month: 12.99, save: 0, pro: true },
-      { id: "pro_quarter", price: "35.49", stars: 2850, days: 92, period_h: 90, per_month: 11.83, save: 9, pro: true },
-      { id: "pro_half", price: "69.99", stars: 5600, days: 183, period_h: 180, per_month: 11.67, save: 10, pro: true },
-      { id: "pro_year", price: "139.99", stars: 11200, days: 366, period_h: 360, per_month: 11.67, save: 10, pro: true },
+      { id: "week", price: "1.99", stars: 150, days: 7, period_h: 7.5, per_month: null, save: 0 },
+      { id: "month", price: "6.99", stars: 550, days: 31, period_h: 30, per_month: 6.99, save: 0 },
+      { id: "quarter", price: "18.99", stars: 1500, days: 92, period_h: 90, per_month: 6.33, save: 9 },
+      { id: "half", price: "35.99", stars: 2900, days: 183, period_h: 180, per_month: 6, save: 14 },
+      { id: "year", price: "69.99", stars: 5600, days: 366, period_h: 360, per_month: 5.83, save: 17, best: true },
+      { id: "pro_week", price: "2.99", stars: 250, days: 7, period_h: 7.5, per_month: null, save: 0, pro: true },
+      { id: "pro_month", price: "10.49", stars: 850, days: 31, period_h: 30, per_month: 10.49, save: 0, pro: true },
+      { id: "pro_quarter", price: "29.99", stars: 2400, days: 92, period_h: 90, per_month: 10, save: 5, pro: true },
+      { id: "pro_half", price: "59.49", stars: 4750, days: 183, period_h: 180, per_month: 9.92, save: 5, pro: true },
+      { id: "pro_year", price: "118.99", stars: 9500, days: 366, period_h: 360, per_month: 9.92, save: 5, pro: true },
     ],
-    topups: [{ id: "h8", hours: 7.5, price: "1.99" }, { id: "h30", hours: 30, price: "7.49" }, { id: "h75", hours: 75, price: "17.99" }],
+    topups: [{ id: "h8", hours: 7.5, price: "1.49" }, { id: "h30", hours: 30, price: "5.99" }, { id: "h75", hours: 75, price: "14.49" }],
     bulk: [{ min: 3, pct: 10 }, { min: 5, pct: 15 }],
     methods: [], month_h: 30,
   };
@@ -235,6 +235,30 @@
     const b = [get("usdt"), get("ton")].filter(Boolean);
     return (a.length ? `<span>≈ ${a.join(" · ")}</span>` : "") + (b.length ? `<span>${b.join(" · ")}</span>` : "");
   }
+  // акция из магазина: полоса над тарифами — что, до когда и сколько осталось; кончилась — цены перечитываются
+  let saleTick = 0;
+  function renderSale(sv) {
+    const band = $(".js-sale");
+    clearInterval(saleTick);
+    if (!sv || Date.parse(sv.until) <= Date.now()) { band.hidden = true; return; }
+    const disc = sv.same ? `−${sv.pct}${lang === "en" ? "" : " "}%` : fill(tx("sale_upto"), { p: sv.pct });
+    const until = new Date(sv.until).toLocaleDateString({ ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB" }[lang] || "ru-RU",
+                                                        { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+    const esc = (v) => String(v).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+    band.innerHTML = `<span class="ey">${tx("sale_ey")}</span><b>${esc(sv.title || fill(tx("sale_t"), { d: disc }))}</b>` +
+      `<span>${fill(tx("sale_until"), { d: until })}</span><span class="left">${tx("sale_left")} <b class="cd"></b></span>`;
+    band.hidden = false;
+    const cd = $(".cd", band), two = (n) => String(n).padStart(2, "0");
+    const tick = () => {
+      const s2 = Math.floor((Date.parse(sv.until) - Date.now()) / 1000);
+      if (s2 <= 0) { clearInterval(saleTick); loadPrices(); return; }
+      const d = Math.floor(s2 / 86400);
+      cd.textContent = (d ? d + (lang === "en" ? "d " : " д ".replace("д", lang === "sk" ? "d" : "д")) : "") +
+        `${two(Math.floor(s2 / 3600) % 24)}:${two(Math.floor(s2 / 60) % 60)}:${two(s2 % 60)}`;
+    };
+    tick();
+    saleTick = setInterval(tick, 1000);
+  }
   let proView = false;
   function renderPrices() {
     const c = catalog || FALLBACK;
@@ -253,17 +277,20 @@
         : p.days < 40 ? fill(tx("h_month"), { h: hrs(p.period_h) })
         : fill(tx("h_long"), { h: hrs(p.period_h), m: hrs(monthH) });
       const pm = p.days < 28 ? tx("per_week") : p.days < 40 ? "" : fill(tx("per_month"), { p: eur(p.per_month) });
-      const save = p.save ? `<span class="save">${fill(tx("save"), { n: p.save })}</span>` : "";
-      return `<article class="plan${p.best ? " best" : ""}">
+      const off = p.was && Number(p.was) > Number(p.price);
+      const save = off ? `<span class="save hot">−${p.sale_pct}%</span>` : p.save ? `<span class="save">${fill(tx("save"), { n: p.save })}</span>` : "";
+      return `<article class="plan${p.best ? " best" : ""}${off ? " off" : ""}">
         <div class="nm"><span>${title}</span>${save}</div>
-        <p class="price">${eur(p.price)}</p>
+        <p class="price">${off ? `<s>${eur(p.was)}</s>` : ""}${eur(p.price)}</p>
         <p class="pm">${pm}</p>
         <p class="hours">${hours}</p>
         <p class="alt">${altPrices(p.id, p.stars)}</p>
         <a class="buy" href="https://t.me/${BOT}?start=p_${p.id}" target="_blank" rel="noopener">${tx("buy")}${ARR}</a>
       </article>`;
     }).join("");
-    $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours), p: eur(t.price) })}</b>`).join(" · ");
+    $(".js-topups").innerHTML = (c.topups || []).map((t) => `<b>${fill(tx("topup"), { h: hrs(t.hours),
+      p: (t.was ? `<s>${eur(t.was)}</s> ` : "") + eur(t.price) })}</b>`).join(" · ");
+    renderSale(c.sale);
     const bulk = c.bulk || [];                          // скидка за несколько ключей — из настроек магазина
     $(".js-bulk-line").hidden = !bulk.length;
     $(".js-bulk").innerHTML = bulk.map((b) => `<b>${fill(tx("bulk_tier"), { n: b.min, p: b.pct })}</b>`).join(" · ") + " " + tx("bulk_tail");
