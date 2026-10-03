@@ -158,7 +158,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Tolk слушает микрофон? Куда уходит звук?",
-    "Tolk слушает только тот звук, который вы выбрали, и распознаёт речь на вашем компьютере. Для точного перевода фраза по защищённому соединению уходит на сервер Tolk и нейросети — и нигде не хранится. Подробнее — в <a class=\"link\" href=\"privacy.html\">политике конфиденциальности</a>."
+    "Tolk слушает только тот звук, который вы выбрали. С Tolk AI Live он по защищённому соединению идёт на распознавание и перевод — только пока говорят, и нигде не хранится. Без Tolk AI речь распознаётся прямо на компьютере. Подробнее — в <a class=\"link\" href=\"privacy.html\">политике конфиденциальности</a>."
    ],
    [
     "Что будет, когда кончатся часы Tolk AI?",
@@ -208,7 +208,7 @@ window.TOLK_TEXTS = {
   "c1_av": "вкладка, програма або весь звук",
   "c1_b": "Де працює",
   "c1_c": "Приватність",
-  "c1_cv": "мовлення розпізнається на комп'ютері, фрази для перекладу не зберігаються",
+  "c1_cv": "звук іде лише на розпізнавання й ніде не зберігається",
   "c2_k": "Переклад",
   "c2_h": "Розуміє, <em>як говорять студенти.</em>",
   "c2_p": "Звичайний перекладач плутається в сленгу й скороченнях. Tolk AI знає, що таке «intrák» і «zápočet», і пам'ятає, про що говорили хвилину тому.",
@@ -285,7 +285,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Tolk слухає мікрофон? Куди йде звук?",
-    "Tolk слухає лише той звук, який ви обрали, і розпізнає мовлення на вашому комп'ютері. Для точного перекладу фраза захищеним з'єднанням іде на сервер Tolk і нейромережі — і ніде не зберігається. Докладніше — в <a class=\"link\" href=\"privacy.html\">політиці конфіденційності</a>."
+    "Tolk слухає лише той звук, який ви обрали. З Tolk AI Live він захищеним з'єднанням іде на розпізнавання й переклад — лише поки говорять, і ніде не зберігається. Без Tolk AI мовлення розпізнається просто на комп'ютері. Докладніше — в <a class=\"link\" href=\"privacy.html\">політиці конфіденційності</a>."
    ],
    [
     "Що буде, коли закінчаться години Tolk AI?",
@@ -337,7 +337,7 @@ window.TOLK_TEXTS = {
   "c1_av": "karta, program alebo celý zvuk",
   "c1_b": "Kde funguje",
   "c1_c": "Súkromie",
-  "c1_cv": "reč sa rozpoznáva v počítači, frázy na preklad sa neukladajú",
+  "c1_cv": "zvuk ide len na rozpoznanie a nikde sa neukladá",
   "c2_k": "Preklad",
   "c2_h": "Rozumie, <em>ako hovoria študenti.</em>",
   "c2_p": "Bežný prekladač sa stráca v slangu a skratkách. Tolk AI vie, čo znamená „no cap“ a „mid“, a pamätá si, o čom bola reč pred minútou.",
@@ -414,7 +414,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Počúva Tolk mikrofón? Kam ide zvuk?",
-    "Tolk počúva len zvuk, ktorý ste vybrali, a reč rozpoznáva vo vašom počítači. Pre presný preklad ide fráza šifrovaným spojením na server Tolk a neurónovej sieti — a nikde sa neukladá. Viac v <a class=\"link\" href=\"privacy.html\">zásadách ochrany súkromia</a>."
+    "Tolk počúva len zvuk, ktorý ste vybrali. S Tolk AI Live ide šifrovaným spojením na rozpoznanie a preklad — len kým sa hovorí, a nikde sa neukladá. Bez Tolk AI sa reč rozpoznáva priamo v počítači. Viac v <a class=\"link\" href=\"privacy.html\">zásadách ochrany súkromia</a>."
    ],
    [
     "Čo sa stane, keď sa minú hodiny Tolk AI?",
@@ -466,7 +466,7 @@ window.TOLK_TEXTS = {
   "c1_av": "a tab, an app or all sound",
   "c1_b": "Works with",
   "c1_c": "Privacy",
-  "c1_cv": "speech is recognised on your computer; phrases sent for translation aren't stored",
+  "c1_cv": "audio goes only to recognition and is never stored",
   "c2_k": "Translation",
   "c2_h": "Gets <em>student slang.</em>",
   "c2_p": "A regular translator trips over slang and abbreviations. Tolk AI knows what “intrák” and “zápočet” mean, and remembers what was said a minute ago.",
@@ -543,7 +543,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Does Tolk listen to my mic? Where does the audio go?",
-    "Tolk only listens to the sound you picked and recognises speech on your computer. For an accurate translation the phrase goes over an encrypted connection to the Tolk server and the AI model — and isn't stored anywhere. More in the <a class=\"link\" href=\"privacy.html\">privacy policy</a>."
+    "Tolk only listens to the sound you picked. With Tolk AI Live it goes over an encrypted connection to recognition and translation — only while someone speaks, and it's never stored. Without Tolk AI, speech is recognised right on your computer. More in the <a class=\"link\" href=\"privacy.html\">privacy policy</a>."
    ],
    [
     "What happens when my Tolk AI hours run out?",

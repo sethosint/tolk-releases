@@ -749,9 +749,10 @@
       h("span.sale-row", null, h("span", { text: t("sale_until", { d: until }) }), h("span.sale-left", null, t("sale_left", { t: "" }).trim(), " ", left)));
   }
   // цена тарифа с акцией и промокодом (берётся бо́льшая скидка, как в заказе)
+  let promoOff = false;                                  // подарок и несколько ключей — промокод не действует (как в заказе)
   function shownPrice(x) {
     const base = Number(x.was || x.price), sale = Number(x.sale_pct || 0);
-    const promo = promoOn(x.id) ? Number(S.promo.pct) : 0;
+    const promo = promoOn(x.id) && !promoOff ? Number(S.promo.pct) : 0;
     const now = promo > sale ? Math.round(base * (1 - promo / 100) * 100) / 100 : Number(x.price);
     return { base, now, off: now < base, pct: Math.round((1 - now / base) * 100) };
   }
@@ -801,6 +802,7 @@
       p.qc = q.error ? null : { ...q, k: p.item + ":" + p.qty };
       if (q.error) toast(errText(q));
     }
+    promoOff = Boolean(p.gift || p.qty > 1);
     const { priceOf, pr } = pickMethod(p, p.qty > 1 ? (p.qc ? p.qc.prices : {}) : null);
     const head = p.gift ? title2(t("gift_a"), t("gift_b")) : h("h1", null, h("em", { text: target ? t("renew") : t("plans") }));
     const bits = [hero(p.gift ? "gift" : "plans", target ? h("p.eyebrow", { text: target.title }) : null, head)];

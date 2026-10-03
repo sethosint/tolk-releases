@@ -25,20 +25,28 @@
 <main class="page">
   <div class="wrap">
     <section id="ru" lang="ru">
-      <p class="eyebrow">Конфиденциальность · обновлено 27 сентября 2026</p>
+      <p class="eyebrow">Конфиденциальность · обновлено 3 октября 2026</p>
       <h1>Как Tolk обращается с данными</h1>
-      <div class="box"><p>Речь распознаётся на вашем компьютере. Для точного перевода фразы по защищённому соединению уходят на сервер
-        Tolk и нейросеть — и нигде не сохраняются. Мы не продаём данные, не показываем рекламу и не следим за вами.</p></div>
+      <div class="box"><p>Tolk слушает только тот звук, который вы выбрали. Для распознавания и перевода звук и текст по
+        защищённому соединению уходят на сервер Tolk и нейросети — и нигде не сохраняются. Мы не продаём данные, не показываем
+        рекламу и не следим за вами.</p></div>
 
       <h2>Программа Tolk</h2>
       <ul>
-        <li>Речь распознаётся на вашем компьютере.</li>
+        <li>Tolk AI Live (с подпиской, режим «Живой»): пока говорят, звук выбранного источника по защищённому соединению идёт
+          в сервис распознавания и перевода Soniox. Соединение закрывается через несколько секунд тишины. Soniox обрабатывает
+          звук в памяти, не сохраняет его и не обучает на нём модели. Законченную фразу сервер Tolk передаёт нейросети
+          (через OpenRouter), чтобы уточнить перевод по смыслу лекции.</li>
+        <li>Без Tolk AI Live речь распознаётся прямо на вашем компьютере.</li>
         <li>Для перевода распознанные фрагменты текста (несколько слов и короткий контекст перед ними) по защищённому соединению
           уходят на сервер Tolk, а он передаёт их нейросети-переводчику (через OpenRouter). Если нейросеть недоступна, фрагмент
           переводит Google Переводчик.</li>
         <li>«Дослушивание» Tolk AI (можно выключить в разделе «Перевод»): когда фраза закончилась, её звук (несколько секунд)
           вместе с черновиком перевода уходит на сервер Tolk и нейросеть — она заново расслышивает фразу и уточняет перевод.</li>
-        <li>Ни звук, ни тексты на сервере Tolk не сохраняются.</li>
+        <li>Во время записи лекции новые слайды (снимки выбранной области экрана) уходят нейросети, чтобы взять с них
+          термины и имена для перевода; по началу записи и первым слайдам Tolk AI определяет предмет, чтобы найти материалы
+          на сайте кафедры.</li>
+        <li>Ни звук, ни тексты, ни снимки на сервере Tolk не сохраняются.</li>
         <li>Сервер Tolk хранит только то, что нужно для подписки: ключ лицензии, обезличенный код компьютера, тариф и сколько
           часов Tolk AI использовано.</li>
         <li>Статистика в профиле (время перевода, число слов) хранится только на вашем компьютере.</li>
@@ -61,8 +69,8 @@
           вашего чата, язык, купленные ключи и сведения о заказах (тариф, дата, сумма, способ оплаты, код комментария).</li>
         <li>Переводы на карту и в криптовалюте продавец проверяет вручную:
           квитанция, которую вы присылаете боту, пересылается продавцу в Telegram и на сервере Tolk не сохраняется.</li>
-        <li>Бот пишет вам только о ваших покупках: ключ, подтверждение оплаты, напоминание о конце подписки и о часах Tolk AI.
-          Рассылок нет.</li>
+        <li>Бот пишет вам о ваших покупках: ключ, подтверждение оплаты, напоминание о конце подписки и о часах Tolk AI.
+          Изредка — новости и скидки Tolk; отключить — кнопкой «🔕 Не присылать новости» под любым таким сообщением.</li>
       </ul>
 
       <h2>Расширение «Tolk — перевод вкладки»</h2>
@@ -87,20 +95,29 @@
     <hr>
 
     <section id="en" lang="en">
-      <p class="eyebrow">Privacy · updated September 27, 2026</p>
+      <p class="eyebrow">Privacy · updated October 3, 2026</p>
       <h1>How Tolk handles your data</h1>
-      <div class="box"><p>Speech is recognised on your computer. For an accurate translation, phrases go over an encrypted
-        connection to the Tolk server and the AI model — and aren't stored anywhere. We don't sell data, show ads or track you.</p></div>
+      <div class="box"><p>Tolk only listens to the sound you picked. For recognition and translation, audio and text go over an
+        encrypted connection to the Tolk server and AI models — and aren't stored anywhere. We don't sell data, show ads or track
+        you.</p></div>
 
       <h2>The Tolk app</h2>
       <ul>
-        <li>Speech is recognised on your computer.</li>
+        <li>Tolk AI Live (with a subscription, “Live” mode): while someone speaks, the audio of the source you picked goes over an
+          encrypted connection to the Soniox speech recognition and translation service. The connection closes after a few
+          seconds of silence. Soniox processes the audio in memory, doesn't store it and doesn't train models on it. The Tolk
+          server passes each finished phrase to an AI model (via OpenRouter) to refine the translation using the lecture's
+          context.</li>
+        <li>Without Tolk AI Live, speech is recognised right on your computer.</li>
         <li>For translation, recognised text fragments (a few words plus a short preceding context) are sent over an encrypted
           connection to the Tolk server, which passes them to an AI translation model (via OpenRouter). If the AI is unavailable,
           Google Translate translates the fragment.</li>
         <li>Tolk AI “final pass” (you can turn it off under Translation): when a phrase ends, its audio (a few seconds) and the
           draft translation go to the Tolk server and the AI model, which hears the phrase again and refines the translation.</li>
-        <li>Neither audio nor text is stored on the Tolk server.</li>
+        <li>While a lecture is recorded, new slides (captures of the screen area you picked) go to the AI model to pick up
+          terms and names for the translation; from the start of the recording and the first slides Tolk AI works out the
+          course to find materials on the department website.</li>
+        <li>Neither audio, text nor captures are stored on the Tolk server.</li>
         <li>The Tolk server keeps only what the subscription needs: the license key, an anonymous computer code, the plan and how
           many Tolk AI hours were used.</li>
         <li>Profile statistics (translation time, word count) are stored only on your computer.</li>
@@ -123,8 +140,9 @@
           code).</li>
         <li>Card and crypto transfers are checked manually by the seller: the
           receipt you send to the bot is forwarded to the seller in Telegram and isn't stored on the Tolk server.</li>
-        <li>The bot only messages you about your purchases: the key, payment confirmation, and reminders about the end of your
-          subscription and your Tolk AI hours. No newsletters.</li>
+        <li>The bot messages you about your purchases: the key, payment confirmation, and reminders about the end of your
+          subscription and your Tolk AI hours. Occasionally — Tolk news and discounts; turn them off with the “🔕 No news” button
+          under any such message.</li>
       </ul>
 
       <h2>The “Tolk — live tab translation” extension</h2>
