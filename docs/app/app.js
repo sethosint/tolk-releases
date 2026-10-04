@@ -38,7 +38,7 @@
       m_renew: "Продлить", m_new: "Новый ключ", m_new_s: "Код для другого компьютера — вставляется в Tolk вручную.",
       renew_from: "Новый срок начнётся {d} — ни один день не пропадёт.",
       per_month: "{p} в месяц", hours_all: "{h} ч Tolk AI", best: "выгоднее всего",
-      pay_with: "Способ оплаты", m_manual: "проверка вручную, до 15 мин", m_stars: "сразу, без проверки", na: "курс недоступен",
+      pay_with: "Способ оплаты", m_manual: "проверка вручную, до 15 мин", m_stars: "сразу, без проверки", m_card: "сразу · подписка продлевается сама", m_card1: "сразу, без проверки", m_card_min: "картой — от {a}", err_card_min: "Картой можно оплатить покупку от 5 € — выберите другой способ или тариф подлиннее.", card_t: "Оплата картой", card_p: "Откроется защищённая страница Stripe. Ключ придёт сюда и в чат сразу после оплаты.", card_auto: "Подписка будет продлеваться сама той же картой. Отключить — в любой момент в «Мои ключи».", card_open: "Оплатить картой", ap_t: "Автопродление", ap_next: "следующее списание {d}", ap_off_until: "отключено · ключ работает до {d}", ap_off: "Отключить", ap_live: "включено", ap_dead: "отключено", ap_on: "Включить снова", ap_card: "Сменить карту", ap_off_q: "Отключить автопродление? Ключ проработает до конца оплаченного срока.", na: "курс недоступен",
       pay_btn: "Оплатить · {a}", wait: "Минутку…",
       hours_t: "Часы", hours_lede: "Добавятся к ключу сразу после оплаты и не сгорят до конца подписки.",
       hours_key: "К ключу: {t} · {u}", hours_nokey: "Часы добавляются к действующей подписке — сначала оформите её.", pack: "+{h} ч Tolk AI",
@@ -141,7 +141,7 @@
       m_renew: "Продовжити", m_new: "Новий ключ", m_new_s: "Код для іншого комп'ютера — вставляється в Tolk вручну.",
       renew_from: "Новий строк почнеться {d} — жоден день не пропаде.",
       per_month: "{p} на місяць", hours_all: "{h} год Tolk AI", best: "найвигідніше",
-      pay_with: "Спосіб оплати", m_manual: "перевірка вручну, до 15 хв", m_stars: "одразу, без перевірки", na: "курс недоступний",
+      pay_with: "Спосіб оплати", m_manual: "перевірка вручну, до 15 хв", m_stars: "одразу, без перевірки", m_card: "одразу · підписка подовжується сама", m_card1: "одразу, без перевірки", m_card_min: "карткою — від {a}", err_card_min: "Карткою можна оплатити покупку від 5 € — оберіть інший спосіб або довший тариф.", card_t: "Оплата карткою", card_p: "Відкриється захищена сторінка Stripe. Ключ прийде сюди й у чат одразу після оплати.", card_auto: "Підписка подовжуватиметься сама тією ж карткою. Вимкнути — будь-коли в «Мої ключі».", card_open: "Оплатити карткою", ap_t: "Автоподовження", ap_next: "наступне списання {d}", ap_off_until: "вимкнено · ключ працює до {d}", ap_off: "Вимкнути", ap_live: "увімкнено", ap_dead: "вимкнено", ap_on: "Увімкнути знову", ap_card: "Змінити картку", ap_off_q: "Вимкнути автоподовження? Ключ працюватиме до кінця оплаченого строку.", na: "курс недоступний",
       pay_btn: "Оплатити · {a}", wait: "Хвилинку…",
       hours_t: "Години", hours_lede: "Додадуться до ключа одразу після оплати й не згорять до кінця підписки.",
       hours_key: "До ключа: {t} · {u}", hours_nokey: "Години додаються до чинної підписки — спершу оформіть її.", pack: "+{h} год Tolk AI",
@@ -244,7 +244,7 @@
       m_renew: "Predĺžiť", m_new: "Nový kľúč", m_new_s: "Kód pre iný počítač — vkladá sa do Tolku ručne.",
       renew_from: "Nové obdobie začne {d} — neprepadne ani jeden deň.",
       per_month: "{p} mesačne", hours_all: "{h} h Tolk AI", best: "najvýhodnejšie",
-      pay_with: "Spôsob platby", m_manual: "ručná kontrola, do 15 min", m_stars: "hneď, bez kontroly", na: "kurz nedostupný",
+      pay_with: "Spôsob platby", m_manual: "ručná kontrola, do 15 min", m_stars: "hneď, bez kontroly", m_card: "hneď · predplatné sa predĺži samo", m_card1: "hneď, bez kontroly", m_card_min: "kartou — od {a}", err_card_min: "Kartou sa dá zaplatiť nákup od 5 € — vyberte iný spôsob alebo dlhšie predplatné.", card_t: "Platba kartou", card_p: "Otvorí sa zabezpečená stránka Stripe. Kľúč príde sem aj do chatu hneď po platbe.", card_auto: "Predplatné sa bude predlžovať samo tou istou kartou. Vypnúť ho môžete kedykoľvek v „Moje kľúče“.", card_open: "Zaplatiť kartou", ap_t: "Automatické predĺženie", ap_next: "ďalšia platba {d}", ap_off_until: "vypnuté · kľúč funguje do {d}", ap_off: "Vypnúť", ap_live: "zapnuté", ap_dead: "vypnuté", ap_on: "Zapnúť znova", ap_card: "Zmeniť kartu", ap_off_q: "Vypnúť automatické predĺženie? Kľúč bude fungovať do konca zaplateného obdobia.", na: "kurz nedostupný",
       pay_btn: "Zaplatiť · {a}", wait: "Moment…",
       hours_t: "Hodiny", hours_lede: "Pripíšu sa ku kľúču hneď po zaplatení a neprepadnú do konca predplatného.",
       hours_key: "Ku kľúču: {t} · {u}", hours_nokey: "Hodiny sa pripisujú k platnému predplatnému — najprv si ho kúpte.", pack: "+{h} h Tolk AI",
@@ -347,7 +347,7 @@
       m_renew: "Renew", m_new: "New key", m_new_s: "A code for another computer — paste it into Tolk.",
       renew_from: "The new period starts {d} — you don't lose a single day.",
       per_month: "{p} a month", hours_all: "{h} h of Tolk AI", best: "best value",
-      pay_with: "Payment method", m_manual: "checked by hand, up to 15 min", m_stars: "instant, no checks", na: "rate unavailable",
+      pay_with: "Payment method", m_manual: "checked by hand, up to 15 min", m_stars: "instant, no checks", m_card: "instant · renews automatically", m_card1: "instant, no checks", m_card_min: "card — from {a}", err_card_min: "Card payments start at €5 — pick another method or a longer plan.", card_t: "Pay by card", card_p: "A secure Stripe page will open. Your key arrives here and in the chat right after payment.", card_auto: "The subscription renews automatically with the same card. Turn it off any time in “My keys”.", card_open: "Pay by card", ap_t: "Auto-renewal", ap_next: "next charge {d}", ap_off_until: "off · key works until {d}", ap_off: "Turn off", ap_live: "on", ap_dead: "off", ap_on: "Turn on again", ap_card: "Change card", ap_off_q: "Turn off auto-renewal? Your key keeps working until the end of the paid period.", na: "rate unavailable",
       pay_btn: "Pay · {a}", wait: "One moment…",
       hours_t: "Hours", hours_lede: "Added to your key right after payment and kept until the subscription ends.",
       hours_key: "For key: {t} · {u}", hours_nokey: "Hours are added to an active subscription — get one first.", pack: "+{h} h of Tolk AI",
@@ -538,7 +538,7 @@
   const errText = (r) => t({ net: "err_net", auth: "err_auth", too_many: "err_many", rate: "err_rate", stale: "err_stale", plan: "err_stale",
                              method: "err_stale", order: "err_stale", nokey: "err_nokey", too_big: "err_big", type: "err_type",
                              ref_taken: "ref_taken", ref_code: "ref_code", ref_self: "ref_self", ref_already: "ref_already", ref_old: "ref_old",
-                             ref_many: "ref_many", bad: "pr_bad", expired: "pr_expired", full: "pr_full", used: "pr_used" }[r.error] ||
+                             ref_many: "ref_many", card_min: "err_card_min", stripe: "err_any", bad: "pr_bad", expired: "pr_expired", full: "pr_full", used: "pr_used" }[r.error] ||
                              (r.error === "nokey" && r.promo ? "pr_nokey" : "err_any"));
   async function refresh() {
     const r = await api("state");
@@ -618,11 +618,13 @@
       return h("button.opt", { type: "button", role: "radio", "aria-checked": String(m.id === p.method), "aria-disabled": off ? "true" : null,
         on: { click: () => { if (off) return; p.method = m.id; haptic(); rerender(); } } },
         h("span.radio"),
-        h("span.tx", null, h("b", { text: m.title + (m.network ? ` · ${m.network}` : "") }), h("small", { text: m.kind === "stars" ? t("m_stars") : t("m_manual") })),
-        h("span.pr", null, off ? h("small", { text: t("na") })
+        h("span.tx", null, h("b", { text: m.title + (m.network ? ` · ${m.network}` : "") }), h("small", { text: m.kind === "stars" ? t("m_stars") : m.kind === "stripe" ? t(recurringPick(p) ? "m_card" : "m_card1") : t("m_manual") })),
+        h("span.pr", null, off ? h("small", { text: pr && pr.why === "min" ? t("m_card_min", { a: eur(pr.min) }) : t("na") })
           : [h("b", { text: money(pr.price, pr.currency) }), pr.currency !== "EUR" && pr.eur ? h("small", { text: "≈ " + eur(pr.eur) }) : null]));
     });
   }
+  // подписка картой продлевается сама (как на сервере: тариф со сроком, один ключ, не подарок)
+  const recurringPick = (p) => { const pl = (S.shop.plans || []).find((x) => x.id === p.item); return Boolean(pl && pl.days && !p.gift && !(p.qty > 1)); };
   const payMain = (pr, body) => (pr ? { text: t("pay_btn", { a: money(pr.price, pr.currency) }), fn: () => startOrder(body) } : null);
 
   // сколько ключей: от 3 и от 5 — скидка (BULK на сервере); первый ключ — покупателю, остальные — открытками друзьям
@@ -885,6 +887,7 @@
     haptic("success");
     if (r.order.method.kind !== "stars") S.order = r.order;
     go("pay", { id: r.order.id, order: r.order });
+    if (r.checkout) openLink(r.checkout);
     if (r.invoice) {
       try {
         tg.openInvoice(r.invoice, (status) => { if (status === "paid") refreshOrder(r.order.id, true); });
@@ -912,6 +915,13 @@
       h("div.amount", null, h("button.big", { type: "button", on: { click: () => copy(o.price) } }, money(o.price, o.currency)),
         h("small", { text: o.title + (o.qty > 1 ? ` × ${o.qty}` : "") + (o.gift ? " · 🎁" : "") + (o.currency !== "EUR" && o.eur ? ` · ≈ ${eur(o.eur)}` : "") }))];
     schedule(o.id);
+    if (o.state === "new" && m.kind === "stripe") {
+      bits.push(h("div.card", null, h("h3", { text: t("card_t") }), h("p", { text: t("card_p") }), o.autopay ? h("p.muted", { text: t("card_auto") }) : null,
+        h("div.wait-row", null, h("span.spin"), t("s_new"))),
+        h("div.sec.row2", null, h("button.btn.quiet", { type: "button", on: tap(() => (stack.length > 1 ? back() : go("plans"))) }, t("other")),
+          h("button.btn.bad", { type: "button", on: tap(() => cancelOrder(o)) }, t("cancel"))));
+      return { node: bits, main: o.checkout ? { text: t("card_open"), fn: () => openLink(o.checkout) } : { text: t("home"), fn: home } };
+    }
     if (o.state === "new" && m.kind !== "stars") {
       const s1 = h("div.step", null, h("b", { text: t(m.qr ? "st1_crypto" : "st1_card", { a: money(o.price, o.currency) }) }));
       if (m.qr) {
@@ -1057,8 +1067,9 @@
     await refresh();
     const bits = [hero("keys", h("h1", null, h("em", { text: t("keys_t") })))];
     const keys = S.keys || [];
+    const subs = (S.subs || []).length ? h("div.sec", null, h("p.sec-t", { text: t("ap_t") }), S.subs.map(subCard)) : null;
     if (!keys.length) {
-      bits.push(h("p.empty", { text: t("keys_empty") }));
+      bits.push(subs || h("p.empty", { text: t("keys_empty") }));
       return { node: bits, main: { text: t("cta_buy"), fn: () => replace("plans") } };
     }
     const list = h("div.sec");
@@ -1089,9 +1100,28 @@
       }
     }
     bits.push(list);
+    if (subs) bits.push(subs);
     const waiting = keys.some((c) => !c.serial && !c.used && !c.gift);
     return { node: bits, main: waiting ? { text: t("download"), fn: () => openLink(S.links.site) } : null };
   };
+
+  // подписка картой: следующее списание, отключить / включить, сменить карту (кабинет Stripe)
+  function subCard(s) {
+    const meta = s.cancel ? t("ap_off_until", { d: s.next ? date(s.next) : "—" }) : s.every + (s.next ? " · " + t("ap_next", { d: date(s.next) }) : "");
+    const act = async (path) => {
+      if (path === "subs/cancel" && !(await confirmBox(t("ap_off_q")))) return;
+      const r = await api(path, { id: s.id });
+      if (r.error) { toast(errText(r)); return; }
+      if (r.url) { openLink(r.url); return; }
+      haptic("success");
+      await refresh();
+      rerender();
+    };
+    return h("div.key", null, h("div.top", null, h("div", null, h("h3", { text: "💳 " + s.title + (s.serial ? " · №" + s.serial : "") }), h("p.meta", { text: meta })),
+      h("span.status." + (s.cancel ? "bad" : "ok"), { text: s.cancel ? t("ap_dead") : t("ap_live") })),
+      h("div.row2", null, h("button.btn", { type: "button", on: tap(() => act(s.cancel ? "subs/resume" : "subs/cancel")) }, s.cancel ? t("ap_on") : t("ap_off")),
+        h("button.btn", { type: "button", on: tap(() => act("subs/portal")) }, t("ap_card"))));
+  }
 
   // пригласить друга
   VIEWS.invite = async (p) => {

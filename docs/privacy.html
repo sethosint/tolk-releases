@@ -69,6 +69,8 @@
           вашего чата, язык, купленные ключи и сведения о заказах (тариф, дата, сумма, способ оплаты, код комментария).</li>
         <li>Переводы на карту и в криптовалюте продавец проверяет вручную:
           квитанция, которую вы присылаете боту, пересылается продавцу в Telegram и на сервере Tolk не сохраняется.</li>
+        <li>Оплата картой проходит на странице Stripe (stripe.com): номер карты видит только Stripe, Tolk его не получает.
+          Бот хранит номер подписки и клиента Stripe — чтобы продлевать ключ и дать отключить автопродление в «Мои ключи».</li>
         <li>Бот пишет вам о ваших покупках: ключ, подтверждение оплаты, напоминание о конце подписки и о часах Tolk AI.
           Изредка — новости и скидки Tolk; отключить — кнопкой «🔕 Не присылать новости» под любым таким сообщением.</li>
       </ul>
@@ -140,6 +142,8 @@
           code).</li>
         <li>Card and crypto transfers are checked manually by the seller: the
           receipt you send to the bot is forwarded to the seller in Telegram and isn't stored on the Tolk server.</li>
+        <li>Card payments happen on a Stripe page (stripe.com): only Stripe sees your card number, Tolk never gets it. The bot
+          keeps the Stripe subscription and customer numbers — to renew your key and let you turn off auto-renewal in “My keys”.</li>
         <li>The bot messages you about your purchases: the key, payment confirmation, and reminders about the end of your
           subscription and your Tolk AI hours. Occasionally — Tolk news and discounts; turn them off with the “🔕 No news” button
           under any such message.</li>
