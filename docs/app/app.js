@@ -607,6 +607,7 @@
     const disc = !prices && !p.gift && promoOn(p.item) && S.promo.prices;         // скидка — цены от сервера, как в заказе
     const priceOf = (m) => (prices ? prices[m.id] : disc && disc[m.id] ? disc[m.id][p.item] : m.prices && m.prices[p.item]) || null;
     const ok = (m) => priceOf(m) && !priceOf(m).unavailable;
+    if (!p.method && S.last_method && S.shop.methods.some((m) => m.id === S.last_method && ok(m))) p.method = S.last_method;   // как в прошлый раз
     if (!S.shop.methods.some((m) => m.id === p.method && ok(m))) p.method = (S.shop.methods.find(ok) || {}).id || null;
     const m = S.shop.methods.find((mm) => mm.id === p.method);
     return { priceOf, pr: m ? priceOf(m) : null };
@@ -797,6 +798,7 @@
     const hasPro = shop.plans.some((x) => x.pro);
     if (p.pro === undefined) p.pro = Boolean(target && target.pro);
     const list = shop.plans.filter((x) => x.pro === Boolean(p.pro && hasPro));
+    if (!p.item && target && list.some((x) => x.id === target.plan)) p.item = target.plan;      // продление — тот же тариф
     if (!list.some((x) => x.id === p.item)) p.item = (list.find((x) => /month/.test(x.id)) || list[0] || {}).id;
     p.qty = target ? 1 : p.qty || 1;
     if (p.qty > 1 && (!p.qc || p.qc.k !== p.item + ":" + p.qty)) {  // цены за несколько ключей считает сервер (тот же курс)
