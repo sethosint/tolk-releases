@@ -71,6 +71,8 @@
           квитанция, которую вы присылаете боту, пересылается продавцу в Telegram и на сервере Tolk не сохраняется.</li>
         <li>Оплата картой проходит на странице Stripe (stripe.com): номер карты видит только Stripe, Tolk его не получает.
           Бот хранит номер подписки и клиента Stripe — чтобы продлевать ключ и дать отключить автопродление в «Мои ключи».</li>
+        <li>Для общей статистики (сколько человек открыли магазин, взяли пробный период, купили) бот записывает события без
+          номера чата и имени — только тариф, способ оплаты, язык и сумму. Хранятся 3 месяца в Cloudflare.</li>
         <li>Бот пишет вам о ваших покупках: ключ, подтверждение оплаты, напоминание о конце подписки и о часах Tolk AI.
           Изредка — новости и скидки Tolk; отключить — кнопкой «🔕 Не присылать новости» под любым таким сообщением.</li>
       </ul>
@@ -144,6 +146,8 @@
           receipt you send to the bot is forwarded to the seller in Telegram and isn't stored on the Tolk server.</li>
         <li>Card payments happen on a Stripe page (stripe.com): only Stripe sees your card number, Tolk never gets it. The bot
           keeps the Stripe subscription and customer numbers — to renew your key and let you turn off auto-renewal in “My keys”.</li>
+        <li>For overall statistics (how many people opened the shop, took the trial, bought) the bot records events without your
+          chat number or name — only the plan, payment method, language and amount. They are kept for 3 months at Cloudflare.</li>
         <li>The bot messages you about your purchases: the key, payment confirmation, and reminders about the end of your
           subscription and your Tolk AI hours. Occasionally — Tolk news and discounts; turn them off with the “🔕 No news” button
           under any such message.</li>
