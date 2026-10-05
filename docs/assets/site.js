@@ -115,9 +115,27 @@
       .map((o) => `<a class="link" href="${REL + DL[o].file}">${DL[o].k ? tx(DL[o].k) : DL[o].name}</a>`);
     $$(".js-os-alt").forEach((el) => { el.innerHTML = `${tx("dl_other")} ${links.join(" · ")}`; });
   }
+  // с телефона (а приходят из роликов — с телефона) установщик не поставить: главная кнопка — пробный в боте,
+  // а «Скачать» — тихой ссылкой рядом
+  function phoneCtas() {
+    if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "")) return;
+    const proto = $(".hero .js-trial");
+    $$(".ctas, .final-cta").forEach((box) => {
+      const dl = box.querySelector(".js-dl");
+      if (!dl || !proto) return;
+      const trial = box.querySelector(".js-trial") || proto.cloneNode(true);
+      trial.className = "btn js-trial";
+      trial.querySelector("svg").remove();
+      trial.insertAdjacentHTML("afterbegin", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+        + 'stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l6 2.5M21 4l-3.5 16-8.5-6.5M21 4 9 13.5v5l3-3"/></svg>');
+      dl.className = "ghost js-dl";
+      box.insertBefore(trial, dl);
+    });
+  }
   function initDownloads() {
     const os = pickOS();
     renderDownloads(os);
+    phoneCtas();
     if (os === "mac" && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
       navigator.userAgentData.getHighEntropyValues(["architecture"])    // Chrome на Mac с Intel
         .then((v) => { if (v.architecture === "x86") renderDownloads("macx"); }).catch(() => {});
