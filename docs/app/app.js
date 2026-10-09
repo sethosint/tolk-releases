@@ -81,7 +81,7 @@
       f6q: "Что-то не работает", f6a: "Напишите в поддержку — ответим лично и поможем.",
       lang_t: "Язык",
       ready_t: "Ключ готов — вставьте его в Tolk", ready_s: "окно активации или «Профиль → Ввести ключ»",
-      qty_t: "Сколько ключей",
+      qty_t: "Сколько ключей", grp_btn: "👥 Для группы из 3: −{p} % каждому",
       qty_tier: "от {n} — −{p} %",
       qty_own: "Первый ключ — ваш, остальные придут в чат открытками для друзей.",
       qty_gift: "Каждый подарок придёт отдельной открыткой.",
@@ -184,7 +184,7 @@
       f6q: "Щось не працює", f6a: "Напишіть у підтримку — відповімо особисто й допоможемо.",
       lang_t: "Мова",
       ready_t: "Ключ готовий — вставте його в Tolk", ready_s: "вікно активації або «Профіль → Ввести ключ»",
-      qty_t: "Скільки ключів",
+      qty_t: "Скільки ключів", grp_btn: "👥 Для групи з 3: −{p} % кожному",
       qty_tier: "від {n} — −{p} %",
       qty_own: "Перший ключ — ваш, решта прийдуть у чат листівками для друзів.",
       qty_gift: "Кожен подарунок прийде окремою листівкою.",
@@ -287,7 +287,7 @@
       f6q: "Niečo nefunguje", f6a: "Napíšte podpore — odpovieme osobne a pomôžeme.",
       lang_t: "Jazyk",
       ready_t: "Kľúč je pripravený — vložte ho do Tolku", ready_s: "okno aktivácie alebo „Profil → Zadať kľúč“",
-      qty_t: "Koľko kľúčov",
+      qty_t: "Koľko kľúčov", grp_btn: "👥 Pre skupinu 3: −{p} % pre každého",
       qty_tier: "od {n} — −{p} %",
       qty_own: "Prvý kľúč je váš, ostatné prídu do chatu ako pohľadnice pre kamarátov.",
       qty_gift: "Každý darček príde ako samostatná pohľadnica.",
@@ -390,7 +390,7 @@
       f6q: "Something doesn't work", f6a: "Message support — we reply personally and will help.",
       lang_t: "Language",
       ready_t: "Your key is ready — paste it into Tolk", ready_s: "the activation window or Profile → Enter key",
-      qty_t: "How many keys",
+      qty_t: "How many keys", grp_btn: "👥 Group of 3: −{p}% each",
       qty_tier: "{n}+ — −{p}%",
       qty_own: "The first key is yours; the rest arrive in the chat as cards for your friends.",
       qty_gift: "Each gift arrives as its own card.",
@@ -843,6 +843,10 @@
       bits.push(h("p.note", { text: t("renew_from", { d: date(d.toISOString()) }) }));
     }
     if (!target) {
+      const g3 = (shop.bulk || []).find((x) => x.min === 3);
+      if (g3 && !p.gift && p.qty < 3) {                   // группа из 3: одной кнопкой три ключа со скидкой
+        bits.push(h("button.chip.grp", { type: "button", on: { click: () => { p.qty = 3; haptic(); rerender(); } } }, t("grp_btn", { p: g3.pct })));
+      }
       bits.push(qtyStepper(p));
       if (p.qty > 1) {
         bits.push(h("p.note", { text: t(p.gift ? "qty_gift" : "qty_own") }));
@@ -1269,6 +1273,7 @@
     const add = (v, p = {}) => stack.push({ v, p });
     if (a === "plans") add("plans");
     else if (a === "pro") add("plans", { pro: true });
+    else if (a === "group") add("plans", { qty: 3, serial: null });
     else if (a === "renew") add("plans", n ? { serial: n } : {});
     else if (a === "hours") add("hours", { serial: n });
     else if (a === "gift") add("plans", { gift: true });

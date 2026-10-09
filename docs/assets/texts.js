@@ -135,6 +135,7 @@ window.TOLK_TEXTS = {
   "bulk_k": "Несколько ключей?",
   "bulk_tier": "от {n} — −{p} %",
   "bulk_tail": "в одном заказе — для группы или в подарок.",
+  "bulk_go": "Купить на троих →",
   "faq": [
    [
     "Что нужно, чтобы Tolk работал?",
@@ -262,6 +263,7 @@ window.TOLK_TEXTS = {
   "bulk_k": "Кілька ключів?",
   "bulk_tier": "від {n} — −{p} %",
   "bulk_tail": "в одному замовленні — для групи чи в подарунок.",
+  "bulk_go": "Купити на трьох →",
   "src_lbl": "Оригінал",
   "faq": [
    [
@@ -392,6 +394,7 @@ window.TOLK_TEXTS = {
   "bulk_k": "Viac kľúčov?",
   "bulk_tier": "od {n} — −{p} %",
   "bulk_tail": "v jednej objednávke — pre skupinu alebo ako darček.",
+  "bulk_go": "Kúpiť pre troch →",
   "src_lbl": "Originál",
   "faq": [
    [
@@ -522,6 +525,7 @@ window.TOLK_TEXTS = {
   "bulk_k": "Several keys?",
   "bulk_tier": "{n}+ keys — −{p}%",
   "bulk_tail": "in one order — for a group or as gifts.",
+  "bulk_go": "Buy for three →",
   "src_lbl": "Original",
   "faq": [
    [

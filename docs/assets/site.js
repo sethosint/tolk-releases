@@ -312,7 +312,8 @@
     renderSale(c.sale);
     const bulk = c.bulk || [];                          // скидка за несколько ключей — из настроек магазина
     $(".js-bulk-line").hidden = !bulk.length;
-    $(".js-bulk").innerHTML = bulk.map((b) => `<b>${fill(tx("bulk_tier"), { n: b.min, p: b.pct })}</b>`).join(" · ") + " " + tx("bulk_tail");
+    $(".js-bulk").innerHTML = bulk.map((b) => `<b>${fill(tx("bulk_tier"), { n: b.min, p: b.pct })}</b>`).join(" · ") + " " + tx("bulk_tail") +
+      (bulk.some((b) => b.min === 3) ? ` <a class="link" href="https://t.me/${BOT}?start=group" target="_blank" rel="noopener">${tx("bulk_go")}</a>` : "");
   }
 
   $$(".js-plan-tabs button").forEach((b) => b.addEventListener("click", () => { proView = b.dataset.v === "pro"; renderPrices(); }));
