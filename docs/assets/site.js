@@ -5,7 +5,8 @@
 (function () {
   "use strict";
   const T = window.TOLK_TEXTS, CMP = window.TOLK_COMPARE || {};
-  const LANGS = ["ru", "uk", "sk", "en"];
+  const LANGS = ["ru", "uk", "sk", "en", "pl", "cs", "de"];
+  const SHOT_LANGS = ["ru", "uk", "sk", "en"];           // субтитры и конспект-пример; для pl/cs/de — английские (окно — на всех, data-all)
   const BOT = "TolkShopBot";
   const SHOP = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8787"
     ? location.origin : "https://tolk-shop.seth-gamingmain.workers.dev";
@@ -40,9 +41,10 @@
     if (LANGS.includes(q)) return q;
     try { const s = localStorage.getItem("tolk-lang"); if (LANGS.includes(s)) return s; } catch (e) { /* без хранилища */ }
     const n = (navigator.language || "ru").slice(0, 2).toLowerCase();
-    return n === "uk" ? "uk" : n === "sk" || n === "cs" ? "sk" : ["ru", "be", "kk"].includes(n) ? "ru" : "en";
+    return ["uk", "sk", "pl", "cs", "de"].includes(n) ? n : ["ru", "be", "kk"].includes(n) ? "ru" : "en";
   }
   const lang = pickLang();
+  const shotLang = SHOT_LANGS.includes(lang) ? lang : "en";
   const tx = (k) => (T[lang] && T[lang][k] != null ? T[lang][k] : T.ru[k]);
   const fill = (s, v) => String(s).replace(/\{(\w+)\}/g, (m, k) => (v[k] == null ? "" : v[k]));
   const num = (n, d = 2) => {
@@ -63,7 +65,7 @@
       });
     }
     $$(".langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-    $$(".js-shot").forEach((im) => { im.src = im.dataset.src.replace("{lang}", lang); });
+    $$(".js-shot").forEach((im) => { im.src = im.dataset.src.replace("{lang}", im.dataset.all ? lang : shotLang); });
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
     $$(".js-trial").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=trial`; a.target = "_blank"; a.rel = "noopener"; });
   }
@@ -140,7 +142,7 @@
   }
 
   // --- глава «Перевод»: настоящие фразы по очереди (оригинал → Google → Tolk AI) ------------------------------
-  const ROWS = CMP[lang] || CMP.ru;
+  const ROWS = CMP[lang] || CMP.en;                // pl/cs/de: настоящих ответов на их языке нет — английские
   const CMP_MS = 5600;
   let cmpIdx = 0, cmpActive = false, cmpAt = 0;
   const pad = (n) => String(n).padStart(2, "0");
@@ -183,14 +185,14 @@
   function setStyle(i) {
     styleIdx = i;
     $$(".js-styles button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
-    subImg.src = `img/app/${lang}/style-${STYLES[i]}.png`;
+    subImg.src = `img/app/${shotLang}/style-${STYLES[i]}.png`;
   }
   function renderStyles() {
     const bar = $(".js-styles");
     const names = tx("styles");
     bar.innerHTML = STYLES.map((s, i) => `<button type="button" aria-pressed="${i === 0}">${names[i]}</button>`).join("");
     $$("button", bar).forEach((b, i) => b.addEventListener("click", () => { styleTouched = true; setStyle(i); }));
-    STYLES.forEach((s) => { const im = new Image(); im.src = `img/app/${lang}/style-${s}.png`; });
+    STYLES.forEach((s) => { const im = new Image(); im.src = `img/app/${shotLang}/style-${s}.png`; });
     setStyle(0);
     setInterval(() => { if (screenSeen && !styleTouched && !drag.on && !document.hidden) setStyle((styleIdx + 1) % STYLES.length); }, 2800);
   }
@@ -322,8 +324,8 @@
     const band = $(".js-sale");
     clearInterval(saleTick);
     if (!sv || Date.parse(sv.until) <= Date.now()) { band.hidden = true; return; }
-    const disc = sv.same ? `−${sv.pct}${lang === "en" ? "" : " "}%` : fill(tx("sale_upto"), { p: sv.pct });
-    const until = new Date(sv.until).toLocaleDateString({ ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB" }[lang] || "ru-RU",
+    const disc = sv.same ? `−${sv.pct}${lang === "en" || lang === "pl" ? "" : " "}%` : fill(tx("sale_upto"), { p: sv.pct });
+    const until = new Date(sv.until).toLocaleDateString({ ru: "ru-RU", uk: "uk-UA", sk: "sk-SK", en: "en-GB", pl: "pl-PL", cs: "cs-CZ", de: "de-DE" }[lang] || "ru-RU",
                                                         { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
     const esc = (v) => String(v).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
     band.innerHTML = `<span class="ey">${tx("sale_ey")}</span><b>${esc(sv.title || fill(tx("sale_t"), { d: disc }))}</b>` +
@@ -334,7 +336,7 @@
       const s2 = Math.floor((Date.parse(sv.until) - Date.now()) / 1000);
       if (s2 <= 0) { clearInterval(saleTick); loadPrices(); return; }
       const d = Math.floor(s2 / 86400);
-      cd.textContent = (d ? d + (lang === "en" ? "d " : " д ".replace("д", lang === "sk" ? "d" : "д")) : "") +
+      cd.textContent = (d ? d + (lang === "en" ? "d " : " " + ({ ru: "д", uk: "д", de: "T" }[lang] || "d") + " ") : "") +
         `${two(Math.floor(s2 / 3600) % 24)}:${two(Math.floor(s2 / 60) % 60)}:${two(s2 % 60)}`;
     };
     tick();
