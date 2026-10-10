@@ -151,7 +151,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Что такое Tolk Pro и конспекты?",
-    "Tolk Pro — всё, что в обычной подписке, и конспекты лекций. Нажмите «Записать лекцию»: Tolk сохранит расшифровку и слайды с экрана, найдёт презентацию на сайте кафедры (например, kmti.fei.tuke.sk) или возьмёт ваш файл и через минуту соберёт конспект: темы, определения, формулы, сроки зачётов."
+    "Tolk Pro — всё, что в обычной подписке, и конспекты лекций. Нажмите «Записать лекцию»: Tolk сохранит расшифровку и слайды с экрана, найдёт презентацию на сайте кафедры (например, kmti.fei.tuke.sk) или возьмёт ваш файл и через минуту соберёт конспект: темы, определения, формулы, сроки зачётов. К сессии — карточки, задачи с решением методом преподавателя, пробный экзамен в его формате, шпаргалка формул и задача по фото. Не хватило конспектов — пакет +20 на 30 дней за 1,99 €."
    ],
    [
     "Работает в любом браузере?",
@@ -234,6 +234,7 @@ window.TOLK_TEXTS = {
   "privacy": "Конфіденційність",
   "f6k": "Студентам",
   "f6v": "Сторінки вишів",
+  "f6s": "Терміни предметів",
   "styles": [
    "Графіт",
    "Скло",
@@ -282,7 +283,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Що таке Tolk Pro і конспекти?",
-    "Tolk Pro — усе, що у звичайній підписці, і конспекти лекцій. Натисніть «Записати лекцію»: Tolk збереже розшифровку і слайди з екрана, знайде презентацію на сайті кафедри (наприклад, kmti.fei.tuke.sk) або візьме ваш файл і за хвилину складе конспект: теми, означення, формули, терміни заліків."
+    "Tolk Pro — усе, що у звичайній підписці, і конспекти лекцій. Натисніть «Записати лекцію»: Tolk збереже розшифровку і слайди з екрана, знайде презентацію на сайті кафедри (наприклад, kmti.fei.tuke.sk) або візьме ваш файл і за хвилину складе конспект: теми, означення, формули, терміни заліків. До сесії — картки, задачі з розв'язанням методом викладача, пробний іспит у його форматі, шпаргалка формул і задача за фото. Не вистачило конспектів — пакет +20 на 30 днів за 1,99 €."
    ],
    [
     "Працює в будь-якому браузері?",
@@ -367,6 +368,7 @@ window.TOLK_TEXTS = {
   "privacy": "Ochrana súkromia",
   "f6k": "Študentom",
   "f6v": "Stránky univerzít",
+  "f6s": "Termíny predmetov",
   "styles": [
    "Grafit",
    "Sklo",
@@ -415,7 +417,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Čo je Tolk Pro a poznámky?",
-    "Tolk Pro je všetko z bežného predplatného a navyše poznámky z prednášok. Stlačte „Nahrať prednášku“: Tolk uloží prepis a slajdy z obrazovky, nájde prezentáciu na stránke katedry (napríklad kmti.fei.tuke.sk) alebo použije váš súbor a za minútu zostaví poznámky: témy, definície, vzorce, termíny zápočtov."
+    "Tolk Pro je všetko z bežného predplatného a navyše poznámky z prednášok. Stlačte „Nahrať prednášku“: Tolk uloží prepis a slajdy z obrazovky, nájde prezentáciu na stránke katedry (napríklad kmti.fei.tuke.sk) alebo použije váš súbor a za minútu zostaví poznámky: témy, definície, vzorce, termíny zápočtov. Pred skúškami — kartičky, úlohy s riešením metódou vyučujúceho, skúšobná skúška v jeho formáte, ťahák vzorcov a úloha z fotky. Ak poznámky nestačia — balík +20 na 30 dní za 1,99 €."
    ],
    [
     "Funguje v každom prehliadači?",
@@ -500,6 +502,7 @@ window.TOLK_TEXTS = {
   "privacy": "Privacy",
   "f6k": "Students",
   "f6v": "University pages",
+  "f6s": "Subject terms",
   "styles": [
    "Graphite",
    "Glass",
@@ -548,7 +551,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "What is Tolk Pro and the notes?",
-    "Tolk Pro is everything in the regular plan plus lecture notes. Press “Record lecture”: Tolk saves the transcript and the on-screen slides, finds the presentation on the department site (e.g. kmti.fei.tuke.sk) or takes your file, and in a minute writes notes: topics, definitions, formulas, deadlines."
+    "Tolk Pro is everything in the regular plan plus lecture notes. Press “Record lecture”: Tolk saves the transcript and the on-screen slides, finds the presentation on the department site (e.g. kmti.fei.tuke.sk) or takes your file, and in a minute writes notes: topics, definitions, formulas, deadlines. Before exams — flashcards, problems solved with the lecturer's method, a mock exam in their format, a formula sheet and problems from a photo. Need more notes — a pack of +20 for 30 days for €1.99."
    ],
    [
     "Does it work in any browser?",

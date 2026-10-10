@@ -42,6 +42,8 @@
       pay_btn: "Оплатить · {a}", wait: "Минутку…",
       hours_t: "Часы", hours_lede: "Добавятся к ключу сразу после оплаты и не сгорят до конца подписки.",
       hours_key: "К ключу: {t} · {u}", hours_nokey: "Часы добавляются к действующей подписке — сначала оформите её.", pack: "+{h} ч Tolk AI",
+      notes_t: "Ещё конспекты", notes_lede: "В Tolk Pro — {n} конспектов на 30 дней. Не хватило к сессии — докупите пакет: конспекты добавятся к ключу сразу после оплаты и действуют 30 дней.",
+      notes_nokey: "Пакет конспектов — для ключа Tolk Pro. Сначала перейдите на Pro.", npack: "+{n} конспектов на {d} дней", t_notes: "Конспекты", t_notes_s: "+20 к лимиту Pro", k_notes: "Конспекты", cta_pro: "Перейти на Pro",
       s_new: "Ждёт оплаты", s_claimed: "Проверяем оплату", s_paid: "Оплачено", s_rejected: "Оплата не найдена", s_cancelled: "Заказ отменён",
       st1_card: "Переведите ровно {a}", st1_crypto: "Отправьте ровно {a}", st_code: "В комментарии к переводу укажите код",
       st_rec: "Пришлите квитанцию", st_rec_s: "Скриншот или файл из банка.", st_rec_c: "Скриншот из кошелька или хэш транзакции в поле ниже.",
@@ -145,6 +147,8 @@
       pay_btn: "Оплатити · {a}", wait: "Хвилинку…",
       hours_t: "Години", hours_lede: "Додадуться до ключа одразу після оплати й не згорять до кінця підписки.",
       hours_key: "До ключа: {t} · {u}", hours_nokey: "Години додаються до чинної підписки — спершу оформіть її.", pack: "+{h} год Tolk AI",
+      notes_t: "Ще конспекти", notes_lede: "У Tolk Pro — {n} конспектів на 30 днів. Не вистачило до сесії — докупіть пакет: конспекти додадуться до ключа одразу після оплати й діють 30 днів.",
+      notes_nokey: "Пакет конспектів — для ключа Tolk Pro. Спершу перейдіть на Pro.", npack: "+{n} конспектів на {d} днів", t_notes: "Конспекти", t_notes_s: "+20 до ліміту Pro", k_notes: "Конспекти", cta_pro: "Перейти на Pro",
       s_new: "Чекає на оплату", s_claimed: "Перевіряємо оплату", s_paid: "Оплачено", s_rejected: "Оплату не знайдено", s_cancelled: "Замовлення скасовано",
       st1_card: "Переказуйте рівно {a}", st1_crypto: "Надішліть рівно {a}", st_code: "У коментарі до переказу вкажіть код",
       st_rec: "Надішліть квитанцію", st_rec_s: "Скриншот або файл із банку.", st_rec_c: "Скриншот із гаманця або хеш транзакції в полі нижче.",
@@ -248,6 +252,8 @@
       pay_btn: "Zaplatiť · {a}", wait: "Moment…",
       hours_t: "Hodiny", hours_lede: "Pripíšu sa ku kľúču hneď po zaplatení a neprepadnú do konca predplatného.",
       hours_key: "Ku kľúču: {t} · {u}", hours_nokey: "Hodiny sa pripisujú k platnému predplatnému — najprv si ho kúpte.", pack: "+{h} h Tolk AI",
+      notes_t: "Ďalšie poznámky", notes_lede: "V Tolk Pro je {n} poznámok na 30 dní. Ak vám pred skúškami nestačia, dokúpte balík: poznámky sa pripíšu ku kľúču hneď po zaplatení a platia 30 dní.",
+      notes_nokey: "Balík poznámok je pre kľúč Tolk Pro. Najprv prejdite na Pro.", npack: "+{n} poznámok na {d} dní", t_notes: "Poznámky", t_notes_s: "+20 k limitu Pro", k_notes: "Poznámky", cta_pro: "Prejsť na Pro",
       s_new: "Čaká na platbu", s_claimed: "Kontrolujeme platbu", s_paid: "Zaplatené", s_rejected: "Platba sa nenašla", s_cancelled: "Objednávka zrušená",
       st1_card: "Pošlite presne {a}", st1_crypto: "Pošlite presne {a}", st_code: "Do poznámky k platbe napíšte kód",
       st_rec: "Pošlite potvrdenie", st_rec_s: "Snímka obrazovky alebo súbor z banky.", st_rec_c: "Snímka z peňaženky alebo hash transakcie do poľa nižšie.",
@@ -351,6 +357,8 @@
       pay_btn: "Pay · {a}", wait: "One moment…",
       hours_t: "Hours", hours_lede: "Added to your key right after payment and kept until the subscription ends.",
       hours_key: "For key: {t} · {u}", hours_nokey: "Hours are added to an active subscription — get one first.", pack: "+{h} h of Tolk AI",
+      notes_t: "More notes", notes_lede: "Tolk Pro includes {n} lecture notes per 30 days. Not enough before exams? Get a pack: the notes are added to your key right after payment and last 30 days.",
+      notes_nokey: "The notes pack is for a Tolk Pro key. Switch to Pro first.", npack: "+{n} notes for {d} days", t_notes: "Notes", t_notes_s: "+20 to the Pro limit", k_notes: "Notes", cta_pro: "Switch to Pro",
       s_new: "Awaiting payment", s_claimed: "Checking payment", s_paid: "Paid", s_rejected: "Payment not found", s_cancelled: "Order cancelled",
       st1_card: "Transfer exactly {a}", st1_crypto: "Send exactly {a}", st_code: "Add this code to the transfer comment",
       st_rec: "Send the receipt", st_rec_s: "A screenshot or a file from your bank.", st_rec_c: "A wallet screenshot, or paste the transaction hash below.",
@@ -449,6 +457,7 @@
   const P = {
     key: '<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/>',
     clock: '<circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/>',
+    notes: '<path d="M6.5 3.5h8l4 4v13h-12z"/><path d="M14.5 3.5v4h4M9 12h6.5M9 15.5h6.5M9 8.5h2.5"/>',
     gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
     users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
     help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
@@ -705,6 +714,7 @@
     }
     const tiles = [];
     if (k && k.usage) tiles.push(tile("clock", t("t_hours"), t("t_hours_s"), () => go("hours", { serial: k.serial })));
+    if (k && k.pro && k.usage && (S.shop.notes || []).length) tiles.push(tile("notes", t("t_notes"), t("t_notes_s"), () => go("notes", { serial: k.serial })));
     if (S.trial && S.trial.can) tiles.push(tile("clock", t("t_trial"), t("t_trial_s"), () => go("trial"), true));
     tiles.push(tile("key", t("t_keys"), t("t_keys_s"), () => go("keys")));
     tiles.push(tile("gift", t("t_gift"), t("t_gift_s"), () => go("plans", { gift: true })));
@@ -882,6 +892,30 @@
       h("div.sec", { role: "radiogroup" }, tops.map((x) => h("button.opt", { type: "button", role: "radio", "aria-checked": String(x.id === p.item),
         on: { click: () => { p.item = x.id; haptic(); rerender(); } } }, h("span.radio"), h("span.tx", null, h("b", { text: t("pack", { h: num(x.hours) }) })),
         priceCell(x)))),
+      h("div.sec", { role: "radiogroup" }, h("p.sec-t", { text: t("pay_with") }), methodList(p, priceOf)));
+    const sb = saleBanner();
+    if (sb) bits.splice(1, 0, sb);
+    return { node: bits, main: payMain(pr, { item: p.item, method: p.method, serial: p.serial }) };
+  };
+
+  // пакет конспектов к ключу Tolk Pro: +20 на 30 дней
+  VIEWS.notes = async (p) => {
+    const keys = (S.keys || []).filter((k) => k.serial && k.usage && k.pro);
+    const target = (p.serial && keys.find((k) => k.serial === p.serial)) || (S.key && S.key.pro && S.key.usage ? S.key : keys[0]);
+    const bits = [hero("plans", h("p.eyebrow", { text: "Tolk Pro" }), h("h1", null, h("em", { text: t("notes_t") })))];
+    if (!target) {
+      bits.push(h("p.lede", { text: t("notes_nokey") }));
+      return { node: bits, main: { text: t("cta_pro"), fn: () => replace("plans", { pro: true }) } };
+    }
+    p.serial = target.serial;
+    const packs = S.shop.notes || [];
+    if (!packs.some((x) => x.id === p.item)) p.item = (packs[0] || {}).id;
+    const { priceOf, pr } = pickMethod(p);
+    bits.push(h("p.lede", { text: t("notes_lede", { n: num(S.shop.notes_30d || 45) }) }),
+      h("div.card", null, h("b", { text: t("hours_key", { t: target.title, u: keyStatus(target) }) })),
+      h("div.sec", { role: "radiogroup" }, packs.map((x) => h("button.opt", { type: "button", role: "radio", "aria-checked": String(x.id === p.item),
+        on: { click: () => { p.item = x.id; haptic(); rerender(); } } }, h("span.radio"),
+        h("span.tx", null, h("b", { text: t("npack", { n: num(x.notes), d: num(x.days) }) })), priceCell(x)))),
       h("div.sec", { role: "radiogroup" }, h("p.sec-t", { text: t("pay_with") }), methodList(p, priceOf)));
     const sb = saleBanner();
     if (sb) bits.splice(1, 0, sb);
@@ -1092,6 +1126,7 @@
         const acts = [];
         if (k.renewable) acts.push(h("button.btn", { type: "button", on: tap(() => go("plans", { serial: k.serial })) }, h("span", { html: icon("renew") }), t("k_renew")));
         if (k.usage) acts.push(h("button.btn", { type: "button", on: tap(() => go("hours", { serial: k.serial })) }, h("span", { html: icon("clock") }), t("k_hours")));
+        if (k.usage && k.pro && (S.shop.notes || []).length) acts.push(h("button.btn", { type: "button", on: tap(() => go("notes", { serial: k.serial })) }, h("span", { html: icon("notes") }), t("k_notes")));
         if (acts.length) card.append(h("div.row2", null, acts));
         list.append(card);
       } else {
@@ -1276,8 +1311,10 @@
     else if (a === "group") add("plans", { qty: 3, serial: null });
     else if (a === "renew") add("plans", n ? { serial: n } : {});
     else if (a === "hours") add("hours", { serial: n });
+    else if (a === "notes") add("notes", { serial: n });
     else if (a === "gift") add("plans", { gift: true });
-    else if (a === "item" && b) add(S.shop.topups.some((x) => x.id === b) ? "hours" : "plans", { item: b, pro: /^pro_/.test(b) || undefined });
+    else if (a === "item" && b) add(S.shop.topups.some((x) => x.id === b) ? "hours" : (S.shop.notes || []).some((x) => x.id === b) ? "notes" : "plans",
+      { item: b, pro: /^pro_/.test(b) || undefined });
     else if (["keys", "invite", "review", "help", "lang", "trial"].includes(a)) add(a);
     else if (a === "order" && S.order) add("pay", { id: S.order.id, order: S.order });
     render();
