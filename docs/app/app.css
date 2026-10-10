@@ -1,10 +1,10 @@
-/* Tolk — мини-приложение в Telegram-боте. Тот же язык, что у сайта: EB Garamond / Geist / Geist Mono, золото, частицы.
+/* Tolk — мини-приложение в Telegram-боте. Тот же язык, что у сайта: Roboto Condensed / Geist / Geist Mono, золото, частицы.
    Тема — как у Telegram (светлая / тёмная); шапка экрана — всегда тёмная карточка с живым фоном сайта. */
 
 :root {
   --bg: #f2eee6; --card: #fbf8f2; --card-2: #efe9df; --ink: #15130f; --ink-2: rgba(21, 19, 15, .7); --ink-3: rgba(21, 19, 15, .46);
   --line: rgba(21, 19, 15, .12); --accent: #93652a; --on-accent: #fbf8f2; --gold: #b9893e; --ok: #2f7a47; --bad: #a3402f;
-  --display: "EB Garamond", Garamond, Georgia, serif;
+  --display: "Roboto Condensed", "Arial Narrow", system-ui, sans-serif;
   --sans: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "Geist Mono", "Cascadia Mono", Consolas, monospace;
   --r: 18px; --ease: cubic-bezier(.16, 1, .3, 1); --hot: #b4541c;
@@ -45,11 +45,11 @@ img { display: block; max-width: 100%; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(100deg, rgba(6, 7, 8, .94) 0%, rgba(6, 7, 8, .72) 48%, rgba(6, 7, 8, .18) 100%); }
 .hero-in { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; min-height: 176px; }
-.brand { display: flex; align-items: center; gap: 9px; font: 400 19px/1 var(--display); letter-spacing: -.01em; margin-bottom: auto; }
+.brand { display: flex; align-items: center; gap: 9px; font: 600 19px/1 var(--display); letter-spacing: -.01em; margin-bottom: auto; }
 .tmark { width: 28px; height: 28px; flex: none; display: block; }
 .eyebrow { font: 500 11px/1.2 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: rgba(244, 241, 234, .56); margin-top: 18px; }
-.hero h1 { font: 400 34px/1.02 var(--display); letter-spacing: -.02em; }
-.hero h1 em { font-style: italic; color: #e3bd76; }
+.hero h1 { font: 600 34px/1.02 var(--display); letter-spacing: -.02em; }
+.hero h1 em { font-style: normal; color: #e3bd76; }
 .hero .sub { color: rgba(244, 241, 234, .74); font-size: 14px; }
 .hero .meter { margin-top: 10px; }
 .meter .bar { height: 5px; border-radius: 3px; background: rgba(244, 241, 234, .14); overflow: hidden; }
@@ -67,8 +67,8 @@ img { display: block; max-width: 100%; }
 .lede { color: var(--ink-2); font-size: 14.5px; margin: 14px 4px 0; }
 .lede b { color: var(--ink); font-weight: 500; }
 .muted { color: var(--ink-3); font-size: 13px; }
-.h2 { font: 400 26px/1.1 var(--display); letter-spacing: -.015em; margin: 20px 4px 4px; }
-.h2 em { font-style: italic; color: var(--gold); }
+.h2 { font: 600 26px/1.1 var(--display); letter-spacing: -.015em; margin: 20px 4px 4px; }
+.h2 em { font-style: normal; color: var(--gold); }
 
 /* плитки действий */
 .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
@@ -150,7 +150,7 @@ img { display: block; max-width: 100%; }
 
 /* оплата */
 .amount { text-align: center; padding: 20px 10px 6px; }
-.amount .big { font: 400 44px/1 var(--display); letter-spacing: -.02em; background: none; border: 0; padding: 0; }
+.amount .big { font: 600 44px/1 var(--display); letter-spacing: -.02em; background: none; border: 0; padding: 0; }
 .amount small { display: block; color: var(--ink-3); margin-top: 6px; font-size: 13px; }
 .status { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 500;
   background: var(--card-2); color: var(--ink-2); }
@@ -189,7 +189,7 @@ textarea:focus, input:focus { border-color: var(--accent); }
 .done .ok.bad { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
 .done .ok svg { width: 28px; height: 28px; }
 @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
-.done h2 { font: 400 28px/1.1 var(--display); }
+.done h2 { font: 600 28px/1.1 var(--display); }
 .done p { color: var(--ink-2); margin-top: 8px; }
 .wait-row { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--ink-2); margin-top: 14px; font-size: 14px; }
 .spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--accent); animation: sp .8s linear infinite; flex: none; }
@@ -199,7 +199,7 @@ textarea:focus, input:focus { border-color: var(--accent); }
 .key { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 15px 16px; }
 .key + .key { margin-top: 10px; }
 .key .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.key h3 { font: 400 22px/1.1 var(--display); }
+.key h3 { font: 600 22px/1.1 var(--display); }
 .key .meta { color: var(--ink-3); font-size: 13px; margin-top: 3px; }
 .key .copy { margin-top: 12px; }
 .key .meter { margin-top: 12px; }
@@ -224,7 +224,7 @@ details p { color: var(--ink-2); padding-bottom: 14px; font-size: 14px; }
 ol.how { margin: 14px 0 0; padding: 0; list-style: none; counter-reset: h; }
 ol.how li { counter-increment: h; position: relative; padding: 0 0 14px 40px; color: var(--ink-2); }
 ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
-  font: 400 17px/1 var(--display); background: var(--card-2); color: var(--gold); }
+  font: 600 17px/1 var(--display); background: var(--card-2); color: var(--gold); }
 
 /* панель продавца */
 .tabs { display: flex; gap: 6px; overflow-x: auto; margin: 14px -14px 0; padding: 0 14px 4px; scrollbar-width: none; }
@@ -233,7 +233,7 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
 .stat { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 12px 14px; }
-.stat b { display: block; font: 400 26px/1.1 var(--display); }
+.stat b { display: block; font: 600 26px/1.1 var(--display); }
 .stat span { color: var(--ink-3); font-size: 12.5px; }
 .order { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 15px; }
 .order + .order { margin-top: 10px; }
@@ -260,7 +260,7 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .foot { text-align: center; color: var(--ink-3); font-size: 12px; margin-top: 22px; }
 .outside { min-height: 80vh; display: grid; place-items: center; text-align: center; }
 .outside .tmark { width: 64px; height: 64px; margin: 0 auto 16px; }
-.outside h1 { font: 400 30px/1.1 var(--display); }
+.outside h1 { font: 600 30px/1.1 var(--display); }
 .outside p { color: var(--ink-2); margin: 10px 0 18px; }
 
 /* несколько ключей, приглашения */
@@ -278,7 +278,7 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .sum .row { display: flex; align-items: baseline; gap: 10px; }
 .sum .row span { flex: 1; color: var(--ink-2); }
 .sum .row s { color: var(--ink-3); font-size: 13.5px; }
-.sum .row b { font: 500 22px/1 var(--display); }
+.sum .row b { font: 600 22px/1 var(--display); }
 .sum small { display: block; margin-top: 5px; }
 .notice > .ic { flex: none; color: var(--accent); }
 .notice > .ic svg { width: 22px; height: 22px; }
@@ -308,7 +308,7 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 @keyframes saleShine { 55%, 100% { transform: translateX(100%); } }
 .sale-ey { font: 500 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--hot); }
 .sale-ey::before { content: "🔥 "; letter-spacing: 0; }
-.sale-t { font: 400 24px/1.15 var(--display); letter-spacing: -.01em; }
+.sale-t { font: 600 24px/1.15 var(--display); letter-spacing: -.01em; }
 .sale-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
 .sale-left .cd { font: 500 13px/1 var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
 .badge.hot { background: color-mix(in srgb, #f08a4b 22%, transparent); color: var(--hot); border-color: transparent; }

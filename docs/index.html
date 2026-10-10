@@ -25,17 +25,16 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=49">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400..700&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=60">
 </head>
 <body>
 
-<canvas id="field" aria-hidden="true"></canvas>
-<div class="atmos" aria-hidden="true"></div>
-<div class="sub-live" aria-hidden="true"><img alt="" draggable="false"><span class="drag-hint" data-t="drag">Перетащите</span></div>
+<div class="dots" aria-hidden="true"></div>
 
 <header class="nav chrome" id="nav">
   <a class="brand" href="#top"><svg class="tmark" viewBox="0 0 28 28" aria-hidden="true"><rect x=".75" y=".75" width="26.5" height="26.5" rx="7.8" fill="#141518" stroke="rgba(244,241,234,.18)" stroke-width=".8"/><path d="M13.48 7.60 L13.53 7.58 L15.31 7.58 L15.36 7.60 L15.26 7.95 L14.45 10.57 L14.47 10.63 L14.52 10.65 L16.93 10.65 L16.97 10.67 L16.97 10.70 L16.72 11.54 L16.66 11.60 L14.21 11.61 L14.16 11.62 L14.12 11.66 L12.40 17.25 L12.18 18.03 L12.13 18.24 L12.12 18.48 L12.14 18.59 L12.18 18.71 L12.27 18.82 L12.38 18.91 L12.50 18.95 L12.66 18.96 L12.88 18.92 L13.16 18.81 L13.39 18.68 L13.63 18.51 L13.94 18.25 L14.31 17.90 L14.86 17.26 L14.91 17.26 L14.95 17.28 L15.28 17.55 L15.32 17.62 L15.31 17.69 L14.88 18.27 L14.36 18.87 L14.11 19.11 L13.74 19.44 L13.42 19.69 L13.14 19.88 L12.72 20.11 L12.40 20.25 L12.11 20.34 L11.85 20.40 L11.64 20.42 L11.40 20.44 L11.15 20.41 L10.85 20.33 L10.65 20.23 L10.43 20.05 L10.29 19.86 L10.18 19.63 L10.09 19.32 L10.07 19.11 L10.07 18.84 L10.10 18.58 L10.15 18.27 L10.33 17.62 L11.99 12.27 L12.17 11.66 L12.15 11.62 L12.11 11.61 L10.44 11.61 L10.40 11.59 L10.39 11.54 L10.56 10.97 L10.61 10.92 L11.72 10.71 L12.19 10.59 L12.46 10.49 L12.55 10.44 L12.61 10.28 L12.87 9.47 L13.43 7.66Z" fill="#f4f1ea"/><circle cx="18.29" cy="19.03" r="1.42" fill="#e3bd76"/></svg><span>Tolk</span></a>
+  <nav class="nav-links" aria-label="Разделы"><a href="#how" data-t="nl1">Как работает</a><a href="#pricing" data-t="nl2">Цены</a><a href="#faq" data-t="nl3">Вопросы</a></nav>
   <div class="langs" role="group" aria-label="Язык">
     <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="sk">SK</button><button data-lang="en">EN</button>
   </div>
@@ -48,29 +47,49 @@
 
 <div class="progress chrome" aria-hidden="true"><i></i></div>
 
-
-
 <main id="top">
 
-  <section class="panel hero" data-state="0">
-    <div class="inner">
-      <h1 class="display js-h1" data-t="h1">Понимайте пары<br><em>с первого дня.</em></h1>
-      <p class="lede" data-in data-t="lede">Tolk переводит преподавателя, пока он говорит. Субтитры появляются поверх Teams, Zoom или браузера, и их можно читать, как в кино.</p>
-      <div class="ctas" data-in>
-        <a class="btn js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
-          <span data-t="cta_dl">Скачать для Windows</span></a>
-        <a class="ghost js-trial" href="https://t.me/TolkShopBot?startapp=trial" target="_blank" rel="noopener"><span data-t="cta_trial">30 минут бесплатно в Telegram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></a>
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow" data-in><span class="mark" aria-hidden="true"></span><span data-t="h_k">Субтитры, перевод и конспекты для пар</span></p>
+        <h1 class="display js-h1" data-in data-t="h1">Понимайте пары<br><em>с первого дня.</em></h1>
+        <p class="lede" data-in data-t="lede">Tolk переводит преподавателя, пока он говорит. Субтитры появляются поверх Teams, Zoom или браузера, и их можно читать, как в кино.</p>
+        <div class="ctas" data-in>
+          <a class="btn js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+            <span data-t="cta_dl">Скачать для Windows</span></a>
+          <a class="ghost js-trial" href="https://t.me/TolkShopBot?startapp=trial" target="_blank" rel="noopener"><span data-t="cta_trial">30 минут бесплатно в Telegram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></a>
+        </div>
+        <p class="fine" data-in data-t="fine">Первые 30 минут бесплатно, регистрация не нужна</p>
+        <p class="os-hint js-os-hint" hidden></p>
       </div>
-      <p class="fine" data-in data-t="fine">Первые 30 минут бесплатно, регистрация не нужна</p>
-      <p class="os-hint js-os-hint" data-in hidden></p>
+
+      <figure class="xray js-xray" data-in aria-label="Окно Tolk по слоям: субтитры, окно программы, конспект">
+        <div class="stage">
+          <div class="stack">
+            <div class="layer l-notes"><span class="tag">03</span><img class="js-shot" data-src="img/site/notes-{lang}.webp" alt="" width="1100" height="742" loading="eager"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="c ml"></i><i class="c mr"></i>
+              <div class="fp fp-win" style="left:-130px;top:-60px;width:640px;height:406px"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i></div></div>
+            <div class="layer l-win"><span class="tag">02</span><img class="js-shot" data-src="img/site/win-{lang}.webp" alt="" width="1400" height="888" loading="eager"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="c ml"></i><i class="c mr"></i>
+              <div class="fp fp-sub" style="left:40px;top:20px;width:560px;height:53px"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i></div></div>
+            <div class="layer l-sub"><span class="tag">01</span><img class="js-shot" data-src="img/app/{lang}/style-graphite.png" alt="" width="2380" height="225" loading="eager"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="c ml"></i><i class="c mr"></i></div>
+          </div>
+        </div>
+        <svg class="wires" aria-hidden="true"></svg>
+        <ol class="callouts">
+          <li data-for="sub"><span class="n">01</span><b data-t="x1">Субтитры</b><span data-t="x1v">поверх Teams, Zoom и браузера — тянутся мышью</span></li>
+          <li data-for="win"><span class="n">02</span><b data-t="x2">Перевод</b><span data-t="x2v">Tolk AI Live — пока преподаватель говорит</span></li>
+          <li data-for="notes"><span class="n">03</span><b data-t="x3">Конспект</b><span data-t="x3v">на языке пары, под каждой строкой перевод</span></li>
+        </ol>
+        <figcaption class="note" data-t="x_note">Снимки окна Tolk. Конспект — пример.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="panel chapter left" data-state="1">
-    <div class="inner">
-      <div class="card">
-        <p class="eyebrow" data-t="c1_k">Звук</p>
+  <section class="chapter" id="how">
+    <div class="wrap">
+      <div class="ch-text" data-rise>
+        <div class="ch-head"><span class="num">01</span><p class="eyebrow" data-t="c1_k">Звук</p></div>
         <h2 class="display" data-t="c1_h">Выберите, <em>что переводить.</em></h2>
         <p class="body" data-t="c1_p">Вкладку с парой, Teams, Zoom или весь звук компьютера. Музыку и уведомления из других программ Tolk не слышит.</p>
         <dl class="spec">
@@ -79,44 +98,108 @@
           <div><dt data-t="c1_c">Приватность</dt><dd data-t="c1_cv">звук идёт только на распознавание и нигде не хранится</dd></div>
         </dl>
       </div>
+      <div class="scheme panel pins" data-rise aria-hidden="true">
+        <svg viewBox="0 0 600 150">
+          <rect class="dl" x="18" y="22" width="124" height="74" rx="4"/>
+          <path class="dl" d="M36 44h62M36 60h84M36 76h48"/>
+          <circle class="dl" cx="80" cy="122" r="10"/>
+          <path class="dl" d="M100 114q10 8 0 16M108 108q18 14 0 28"/>
+          <path class="flow" d="M150 64H224"/>
+          <rect class="dl" x="238" y="24" width="124" height="80" rx="5"/>
+          <path class="dl" d="M222 118h156"/>
+          <circle class="fillg" cx="300" cy="64" r="7"/>
+          <path class="dl gold" d="M286 64a14 14 0 0 1 28 0M278 64a22 22 0 0 1 44 0"/>
+          <path class="flow" d="M376 64H450"/>
+          <rect class="dl" x="460" y="20" width="122" height="98" rx="5"/>
+          <rect class="fillg2" x="472" y="84" width="98" height="18" rx="3"/>
+          <path class="solid" d="M480 93h82" stroke="currentColor"/>
+        </svg>
+        <div class="scheme-labels">
+          <div><b data-t="s1a">Пара</b><span data-t="s1av">в аудитории или онлайн</span></div>
+          <div><b>Tolk</b><span data-t="s1bv">слышит звук ноутбука</span></div>
+          <div><b data-t="s1c">Субтитры</b><span data-t="s1cv">перевод через 1–2 секунды</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="panel chapter left" data-state="2">
-    <div class="inner">
-      <div class="card wide">
-        <p class="eyebrow" data-t="c2_k">Перевод</p>
+  <section class="chapter flip">
+    <div class="wrap">
+      <div class="ch-text" data-rise>
+        <div class="ch-head"><span class="num">02</span><p class="eyebrow" data-t="c2_k">Перевод</p></div>
         <h2 class="display" data-t="c2_h">Понимает, <em>как говорят студенты.</em></h2>
         <p class="body" data-t="c2_p">Обычный переводчик путается в сленге и сокращениях. Tolk AI знает, что такое «intrák» и «zápočet», и помнит, о чём говорили минуту назад.</p>
-        <div class="cmp js-cmp">
-          <dl class="spec cmp-rows"></dl>
-          <div class="cmp-nav">
-            <span class="cmp-n js-cmp-n">01 / 04</span>
-            <span class="cmp-bar"><i></i></span>
-            <button type="button" class="cmp-btn js-cmp-prev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6m0 0 5-5m-5 5 5 5"/></svg></button>
-            <button type="button" class="cmp-btn js-cmp-next" aria-label="Дальше"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></button>
-          </div>
+      </div>
+      <div class="cmp js-cmp panel pins" data-rise>
+        <dl class="spec cmp-rows"></dl>
+        <div class="cmp-nav">
+          <span class="cmp-n js-cmp-n">01 / 04</span>
+          <span class="cmp-bar"><i></i></span>
+          <button type="button" class="cmp-btn js-cmp-prev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6m0 0 5-5m-5 5 5 5"/></svg></button>
+          <button type="button" class="cmp-btn js-cmp-next" aria-label="Дальше"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg></button>
         </div>
         <p class="note" data-t="c2_note">Настоящие ответы обоих переводчиков, сентябрь 2026.</p>
       </div>
     </div>
   </section>
 
-  <section class="panel chapter right" data-state="3">
-    <div class="inner">
-      <div class="card">
-        <p class="eyebrow" data-t="c3_k">Субтитры</p>
+  <section class="chapter">
+    <div class="wrap">
+      <div class="ch-text" data-rise>
+        <div class="ch-head"><span class="num">03</span><p class="eyebrow" data-t="c3_k">Субтитры</p></div>
         <h2 class="display" data-t="c3_h">Там, где <em>вам удобно.</em></h2>
         <p class="body" data-t="c3_p">Субтитры висят поверх всех окон. Их можно перетащить мышью (попробуйте прямо здесь) и выбрать стиль:</p>
         <div class="chips js-styles" role="group"></div>
       </div>
+      <div class="screen pins js-screen" data-rise>
+        <span class="axis" aria-hidden="true"></span>
+        <span class="size" data-t="scr">ваш экран</span>
+        <div class="sub-drag js-sub"><img alt="" draggable="false"><span class="drag-hint" data-t="drag">Перетащите</span></div>
+      </div>
     </div>
   </section>
 
-  <section class="section pricing" id="pricing" data-state="4">
+  <section class="chapter flip">
     <div class="wrap">
-      <div class="head">
-        <p class="eyebrow" data-t="p_k">Цены</p>
+      <div class="ch-text" data-rise>
+        <div class="ch-head"><span class="num">04</span><p class="eyebrow" data-t="c4_k">Учёба</p></div>
+        <h2 class="display" data-t="c4_h">Конспект — <em>на языке пары.</em></h2>
+        <p class="body" data-t="c4_p">После пары Tolk сам пишет конспект на языке лекции, а под каждой строкой — перевод. Так понятно сразу, и язык учится сам. Из конспектов — карточки, задачи с решением методом преподавателя и пробный экзамен.</p>
+        <dl class="spec">
+          <div><dt data-t="c4_a">Конспект</dt><dd data-t="c4_av">сам после пары · Tolk Pro</dd></div>
+          <div><dt data-t="c4_b">К экзамену</dt><dd data-t="c4_bv">карточки, задачи, пробный экзамен · Tolk Pro</dd></div>
+          <div><dt data-t="c4_c">Повторение</dt><dd data-t="c4_cv">по графику, слова дня в Telegram · все тарифы</dd></div>
+        </dl>
+      </div>
+      <div class="study-shot" data-rise>
+        <img class="js-shot" data-src="img/site/notes-{lang}.webp" alt="" width="1100" height="742" loading="lazy">
+        <div class="scheme" aria-hidden="true">
+          <svg viewBox="0 0 600 110">
+            <rect class="dl" x="20" y="14" width="118" height="70" rx="4"/>
+            <path class="dl" d="M34 66l20-18 16 10 24-26 26 16"/>
+            <path class="flow" d="M146 49H222"/>
+            <rect class="dl" x="240" y="8" width="120" height="86" rx="4"/>
+            <path class="dl" d="M254 28h80M254 58h70"/>
+            <path class="dl gold" d="M262 40h62M262 70h54"/>
+            <path class="flow" d="M368 49H444"/>
+            <rect class="dl" x="470" y="22" width="100" height="62" rx="4"/>
+            <rect class="dl" x="460" y="14" width="100" height="62" rx="4"/>
+            <path class="dl gold" d="M494 46l10 10 20-22"/>
+          </svg>
+          <div class="scheme-labels">
+            <div><b data-t="s4a">Лекция</b><span data-t="s4av">звук и слайды</span></div>
+            <div><b data-t="s4b">Конспект</b><span data-t="s4bv">оригинал + перевод</span></div>
+            <div><b data-t="s4c">Экзамен</b><span data-t="s4cv">карточки · задачи · пробный</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing" id="pricing">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <div class="ch-head"><span class="num">05</span><p class="eyebrow" data-t="p_k">Цены</p></div>
         <h2 class="display" data-t="p_h">Тарифы Tolk. <em>Всё включено.</em></h2>
         <p class="body" data-t="p_lede">Весь Tolk и 30 часов Tolk AI на каждые 30 дней. Чем дольше срок — тем дешевле месяц.</p>
       </div>
@@ -133,16 +216,16 @@
     </div>
   </section>
 
-  <section class="section outro" id="faq" data-state="5">
+  <section class="section outro" id="faq">
     <div class="wrap">
       <div class="faq-grid">
         <div class="head">
-          <p class="eyebrow" data-t="q_k">Вопросы</p>
+          <div class="ch-head"><span class="num">06</span><p class="eyebrow" data-t="q_k">Вопросы</p></div>
         </div>
         <div class="faq js-faq"></div>
       </div>
 
-      <div class="final">
+      <div class="final pins" data-rise>
         <h2 class="display" data-t="t_h">Попробуйте <em>на своей лекции.</em></h2>
         <div class="final-cta">
           <a class="btn js-dl" href="https://github.com/sethosint/tolk-releases/releases/latest/download/Tolk-Setup.exe">
@@ -168,17 +251,7 @@
   </section>
 </main>
 
-<div class="boot" id="boot" aria-hidden="true">
-  <p class="boot-mark">TOLK</p>
-  <div class="boot-bar"><i></i></div>
-</div>
-
-<script src="assets/vendor/gsap.min.js" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/SplitText.min.js" defer></script>
-<script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/texts.js?v=55" defer></script>
-<script src="assets/field.js?v=49" defer></script>
-<script src="assets/site.js?v=52" defer></script>
+<script src="assets/texts.js?v=56" defer></script>
+<script src="assets/site.js?v=60" defer></script>
 </body>
 </html>

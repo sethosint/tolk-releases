@@ -1,7 +1,7 @@
-// Tolk — сайт: тема (система / вручную), язык, живой фон из частиц (field.js), который по мере прокрутки проходит
-// звук → перевод → субтитры → цены, живые цены из магазина, «Купить» → бот, настоящие фразы Google / Tolk AI по очереди,
-// настоящие субтитры Tolk, которые можно тянуть мышью, вопросы.
-// Движение — GSAP ScrollTrigger + SplitText + Lenis. Без WebGL или GSAP всё видно и работает, просто спокойнее.
+// Tolk — сайт: тема (система / вручную), язык, окно Tolk «в разборе» (настоящие снимки слоями: субтитры, окно, конспект) —
+// при прокрутке собирается в одно окно, пунктирные выноски считаются по углам слоёв; живые цены из магазина, «Купить» → бот,
+// настоящие фразы Google / Tolk AI по очереди, настоящие субтитры Tolk, которые можно тянуть по «экрану», вопросы.
+// Без библиотек: прокрутка обычная, появление — IntersectionObserver. Без скрипта всё видно и работает.
 (function () {
   "use strict";
   const T = window.TOLK_TEXTS, CMP = window.TOLK_COMPARE || {};
@@ -14,9 +14,7 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   // «Меньше движения» в системе (в Windows — «Эффекты анимации» выключены): анимация остаётся, без инерционной прокрутки
   const gentle = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const motion = Boolean(window.gsap && window.ScrollTrigger);
   const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg>';
-  let field = null;
 
   // --- тема ---------------------------------------------------------------------------------------
   const sysDark = matchMedia("(prefers-color-scheme: dark)");
@@ -32,10 +30,8 @@
     root.dataset.theme = next;
     try { localStorage.setItem("tolk-theme", next); } catch (e) { /* без хранилища */ }
     paintMeta();
-    if (field) field.setTheme(next === "dark");
     setTimeout(() => root.classList.remove("theming"), 700);
   });
-  sysDark.addEventListener("change", () => { if (!root.dataset.theme && field) field.setTheme(sysDark.matches); });
   paintMeta();
 
   // --- язык ---------------------------------------------------------------------------------------
@@ -67,6 +63,7 @@
       });
     }
     $$(".langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    $$(".js-shot").forEach((im) => { im.src = im.dataset.src.replace("{lang}", lang); });
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
     $$(".js-trial").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=trial`; a.target = "_blank"; a.rel = "noopener"; });
   }
@@ -74,7 +71,7 @@
     try { localStorage.setItem("tolk-lang", b.dataset.lang); } catch (e) { /* без хранилища */ }
     const u = new URL(location.href);
     u.searchParams.set("lang", b.dataset.lang);
-    location.href = u.toString();                  // заново — фон и анимация перестраиваются под новый текст
+    location.href = u.toString();                  // заново — тексты, снимки и цены на новом языке
   }));
 
   // типографика: тире не начинает строку, короткие предлоги и союзы не висят в конце строки
@@ -179,10 +176,10 @@
     requestAnimationFrame(tickCompare);
   }
 
-  // --- глава «Субтитры»: настоящие кадры Tolk; их можно тянуть мышью, частицы светятся под ними -------------
+  // --- 03 «Субтитры»: настоящие кадры Tolk на «экране»; тянутся мышью или пальцем, стили сменяются сами, пока не выбрали --------
   const STYLES = ["graphite", "glass", "minimal", "classic", "light", "contrast"];
-  const subLive = $(".sub-live"), subImg = $(".sub-live img");
-  let styleIdx = 0, styleTouched = false;
+  const screen = $(".js-screen"), sub = $(".js-sub"), subImg = $(".js-sub img");
+  let styleIdx = 0, styleTouched = false, screenSeen = false;
   function setStyle(i) {
     styleIdx = i;
     $$(".js-styles button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
@@ -195,6 +192,80 @@
     $$("button", bar).forEach((b, i) => b.addEventListener("click", () => { styleTouched = true; setStyle(i); }));
     STYLES.forEach((s) => { const im = new Image(); im.src = `img/app/${lang}/style-${s}.png`; });
     setStyle(0);
+    setInterval(() => { if (screenSeen && !styleTouched && !drag.on && !document.hidden) setStyle((styleIdx + 1) % STYLES.length); }, 2800);
+  }
+  const drag = { on: false, dx: 0, dy: 0 };
+  sub.addEventListener("pointerdown", (e) => {
+    const r = sub.getBoundingClientRect();
+    drag.on = true; drag.dx = e.clientX - (r.left + r.width / 2); drag.dy = e.clientY - (r.top + r.height / 2);
+    sub.setPointerCapture(e.pointerId);
+    sub.classList.add("dragging");
+    e.preventDefault();
+  });
+  sub.addEventListener("pointermove", (e) => {
+    if (!drag.on) return;
+    const box = screen.getBoundingClientRect(), r = sub.getBoundingClientRect();
+    const hw = r.width / 2, hh = r.height / 2;
+    const cx = Math.max(box.left + hw + 6, Math.min(box.right - hw - 6, e.clientX - drag.dx));
+    const cy = Math.max(box.top + hh + 6, Math.min(box.bottom - hh - 6, e.clientY - drag.dy));
+    sub.style.left = ((cx - box.left) / box.width * 100) + "%";
+    sub.style.top = ((cy - box.top) / box.height * 100) + "%";
+    sub.classList.add("moved");
+  });
+  const endDrag = () => { drag.on = false; sub.classList.remove("dragging"); };
+  sub.addEventListener("pointerup", endDrag);
+  sub.addEventListener("pointercancel", endDrag);
+
+  // --- первый экран: окно Tolk «в разборе» --------------------------------------------------------------------------
+  // Слои стоят в 3D (CSS), JS только двигает их: p = 0 — разобрано (наискосок, слои разведены), p = 1 — собрано в одно
+  // ровное окно. Пунктир — от углов верхнего слоя к его «следу» на нижнем и от выносок к слоям; точки берутся из
+  // getBoundingClientRect угловых меток, поэтому линии всегда идут ровно туда, где слой сейчас нарисован.
+  const fig = $(".js-xray"), stack = fig && $(".stack", fig), wires = fig && $(".wires", fig);
+  const L = fig ? { notes: $(".l-notes", fig), win: $(".l-win", fig), sub: $(".l-sub", fig) } : {};
+  const narrow = matchMedia("(max-width: 760px)");
+  let xp = -1;
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const pt = (el, box) => { const r = el.getBoundingClientRect(); return [r.left - box.left, r.top - box.top]; };
+  const corners = (el) => ["tl", "tr", "br", "bl"].map((k) => $(":scope > .c." + k, el));
+  function xray(p, force) {
+    if (!fig || (!force && Math.abs(p - xp) < 0.002)) return;
+    xp = p;
+    const st = $(".stage", fig), W = st.clientWidth, H = st.clientHeight, small = narrow.matches;
+    const e = 1 - ease(p);
+    const sE = Math.min(W / (small ? 860 : 1000), H / 720), sF = Math.min(W * 0.94 / 640, H * 0.9 / 406);
+    const s = sF + (sE - sF) * e, gap = 210 * e;
+    const dx = small ? 0 : -W * 0.19 * e;
+    stack.style.transform = `translate(${dx}px, ${H * 0.08 * e}px) scale(${s}) rotateX(${50 * e}deg) rotateZ(${-26 * e}deg)`;
+    L.notes.style.transform = `translateZ(${-gap - 2}px)`;
+    L.win.style.transform = "translateZ(0)";
+    // субтитры: в разобранном виде висят над верхом окна, в собранном — внизу, где их обычно держат
+    const sy = 298 * (1 - e);
+    L.sub.style.transform = `translate3d(0, ${sy}px, ${gap + 2}px)`;
+    $(".fp-sub", fig).style.top = 20 + sy + "px";
+    fig.style.setProperty("--fp", e.toFixed(3));
+    fig.style.setProperty("--co", small ? "1" : Math.max(0, 1 - p * 2.4).toFixed(3));
+    const box = fig.getBoundingClientRect();
+    let d = "";
+    if (e > 0.02) {
+      [[L.win, $(".fp-win", fig)], [L.sub, $(".fp-sub", fig)]].forEach(([up, fp]) => {
+        const a = corners(up), b = corners(fp);
+        a.forEach((c, k) => { const [x1, y1] = pt(c, box), [x2, y2] = pt(b[k], box); d += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; });
+      });
+      if (!small) {
+        $$(".callouts li", fig).forEach((li) => {
+          const r = li.getBoundingClientRect(), x1 = r.left - box.left - 4, y1 = r.top - box.top + 16;
+          const [x2, y2] = pt($(":scope > .c.mr", L[li.dataset.for]), box);
+          d += `<path class="lead" d="M${x1.toFixed(1)} ${y1.toFixed(1)}h-14L${x2.toFixed(1)} ${y2.toFixed(1)}"/><circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="3"/>`;
+        });
+      }
+    }
+    wires.innerHTML = d;
+    wires.style.opacity = e.toFixed(3);
+  }
+  function heroProgress() {
+    if (!fig || gentle) return 0;
+    const r = $("#hero").getBoundingClientRect();
+    return Math.max(0, Math.min(1, -r.top / (r.height * 0.55)));
   }
 
   // --- вопросы -------------------------------------------------------------------------------------------
@@ -204,15 +275,6 @@
     const half = Math.ceil(items.length / 2);
     box.innerHTML = `<div class="col">${items.slice(0, half).join("")}</div><div class="col">${items.slice(half).join("")}</div>`;
     $$(".js-buy", box).forEach((a) => { a.target = "_blank"; a.rel = "noopener"; });
-    $$("details", box).forEach((d) => {
-      const s = $("summary", d), a = $(".a", d);
-      s.addEventListener("click", (e) => {
-        if (!window.gsap) return;
-        e.preventDefault();
-        if (d.open) gsap.to(a, { height: 0, duration: .5, ease: "power3.inOut", onComplete: () => { d.open = false; a.style.height = ""; refreshSoon(); } });
-        else { d.open = true; gsap.fromTo(a, { height: 0 }, { height: a.scrollHeight, duration: .7, ease: "expo.out", onComplete: () => { a.style.height = ""; refreshSoon(); } }); }
-      });
-    });
   }
 
   // --- цены (живой курс из магазина; без ответа — запасные) ----------------------------------------------
@@ -318,173 +380,44 @@
 
   $$(".js-plan-tabs button").forEach((b) => b.addEventListener("click", () => { proView = b.dataset.v === "pro"; renderPrices(); }));
 
-  // --- прокрутка → состояние фона и линия прогресса ------------------------------------------------------
-  let marks = [];
-  function measure() {
-    marks = $$("[data-state]").map((el) => ({ s: Number(el.dataset.state), top: el.getBoundingClientRect().top + scrollY }));
-  }
-  function stateAt(y) {
-    const vh = innerHeight;
-    let s = marks.length ? marks[0].s : 0;
-    for (let j = 1; j < marks.length; j++) {
-      const a = marks[j].top - vh * 0.85, b = marks[j].top - vh * 0.2;
-      if (y <= a) break;
-      s = marks[j - 1].s + Math.min(1, (y - a) / (b - a)) * (marks[j].s - marks[j - 1].s);
-    }
-    return s;
-  }
+
+  // --- прокрутка: линия прогресса, шапка, сборка окна, «экран» в поле зрения ------------------------------------------
   const nav = $("#nav"), bar = $(".progress i");
+  let ticking = false;
   function onScroll() {
-    const y = scrollY, s = stateAt(y);
-    if (field) field.setTarget(s);
+    ticking = false;
+    const y = scrollY;
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
     nav.classList.toggle("scrolled", y > 20);
-    cmpActive = Math.abs(s - 2) < 0.45;
+    xray(heroProgress());
+    const c = $(".js-cmp").getBoundingClientRect();
+    cmpActive = c.top < innerHeight * 0.85 && c.bottom > innerHeight * 0.15;
   }
-  let refreshTimer = 0;
-  function refreshSoon() {
-    clearTimeout(refreshTimer);
-    refreshTimer = setTimeout(() => { measure(); if (window.ScrollTrigger) ScrollTrigger.refresh(); onScroll(); }, 120);
+  const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
+
+  // появление: блоки с data-rise — по одному, когда доходят до экрана; первый экран — сразу, лесенкой
+  function rise() {
+    const els = $$("[data-rise], .plan, .faq details, .colophon > div");
+    els.forEach((el) => el.setAttribute("data-rise", ""));
+    if (!("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
+    const io = new IntersectionObserver((list) => list.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const sib = en.target.parentElement ? [...en.target.parentElement.children].filter((x) => x.hasAttribute("data-rise")) : [];
+      en.target.style.transitionDelay = Math.min(4, Math.max(0, sib.indexOf(en.target))) * 70 + "ms";
+      en.target.classList.add("in");
+      io.unobserve(en.target);
+    }), { rootMargin: "0px 0px -8% 0px" });
+    els.forEach((el) => io.observe(el));
+    const sc = new IntersectionObserver((list) => list.forEach((en) => { screenSeen = en.isIntersecting; }), { threshold: .4 });
+    sc.observe(screen);
   }
-
-  // субтитры: видны, пока фон — в состоянии «Субтитры»; тянутся мышью или пальцем, свечение из частиц идёт следом
-  const drag = { cx: 0, cy: 0, w: 0, on: false, dx: 0, dy: 0, moved: false };
-  let subShown = -1, autoAt = 0;
-  const subH = () => drag.w * ((subImg.naturalHeight / subImg.naturalWidth) || 0.0962);
-  function placeSub(cur) {
-    const o = Math.max(0, Math.min(1, 1 - Math.abs(cur - 3) * 3.2));
-    if (o <= 0.001 && subShown === 0 && !drag.on) return o;
-    subShown = o > 0.001 ? 1 : 0;
-    const h = subH();
-    subLive.style.width = drag.w + "px";
-    subLive.style.transform = `translate3d(${drag.cx - drag.w / 2}px, ${drag.cy - h / 2 + (cur - 3) * -46}px, 0) scale(${0.96 + 0.04 * o})`;
-    subLive.style.opacity = o.toFixed(3);
-    subLive.style.filter = o < 1 ? `blur(${((1 - o) * 10).toFixed(2)}px)` : "none";
-    subLive.classList.toggle("grab", o > 0.6);
-    return o;
-  }
-  function onField(cur, rebuilt) {
-    if (rebuilt || !drag.w) {
-      const d = field.subDefault();
-      Object.assign(drag, { cx: d.cx, cy: d.cy, w: d.w });
-      field.setSub(drag.cx, drag.cy, drag.w);
-    }
-    const o = placeSub(cur);
-    // пока посетитель смотрит на главу и ничего не выбрал — стили сменяются сами
-    const now = performance.now();
-    if (o > 0.95 && !styleTouched && !drag.on && now - autoAt > 2800) { autoAt = now; setStyle((styleIdx + 1) % STYLES.length); }
-    if (o < 0.5) autoAt = now;
-  }
-  subLive.addEventListener("pointerdown", (e) => {
-    if (!subLive.classList.contains("grab")) return;
-    drag.on = true; drag.dx = e.clientX - drag.cx; drag.dy = e.clientY - drag.cy;
-    subLive.setPointerCapture(e.pointerId);
-    subLive.classList.add("dragging");
-    e.preventDefault();
-  });
-  subLive.addEventListener("pointermove", (e) => {
-    if (!drag.on) return;
-    const hw = drag.w / 2, hh = subH() / 2;
-    drag.cx = Math.max(hw + 8, Math.min(innerWidth - hw - 8, e.clientX - drag.dx));
-    drag.cy = Math.max(hh + 70, Math.min(innerHeight - hh - 8, e.clientY - drag.dy));
-    if (field) { field.setSub(drag.cx, drag.cy, drag.w); placeSub(field.state); }
-    if (!drag.moved) { drag.moved = true; subLive.classList.add("moved"); }
-  });
-  const endDrag = () => { drag.on = false; subLive.classList.remove("dragging"); };
-  subLive.addEventListener("pointerup", endDrag);
-  subLive.addEventListener("pointercancel", endDrag);
-
-  // --- фон -----------------------------------------------------------------------------------------------
-  async function startField() {
-    const canvas = $("#field");
-    if (!window.TolkField) { root.classList.add("no-gl"); return; }
-    const fonts = document.fonts ? Promise.all([
-      document.fonts.load('400 80px "EB Garamond"'), document.fonts.load('italic 400 80px "EB Garamond"'),
-    ]) : Promise.resolve();
-    await Promise.race([fonts, new Promise((r) => setTimeout(r, 1800))]);
-    const small = innerWidth < 760, cores = navigator.hardwareConcurrency || 4;
-    try {
-      field = TolkField.create(canvas, { count: small ? 42000 : cores <= 4 ? 70000 : 100000, dark: isDark() });
-    } catch (e) { console.warn(e); field = null; }
-    if (!field) { root.classList.add("no-gl"); return; }
-    field.jump(stateAt(scrollY));
-    field.onFrame(onField);
-    root.classList.add("live-on");
-    subImg.addEventListener("load", () => placeSub(field.state));
-  }
-
-  // --- движение --------------------------------------------------------------------------------------------
-  function magnetic(els) {
-    if (!matchMedia("(pointer: fine)").matches) return;
-    els.forEach((b) => {
-      const xTo = gsap.quickTo(b, "x", { duration: .7, ease: "power3" }), yTo = gsap.quickTo(b, "y", { duration: .7, ease: "power3" });
-      b.addEventListener("pointermove", (e) => {
-        const r = b.getBoundingClientRect();
-        xTo((e.clientX - r.left - r.width / 2) * .2); yTo((e.clientY - r.top - r.height / 2) * .3);
-      });
-      b.addEventListener("pointerleave", () => { xTo(0); yTo(0); });
-    });
-  }
-  const lines = (el, vars) => {
-    if (!window.SplitText) return gsap.from(el, { y: 40, opacity: 0, duration: 1.2, ease: "expo.out", ...vars });
-    return SplitText.create(el, { type: "lines", mask: "lines", linesClass: "sl", autoSplit: true,
-      onSplit: (self) => gsap.from(self.lines, { yPercent: 115, duration: 1.4, ease: "expo.out", stagger: .1, ...vars }) });
-  };
-
-  let lenis = null;
-  function runMotion() {
-    gsap.registerPlugin(ScrollTrigger);
-    if (window.SplitText) gsap.registerPlugin(SplitText);
-    if (window.Lenis && !gentle) {
-      lenis = new Lenis({ lerp: .085, smoothWheel: true });
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add((t) => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-    }
-    $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
-      const id = a.getAttribute("href");
-      const t = id === "#top" ? 0 : $(id);
-      if (t == null || !lenis) return;
-      e.preventDefault();
-      lenis.scrollTo(t, { duration: 1.8 });
-    }));
-
-    // главы: строки заголовка из-под маски, остальное — следом; при уходе глава тает и размывается
-    $$(".chapter").forEach((ch) => {
-      const card = $(".card", ch);
-      const st = { trigger: ch, start: "top 42%", toggleActions: "play none none reverse" };
-      lines($(".display", card), { scrollTrigger: st });
-      gsap.from($$(".eyebrow, .body, .spec > div, .cmp-nav, .note, .chips", card), { y: 26, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: st });
-      gsap.to(card, { opacity: 0, y: -60, filter: "blur(8px)", ease: "none",
-        scrollTrigger: { trigger: ch, start: "bottom 99%", end: "bottom 64%", scrub: true } });
-    });
-    // первый экран уходит вверх, растворяясь
-    gsap.to(".hero .inner", { y: -80, opacity: 0, filter: "blur(6px)", ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 30%", scrub: true } });
-
-    // цены и вопросы
-    $$(".pricing .display, .outro .final .display").forEach((h) => lines(h, { scrollTrigger: { trigger: h, start: "top 85%", once: true } }));
-    gsap.from($$(".pricing .eyebrow, .pricing .head .body, .outro .eyebrow"), { y: 24, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .08,
-      scrollTrigger: { trigger: ".pricing", start: "top 70%", once: true } });
-    ScrollTrigger.batch(".plan, .faq details, .colophon > div, .pay-notes p, .final-cta", { start: "top 92%", once: true,
-      onEnter: (els) => gsap.from(els, { y: 34, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .06 }) });
-
-    magnetic($$(".hero .btn, .final .btn"));
-    addEventListener("load", refreshSoon);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshSoon);
-  }
-
   function intro() {
-    const boot = $("#boot");
-    boot.classList.add("done");
-    if (field) field.start();
-    if (!motion) return;
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: .15 });
-    tl.from(".nav > *", { y: -14, opacity: 0, duration: 1.2, stagger: .05 }, 0)
-      .add(() => { lines($(".js-h1"), { delay: 0 }); }, .1)
-      .from(".hero [data-in]", { y: 28, opacity: 0, duration: 1.4, stagger: .1 }, .45)
-      .from(".progress", { opacity: 0, duration: 1.4, clearProps: "opacity" }, .8);
+    $$(".hero [data-in], .nav > *").forEach((el, i) => {
+      if (gentle) return;
+      el.animate([{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "none" }],
+        { duration: 1100, delay: 60 + i * 70, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" });
+    });
   }
 
   // --- старт ---------------------------------------------------------------------------------------------
@@ -494,18 +427,20 @@
   renderStyles();
   renderFaq();
   renderPrices();
-  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd").forEach(typograph);
-  measure();
-  addEventListener("scroll", onScroll, { passive: true });
-  addEventListener("resize", refreshSoon);
+  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts").forEach(typograph);
+  rise();
+  intro();
+  addEventListener("scroll", kick, { passive: true });
+  addEventListener("resize", () => xray(heroProgress(), true));
+  narrow.addEventListener("change", () => xray(heroProgress(), true));
+  $$(".js-xray img").forEach((im) => im.addEventListener("load", () => xray(heroProgress(), true)));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => xray(heroProgress(), true));
   onScroll();
-  if (motion) runMotion();
-  const booted = startField();
-  Promise.race([booted, new Promise((r) => setTimeout(r, 3000))]).then(() => { measure(); onScroll(); intro(); });
-  loadPrices().then(refreshSoon);
+  xray(heroProgress(), true);
+  loadPrices();
   requestAnimationFrame(tickCompare);
 
-  // проверка скриншотами: ?shot=<px> — прокрутить туда сразу после загрузки
+  // проверка снимками: ?shot=<px> — прокрутить туда сразу после загрузки
   const shot = Number(new URLSearchParams(location.search).get("shot"));
-  if (shot) setTimeout(() => { scrollTo(0, shot); if (field) field.jump(stateAt(shot)); onScroll(); }, 3400);
+  if (shot) setTimeout(() => { scrollTo(0, shot); onScroll(); }, 600);
 })();
