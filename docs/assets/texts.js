@@ -232,6 +232,8 @@ window.TOLK_TEXTS = {
   "f3k": "Підтримка",
   "f4k": "Дані",
   "privacy": "Конфіденційність",
+  "f6k": "Студентам",
+  "f6v": "Сторінки вишів",
   "styles": [
    "Графіт",
    "Скло",
@@ -363,6 +365,8 @@ window.TOLK_TEXTS = {
   "f3k": "Podpora",
   "f4k": "Údaje",
   "privacy": "Ochrana súkromia",
+  "f6k": "Študentom",
+  "f6v": "Stránky univerzít",
   "styles": [
    "Grafit",
    "Sklo",
@@ -494,6 +498,8 @@ window.TOLK_TEXTS = {
   "f3k": "Support",
   "f4k": "Data",
   "privacy": "Privacy",
+  "f6k": "Students",
+  "f6v": "University pages",
   "styles": [
    "Graphite",
    "Glass",
