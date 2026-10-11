@@ -1,0 +1,178 @@
+# Выпуск Tolk — собирается здесь, в открытом sethosint/tolk-releases: у открытых репозиториев минуты GitHub Actions бесплатны
+# (Windows и Mac тоже). Код программы остаётся закрытым: каждая сборка скачивает его из sethosint/tolk по секрету RELEASES_TOKEN
+# только на время работы и нигде не выкладывает — наружу выходят лишь установщики (они и так лежат в релизах), журналы сборки
+# видны всем, но в них нет ни кода, ни ключей (секреты GitHub скрывает сам).
+#
+# Источник этого файла — packaging/public-ci/release.yml в sethosint/tolk; сюда его кладёт tools/publish_site.py.
+# Запуск: сам раз в 30 минут смотрит release/request.json в main закрытого репозитория — версии ещё нет в релизах → выпуск;
+# или Actions → «Выпуск Tolk» → Run workflow.
+# Секреты здесь (Settings → Secrets and variables → Actions), один раз:
+#   SELLER_PRIVATE_KEY — содержимое seller/private_key.txt (gh secret set SELLER_PRIVATE_KEY -R sethosint/tolk-releases < seller/private_key.txt)
+#   RELEASES_TOKEN     — токен GitHub владельца с доступом к sethosint/tolk (gh auth token | gh secret set RELEASES_TOKEN -R sethosint/tolk-releases)
+name: Выпуск Tolk
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Только догнать macOS и Linux для уже выпущенной версии (например 3.6.1); пусто — обычный выпуск"
+        required: false
+        default: ""
+
+concurrency: release
+
+permissions:
+  contents: read
+
+jobs:
+  # есть ли новый запрос: версия из release/request.json, а такого релиза здесь ещё нет
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.q.outputs.go }}
+      version: ${{ steps.q.outputs.version }}
+      notes: ${{ steps.q.outputs.notes }}
+      only_other: ${{ steps.q.outputs.only_other }}
+    steps:
+      - name: Нет секретов — тихо выходим (ещё не настроено)
+        id: has
+        env:
+          T: ${{ secrets.RELEASES_TOKEN }}
+          K: ${{ secrets.SELLER_PRIVATE_KEY }}
+        run: echo "ok=$([ -n "$T" ] && [ -n "$K" ] && echo 1 || echo 0)" >> "$GITHUB_OUTPUT"
+      - if: steps.has.outputs.ok == '1'
+        uses: actions/checkout@v4
+        with:
+          repository: sethosint/tolk
+          token: ${{ secrets.RELEASES_TOKEN }}
+          sparse-checkout: |
+            release
+            packaging/notes
+          sparse-checkout-cone-mode: false
+      - id: q
+        if: steps.has.outputs.ok == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ONLY: ${{ inputs.version }}
+        run: |
+          if [ -n "$ONLY" ]; then
+            echo "go=1" >> "$GITHUB_OUTPUT"; echo "version=$ONLY" >> "$GITHUB_OUTPUT"; echo "only_other=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          v=$(python3 -c "import json; print(json.load(open('release/request.json')).get('version',''))")
+          f=$(python3 -c "import json; print(json.load(open('release/request.json')).get('notes_file',''))")
+          if ! echo "$v" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then echo "в запросе нет номера версии — ждём"; exit 0; fi
+          if gh release view "v$v" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo "v$v уже выпущена"; exit 0; fi
+          case "$f" in packaging/notes/*.txt) test -f "$f" || { echo "нет файла $f"; exit 1; };; *) echo "нет notes_file"; exit 1;; esac
+          echo "go=1" >> "$GITHUB_OUTPUT"; echo "version=$v" >> "$GITHUB_OUTPUT"; echo "notes=$f" >> "$GITHUB_OUTPUT"
+
+  # Windows: сборка, подпись update.json ключом продавца, релиз, версия и CHANGELOG — обратно в main закрытого репозитория
+  release:
+    needs: check
+    if: needs.check.outputs.go == '1' && needs.check.outputs.only_other != '1'
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    outputs:
+      sha: ${{ steps.back.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: sethosint/tolk
+          token: ${{ secrets.RELEASES_TOKEN }}
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pyinstaller
+      - name: QtWebEngine — окно программы (в requirements.txt только PySide6-Essentials)
+        shell: bash
+        run: pip install "PySide6-Addons==$(python -c 'import PySide6; print(PySide6.__version__)')"
+      - name: Ключ продавца — только на время выпуска
+        shell: pwsh
+        env:
+          SELLER_PRIVATE_KEY: ${{ secrets.SELLER_PRIVATE_KEY }}
+        run: |
+          New-Item -ItemType Directory -Force seller | Out-Null
+          Set-Content -Path seller/private_key.txt -Value $env:SELLER_PRIVATE_KEY -Encoding ascii
+      - name: Сборка, подпись и публикация
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+          PYTHONUTF8: "1"
+        run: |
+          python tools/release.py --github --notes-file "${{ needs.check.outputs.notes }}" --version "${{ needs.check.outputs.version }}"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Убрать ключ
+        if: always()
+        shell: pwsh
+        run: Remove-Item -Force -ErrorAction SilentlyContinue seller/private_key.txt
+      - name: Версия и CHANGELOG — обратно в main
+        id: back
+        shell: pwsh
+        run: |
+          git config user.name "Tolk release"
+          git config user.email "tolk@users.noreply.github.com"
+          git add tolk/__init__.py CHANGELOG.md
+          $v = (Select-String -Path tolk/__init__.py -Pattern '^VERSION = "([^"]+)"').Matches[0].Groups[1].Value
+          git commit -m "Выпуск $v"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          "sha=$(git rev-parse HEAD)" | Out-File -Append -FilePath $env:GITHUB_OUTPUT -Encoding utf8
+
+  # архивы расширения для каталогов браузеров — в тот же релиз
+  extensions:
+    needs: [check, release]
+    if: always() && needs.check.outputs.go == '1' && (needs.release.result == 'success' || needs.check.outputs.only_other == '1')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: sethosint/tolk
+          token: ${{ secrets.RELEASES_TOKEN }}
+          ref: ${{ needs.release.outputs.sha || 'main' }}
+      - run: python3 tools/pack_extensions.py dist
+      - name: В релиз v${{ needs.check.outputs.version }}
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: gh release upload "v${{ needs.check.outputs.version }}" dist/tolk-*.zip -R sethosint/tolk-releases --clobber
+
+  # macOS и Linux — из коммита выпуска, в тот же релиз (сами не обновляются — новую версию скачивают с сайта)
+  other:
+    needs: [check, release]
+    if: always() && needs.check.outputs.go == '1' && (needs.release.result == 'success' || needs.check.outputs.only_other == '1')
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-22.04, script: build_linux.sh }
+          - { os: macos-14, script: build_macos.sh }          # Apple M
+          - { os: macos-15-intel, script: build_macos.sh }    # Intel
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: sethosint/tolk
+          token: ${{ secrets.RELEASES_TOKEN }}
+          ref: main
+          fetch-depth: 200
+      - name: Коммит «Выпуск ${{ needs.check.outputs.version }}»
+        run: |
+          sha=$(git log --format=%H --grep="^Выпуск ${{ needs.check.outputs.version }}$" -n 1)
+          test -n "$sha" || { echo "нет коммита «Выпуск ${{ needs.check.outputs.version }}»"; exit 1; }
+          git checkout -q "$sha"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 \
+            libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 libegl1 \
+            libfontconfig1 libdbus-1-3 pulseaudio-utils
+      - run: PYTHON=python bash tools/${{ matrix.script }}
+      - name: В релиз v${{ needs.check.outputs.version }}
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: gh release upload "v${{ needs.check.outputs.version }}" dist/Tolk-* -R sethosint/tolk-releases --clobber
