@@ -25,6 +25,7 @@
       new_1: "Понимайте пары", new_2: "с\u00a0первого дня.",
       new_sub: "Субтитры с переводом поверх любого окна, а после пары — конспект и подготовка к экзаменам. 30 минут Plus бесплатно, дальше — от {p} в неделю.",
       cta_buy: "Выбрать подписку", cta_renew: "Продлить подписку",
+      s_study: "Учёба", s_sub: "Подписка", s_friends: "Друзьям", s_more: "Ещё", t_photos: "Фото в Tolk", t_photos_s: "снимки с телефона — в программу", t_mx: "Мини-экзамен", t_mx_s: "фото задачи → 3 задачи с проверкой", t_mx_done: "уже был · в Pro — к каждой паре", chat_sent: "Готово — смотрите чат с ботом",
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
       t_help: "Как начать", t_help_s: "3 шага и ответы", t_review: "Отзыв", t_review_s: "оценить Tolk", t_review_done: "ваша оценка: {n} из 5",
@@ -140,6 +141,7 @@
       new_1: "Розумійте пари", new_2: "з\u00a0першого дня.",
       new_sub: "Субтитри з перекладом поверх будь-якого вікна, а після пари — конспект і підготовка до іспитів. 30 хвилин Plus безкоштовно, далі — від {p} на тиждень.",
       cta_buy: "Обрати підписку", cta_renew: "Продовжити підписку",
+      s_study: "Навчання", s_sub: "Підписка", s_friends: "Друзям", s_more: "Ще", t_photos: "Фото в Tolk", t_photos_s: "знімки з телефона — у програму", t_mx: "Міні-іспит", t_mx_s: "фото задачі → 3 задачі з перевіркою", t_mx_done: "уже був · у Pro — до кожної пари", chat_sent: "Готово — дивіться чат із ботом",
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
       t_help: "Як почати", t_help_s: "3 кроки й відповіді", t_review: "Відгук", t_review_s: "оцінити Tolk", t_review_done: "ваша оцінка: {n} з 5",
@@ -255,6 +257,7 @@
       new_1: "Rozumejte prednáškam", new_2: "od prvého dňa.",
       new_sub: "Titulky s prekladom nad akýmkoľvek oknom a po prednáške poznámky a príprava na skúšky. 30 minút Plus zadarmo, potom od {p} týždenne.",
       cta_buy: "Vybrať predplatné", cta_renew: "Predĺžiť predplatné",
+      s_study: "Štúdium", s_sub: "Predplatné", s_friends: "Pre kamarátov", s_more: "Ďalšie", t_photos: "Fotky do Tolku", t_photos_s: "snímky z mobilu — do programu", t_mx: "Mini skúška", t_mx_s: "fotka úlohy → 3 úlohy s kontrolou", t_mx_done: "už bola · v Pro — ku každej prednáške", chat_sent: "Hotovo — pozrite si chat s botom",
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
       t_help: "Ako začať", t_help_s: "3 kroky a odpovede", t_review: "Recenzia", t_review_s: "ohodnotiť Tolk", t_review_done: "vaše hodnotenie: {n} z 5",
@@ -370,6 +373,7 @@
       new_1: "Understand lectures", new_2: "from day one.",
       new_sub: "Translated subtitles on top of any window, and after class — notes and exam prep. 30 minutes of Plus free, then from {p} a week.",
       cta_buy: "Choose a subscription", cta_renew: "Renew subscription",
+      s_study: "Study", s_sub: "Subscription", s_friends: "For friends", s_more: "More", t_photos: "Photos to Tolk", t_photos_s: "phone snaps — into the app", t_mx: "Mini exam", t_mx_s: "photo of a problem → 3 checked tasks", t_mx_done: "done · in Pro — for every class", chat_sent: "Done — check the chat with the bot",
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
       t_help: "Getting started", t_help_s: "3 steps and answers", t_review: "Review", t_review_s: "rate Tolk", t_review_done: "your rating: {n} of 5",
@@ -485,6 +489,7 @@
       new_1: "Rozumiej wykłady", new_2: "od pierwszego dnia.",
       new_sub: "Napisy z tłumaczeniem nad każdym oknem, a po zajęciach notatki i nauka do egzaminów. 30 minut Plus za darmo, potem od {p} tygodniowo.",
       cta_buy: "Wybierz subskrypcję", cta_renew: "Przedłuż subskrypcję",
+      s_study: "Nauka", s_sub: "Subskrypcja", s_friends: "Dla znajomych", s_more: "Więcej", t_photos: "Zdjęcia do Tolk", t_photos_s: "zdjęcia z telefonu — do programu", t_mx: "Mini-egzamin", t_mx_s: "zdjęcie zadania → 3 zadania ze sprawdzeniem", t_mx_done: "już był · w Pro — do każdych zajęć", chat_sent: "Gotowe — zajrzyj do czatu z botem",
       t_hours: "Godziny Tolk AI", t_hours_s: "dokup do klucza", t_keys: "Moje klucze", t_keys_s: "daty i kody",
       t_gift: "Podaruj Tolk", t_gift_s: "kartka z kodem", t_invite: "Zaproś znajomego", t_invite_s: "+{h} godz. dla ciebie, +{f} godz. dla znajomego",
       t_help: "Jak zacząć", t_help_s: "3 kroki i odpowiedzi", t_review: "Opinia", t_review_s: "oceń Tolk", t_review_done: "twoja ocena: {n} z 5",
@@ -600,6 +605,7 @@
       new_1: "Rozumějte přednáškám", new_2: "od prvního dne.",
       new_sub: "Titulky s překladem nad jakýmkoli oknem a po přednášce poznámky a příprava na zkoušky. 30 minut Plus zdarma, pak od {p} týdně.",
       cta_buy: "Vybrat předplatné", cta_renew: "Prodloužit předplatné",
+      s_study: "Studium", s_sub: "Předplatné", s_friends: "Pro kamarády", s_more: "Další", t_photos: "Fotky do Tolku", t_photos_s: "snímky z mobilu — do programu", t_mx: "Mini zkouška", t_mx_s: "fotka úlohy → 3 úlohy s kontrolou", t_mx_done: "už byla · v Pro — ke každé přednášce", chat_sent: "Hotovo — podívejte se do chatu s botem",
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokoupit ke klíči", t_keys: "Moje klíče", t_keys_s: "platnost a kódy",
       t_gift: "Darovat Tolk", t_gift_s: "přání s kódem", t_invite: "Pozvat kamaráda", t_invite_s: "+{h} h vám, +{f} h kamarádovi",
       t_help: "Jak začít", t_help_s: "3 kroky a odpovědi", t_review: "Recenze", t_review_s: "ohodnotit Tolk", t_review_done: "vaše hodnocení: {n} z 5",
@@ -715,6 +721,7 @@
       new_1: "Versteh Vorlesungen", new_2: "vom ersten Tag an.",
       new_sub: "Übersetzte Untertitel über jedem Fenster, nach der Vorlesung Mitschrift und Prüfungsvorbereitung. 30 Minuten Plus gratis, danach ab {p} pro Woche.",
       cta_buy: "Abo wählen", cta_renew: "Abo verlängern",
+      s_study: "Lernen", s_sub: "Abo", s_friends: "Für Freunde", s_more: "Mehr", t_photos: "Fotos an Tolk", t_photos_s: "Handyfotos — ins Programm", t_mx: "Mini-Prüfung", t_mx_s: "Foto einer Aufgabe → 3 Aufgaben mit Prüfung", t_mx_done: "schon gemacht · in Pro — zu jeder Vorlesung", chat_sent: "Fertig — schau in den Chat mit dem Bot",
       t_hours: "Tolk-AI-Stunden", t_hours_s: "für deinen Schlüssel aufladen", t_keys: "Meine Schlüssel", t_keys_s: "Laufzeit und Codes",
       t_gift: "Tolk verschenken", t_gift_s: "Geschenkkarte mit Code", t_invite: "Freunde einladen", t_invite_s: "+{h} Std. für dich, +{f} Std. für sie",
       t_help: "So fängst du an", t_help_s: "3 Schritte und Antworten", t_review: "Bewertung", t_review_s: "Tolk bewerten", t_review_done: "deine Bewertung: {n} von 5",
@@ -859,6 +866,9 @@
     upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
     shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
     renew: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+    camera: '<path d="M4 7.5h3l1.6-2.5h6.8L17 7.5h3a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8.5a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.2" r="3.8"/>',
+    flask: '<path d="M9.5 3h5M10 3v6.2L4.6 18.4A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.4-2.6L14 9.2V3"/><path d="M7.2 15h9.6"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>',
   };
   const icon = (n, fill = false) => `<svg viewBox="0 0 24 24" fill="${fill ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.7" ` +
     `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -1063,6 +1073,15 @@
     share(r.link, r.share_text);
   }
 
+  // «Фото в Tolk» и «Мини-экзамен» работают в чате: сервер включает режим и пишет туда, приложение закрывается
+  async function chatDo(what) {
+    const r = await api("chat", { what });
+    if (r.error) { haptic("error"); toast(errText(r)); return; }
+    haptic("success");
+    toast(t("chat_sent"));
+    setTimeout(() => { try { tg.close(); } catch (e) { /* в браузере закрывать нечего */ } }, 700);
+  }
+
   // ------------------------------------------------------------------------------------------- экраны покупателя
   const VIEWS = {};
 
@@ -1097,24 +1116,34 @@
         h("span.tx", null, o.state === "claimed" ? t("o_check") : t("o_wait"), h("small", { text: `${o.title}${o.qty > 1 ? " × " + o.qty : ""} · ${money(o.price, o.currency)}` })),
         h("span.chev", { html: icon("chev") })));
     }
-    const tiles = [];
-    if (k && k.usage) tiles.push(tile("clock", t("t_hours"), t("t_hours_s"), () => go("hours", { serial: k.serial })));
-    if (k && k.pro && k.usage && (S.shop.notes || []).length) tiles.push(tile("notes", t("t_notes"), t("t_notes_s"), () => go("notes", { serial: k.serial })));
-    if (S.trial && S.trial.can) tiles.push(tile("clock", t("t_trial"), t("t_trial_s"), () => go("trial"), true));
-    if (!k && S.free && !S.free.have) tiles.push(tile("clock", t("t_free"), t("t_free_s", { m: S.free.minutes }), () => go("free")));
-    tiles.push(tile("key", t("t_keys"), t("t_keys_s"), () => go("keys")));
-    tiles.push(tile("gift", t("t_gift"), t("t_gift_s"), () => go("plans", { gift: true })));
-    if (S.ref && S.ref.on) tiles.push(tile("users", t("t_invite"), t("t_invite_s", { h: num(S.ref.hours), f: num(S.ref.friend) }), () => go("invite")));
-    tiles.push(tile("help", t("t_help"), t("t_help_s"), () => go("help")));
-    tiles.push(tile("star", t("t_review"), S.review ? t("t_review_done", { n: S.review.n }) : t("t_review_s"), () => go("review")));
-    tiles.push(tile("tag", t("t_promo"), t("t_promo_s"), () => { promoOpen = true; go("plans", k && k.renewable ? { serial: k.serial } : {}); }));
-    if (tiles.filter((x) => !x.classList.contains("wide")).length % 2) tiles[tiles.length - 1].classList.add("wide");
-    bits.push(h("div.tiles", null, tiles));
+    // разделы: 01 учёба (то, ради чего Tolk), 02 подписка, 03 друзьям, дальше — ссылки; в каждом нечётная последняя плитка — во всю ширину
+    const group = (n, title, tiles, cls = "") => {
+      if (!tiles.length) return null;
+      if (tiles.filter((x) => !x.classList.contains("wide")).length % 2) tiles[tiles.length - 1].classList.add("wide");
+      return h("div.sec.grp" + cls, null, h("p.sec-t", null, n ? h("i", { text: n }) : null, title), h("div.tiles", null, tiles));
+    };
+    const study = [];
+    if (S.study) {
+      study.push(tile("camera", t("t_photos"), t("t_photos_s"), () => chatDo("photos")));
+      if (S.study.exam) study.push(tile("flask", t("t_mx"), S.study.exam.done ? t("t_mx_done") : t("t_mx_s"), () => chatDo("exam")));
+    }
+    if (k && k.pro && k.usage && (S.shop.notes || []).length) study.push(tile("notes", t("t_notes"), t("t_notes_s"), () => go("notes", { serial: k.serial })));
+    const sub = [];
+    if (S.trial && S.trial.can) sub.push(tile("spark", t("t_trial"), t("t_trial_s"), () => go("trial"), true));
+    if (!k && S.free && !S.free.have) sub.push(tile("clock", t("t_free"), t("t_free_s", { m: S.free.minutes }), () => go("free")));
+    if (k && k.usage) sub.push(tile("clock", t("t_hours"), t("t_hours_s"), () => go("hours", { serial: k.serial })));
+    sub.push(tile("key", t("t_keys"), t("t_keys_s"), () => go("keys")));
+    sub.push(tile("tag", t("t_promo"), t("t_promo_s"), () => { promoOpen = true; go("plans", k && k.renewable ? { serial: k.serial } : {}); }));
+    const fr = [tile("gift", t("t_gift"), t("t_gift_s"), () => go("plans", { gift: true }))];
+    if (S.ref && S.ref.on) fr.push(tile("users", t("t_invite"), t("t_invite_s", { h: num(S.ref.hours), f: num(S.ref.friend) }), () => go("invite")));
+    fr.push(tile("star", t("t_review"), S.review ? t("t_review_done", { n: S.review.n }) : t("t_review_s"), () => go("review")));
+    bits.push(group("01", t("s_study"), study, ".study"), group(study.length ? "02" : "01", t("s_sub"), sub), group(study.length ? "03" : "02", t("s_friends"), fr));
     const links = [li("download", t("l_download"), t("l_download_s"), () => openLink(S.links.site))];
     if (S.links.channel) links.push(li("horn", t("l_channel"), t("l_channel_s"), () => openTg(S.links.channel)));
+    links.push(li("help", t("t_help"), t("t_help_s"), () => go("help")));
     links.push(li("send", t("l_support"), t("l_support_s"), () => openTg(S.links.support)));
     links.push(li("globe", t("l_lang"), (LANGS.find(([c]) => c === L) || [])[1], () => go("lang")));
-    bits.push(h("div.sec", null, h("div.list", null, links)), h("p.foot", { text: "Tolk · @TolkShopBot" }));
+    bits.push(h("div.sec.grp", null, h("p.sec-t", { text: t("s_more") }), h("div.list", null, links)), h("p.foot", { text: "Tolk · @TolkShopBot" }));
     const main = o ? null : k && k.renewable ? { text: t("cta_renew"), fn: () => go("plans", { serial: k.serial }) }
       : ready ? { text: t("download"), fn: () => openLink(S.links.site) }
       : !k && S.trial && S.trial.can ? { text: t("t_trial"), fn: () => go("trial") }    // новичок: сначала попробовать, потом покупать

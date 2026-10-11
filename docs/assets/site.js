@@ -93,6 +93,7 @@
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
     $$(".js-trial").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=trial`; a.target = "_blank"; a.rel = "noopener"; });
     $$(".js-free").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=free`; a.target = "_blank"; a.rel = "noopener"; });
+    $$(".js-mx").forEach((a) => { a.href = `https://t.me/${BOT}?start=exam`; a.target = "_blank"; a.rel = "noopener"; });
   }
   $$(".langs button").forEach((b) => b.addEventListener("click", () => {
     try { localStorage.setItem("tolk-lang", b.dataset.lang); } catch (e) { /* без хранилища */ }

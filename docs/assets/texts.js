@@ -143,7 +143,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Есть бесплатная версия?",
-    "Да — Tolk Free, бесплатно и без срока: 30 минут перевода каждый день. Переводит Google, речь распознаётся на компьютере. Нейросеть Tolk AI, запись лекций и подготовка к экзамену — в Plus и Pro. А чтобы попробовать Plus целиком, в боте есть 30 бесплатных минут — один раз."
+    "Да — Tolk Free, бесплатно и без срока: 1,5 часа перевода каждый день — целая пара. Переводит Google, речь распознаётся на компьютере. Нейросеть Tolk AI, запись лекций и подготовка к экзамену — в Plus и Pro. А чтобы попробовать Plus целиком, в боте есть 30 бесплатных минут — один раз."
    ],
    [
     "Как Tolk помогает готовиться к экзаменам?",
@@ -264,7 +264,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Завантажити для {os}",
   "cta_buy": "Купити в Telegram",
   "cta_trial": "30 хвилин безкоштовно в Telegram",
-  "fine": "30 хвилин Plus безкоштовно, далі — Free назавжди: 30 хвилин на день",
+  "fine": "30 хвилин Plus безкоштовно, далі — Free назавжди: 1,5 години на день",
   "c1_h": "Оберіть, <em>що перекладати.</em>",
   "c1_p": "Вкладку з парою, Teams, Zoom або весь звук комп'ютера. Музики й сповіщень з інших програм Tolk не чує.",
   "c1_a": "Джерело",
@@ -368,7 +368,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Є безкоштовна версія?",
-    "Так — Tolk Free, безкоштовно й без терміну: 30 хвилин перекладу щодня. Перекладає Google, мова розпізнається на комп'ютері. Нейромережа Tolk AI, запис лекцій і підготовка до іспиту — у Plus і Pro. А щоб спробувати Plus повністю, у боті є 30 безкоштовних хвилин — один раз."
+    "Так — Tolk Free, безкоштовно й без терміну: 1,5 години перекладу щодня — ціла пара. Перекладає Google, мова розпізнається на комп'ютері. Нейромережа Tolk AI, запис лекцій і підготовка до іспиту — у Plus і Pro. А щоб спробувати Plus повністю, у боті є 30 безкоштовних хвилин — один раз."
    ],
    [
     "Як Tolk допомагає готуватися до іспитів?",
@@ -424,7 +424,7 @@ window.TOLK_TEXTS = {
   "sale_left": "залишилось",
   "pro_lede": "Усе, що в Plus, і навчання: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. А до сесії — картки, задачі з розв'язанням методом із пар і пробний іспит. До 45 конспектів на місяць.",
   "fb_ey": "Free · 0 € · назавжди",
-  "fb_t": "30 хвилин перекладу щодня — безкоштовно.",
+  "fb_t": "1,5 години перекладу щодня — безкоштовно. Ціла пара.",
   "fb_s": "Лише переклад: Google і розпізнавання на комп'ютері. Нейромережа Tolk AI, запис лекцій і підготовка до іспиту — у Plus і Pro.",
   "fb_go": "Взяти Free у боті",
   "nl4": "Міні-іспит",
@@ -496,7 +496,8 @@ window.TOLK_TEXTS = {
      "h": "При паралельному з'єднанні напруга на обох резисторах однакова."
     }
    ]
-  }
+  },
+  "ex_bot": "Своя задача — сфотографуйте її в боті"
  },
  "sk": {
   "dl_other": "Iné systémy:",
@@ -512,7 +513,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Stiahnuť pre {os}",
   "cta_buy": "Kúpiť v Telegrame",
   "cta_trial": "30 minút zadarmo v Telegrame",
-  "fine": "30 minút Plus zadarmo, potom Free navždy: 30 minút denne",
+  "fine": "30 minút Plus zadarmo, potom Free navždy: 1,5 hodiny denne",
   "c1_h": "Vyberte, <em>čo prekladať.</em>",
   "c1_p": "Kartu s prednáškou, Teams, Zoom alebo celý zvuk počítača. Hudbu a notifikácie z iných programov Tolk nepočuje.",
   "c1_a": "Zdroj",
@@ -616,7 +617,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Existuje bezplatná verzia?",
-    "Áno — Tolk Free, zadarmo a bez obmedzenia: 30 minút prekladu každý deň. Prekladá Google, reč sa rozpoznáva v počítači. Neurónová sieť Tolk AI, nahrávanie prednášok a príprava na skúšku sú v Plus a Pro. A ak si chcete vyskúšať celý Plus, v bote je 30 minút zadarmo — raz."
+    "Áno — Tolk Free, zadarmo a bez obmedzenia: 1,5 hodiny prekladu každý deň — celá prednáška. Prekladá Google, reč sa rozpoznáva v počítači. Neurónová sieť Tolk AI, nahrávanie prednášok a príprava na skúšku sú v Plus a Pro. A ak si chcete vyskúšať celý Plus, v bote je 30 minút zadarmo — raz."
    ],
    [
     "Ako Tolk pomáha s prípravou na skúšky?",
@@ -672,7 +673,7 @@ window.TOLK_TEXTS = {
   "sale_left": "zostáva",
   "pro_lede": "Všetko z Plus a k tomu štúdium: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. A na skúškové — kartičky, úlohy s riešením metódou z prednášok a skúšobná skúška. Až 45 poznámok mesačne.",
   "fb_ey": "Free · 0 € · navždy",
-  "fb_t": "30 minút prekladu každý deň — zadarmo.",
+  "fb_t": "1,5 hodiny prekladu každý deň — zadarmo. Celá prednáška.",
   "fb_s": "Len preklad: Google a rozpoznávanie v počítači. Neurónová sieť Tolk AI, nahrávanie prednášok a príprava na skúšku — v Plus a Pro.",
   "fb_go": "Získať Free v bote",
   "nl4": "Mini skúška",
@@ -727,7 +728,8 @@ window.TOLK_TEXTS = {
    "go": "Pozrieť Tolk Pro",
    "again": "Znova",
    "note": "Príklad: úlohy k ukážkovým poznámkam vyššie. V Tolk odpoveď kontroluje aj Tolk AI."
-  }
+  },
+  "ex_bot": "Vlastná úloha — odfoťte ju v bote"
  },
  "en": {
   "dl_other": "Other systems:",
@@ -743,7 +745,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Download for {os}",
   "cta_buy": "Buy in Telegram",
   "cta_trial": "30 minutes free in Telegram",
-  "fine": "30 minutes of Plus free, then Free forever: 30 minutes a day",
+  "fine": "30 minutes of Plus free, then Free forever: 1.5 hours a day",
   "c1_h": "Choose <em>what to translate.</em>",
   "c1_p": "A browser tab with your lecture, Teams, Zoom or all of your computer's sound. Tolk doesn't hear music or notifications from other apps.",
   "c1_a": "Source",
@@ -847,7 +849,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Is there a free version?",
-    "Yes — Tolk Free, free with no end date: 30 minutes of translation every day. Google translates and speech is recognized on your computer. Tolk AI, lecture recording and exam prep are in Plus and Pro. To try all of Plus, the bot also gives 30 free minutes — once."
+    "Yes — Tolk Free, free with no end date: 1.5 hours of translation every day — a whole lecture. Google translates and speech is recognized on your computer. Tolk AI, lecture recording and exam prep are in Plus and Pro. To try all of Plus, the bot also gives 30 free minutes — once."
    ],
    [
     "How does Tolk help with exams?",
@@ -903,7 +905,7 @@ window.TOLK_TEXTS = {
   "sale_left": "left",
   "pro_lede": "Everything in Plus, plus studying: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. And for exams: flashcards, problems solved the way your lecturer does it, and a mock exam. Up to 45 notes a month.",
   "fb_ey": "Free · €0 · forever",
-  "fb_t": "30 minutes of translation every day — free.",
+  "fb_t": "1.5 hours of translation every day — free. A whole lecture.",
   "fb_s": "Translation only: Google and on-device speech recognition. Tolk AI, lecture recording and exam prep are in Plus and Pro.",
   "fb_go": "Get Free in the bot",
   "nl4": "Mini exam",
@@ -975,7 +977,8 @@ window.TOLK_TEXTS = {
      "h": "In parallel, both resistors have the same voltage across them."
     }
    ]
-  }
+  },
+  "ex_bot": "Your own problem — snap it in the bot"
  },
  "pl": {
   "dl_other": "Inne systemy:",
@@ -991,7 +994,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Pobierz na {os}",
   "cta_buy": "Kup w Telegramie",
   "cta_trial": "30 minut za darmo w Telegramie",
-  "fine": "30 minut Plus za darmo, potem Free na zawsze: 30 minut dziennie",
+  "fine": "30 minut Plus za darmo, potem Free na zawsze: 1,5 godziny dziennie",
   "c1_h": "Wybierz, <em>co tłumaczyć.</em>",
   "c1_p": "Kartę przeglądarki z wykładem, Teams, Zoom albo cały dźwięk komputera. Tolk nie słyszy muzyki ani powiadomień z innych aplikacji.",
   "c1_a": "Źródło",
@@ -1095,7 +1098,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Jest darmowa wersja?",
-    "Tak — Tolk Free, za darmo i bez terminu: 30 minut tłumaczenia każdego dnia. Tłumaczy Google, a mowa jest rozpoznawana na komputerze. Sieć neuronowa Tolk AI, nagrywanie wykładów i przygotowanie do egzaminu są w Plus i Pro. A żeby wypróbować cały Plus, w bocie jest 30 darmowych minut — jeden raz."
+    "Tak — Tolk Free, za darmo i bez terminu: 1,5 godziny tłumaczenia każdego dnia — całe zajęcia. Tłumaczy Google, a mowa jest rozpoznawana na komputerze. Sieć neuronowa Tolk AI, nagrywanie wykładów i przygotowanie do egzaminu są w Plus i Pro. A żeby wypróbować cały Plus, w bocie jest 30 darmowych minut — jeden raz."
    ],
    [
     "Jak Tolk pomaga w nauce do egzaminów?",
@@ -1151,7 +1154,7 @@ window.TOLK_TEXTS = {
   "sale_left": "zostało",
   "pro_lede": "Wszystko, co w Plus, i do tego nauka: Tolk nagrywa zajęcia, zapisuje slajdy z ekranu, znajduje prezentację na stronie katedry i pisze notatki — tematy, definicje, wzory, terminy. A na sesję — fiszki, zadania rozwiązane metodą z zajęć i egzamin próbny. Do 45 notatek miesięcznie.",
   "fb_ey": "Free · 0 € · na zawsze",
-  "fb_t": "30 minut tłumaczenia każdego dnia — za darmo.",
+  "fb_t": "1,5 godziny tłumaczenia każdego dnia — za darmo. Całe zajęcia.",
   "fb_s": "Tylko tłumaczenie: Google i rozpoznawanie mowy na komputerze. Sieć neuronowa Tolk AI, nagrywanie wykładów i przygotowanie do egzaminu — w Plus i Pro.",
   "fb_go": "Odbierz Free w bocie",
   "nl4": "Mini-egzamin",
@@ -1223,7 +1226,8 @@ window.TOLK_TEXTS = {
      "h": "Przy połączeniu równoległym na obu rezystorach jest to samo napięcie."
     }
    ]
-  }
+  },
+  "ex_bot": "Własne zadanie — zrób mu zdjęcie w bocie"
  },
  "cs": {
   "dl_other": "Jiné systémy:",
@@ -1239,7 +1243,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Stáhnout pro {os}",
   "cta_buy": "Koupit v Telegramu",
   "cta_trial": "30 minut zdarma v Telegramu",
-  "fine": "30 minut Plus zdarma, potom Free navždy: 30 minut denně",
+  "fine": "30 minut Plus zdarma, potom Free navždy: 1,5 hodiny denně",
   "c1_h": "Vyberte, <em>co překládat.</em>",
   "c1_p": "Kartu prohlížeče s přednáškou, Teams, Zoom nebo celý zvuk počítače. Tolk neslyší hudbu ani oznámení z jiných aplikací.",
   "c1_a": "Zdroj",
@@ -1343,7 +1347,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Je k dispozici bezplatná verze?",
-    "Ano — Tolk Free, zdarma a bez omezení: 30 minut překladu každý den. Překládá Google a řeč se rozpoznává v počítači. Neuronová síť Tolk AI, nahrávání přednášek a příprava na zkoušku jsou v Plus a Pro. A pokud si chcete vyzkoušet celý Plus, v botovi je 30 minut zdarma — jednou."
+    "Ano — Tolk Free, zdarma a bez omezení: 1,5 hodiny překladu každý den — celá přednáška. Překládá Google a řeč se rozpoznává v počítači. Neuronová síť Tolk AI, nahrávání přednášek a příprava na zkoušku jsou v Plus a Pro. A pokud si chcete vyzkoušet celý Plus, v botovi je 30 minut zdarma — jednou."
    ],
    [
     "Jak Tolk pomáhá s přípravou na zkoušky?",
@@ -1399,7 +1403,7 @@ window.TOLK_TEXTS = {
   "sale_left": "zbývá",
   "pro_lede": "Vše z Plus a k tomu studium: Tolk nahraje výuku, uloží slajdy z obrazovky, najde prezentaci na webu katedry a napíše poznámky — témata, definice, vzorce, termíny. A na zkouškové — kartičky, úlohy řešené metodou z přednášek a zkušební zkouška. Až 45 poznámek měsíčně.",
   "fb_ey": "Free · 0 € · navždy",
-  "fb_t": "30 minut překladu každý den — zdarma.",
+  "fb_t": "1,5 hodiny překladu každý den — zdarma. Celá přednáška.",
   "fb_s": "Jen překlad: Google a rozpoznávání v počítači. Neuronová síť Tolk AI, nahrávání přednášek a příprava na zkoušku — v Plus a Pro.",
   "fb_go": "Získat Free v botovi",
   "nl4": "Mini zkouška",
@@ -1471,7 +1475,8 @@ window.TOLK_TEXTS = {
      "h": "Při paralelním zapojení je na obou rezistorech stejné napětí."
     }
    ]
-  }
+  },
+  "ex_bot": "Vlastní úloha — vyfoťte ji v botovi"
  },
  "de": {
   "dl_other": "Andere Systeme:",
@@ -1487,7 +1492,7 @@ window.TOLK_TEXTS = {
   "cta_dl": "Für {os} herunterladen",
   "cta_buy": "In Telegram kaufen",
   "cta_trial": "30 Minuten gratis in Telegram",
-  "fine": "30 Minuten Plus gratis, danach Free für immer: 30 Minuten am Tag",
+  "fine": "30 Minuten Plus gratis, danach Free für immer: 1,5 Stunden am Tag",
   "c1_h": "Wähle, <em>was übersetzt wird.</em>",
   "c1_p": "Einen Browser-Tab mit der Vorlesung, Teams, Zoom oder den ganzen Ton deines Computers. Musik und Benachrichtigungen anderer Apps hört Tolk nicht.",
   "c1_a": "Quelle",
@@ -1591,7 +1596,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Gibt es eine Gratisversion?",
-    "Ja — Tolk Free, gratis und ohne Ablaufdatum: 30 Minuten Übersetzung jeden Tag. Google übersetzt, die Sprache wird auf deinem Computer erkannt. Tolk AI, Vorlesungsaufnahme und Prüfungsvorbereitung gibt es in Plus und Pro. Und um Plus komplett auszuprobieren, gibt dir der Bot einmalig 30 Gratis-Minuten."
+    "Ja — Tolk Free, gratis und ohne Ablaufdatum: 1,5 Stunden Übersetzung jeden Tag — eine ganze Vorlesung. Google übersetzt, die Sprache wird auf deinem Computer erkannt. Tolk AI, Vorlesungsaufnahme und Prüfungsvorbereitung gibt es in Plus und Pro. Und um Plus komplett auszuprobieren, gibt dir der Bot einmalig 30 Gratis-Minuten."
    ],
    [
     "Wie hilft Tolk bei der Prüfungsvorbereitung?",
@@ -1647,7 +1652,7 @@ window.TOLK_TEXTS = {
   "sale_left": "noch",
   "pro_lede": "Alles aus Plus und dazu Lernen: Tolk nimmt die Vorlesung auf, speichert die Folien vom Bildschirm, findet die Präsentation auf der Seite des Lehrstuhls und schreibt die Mitschrift — Themen, Definitionen, Formeln, Termine. Und für die Prüfungen: Karteikarten, Aufgaben mit dem Lösungsweg aus der Vorlesung und eine Probeprüfung. Bis zu 45 Mitschriften im Monat.",
   "fb_ey": "Free · 0 € · für immer",
-  "fb_t": "30 Minuten Übersetzung jeden Tag — gratis.",
+  "fb_t": "1,5 Stunden Übersetzung jeden Tag — gratis. Eine ganze Vorlesung.",
   "fb_s": "Nur Übersetzung: Google und Spracherkennung auf dem Computer. Tolk AI, Vorlesungsaufnahme und Prüfungsvorbereitung gibt es in Plus und Pro.",
   "fb_go": "Free im Bot holen",
   "nl4": "Mini-Prüfung",
@@ -1719,6 +1724,7 @@ window.TOLK_TEXTS = {
      "h": "Parallel liegt an beiden Widerständen dieselbe Spannung."
     }
    ]
-  }
+  },
+  "ex_bot": "Deine eigene Aufgabe — fotografier sie im Bot"
  }
 };

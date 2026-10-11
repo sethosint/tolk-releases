@@ -522,6 +522,7 @@ main { position: relative; z-index: 1; }
 .exam .end .score { color: var(--ink); }
 .exam .end .row { margin-top: .4rem; gap: 1.2rem; }
 .exam-wrap .note { margin-top: .8rem; }
+.exam-wrap .js-mx { margin-top: .4rem; }
 
 /* ---------------------------------------------------------------- живость: подсветка под курсором, слова заголовков, ореол */
 .spot { --mx: 50%; --my: 50%; }

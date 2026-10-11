@@ -85,6 +85,16 @@ img { display: block; max-width: 100%; }
 .tile.wide > div { display: flex; flex-direction: column; gap: 2px; }
 .tile.wide span { margin-top: 0; }
 
+/* разделы главной: 01 Учёба · 02 Подписка · 03 Друзьям · Ещё */
+.sec.grp { margin-top: 24px; }
+.sec.grp .tiles { margin-top: 0; }
+.sec.grp .sec-t { display: flex; align-items: center; gap: 8px; }
+.sec.grp .sec-t::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.sec-t i { font-style: normal; color: var(--gold); }
+.grp.study .tile { border-color: color-mix(in srgb, var(--gold) 34%, var(--line)); background:
+  linear-gradient(160deg, color-mix(in srgb, var(--gold) 9%, var(--card)), var(--card) 70%); }
+.grp.study .tile .ic { background: var(--gold); color: var(--on-accent, #0b0906); }
+
 /* строки списка */
 .list { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
 .li { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: none; border: 0; padding: 13px 15px; }

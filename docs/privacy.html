@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400..700&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=62">
+<link rel="stylesheet" href="assets/site.css?v=63">
 </head>
 <body>
 <div class="dots" aria-hidden="true"></div>
@@ -86,7 +86,8 @@
           рекламу и не загружает код с серверов.</li>
         <li>Разрешения: в Chrome, Edge и других Chromium-браузерах — захват звука вкладки (tabCapture), фоновый документ для
           обработки звука (offscreen) и хранение номера включённой вкладки на время сеанса (storage); в Firefox — доступ
-          к вкладке, на которой вы нажали значок (activeTab, scripting).</li>
+          к вкладке, на которой вы нажали значок (activeTab, scripting). Везде — доступ только к адресу 127.0.0.1 (это сам
+          компьютер): так браузер разрешает передать звук программе Tolk.</li>
       </ul>
 
       <h2>Сайт</h2>
@@ -162,7 +163,8 @@
           and loads no remote code.</li>
         <li>Permissions: in Chrome, Edge and other Chromium browsers — tab audio capture (tabCapture), an offscreen document to
           process the audio (offscreen) and remembering the active tab for the session (storage); in Firefox — access to the tab
-          where you clicked the icon (activeTab, scripting).</li>
+          where you clicked the icon (activeTab, scripting). In both — access only to 127.0.0.1 (the computer itself), which the
+          browser requires to pass the sound to the Tolk app.</li>
       </ul>
 
       <h2>Website</h2>
