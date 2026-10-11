@@ -1,11 +1,12 @@
-// Tolk — сайт: тема (система / вручную), язык, окно Tolk «в разборе» (настоящие снимки слоями: субтитры, окно, конспект) —
-// при прокрутке собирается в одно окно, пунктирные выноски считаются по углам слоёв; живые цены из магазина, «Купить» → бот,
-// настоящие фразы Google / Tolk AI по очереди, настоящие субтитры Tolk, которые можно тянуть по «экрану», вопросы.
-// Без библиотек: прокрутка обычная, появление — IntersectionObserver. Без скрипта всё видно и работает.
+// Tolk — сайт: тема (система / вручную), язык, 3D-окно Tolk «в разборе» (настоящие снимки слоями: субтитры, окно, конспект;
+// светлая тема — снимки светлой программы) — крутится мышью и пальцем, собирается кнопкой, слой подсвечивается по выноске;
+// пунктирные выноски считаются по углам слоёв. Песочница субтитров (стили, размер, слов в строке, ширина, Google / Tolk AI —
+// настоящие фразы), мини-экзамен (3 задачи к конспекту-примеру, проверка как study.local_check), живые цены из магазина, вопросы.
+// Без библиотек; появление — IntersectionObserver. Без скрипта всё видно и работает.
 (function () {
   "use strict";
   const T = window.TOLK_TEXTS, CMP = window.TOLK_COMPARE || {};
-  const LANGS = ["ru", "uk", "sk", "en", "pl", "cs", "de"];
+  const LANGS = ["ru", "uk", "en", "pl", "de", "cs", "sk"];
   const SHOT_LANGS = ["ru", "uk", "sk", "en"];           // субтитры и конспект-пример; для pl/cs/de — английские (окно — на всех, data-all)
   const BOT = "TolkShopBot";
   const SHOP = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8787"
@@ -13,7 +14,8 @@
   const root = document.documentElement;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  // «Меньше движения» в системе (в Windows — «Эффекты анимации» выключены): анимация остаётся, без инерционной прокрутки
+  // «Меньше движения» в системе (в Windows — «Эффекты анимации» выключены, так у многих ПК): анимация остаётся — появление,
+  // 3D-окно мышью, слова заголовков; выключается только то, что движется само (парение окна, само «разбирается» при загрузке)
   const gentle = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg>';
 
@@ -31,17 +33,39 @@
     root.dataset.theme = next;
     try { localStorage.setItem("tolk-theme", next); } catch (e) { /* без хранилища */ }
     paintMeta();
+    paintShots();
     setTimeout(() => root.classList.remove("theming"), 700);
   });
   paintMeta();
+  // снимки программы — в теме сайта: светлый сайт → светлая программа и светлые субтитры, тёмный → тёмная и «Графит»
+  function shotSrc(im, th) {
+    return im.dataset.src.replace("{lang}", im.dataset.all ? lang : shotLang).replace("{theme}", th)
+      .replace("{sub}", th === "dark" ? "graphite" : "light");
+  }
+  function paintShots() {
+    const th = isDark() ? "dark" : "light";
+    $$(".js-shot").forEach((im) => { const src = shotSrc(im, th); if (im.getAttribute("src") !== src) im.src = src; });
+  }
+  function preloadOther() {
+    const th = isDark() ? "light" : "dark";
+    $$(".js-shot").forEach((im) => { const x = new Image(); x.src = shotSrc(im, th); });
+  }
+  sysDark.addEventListener("change", () => { if (!root.dataset.theme) paintShots(); });
 
   // --- язык ---------------------------------------------------------------------------------------
   function pickLang() {
     const q = new URLSearchParams(location.search).get("lang");
     if (LANGS.includes(q)) return q;
     try { const s = localStorage.getItem("tolk-lang"); if (LANGS.includes(s)) return s; } catch (e) { /* без хранилища */ }
-    const n = (navigator.language || "ru").slice(0, 2).toLowerCase();
-    return ["uk", "sk", "pl", "cs", "de"].includes(n) ? n : ["ru", "be", "kk"].includes(n) ? "ru" : "en";
+    // язык системы, как в программе: весь список языков браузера; свой (первые два) — сразу, из добавленных дальше — только
+    // русский и украинский (у многих Windows и браузер на английском, а русский или украинский добавлен вторым-третьим)
+    const MAP = { ru: "ru", be: "ru", kk: "ru", uk: "uk", pl: "pl", de: "de", cs: "cs", sk: "sk" };   // английский — если ничего из этого
+    const list = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]);
+    for (const [i, x] of list.entries()) {
+      const c = MAP[String(x || "").slice(0, 2).toLowerCase()];
+      if (c && (i <= 1 || c === "ru" || c === "uk")) return c;
+    }
+    return "en";
   }
   const lang = pickLang();
   const shotLang = SHOT_LANGS.includes(lang) ? lang : "en";
@@ -65,9 +89,10 @@
       });
     }
     $$(".langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-    $$(".js-shot").forEach((im) => { im.src = im.dataset.src.replace("{lang}", im.dataset.all ? lang : shotLang); });
+    paintShots();
     $$(".js-buy").forEach((a) => { a.href = `https://t.me/${BOT}`; a.target = "_blank"; a.rel = "noopener"; });
     $$(".js-trial").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=trial`; a.target = "_blank"; a.rel = "noopener"; });
+    $$(".js-free").forEach((a) => { a.href = `https://t.me/${BOT}?startapp=free`; a.target = "_blank"; a.rel = "noopener"; });
   }
   $$(".langs button").forEach((b) => b.addEventListener("click", () => {
     try { localStorage.setItem("tolk-lang", b.dataset.lang); } catch (e) { /* без хранилища */ }
@@ -178,77 +203,144 @@
     requestAnimationFrame(tickCompare);
   }
 
-  // --- 03 «Субтитры»: настоящие кадры Tolk на «экране»; тянутся мышью или пальцем, стили сменяются сами, пока не выбрали --------
+  // --- 03 песочница субтитров: стиль, размер, слов в строке, ширина за края, место — за середину; Google / Tolk AI ------------
+  // Вид — как в Tolk (config.STYLE_PRESETS → классы .live[data-style]), фразы — настоящие ответы (TOLK_COMPARE). Слова проявляются
+  // кусками, как в живых субтитрах; в «Графите» новые слова сначала шампанского цвета (render.ACCENT).
   const STYLES = ["graphite", "glass", "minimal", "classic", "light", "contrast"];
-  const screen = $(".js-screen"), sub = $(".js-sub"), subImg = $(".js-sub img");
-  let styleIdx = 0, styleTouched = false, screenSeen = false;
-  function setStyle(i) {
-    styleIdx = i;
-    $$(".js-styles button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
-    subImg.src = `img/app/${shotLang}/style-${STYLES[i]}.png`;
+  const screen = $(".js-screen"), sub = $(".js-sub"), subTr = $(".js-sub-tr"), subOg = $(".js-sub-og");
+  const SB = { fs: 30, words: 0, eng: "t", row: 0, w: 70, shown: 0, timer: 0, hold: 0 };
+  let screenSeen = false;
+  const esc = (v) => String(v).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+  function lineWords(text, n, upto, hot) {
+    // текст → слова в span.w; n > 0 — перенос после каждого n-го слова (как render.nth_word_end); upto — сколько уже проявилось
+    const words = String(text || "").split(/\s+/).filter(Boolean);
+    return words.map((w, i) => {
+      const cls = i < upto ? (i >= upto - hot ? "w hot" : "w") : "w new";
+      return `<span class="${cls}">${esc(w)}</span>` + (i < words.length - 1 ? (n > 0 && (i + 1) % n === 0 ? "<br>" : " ") : "");
+    }).join("");
   }
-  function renderStyles() {
+  function sbFont() {
+    const w = screen.clientWidth;                 // «экран» 1100 px шириной; на телефоне — крупнее, чтобы читалось
+    sub.style.setProperty("--fs", Math.max(10, SB.fs * w / (w < 560 ? 680 : 1100)).toFixed(1) + "px");
+  }
+  function sbPaint(upto, hot = 0) {
+    const row = ROWS[SB.row % ROWS.length], tr = row[SB.eng === "g" ? 1 : 2], og = row[0];
+    const n = tr.split(/\s+/).filter(Boolean).length;
+    const u = upto == null ? n : upto;
+    subTr.innerHTML = lineWords(tr, SB.words, u, hot);
+    const on = og.split(/\s+/).filter(Boolean).length;
+    subOg.innerHTML = lineWords(og, SB.words, Math.round(on * Math.min(1, u / n)), 0);
+    requestAnimationFrame(() => $$(".w.hot", sub).forEach((x) => x.classList.remove("hot")));
+    return n;
+  }
+  function sbPlay() {
+    clearTimeout(SB.timer);
+    const n = sbPaint(0);
+    SB.shown = 0;
+    const step = () => {
+      if (drag.on || document.hidden) { SB.timer = setTimeout(step, 400); return; }
+      const k = 2 + (SB.shown % 3 === 0 ? 1 : 0);
+      SB.shown = Math.min(n, SB.shown + k);
+      sbPaint(SB.shown, k);
+      if (SB.shown < n) SB.timer = setTimeout(step, 210);
+      else SB.timer = setTimeout(() => { if (screenSeen) { SB.row = (SB.row + 1) % ROWS.length; sbPlay(); } else SB.timer = 0; }, 3600);
+    };
+    SB.timer = setTimeout(step, 260);
+  }
+  function sbSet() {
+    sbFont();
+    sub.style.width = SB.w + "%";
+    $(".js-eng").textContent = SB.eng === "g" ? "Google" : "Tolk AI";
+    $(".js-words-v").textContent = SB.words ? fill(tx("sb_n"), { n: SB.words }) : tx("sb_auto");
+    if (!SB.timer) sbPaint();
+    else sbPaint(SB.shown);
+  }
+  function renderSandbox() {
     const bar = $(".js-styles");
     const names = tx("styles");
-    bar.innerHTML = STYLES.map((s, i) => `<button type="button" aria-pressed="${i === 0}">${names[i]}</button>`).join("");
-    $$("button", bar).forEach((b, i) => b.addEventListener("click", () => { styleTouched = true; setStyle(i); }));
-    STYLES.forEach((s) => { const im = new Image(); im.src = `img/app/${shotLang}/style-${s}.png`; });
-    setStyle(0);
-    setInterval(() => { if (screenSeen && !styleTouched && !drag.on && !document.hidden) setStyle((styleIdx + 1) % STYLES.length); }, 2800);
+    bar.innerHTML = STYLES.map((s, i) => `<button type="button" aria-pressed="${i === 0}" data-v="${s}">${names[i]}</button>`).join("");
+    const pick = (box, attr, fn) => $$("button", box).forEach((b) => b.addEventListener("click", () => {
+      $$("button", box).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      fn(b.dataset.v); sbSet();
+    }));
+    pick(bar, "v", (v) => { sub.dataset.style = v; });
+    pick($(".js-size"), "v", (v) => { SB.fs = Number(v); });
+    pick($(".js-engine"), "v", (v) => { SB.eng = v; });
+    const words = $(".js-words");
+    words.addEventListener("input", () => { SB.words = Number(words.value); sbSet(); });
+    $(".js-orig").addEventListener("change", (e) => { sub.classList.toggle("no-og", !e.target.checked); });
+    sbSet();
   }
-  const drag = { on: false, dx: 0, dy: 0 };
+  // тянуть: за середину — место на «экране», за края — ширина (как width_pct в Tolk: от центра в обе стороны)
+  const drag = { on: false, mode: "", dx: 0, dy: 0 };
   sub.addEventListener("pointerdown", (e) => {
     const r = sub.getBoundingClientRect();
-    drag.on = true; drag.dx = e.clientX - (r.left + r.width / 2); drag.dy = e.clientY - (r.top + r.height / 2);
+    drag.on = true;
+    drag.mode = e.target.classList.contains("rz") ? "size" : "move";
+    drag.dx = e.clientX - (r.left + r.width / 2); drag.dy = e.clientY - (r.top + r.height / 2);
     sub.setPointerCapture(e.pointerId);
-    sub.classList.add("dragging");
+    sub.classList.add(drag.mode === "size" ? "sizing" : "dragging");
     e.preventDefault();
   });
   sub.addEventListener("pointermove", (e) => {
     if (!drag.on) return;
     const box = screen.getBoundingClientRect(), r = sub.getBoundingClientRect();
-    const hw = r.width / 2, hh = r.height / 2;
-    const cx = Math.max(box.left + hw + 6, Math.min(box.right - hw - 6, e.clientX - drag.dx));
-    const cy = Math.max(box.top + hh + 6, Math.min(box.bottom - hh - 6, e.clientY - drag.dy));
-    sub.style.left = ((cx - box.left) / box.width * 100) + "%";
-    sub.style.top = ((cy - box.top) / box.height * 100) + "%";
+    if (drag.mode === "size") {
+      const cx = r.left + r.width / 2;
+      const room = Math.min(cx - box.left, box.right - cx) * 2 / box.width * 100;
+      SB.w = Math.round(Math.max(24, Math.min(room - 1, Math.abs(e.clientX - cx) * 2 / box.width * 100)));
+      sub.style.width = SB.w + "%";
+    } else {
+      const hw = r.width / 2, hh = r.height / 2;
+      const cx = Math.max(box.left + hw + 6, Math.min(box.right - hw - 6, e.clientX - drag.dx));
+      const cy = Math.max(box.top + hh + 6, Math.min(box.bottom - hh - 6, e.clientY - drag.dy));
+      sub.style.left = ((cx - box.left) / box.width * 100) + "%";
+      sub.style.top = ((cy - box.top) / box.height * 100) + "%";
+    }
     sub.classList.add("moved");
   });
-  const endDrag = () => { drag.on = false; sub.classList.remove("dragging"); };
+  const endDrag = () => { drag.on = false; sub.classList.remove("dragging", "sizing"); };
   sub.addEventListener("pointerup", endDrag);
   sub.addEventListener("pointercancel", endDrag);
 
-  // --- первый экран: окно Tolk «в разборе» --------------------------------------------------------------------------
-  // Слои стоят в 3D (CSS), JS только двигает их: p = 0 — разобрано (наискосок, слои разведены), p = 1 — собрано в одно
-  // ровное окно. Пунктир — от углов верхнего слоя к его «следу» на нижнем и от выносок к слоям; точки берутся из
-  // getBoundingClientRect угловых меток, поэтому линии всегда идут ровно туда, где слой сейчас нарисован.
-  const fig = $(".js-xray"), stack = fig && $(".stack", fig), wires = fig && $(".wires", fig);
+  // --- первый экран: 3D-окно Tolk «в разборе» -------------------------------------------------------------------------
+  // Слои стоят в 3D (CSS), JS двигает их пружинами: e = 1 — разобрано (наискосок, слои разведены), e = 0 — одно ровное окно.
+  // При загрузке окно собрано и само раскладывается на слои; мышью/пальцем крутится (с инерцией, потом мягко возвращается),
+  // наведение чуть наклоняет, выноска или щелчок по слою — подсветить слой. Пунктир — от углов верхнего слоя к его «следу» на
+  // нижнем и от выносок к слоям; точки берутся из getBoundingClientRect угловых меток — линии всегда идут туда, где слой сейчас.
+  const fig = $(".js-xray"), stage = fig && $(".js-stage", fig), stack = fig && $(".stack", fig), wires = fig && $(".wires", fig);
   const L = fig ? { notes: $(".l-notes", fig), win: $(".l-win", fig), sub: $(".l-sub", fig) } : {};
   const narrow = matchMedia("(max-width: 760px)");
-  let xp = -1;
-  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const X = {
+    e: gentle ? 1 : 0, ve: 0, eT: 1,              // разборка
+    rx: 0, vrx: 0, rz: 0, vrz: 0,                  // поворот мышью (наклон, разворот), град.
+    hx: 0, vhx: 0, hy: 0, vhy: 0, hxT: 0, hyT: 0,  // наклон за курсором
+    lift: { notes: 0, win: 0, sub: 0 }, vl: { notes: 0, win: 0, sub: 0 }, focus: "",
+    drag: null, raf: 0, last: 0, seen: true, t: 0,
+  };
   const pt = (el, box) => { const r = el.getBoundingClientRect(); return [r.left - box.left, r.top - box.top]; };
   const corners = (el) => ["tl", "tr", "br", "bl"].map((k) => $(":scope > .c." + k, el));
-  function xray(p, force) {
-    if (!fig || (!force && Math.abs(p - xp) < 0.002)) return;
-    xp = p;
-    const st = $(".stage", fig), W = st.clientWidth, H = st.clientHeight, small = narrow.matches;
-    const e = 1 - ease(p);
+  function spring(v, vel, target, k, d, dt) { const a = k * (target - v) - d * vel; vel += a * dt; return [v + vel * dt, vel]; }
+  function xpaint() {
+    const W = stage.clientWidth, H = stage.clientHeight, small = narrow.matches;
+    const e = X.e, ec = Math.max(0, Math.min(1.06, e));
     const sE = Math.min(W / (small ? 860 : 1000), H / 720), sF = Math.min(W * 0.94 / 640, H * 0.9 / 406);
-    const s = sF + (sE - sF) * e, gap = 210 * e;
-    const dx = small ? 0 : -W * 0.19 * e;
-    stack.style.transform = `translate(${dx}px, ${H * 0.08 * e}px) scale(${s}) rotateX(${50 * e}deg) rotateZ(${-26 * e}deg)`;
-    L.notes.style.transform = `translateZ(${-gap - 2}px)`;
-    L.win.style.transform = "translateZ(0)";
-    // субтитры: в разобранном виде висят над верхом окна, в собранном — внизу, где их обычно держат
-    const sy = 298 * (1 - e);
-    L.sub.style.transform = `translate3d(0, ${sy}px, ${gap + 2}px)`;
+    const s = sF + (sE - sF) * Math.min(1, ec), gap = 210 * ec;
+    const dx = small ? 0 : -W * 0.19 * ec;
+    const pitch = 50 * ec + X.rx - X.hy * 7, spin = (-26 + X.rz) * ec + X.hx * 6 * ec;
+    const yaw = (X.rz * 0.7 + X.hx * 9) * (1 - Math.min(1, ec));
+    stack.style.transform = `translate(${dx.toFixed(1)}px, ${(H * 0.08 * ec).toFixed(1)}px) scale(${s.toFixed(4)}) rotateX(${pitch.toFixed(2)}deg) rotateY(${yaw.toFixed(2)}deg) rotateZ(${spin.toFixed(2)}deg)`;
+    const fl = (k) => (gentle || small ? 0 : Math.sin(X.t * 1.1 + k) * 7 * Math.min(1, ec));
+    L.notes.style.transform = `translateZ(${(-gap - 2 + fl(0) + 46 * X.lift.notes).toFixed(1)}px)`;
+    L.win.style.transform = `translateZ(${(fl(2.1) + 46 * X.lift.win).toFixed(1)}px)`;
+    const sy = 298 * (1 - Math.min(1, ec));
+    L.sub.style.transform = `translate3d(0, ${sy.toFixed(1)}px, ${(gap + 2 + fl(4.2) + 46 * X.lift.sub).toFixed(1)}px)`;
     $(".fp-sub", fig).style.top = 20 + sy + "px";
-    fig.style.setProperty("--fp", e.toFixed(3));
-    fig.style.setProperty("--co", small ? "1" : Math.max(0, 1 - p * 2.4).toFixed(3));
+    fig.style.setProperty("--fp", Math.min(1, ec).toFixed(3));
+    fig.style.setProperty("--co", small ? "1" : Math.max(0, Math.min(1, ec * 1.6 - 0.5)).toFixed(3));
     const box = fig.getBoundingClientRect();
     let d = "";
-    if (e > 0.02) {
+    if (ec > 0.02) {
       [[L.win, $(".fp-win", fig)], [L.sub, $(".fp-sub", fig)]].forEach(([up, fp]) => {
         const a = corners(up), b = corners(fp);
         a.forEach((c, k) => { const [x1, y1] = pt(c, box), [x2, y2] = pt(b[k], box); d += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; });
@@ -262,12 +354,184 @@
       }
     }
     wires.innerHTML = d;
-    wires.style.opacity = e.toFixed(3);
+    wires.style.opacity = Math.min(1, ec).toFixed(3);
   }
-  function heroProgress() {
-    if (!fig || gentle) return 0;
-    const r = $("#hero").getBoundingClientRect();
-    return Math.max(0, Math.min(1, -r.top / (r.height * 0.55)));
+  function xstep(now) {
+    X.raf = 0;
+    const dt = Math.min(0.034, X.last ? (now - X.last) / 1000 : 0.016);
+    X.last = now; X.t += dt;
+    [X.e, X.ve] = spring(X.e, X.ve, X.eT, 52, 11.5, dt);
+    if (!X.drag) {
+      [X.rx, X.vrx] = spring(X.rx, X.vrx, 0, 9, 5.2, dt);
+      [X.rz, X.vrz] = spring(X.rz, X.vrz, 0, 9, 5.2, dt);
+    }
+    [X.hx, X.vhx] = spring(X.hx, X.vhx, X.hxT, 40, 12, dt);
+    [X.hy, X.vhy] = spring(X.hy, X.vhy, X.hyT, 40, 12, dt);
+    Object.keys(X.lift).forEach((k) => { [X.lift[k], X.vl[k]] = spring(X.lift[k], X.vl[k], X.focus === k ? 1 : 0, 60, 13, dt); });
+    xpaint();
+    const moving = Math.abs(X.e - X.eT) + Math.abs(X.ve) + Math.abs(X.rx) + Math.abs(X.rz) + Math.abs(X.vrx) + Math.abs(X.vrz)
+      + Math.abs(X.hx - X.hxT) + Math.abs(X.hy - X.hyT) + Object.keys(X.lift).reduce((a, k) => a + Math.abs(X.lift[k] - (X.focus === k ? 1 : 0)), 0) > 0.002;
+    const floating = !gentle && !narrow.matches && X.e > 0.5;
+    if (X.seen && !document.hidden && (moving || floating || X.drag)) X.raf = requestAnimationFrame(xstep);
+    else X.last = 0;
+  }
+  const xkick = () => { if (fig && !X.raf) X.raf = requestAnimationFrame(xstep); };
+  function xfocus(k) {
+    X.focus = X.focus === k ? "" : k;
+    if (X.focus && X.eT < 1) xsetOpen(1);
+    if (X.focus) fig.dataset.focus = X.focus; else delete fig.dataset.focus;
+    $$(".callouts li", fig).forEach((li) => li.classList.toggle("on", li.dataset.for === X.focus));
+    xkick();
+  }
+  function xsetOpen(v) {
+    X.eT = v;
+    if (!v && X.focus) xfocus(X.focus);
+    $(".js-x-label", fig).textContent = tx(v ? "x_close" : "x_open");
+    xkick();
+  }
+  function initXray() {
+    if (!fig) return;
+    $(".js-x-label", fig).textContent = tx("x_close");
+    if (!fine.matches) $(".x-hint", fig).textContent = tx("x_hint_t");
+    $(".js-x-toggle", fig).addEventListener("click", () => { fig.classList.add("touched"); xsetOpen(X.eT ? 0 : 1); });
+    $$(".callouts li", fig).forEach((li) => $("button", li).addEventListener("click", () => xfocus(li.dataset.for)));
+    stage.addEventListener("pointerdown", (e) => {
+      if (e.button) return;
+      X.drag = { x: e.clientX, y: e.clientY, rx: X.rx, rz: X.rz, lx: e.clientX, ly: e.clientY, lt: performance.now(), moved: 0 };
+      stage.setPointerCapture(e.pointerId);
+      stage.classList.add("grabbing");
+      xkick();
+    });
+    stage.addEventListener("pointermove", (e) => {
+      const r = fig.getBoundingClientRect();
+      X.hxT = Math.max(-1, Math.min(1, (e.clientX - r.left) / r.width * 2 - 1));
+      X.hyT = Math.max(-1, Math.min(1, (e.clientY - r.top) / r.height * 2 - 1));
+      const g = X.drag;
+      if (g) {
+        const now = performance.now(), dt = Math.max(1, now - g.lt) / 1000;
+        X.rz = g.rz + (e.clientX - g.x) * 0.32;
+        X.rx = Math.max(-44, Math.min(28, g.rx - (e.clientY - g.y) * 0.22));
+        X.vrz = (e.clientX - g.lx) * 0.32 / dt * 0.6;
+        X.vrx = -(e.clientY - g.ly) * 0.22 / dt * 0.6;
+        g.moved = Math.max(g.moved, Math.abs(e.clientX - g.x) + Math.abs(e.clientY - g.y));
+        g.lx = e.clientX; g.ly = e.clientY; g.lt = now;
+        if (g.moved > 6) fig.classList.add("touched");
+      }
+      xkick();
+    });
+    const end = (e) => {
+      const g = X.drag;
+      if (!g) return;
+      X.drag = null;
+      stage.classList.remove("grabbing");
+      if (g.moved < 6 && e && e.type === "pointerup") {                       // щелчок по слою — подсветить его
+        const hit = document.elementsFromPoint(e.clientX, e.clientY).find((el) => el.classList && el.classList.contains("layer"));
+        if (hit) xfocus(hit.dataset.l);
+      }
+      xkick();
+    };
+    stage.addEventListener("pointerup", end);
+    stage.addEventListener("pointercancel", end);
+    fig.addEventListener("pointerleave", () => { X.hxT = 0; X.hyT = 0; xkick(); });
+    new IntersectionObserver((list) => { X.seen = list[0].isIntersecting; xkick(); }).observe(fig);
+    document.addEventListener("visibilitychange", xkick);
+    xpaint();
+    if (!gentle) setTimeout(() => { X.eT = 1; xkick(); }, 650);
+    X.eT = gentle ? 1 : 0;
+    xkick();
+  }
+
+  // --- 05 мини-экзамен: три задачи к конспекту-примеру «Ohmov zákon» (как «Задачи для практики» в Tolk Pro) --------------------
+  // Условие — на языке пары (словацкий), под ним перевод на языке сайта; проверка — как study.local_check: одно число ±1 % и
+  // единица (A или mA). Почти: число верное без единицы, или ток одной ветки вместо общего.
+  const COURSE = "Fyzika 1 · prednáška 3";
+  const TASKS = [
+    { lv: "easy", num: 0.25, q: "Na rezistor s odporom 20 Ω pripojíme napätie 5 V. Aký prúd ním tečie?",
+      h: "Použi Ohmov zákon: I = U / R.", steps: ["I = U / R", "I = 5 V / 20 Ω = 0,25 A"], ans: "0,25 A" },
+    { lv: "medium", num: 0.1, q: "Rezistory 30 Ω a 60 Ω sú zapojené sériovo na napätie 9 V. Aký prúd tečie obvodom?",
+      h: "Pri sériovom zapojení sa odpory sčítajú.", steps: ["R = R₁ + R₂ = 30 Ω + 60 Ω = 90 Ω", "I = U / R = 9 V / 90 Ω = 0,1 A"], ans: "0,1 A" },
+    { lv: "hard", num: 0.6, near: [0.4, 0.2], q: "Tie isté rezistory 30 Ω a 60 Ω zapojíme paralelne na napätie 12 V. Aký celkový prúd odoberá obvod?",
+      h: "Pri paralelnom zapojení je na oboch rezistoroch rovnaké napätie.",
+      steps: ["I₁ = U / R₁ = 12 V / 30 Ω = 0,4 A", "I₂ = U / R₂ = 12 V / 60 Ω = 0,2 A", "I = I₁ + I₂ = 0,4 A + 0,2 A = 0,6 A"], ans: "0,6 A" },
+  ];
+  const METHOD = "Metóda: Ohmov zákon, ako na prednáške";
+  const EXS = { i: 0, res: TASKS.map(() => ({ mine: "", v: "" })) };
+  function exNums(text) {
+    let s = String(text || "").replace(/[−–]/g, "-").replace(/[  ]/g, " ");
+    s = s.split("=").pop().replace(/(\d) (?=\d{3}\b)/g, "$1").replace(/(\d),(?=\d)/g, "$1.")
+      .replace(/\s*[·×x*]\s*10\s*\^?\s*\{?\s*([-+]?\d+)\s*\}?/g, "e$1").replace(/E/g, "e");
+    const m = s.match(/[-+]?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?(?:\/\d+(?:\.\d+)?)?/g) || [];
+    return { vals: m.map((x) => { const [a, b] = x.split("/"); return b ? Number(a) / Number(b) : Number(a); }).filter((v) => isFinite(v)), tail: s };
+  }
+  function exVerdict(t, text) {
+    const { vals, tail } = exNums(text);
+    if (vals.length !== 1) return vals.length ? "wrong" : "";
+    const u = tail.replace(/А/g, "A").replace(/а/g, "a").replace(/м/g, "m").replace(/М/g, "M");
+    const milli = /\d\s*m\s?a\b/i.test(u) || /mili?amp|милл?иампер|міліампер/i.test(text);
+    const amp = milli || /\d\s*a\b/i.test(u) || /amp[eé]r|ампер/i.test(text);
+    const v = milli ? vals[0] / 1000 : vals[0];
+    const near = (x) => Math.abs(v - x) <= Math.abs(x) * 0.01;
+    if (near(t.num)) return amp ? "right" : "unit";
+    if ((t.near || []).some(near)) return "branch";
+    return "wrong";
+  }
+  function renderExam() {
+    const box = $(".js-exam"), E = tx("ex"), TR = lang === "sk" ? null : (tx("ex_tr") || null);
+    if (!box || !E) return;
+    $(".js-exam-note").textContent = E.note;
+    const two = (og, tl) => `<span class="og">${esc(og)}</span>` + (tl ? `<span class="tl">${esc(tl)}</span>` : "");
+    const dots = () => `<span class="dots-n" aria-hidden="true">${TASKS.map((t, k) => `<i class="${k === EXS.i ? "cur " : ""}${({ right: "right", unit: "partial", branch: "partial", wrong: "wrong" })[EXS.res[k].v] || ""}"></i>`).join("")}</span>`;
+    if (EXS.i >= TASKS.length) {
+      const r = EXS.res.filter((x) => x.v === "right").length;
+      box.innerHTML = `<div class="end"><div class="pr-top"><span class="pr-n">${esc(fill(E.end, { r, m: TASKS.length }))}</span>${dots()}</div>
+        <p class="score">${r}<em>/${TASKS.length}</em></p><p><b>${esc(r === TASKS.length ? E.end_all : E.end_some)}</b> ${esc(E.end_p)}</p>
+        <div class="row"><a class="btn js-ex-pro" href="#pricing">${esc(E.go)}${ARR}</a><button type="button" class="lnk js-ex-again">${esc(E.again)}</button></div></div>`;
+      $(".js-ex-pro", box).addEventListener("click", () => { proView = true; renderPrices(); });
+      $(".js-ex-again", box).addEventListener("click", () => { EXS.i = 0; EXS.res = TASKS.map(() => ({ mine: "", v: "" })); renderExam(); $(".field", box).focus(); });
+      typograph(box);
+      magnet(box);
+      return;
+    }
+    const t = TASKS[EXS.i], st = EXS.res[EXS.i], tr = TR && TR.items ? TR.items[EXS.i] : null;
+    box.innerHTML = `<div class="pr-top"><span class="pr-n">${esc(fill(E.task, { n: EXS.i + 1, m: TASKS.length }))}</span>
+        <span class="pr-lvl ${t.lv}">${esc(E.lv[t.lv])}</span><span class="pr-from">${esc(fill(E.from, { c: COURSE }))}</span>${dots()}</div>
+      <div class="pr-q">${two(t.q, tr && tr.q)}</div>
+      <div class="row"><button type="button" class="lnk js-ex-hint">${esc(E.hint)}</button></div>
+      <div class="pr-hint" hidden>${two(t.h, tr && tr.h)}</div>
+      <form class="row js-ex-form" autocomplete="off"><input class="field" type="text" inputmode="decimal" spellcheck="false" placeholder="${esc(E.ph)}" value="${esc(st.mine)}" aria-label="${esc(E.ph)}">
+        <button type="submit" class="btn">${esc(E.check)}</button></form>
+      <p class="pr-v" hidden></p>
+      <div class="row"><button type="button" class="lnk js-ex-sol">${esc(E.sol)}</button></div>
+      <div class="pr-sol" hidden><p class="cap">${esc(E.sol_h)}</p><p class="meth">${two(METHOD, TR && TR.meth)}</p>
+        <ol>${t.steps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol><p class="fin"><b>${esc(E.ans)}</b> ${esc(t.ans)}</p></div>
+      <div class="nav-x"><button type="button" class="lnk js-ex-prev"${EXS.i ? "" : " hidden"}>${esc(E.prev)}</button><span></span>
+        <button type="button" class="lnk js-ex-next">${esc(EXS.i === TASKS.length - 1 ? E.finish : E.next)} →</button></div>`;
+    typograph(box);
+    const field = $(".field", box), verdict = $(".pr-v", box);
+    const paint = (v) => {
+      verdict.hidden = !v;
+      if (!v) return;
+      const head = { right: E.ok, unit: E.part, branch: E.part, wrong: E.bad }[v];
+      const note = { unit: E.unit, branch: E.branch, wrong: E.wrong }[v];
+      verdict.className = "pr-v " + ({ right: "ok", unit: "gold", branch: "gold", wrong: "err" })[v];
+      verdict.innerHTML = `<b>${esc(head)}</b>${note ? " — " + esc(note) : ""}`;
+    };
+    paint(st.v);
+    $(".js-ex-hint", box).addEventListener("click", (e) => { $(".pr-hint", box).hidden = false; e.currentTarget.hidden = true; });
+    $(".js-ex-sol", box).addEventListener("click", (e) => { $(".pr-sol", box).hidden = false; e.currentTarget.hidden = true; });
+    $(".js-ex-form", box).addEventListener("submit", (e) => {
+      e.preventDefault();
+      st.mine = field.value;
+      if (!field.value.trim()) { field.focus(); return; }
+      st.v = exVerdict(t, field.value) || "wrong";
+      paint(st.v);
+      box.querySelectorAll(".dots-n i")[EXS.i].className = "cur " + ({ right: "right", unit: "partial", branch: "partial", wrong: "wrong" })[st.v];
+    });
+    field.addEventListener("input", () => { st.mine = field.value; });
+    const go = (n) => { EXS.i = n; renderExam(); const f = $(".field", box); if (f && matchMedia("(hover: hover)").matches) f.focus({ preventScroll: true }); };
+    $(".js-ex-prev", box).addEventListener("click", () => go(EXS.i - 1));
+    $(".js-ex-next", box).addEventListener("click", () => go(EXS.i + 1));
+    magnet(box);
   }
 
   // --- вопросы -------------------------------------------------------------------------------------------
@@ -277,6 +541,21 @@
     const half = Math.ceil(items.length / 2);
     box.innerHTML = `<div class="col">${items.slice(0, half).join("")}</div><div class="col">${items.slice(half).join("")}</div>`;
     $$(".js-buy", box).forEach((a) => { a.target = "_blank"; a.rel = "noopener"; });
+    // плавно раскрывается и закрывается (высота ответа)
+    $$("details", box).forEach((d) => {
+      const a = $(".a", d);
+      $("summary", d).addEventListener("click", (e) => {
+        e.preventDefault();
+        if (d.dataset.busy) return;
+        d.dataset.busy = "1";
+        const opening = !d.open;
+        if (opening) d.open = true;
+        const h = a.scrollHeight;
+        const anim = a.animate([{ height: opening ? "0px" : h + "px", opacity: opening ? 0 : 1 }, { height: opening ? h + "px" : "0px", opacity: opening ? 1 : 0 }],
+          { duration: 420, easing: "cubic-bezier(.16,1,.3,1)" });
+        anim.onfinish = () => { if (!opening) d.open = false; delete d.dataset.busy; };
+      });
+    });
   }
 
   // --- цены (живой курс из магазина; без ответа — запасные) ----------------------------------------------
@@ -383,7 +662,7 @@
   $$(".js-plan-tabs button").forEach((b) => b.addEventListener("click", () => { proView = b.dataset.v === "pro"; renderPrices(); }));
 
 
-  // --- прокрутка: линия прогресса, шапка, сборка окна, «экран» в поле зрения ------------------------------------------
+  // --- прокрутка: линия прогресса, шапка, «экран» в поле зрения ------------------------------------------------------------
   const nav = $("#nav"), bar = $(".progress i");
   let ticking = false;
   function onScroll() {
@@ -392,55 +671,123 @@
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
     nav.classList.toggle("scrolled", y > 20);
-    xray(heroProgress());
     const c = $(".js-cmp").getBoundingClientRect();
     cmpActive = c.top < innerHeight * 0.85 && c.bottom > innerHeight * 0.15;
   }
   const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
 
-  // появление: блоки с data-rise — по одному, когда доходят до экрана; первый экран — сразу, лесенкой
+  // появление: блоки с data-rise — по одному, когда доходят до экрана; заголовки — по словам (выезжают из-под строки)
   function rise() {
     const els = $$("[data-rise], .plan, .faq details, .colophon > div");
     els.forEach((el) => el.setAttribute("data-rise", ""));
-    if (!("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
+    if (!("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); $$(".split").forEach((x) => x.classList.add("on")); return; }
     const io = new IntersectionObserver((list) => list.forEach((en) => {
       if (!en.isIntersecting) return;
       const sib = en.target.parentElement ? [...en.target.parentElement.children].filter((x) => x.hasAttribute("data-rise")) : [];
       en.target.style.transitionDelay = Math.min(4, Math.max(0, sib.indexOf(en.target))) * 70 + "ms";
       en.target.classList.add("in");
+      $$(".split", en.target).forEach((x) => x.classList.add("on"));
       io.unobserve(en.target);
     }), { rootMargin: "0px 0px -8% 0px" });
     els.forEach((el) => io.observe(el));
-    const sc = new IntersectionObserver((list) => list.forEach((en) => { screenSeen = en.isIntersecting; }), { threshold: .4 });
+    const sc = new IntersectionObserver((list) => list.forEach((en) => {
+      screenSeen = en.isIntersecting;
+      if (screenSeen && !SB.timer) sbPlay();
+    }), { threshold: .4 });
     sc.observe(screen);
   }
-  function intro() {
-    $$(".hero [data-in], .nav > *").forEach((el, i) => {
-      if (gentle) return;
-      el.animate([{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "none" }],
-        { duration: 1100, delay: 60 + i * 70, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" });
+  // слова заголовка → <span class="w"><span>слово</span></span>; неразрывные пробелы (typograph) держат пары слов вместе
+  function split(el) {
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (w.nextNode()) nodes.push(w.currentNode);
+    let i = 0;
+    nodes.forEach((n) => {
+      const parts = n.nodeValue.split(/( +)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach((p) => {
+        if (!p) return;
+        if (/^ +$/.test(p)) { frag.append(" "); return; }
+        const o = document.createElement("span"), inner = document.createElement("span");
+        o.className = "w"; inner.textContent = p; o.style.setProperty("--i", i++); o.append(inner); frag.append(o);
+      });
+      n.replaceWith(frag);
     });
+    el.classList.add("split");
+  }
+  function intro() {
+    $$(".hero [data-in]:not(.split), .nav > *").forEach((el, i) => {
+      el.animate([{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "none" }],
+        { duration: gentle ? 600 : 1100, delay: 60 + i * 70, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" });
+    });
+    requestAnimationFrame(() => setTimeout(() => $(".hero .split") && $(".hero .split").classList.add("on"), 120));
+  }
+
+  // --- живость: панели подсвечиваются под курсором, кнопки тянутся к нему, мягкий ореол за курсором ------------------------
+  const fine = matchMedia("(hover: hover) and (pointer: fine)");
+  function magnet(scope) {
+    if (!fine.matches) return;
+    $$(".btn, .pill", scope).forEach((b) => {
+      if (b.dataset.mag) return;
+      b.dataset.mag = "1";
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.setProperty("--tx", ((e.clientX - r.left - r.width / 2) * 0.16).toFixed(1) + "px");
+        b.style.setProperty("--ty", ((e.clientY - r.top - r.height / 2) * 0.28).toFixed(1) + "px");
+      });
+      b.addEventListener("pointerleave", () => { b.style.setProperty("--tx", "0px"); b.style.setProperty("--ty", "0px"); });
+    });
+  }
+  function lively() {
+    if (!fine.matches) return;
+    magnet(document);
+    const aura = document.createElement("div");
+    aura.className = "aura"; aura.setAttribute("aria-hidden", "true");
+    document.body.prepend(aura);
+    const A = { x: innerWidth / 2, y: innerHeight / 3, tx: innerWidth / 2, ty: innerHeight / 3, raf: 0 };
+    const tick = () => {
+      A.raf = 0;
+      A.x += (A.tx - A.x) * 0.12; A.y += (A.ty - A.y) * 0.12;
+      aura.style.transform = `translate3d(${A.x.toFixed(1)}px, ${A.y.toFixed(1)}px, 0)`;
+      if (Math.abs(A.tx - A.x) + Math.abs(A.ty - A.y) > 0.5) A.raf = requestAnimationFrame(tick);
+    };
+    addEventListener("pointermove", (e) => {
+      A.tx = e.clientX; A.ty = e.clientY;
+      aura.classList.add("on");
+      if (!A.raf) A.raf = requestAnimationFrame(tick);
+      const el = e.target.closest && e.target.closest(".spot");
+      if (el) {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
+        el.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
+      }
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => aura.classList.remove("on"));
   }
 
   // --- старт ---------------------------------------------------------------------------------------------
   applyTexts();
   initDownloads();
   renderCompare();
-  renderStyles();
+  renderSandbox();
+  renderExam();
   renderFaq();
   renderPrices();
-  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts").forEach(typograph);
+  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts, .exam").forEach(typograph);
+  $$(".display").forEach(split);
   rise();
   intro();
+  initXray();
+  lively();
   addEventListener("scroll", kick, { passive: true });
-  addEventListener("resize", () => xray(heroProgress(), true));
-  narrow.addEventListener("change", () => xray(heroProgress(), true));
-  $$(".js-xray img").forEach((im) => im.addEventListener("load", () => xray(heroProgress(), true)));
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => xray(heroProgress(), true));
+  addEventListener("resize", () => { if (fig) xpaint(); sbFont(); });
+  narrow.addEventListener("change", () => { if (fig) xpaint(); });
+  $$(".js-xray img").forEach((im) => im.addEventListener("load", () => { if (fig) xpaint(); }));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (fig) xpaint(); });
   onScroll();
-  xray(heroProgress(), true);
   loadPrices();
   requestAnimationFrame(tickCompare);
+  addEventListener("load", () => setTimeout(preloadOther, 1500));
 
   // проверка снимками: ?shot=<px> — прокрутить туда сразу после загрузки
   const shot = Number(new URLSearchParams(location.search).get("shot"));

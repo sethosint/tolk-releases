@@ -99,7 +99,7 @@ window.TOLK_TEXTS = {
   "hint_mac": "macOS 13+, бета. Если Mac не даёт открыть: Настройки → Конфиденциальность и безопасность → «Всё равно открыть».",
   "hint_linux": "Бета. Установка без root: sh Tolk-Setup-Linux.run — Tolk появится в меню приложений.",
   "f1v": "Windows 10 и 11 · macOS 13+ и Linux — бета",
-  "title": "Tolk — субтитры с переводом для онлайн-лекций",
+  "title": "Tolk — перевод пар, конспекты и подготовка к экзаменам",
   "pair": "SK → RU",
   "src_lbl": "Оригинал",
   "who_g": "Google",
@@ -142,6 +142,14 @@ window.TOLK_TEXTS = {
     "Windows 10 или 11, macOS 13+ или Linux (последние две — бета) и интернет для Tolk AI. Видеокарта не обязательна: Tolk сам подберёт модель распознавания под ваш компьютер."
    ],
    [
+    "Есть бесплатная версия?",
+    "Да — Tolk Free, бесплатно и без срока: 30 минут перевода каждый день. Переводит Google, речь распознаётся на компьютере. Нейросеть Tolk AI, запись лекций и подготовка к экзамену — в Plus и Pro. А чтобы попробовать Plus целиком, в боте есть 30 бесплатных минут — один раз."
+   ],
+   [
+    "Как Tolk помогает готовиться к экзаменам?",
+    "После каждой пары — конспект на языке лекции с переводом. Из конспектов Tolk Pro делает карточки (можно в Anki), задачи с решением тем методом, что был на паре, пробный экзамен по словам преподавателя и шпаргалку формул. Повторение по графику и слова дня в Telegram — в Plus и Pro."
+   ],
+   [
     "Какие языки он понимает?",
     "Распознаёт 35 языков речи: словацкий, чешский, английский, немецкий, польский, украинский и другие. Переводит на 32 языка — включая русский, украинский, английский и словацкий."
    ],
@@ -151,7 +159,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Что такое Tolk Pro и конспекты?",
-    "Tolk Pro — всё, что в обычной подписке, и конспекты лекций. Нажмите «Записать лекцию»: Tolk сохранит расшифровку и слайды с экрана, найдёт презентацию на сайте кафедры (например, kmti.fei.tuke.sk) или возьмёт ваш файл и через минуту соберёт конспект: темы, определения, формулы, сроки зачётов. К сессии — карточки, задачи с решением методом преподавателя, пробный экзамен в его формате, шпаргалка формул и задача по фото. Не хватило конспектов — пакет +20 на 30 дней за 1,99 €."
+    "Tolk Pro — всё, что в Plus, и конспекты лекций. Нажмите «Записать лекцию»: Tolk сохранит расшифровку и слайды с экрана, найдёт презентацию на сайте кафедры (например, kmti.fei.tuke.sk) или возьмёт ваш файл и через минуту соберёт конспект: темы, определения, формулы, сроки зачётов. К сессии — карточки, задачи с решением методом преподавателя, пробный экзамен в его формате, шпаргалка формул и задача по фото. Не хватило конспектов — пакет +20 на 30 дней за 1,99 €."
    ],
    [
     "Работает в любом браузере?",
@@ -180,14 +188,67 @@ window.TOLK_TEXTS = {
   ],
   "c2_note": "Настоящие ответы обоих переводчиков, сентябрь 2026.",
   "drag": "Перетащите",
-  "tab_std": "Обычная",
+  "tab_std": "Plus",
   "tab_pro": "Pro — с конспектами",
   "sale_ey": "Ограниченное предложение",
   "sale_t": "{d} на Tolk",
   "sale_upto": "до −{p} %",
   "sale_until": "до {d}",
   "sale_left": "осталось",
-  "pro_lede": "Всё, что в обычной подписке, и конспекты лекций: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. До 45 конспектов в месяц."
+  "pro_lede": "Всё, что в Plus, и учёба: Tolk запишет пару, сохранит слайды с экрана, найдёт презентацию на сайте кафедры и соберёт конспект — темы, определения, формулы, сроки зачётов. А к сессии — карточки, задачи с решением методом с пар и пробный экзамен. До 45 конспектов в месяц.",
+  "x_hint_t": "Покрутите пальцем",
+  "x_open": "Разобрать окно",
+  "x_close": "Собрать окно",
+  "sb_auto": "по ширине",
+  "sb_n": "до {n}",
+  "ex": {
+   "task": "Задача {n} из {m}",
+   "lv": {
+    "easy": "лёгкая",
+    "medium": "средняя",
+    "hard": "сложная"
+   },
+   "from": "с пары «{c}»",
+   "hint": "Подсказка",
+   "check": "Проверить",
+   "sol": "Подробное решение",
+   "next": "Дальше",
+   "prev": "Назад",
+   "finish": "Итог",
+   "ph": "Ответ, например 1,5 A",
+   "ok": "✓ Верно",
+   "part": "≈ Почти",
+   "bad": "✗ Пока не так",
+   "unit": "число верное — допишите единицу (A)",
+   "branch": "это ток одной ветки — сложите обе",
+   "wrong": "загляните в подсказку или решение",
+   "ans": "Ответ:",
+   "sol_h": "Решение · методом с пары",
+   "end": "Итог: {r} из {m}",
+   "end_all": "Сдали бы.",
+   "end_some": "Ошибки видно сразу — так и учатся.",
+   "end_p": "В Tolk Pro такие задачи — по вашим конспектам: лёгкие, средние и сложные, с решением тем методом, что был на паре, и пробный экзамен.",
+   "go": "Смотреть Tolk Pro",
+   "again": "Ещё раз",
+   "note": "Пример: задачи к конспекту-примеру выше. В Tolk ответ проверяет ещё и Tolk AI."
+  },
+  "ex_tr": {
+   "meth": "Метод: закон Ома — как на паре",
+   "items": [
+    {
+     "q": "На резистор сопротивлением 20 Ом подаём напряжение 5 В. Какой ток через него течёт?",
+     "h": "Закон Ома: I = U / R."
+    },
+    {
+     "q": "Резисторы 30 Ом и 60 Ом соединены последовательно и подключены к 9 В. Какой ток течёт в цепи?",
+     "h": "При последовательном соединении сопротивления складываются."
+    },
+    {
+     "q": "Те же резисторы 30 Ом и 60 Ом соединяем параллельно и подключаем к 12 В. Какой общий ток потребляет цепь?",
+     "h": "При параллельном соединении напряжение на обоих резисторах одинаковое."
+    }
+   ]
+  }
  },
  "uk": {
   "dl_other": "Інші системи:",
@@ -195,15 +256,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, бета. Якщо Mac не дає відкрити: Параметри → Приватність і безпека → «Усе одно відкрити».",
   "hint_linux": "Бета. Встановлення без root: sh Tolk-Setup-Linux.run — Tolk з’явиться в меню застосунків.",
-  "title": "Tolk — субтитри з перекладом для онлайн-лекцій",
+  "title": "Tolk — переклад пар, конспекти й підготовка до іспитів",
   "pair": "SK → UK",
   "nav_dl": "Завантажити",
   "h1": "Розумійте пари<br><em>з першого дня.</em>",
-  "lede": "Tolk перекладає викладача, поки він говорить. Субтитри з'являються поверх Teams, Zoom чи браузера, і їх можна читати, як у кіно.",
+  "lede": "Tolk перекладає викладача, поки він говорить, — субтитрами поверх Teams, Zoom чи браузера. А після пари пише конспект і готує до іспиту: картки, задачі, пробний іспит.",
   "cta_dl": "Завантажити для {os}",
   "cta_buy": "Купити в Telegram",
   "cta_trial": "30 хвилин безкоштовно в Telegram",
-  "fine": "Перші 30 хвилин безкоштовно, реєстрація не потрібна",
+  "fine": "30 хвилин Plus безкоштовно, далі — Free назавжди: 30 хвилин на день",
   "c1_h": "Оберіть, <em>що перекладати.</em>",
   "c1_p": "Вкладку з парою, Teams, Zoom або весь звук комп'ютера. Музики й сповіщень з інших програм Tolk не чує.",
   "c1_a": "Джерело",
@@ -215,16 +276,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Розуміє, <em>як говорять студенти.</em>",
   "c2_p": "Звичайний перекладач плутається в сленгу й скороченнях. Tolk AI знає, що таке «intrák» і «zápočet», і пам'ятає, про що говорили хвилину тому.",
   "c3_h": "Там, де <em>вам зручно.</em>",
-  "c3_p": "Субтитри висять поверх усіх вікон. Їх можна перетягнути мишею (спробуйте просто тут) і вибрати стиль:",
+  "c3_p": "Субтитри висять поверх усіх вікон. Налаштуйте їх просто тут — як у Tolk: стиль, розмір, скільки слів у рядку. Тягніть за середину — місце, за краї — ширина.",
   "p_k": "Ціни",
   "p_h": "Тарифи Tolk. <em>Усе включено.</em>",
-  "p_lede": "Увесь Tolk і 30 годин Tolk AI на кожні 30 днів. Що довший строк — то дешевший місяць.",
+  "p_lede": "Plus — переклад нейромережею Tolk AI без денного ліміту й 30 годин Tolk AI на кожні 30 днів. Pro — ще конспекти й підготовка до іспиту. Що довший строк — то дешевший місяць.",
   "extra": "Забракло годин?",
   "pay_line": "Купівля — у боті <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: українська картка, USDT або TON. Без автосписань.",
   "rates": "Ціни в гривнях і крипті — за поточним курсом, округлені. Точна сума — у боті.",
   "q_k": "Питання",
   "t_h": "Спробуйте <em>на своїй лекції.</em>",
-  "t_fine": "Пів години повної версії з Tolk AI — без картки й реєстрації.",
+  "t_fine": "30 хвилин Tolk Plus безкоштовно, далі — Free назавжди або підписка. Без картки.",
   "f1k": "Платформа",
   "f1v": "Windows 10 і 11 · macOS 13+ і Linux — бета",
   "f2k": "Купівля й ключі",
@@ -235,7 +296,7 @@ window.TOLK_TEXTS = {
   "f6k": "Студентам",
   "f6v": "Сторінки вишів",
   "f6s": "Терміни предметів",
-  "h_k": "Субтитри, переклад і конспекти для пар",
+  "h_k": "Переклад пар, конспекти й підготовка до іспитів",
   "nl1": "Як це працює",
   "nl2": "Ціни",
   "nl3": "Питання",
@@ -306,6 +367,14 @@ window.TOLK_TEXTS = {
     "Windows 10 або 11, macOS 13+ чи Linux (дві останні — бета) та інтернет для Tolk AI. Відеокарта не обов'язкова: Tolk сам добере модель розпізнавання під ваш комп'ютер."
    ],
    [
+    "Є безкоштовна версія?",
+    "Так — Tolk Free, безкоштовно й без терміну: 30 хвилин перекладу щодня. Перекладає Google, мова розпізнається на комп'ютері. Нейромережа Tolk AI, запис лекцій і підготовка до іспиту — у Plus і Pro. А щоб спробувати Plus повністю, у боті є 30 безкоштовних хвилин — один раз."
+   ],
+   [
+    "Як Tolk допомагає готуватися до іспитів?",
+    "Після кожної пари — конспект мовою лекції з перекладом. З конспектів Tolk Pro робить картки (можна в Anki), задачі з розв'язком тим методом, що був на парі, пробний іспит за словами викладача і шпаргалку формул. Повторення за графіком і слова дня в Telegram — у Plus і Pro."
+   ],
+   [
     "Які мови він розуміє?",
     "Розпізнає 35 мов мовлення: словацьку, чеську, англійську, німецьку, польську, українську та інші. Перекладає на 32 мови — зокрема українську, російську, англійську й словацьку."
    ],
@@ -315,7 +384,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Що таке Tolk Pro і конспекти?",
-    "Tolk Pro — усе, що у звичайній підписці, і конспекти лекцій. Натисніть «Записати лекцію»: Tolk збереже розшифровку і слайди з екрана, знайде презентацію на сайті кафедри (наприклад, kmti.fei.tuke.sk) або візьме ваш файл і за хвилину складе конспект: теми, означення, формули, терміни заліків. До сесії — картки, задачі з розв'язанням методом викладача, пробний іспит у його форматі, шпаргалка формул і задача за фото. Не вистачило конспектів — пакет +20 на 30 днів за 1,99 €."
+    "Tolk Pro — усе, що в Plus, і конспекти лекцій. Натисніть «Записати лекцію»: Tolk збереже розшифровку і слайди з екрана, знайде презентацію на сайті кафедри (наприклад, kmti.fei.tuke.sk) або візьме ваш файл і за хвилину складе конспект: теми, означення, формули, терміни заліків. До сесії — картки, задачі з розв'язанням методом викладача, пробний іспит у його форматі, шпаргалка формул і задача за фото. Не вистачило конспектів — пакет +20 на 30 днів за 1,99 €."
    ],
    [
     "Працює в будь-якому браузері?",
@@ -346,14 +415,88 @@ window.TOLK_TEXTS = {
   "c2_note": "Справжні відповіді обох перекладачів, вересень 2026.",
   "c3_k": "Субтитри",
   "drag": "Перетягніть",
-  "tab_std": "Звичайна",
+  "tab_std": "Plus",
   "tab_pro": "Pro — з конспектами",
   "sale_ey": "Обмежена пропозиція",
   "sale_t": "{d} на Tolk",
   "sale_upto": "до −{p} %",
   "sale_until": "до {d}",
   "sale_left": "залишилось",
-  "pro_lede": "Усе, що у звичайній підписці, і конспекти лекцій: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. До 45 конспектів на місяць."
+  "pro_lede": "Усе, що в Plus, і навчання: Tolk запише пару, збереже слайди з екрана, знайде презентацію на сайті кафедри та складе конспект — теми, означення, формули, терміни заліків. А до сесії — картки, задачі з розв'язанням методом із пар і пробний іспит. До 45 конспектів на місяць.",
+  "fb_ey": "Free · 0 € · назавжди",
+  "fb_t": "30 хвилин перекладу щодня — безкоштовно.",
+  "fb_s": "Лише переклад: Google і розпізнавання на комп'ютері. Нейромережа Tolk AI, запис лекцій і підготовка до іспиту — у Plus і Pro.",
+  "fb_go": "Взяти Free у боті",
+  "nl4": "Міні-іспит",
+  "x_hint": "Покрутіть мишею",
+  "x_hint_t": "Покрутіть пальцем",
+  "x_open": "Розібрати вікно",
+  "x_close": "Зібрати вікно",
+  "sb_style": "Стиль",
+  "sb_size": "Розмір",
+  "sb_words": "Слів у рядку",
+  "sb_auto": "за шириною",
+  "sb_n": "до {n}",
+  "sb_engine": "Перекладач",
+  "sb_orig": "Оригінал",
+  "sb_note": "Фрази — справжні відповіді Google і Tolk AI. Вигляд — як у налаштуваннях Tolk.",
+  "c5_k": "Іспит",
+  "c5_h": "Перевірте себе <em>за хвилину.</em>",
+  "c5_p": "Так Tolk Pro готує до сесії: задачі за вашими конспектами, відповідь перевіряється одразу, а розв'язок — тим методом, що був на парі. Спробуйте три задачі до конспекту-прикладу.",
+  "c5_a": "Задачі",
+  "c5_av": "легкі, середні, складні · своя тема",
+  "c5_b": "Перевірка",
+  "c5_bv": "одразу, з підказкою і повним розв'язком",
+  "c5_c": "Пробний іспит",
+  "c5_cv": "формат і бали — як казав викладач",
+  "ex": {
+   "task": "Задача {n} з {m}",
+   "lv": {
+    "easy": "легка",
+    "medium": "середня",
+    "hard": "складна"
+   },
+   "from": "з пари «{c}»",
+   "hint": "Підказка",
+   "check": "Перевірити",
+   "sol": "Докладний розв'язок",
+   "next": "Далі",
+   "prev": "Назад",
+   "finish": "Підсумок",
+   "ph": "Відповідь, напр. 1,5 A",
+   "ok": "✓ Правильно",
+   "part": "≈ Майже",
+   "bad": "✗ Поки не так",
+   "unit": "число правильне — допишіть одиницю (A)",
+   "branch": "це струм однієї гілки — додайте обидві",
+   "wrong": "загляньте в підказку або розв'язок",
+   "ans": "Відповідь:",
+   "sol_h": "Розв'язок · методом з пари",
+   "end": "Підсумок: {r} з {m}",
+   "end_all": "Склали б.",
+   "end_some": "Помилки видно одразу — так і вчаться.",
+   "end_p": "У Tolk Pro такі задачі — за вашими конспектами: легкі, середні й складні, з розв'язком тим методом, що був на парі, і пробний іспит.",
+   "go": "Дивитися Tolk Pro",
+   "again": "Ще раз",
+   "note": "Приклад: задачі до конспекту-прикладу вище. У Tolk відповідь перевіряє ще й Tolk AI."
+  },
+  "ex_tr": {
+   "meth": "Метод: закон Ома — як на парі",
+   "items": [
+    {
+     "q": "На резистор опором 20 Ом подаємо напругу 5 В. Який струм через нього тече?",
+     "h": "Закон Ома: I = U / R."
+    },
+    {
+     "q": "Резистори 30 Ом і 60 Ом з'єднані послідовно й підключені до 9 В. Який струм тече в колі?",
+     "h": "При послідовному з'єднанні опори додаються."
+    },
+    {
+     "q": "Ті самі резистори 30 Ом і 60 Ом з'єднуємо паралельно й підключаємо до 12 В. Який загальний струм споживає коло?",
+     "h": "При паралельному з'єднанні напруга на обох резисторах однакова."
+    }
+   ]
+  }
  },
  "sk": {
   "dl_other": "Iné systémy:",
@@ -361,15 +504,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, beta. Ak ho Mac nechce otvoriť: Nastavenia → Súkromie a bezpečnosť → „Aj tak otvoriť“.",
   "hint_linux": "Beta. Inštalácia bez root: sh Tolk-Setup-Linux.run — Tolk sa objaví v ponuke aplikácií.",
-  "title": "Tolk — titulky s prekladom na online prednášky",
+  "title": "Tolk — preklad prednášok, poznámky a príprava na skúšky",
   "pair": "EN → SK",
   "nav_dl": "Stiahnuť",
   "h1": "Rozumejte prednáškam<br><em>od prvého dňa.</em>",
-  "lede": "Tolk prekladá prednášajúceho, kým hovorí. Titulky sa zobrazia nad Teams, Zoomom alebo prehliadačom a čítate ich ako vo filme.",
+  "lede": "Tolk prekladá prednášajúceho, kým hovorí — titulkami nad Teams, Zoomom alebo prehliadačom. A po prednáške napíše poznámky a pripraví vás na skúšku: kartičky, úlohy, skúšobný test.",
   "cta_dl": "Stiahnuť pre {os}",
   "cta_buy": "Kúpiť v Telegrame",
   "cta_trial": "30 minút zadarmo v Telegrame",
-  "fine": "Prvých 30 minút zadarmo, bez registrácie",
+  "fine": "30 minút Plus zadarmo, potom Free navždy: 30 minút denne",
   "c1_h": "Vyberte, <em>čo prekladať.</em>",
   "c1_p": "Kartu s prednáškou, Teams, Zoom alebo celý zvuk počítača. Hudbu a notifikácie z iných programov Tolk nepočuje.",
   "c1_a": "Zdroj",
@@ -381,16 +524,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Rozumie, <em>ako hovoria študenti.</em>",
   "c2_p": "Bežný prekladač sa stráca v slangu a skratkách. Tolk AI vie, čo znamená „no cap“ a „mid“, a pamätá si, o čom bola reč pred minútou.",
   "c3_h": "Tam, kde <em>vám to vyhovuje.</em>",
-  "c3_p": "Titulky sú nad všetkými oknami. Môžete ich potiahnuť myšou (vyskúšajte to priamo tu) a vybrať si štýl:",
+  "c3_p": "Titulky sú nad všetkými oknami. Nastavte si ich priamo tu — ako v Tolk: štýl, veľkosť, koľko slov v riadku. Ťahaním za stred ich presuniete, za okraje zmeníte šírku.",
   "p_k": "Ceny",
   "p_h": "Tarify Tolk. <em>Všetko v cene.</em>",
-  "p_lede": "Celý Tolk a 30 hodín Tolk AI na každých 30 dní. Čím dlhšie obdobie, tým lacnejší mesiac.",
+  "p_lede": "Plus — preklad neurónovou sieťou Tolk AI bez denného limitu a 30 hodín Tolk AI na každých 30 dní. Pro — navyše poznámky a príprava na skúšku. Čím dlhšie obdobie, tým lacnejší mesiac.",
   "extra": "Nestačili hodiny?",
   "pay_line": "Nákup v bote <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: ukrajinská karta, USDT alebo TON. Bez automatických platieb.",
   "rates": "Ceny v hrivnách a krypte — podľa aktuálneho kurzu, zaokrúhlené. Presná suma je v bote.",
   "q_k": "Otázky",
   "t_h": "Vyskúšajte <em>na svojej prednáške.</em>",
-  "t_fine": "Pol hodiny plnej verzie s Tolk AI — bez karty a registrácie.",
+  "t_fine": "30 minút Tolk Plus zadarmo, potom Free navždy alebo predplatné. Bez karty.",
   "f1k": "Platforma",
   "f1v": "Windows 10 a 11 · macOS 13+ a Linux — beta",
   "f2k": "Nákup a kľúče",
@@ -401,7 +544,7 @@ window.TOLK_TEXTS = {
   "f6k": "Študentom",
   "f6v": "Stránky univerzít",
   "f6s": "Termíny predmetov",
-  "h_k": "Titulky, preklad a poznámky z prednášok",
+  "h_k": "Preklad prednášok, poznámky a príprava na skúšky",
   "nl1": "Ako to funguje",
   "nl2": "Ceny",
   "nl3": "Otázky",
@@ -472,6 +615,14 @@ window.TOLK_TEXTS = {
     "Windows 10 alebo 11, macOS 13+ či Linux (posledné dva v bete) a internet pre Tolk AI. Grafická karta nie je nutná: Tolk si sám vyberie model rozpoznávania podľa vášho počítača."
    ],
    [
+    "Existuje bezplatná verzia?",
+    "Áno — Tolk Free, zadarmo a bez obmedzenia: 30 minút prekladu každý deň. Prekladá Google, reč sa rozpoznáva v počítači. Neurónová sieť Tolk AI, nahrávanie prednášok a príprava na skúšku sú v Plus a Pro. A ak si chcete vyskúšať celý Plus, v bote je 30 minút zadarmo — raz."
+   ],
+   [
+    "Ako Tolk pomáha s prípravou na skúšky?",
+    "Po každej prednáške máte poznámky v jazyku prednášky s prekladom. Z nich Tolk Pro urobí kartičky (aj do Anki), úlohy s riešením metódou z prednášky, skúšobný test podľa toho, čo hovoril vyučujúci, a ťahák so vzorcami. Opakovanie podľa plánu a slová dňa v Telegrame sú v Plus aj Pro."
+   ],
+   [
     "Ktorým jazykom rozumie?",
     "Rozpoznáva 35 jazykov reči: slovenčinu, češtinu, angličtinu, nemčinu, poľštinu, ukrajinčinu a ďalšie. Prekladá do 32 jazykov — aj do slovenčiny, angličtiny, ukrajinčiny a ruštiny."
    ],
@@ -481,7 +632,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Čo je Tolk Pro a poznámky?",
-    "Tolk Pro je všetko z bežného predplatného a navyše poznámky z prednášok. Stlačte „Nahrať prednášku“: Tolk uloží prepis a slajdy z obrazovky, nájde prezentáciu na stránke katedry (napríklad kmti.fei.tuke.sk) alebo použije váš súbor a za minútu zostaví poznámky: témy, definície, vzorce, termíny zápočtov. Pred skúškami — kartičky, úlohy s riešením metódou vyučujúceho, skúšobná skúška v jeho formáte, ťahák vzorcov a úloha z fotky. Ak poznámky nestačia — balík +20 na 30 dní za 1,99 €."
+    "Tolk Pro je všetko z Plus a navyše poznámky z prednášok. Stlačte „Nahrať prednášku“: Tolk uloží prepis a slajdy z obrazovky, nájde prezentáciu na stránke katedry (napríklad kmti.fei.tuke.sk) alebo použije váš súbor a za minútu zostaví poznámky: témy, definície, vzorce, termíny zápočtov. Pred skúškami — kartičky, úlohy s riešením metódou vyučujúceho, skúšobná skúška v jeho formáte, ťahák vzorcov a úloha z fotky. Ak poznámky nestačia — balík +20 na 30 dní za 1,99 €."
    ],
    [
     "Funguje v každom prehliadači?",
@@ -512,14 +663,71 @@ window.TOLK_TEXTS = {
   "c2_note": "Skutočné odpovede oboch prekladačov, september 2026.",
   "c3_k": "Titulky",
   "drag": "Potiahnite",
-  "tab_std": "Bežné",
+  "tab_std": "Plus",
   "tab_pro": "Pro — s poznámkami",
   "sale_ey": "Limitovaná ponuka",
   "sale_t": "{d} na Tolk",
   "sale_upto": "až −{p} %",
   "sale_until": "do {d}",
   "sale_left": "zostáva",
-  "pro_lede": "Všetko z bežného predplatného a navyše poznámky z prednášok: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. Až 45 poznámok mesačne."
+  "pro_lede": "Všetko z Plus a k tomu štúdium: Tolk nahrá prednášku, uloží slajdy z obrazovky, nájde prezentáciu na stránke katedry a zostaví poznámky — témy, definície, vzorce, termíny zápočtov. A na skúškové — kartičky, úlohy s riešením metódou z prednášok a skúšobná skúška. Až 45 poznámok mesačne.",
+  "fb_ey": "Free · 0 € · navždy",
+  "fb_t": "30 minút prekladu každý deň — zadarmo.",
+  "fb_s": "Len preklad: Google a rozpoznávanie v počítači. Neurónová sieť Tolk AI, nahrávanie prednášok a príprava na skúšku — v Plus a Pro.",
+  "fb_go": "Získať Free v bote",
+  "nl4": "Mini skúška",
+  "x_hint": "Otočte myšou",
+  "x_hint_t": "Otočte prstom",
+  "x_open": "Rozložiť okno",
+  "x_close": "Zložiť okno",
+  "sb_style": "Štýl",
+  "sb_size": "Veľkosť",
+  "sb_words": "Slov v riadku",
+  "sb_auto": "podľa šírky",
+  "sb_n": "do {n}",
+  "sb_engine": "Prekladač",
+  "sb_orig": "Originál",
+  "sb_note": "Vety sú skutočné odpovede Googlu a Tolk AI. Vzhľad — ako v nastaveniach Tolk.",
+  "c5_k": "Skúška",
+  "c5_h": "Otestujte sa <em>za minútu.</em>",
+  "c5_p": "Takto Tolk Pro pripravuje na skúškové: úlohy z vašich poznámok, odpoveď sa kontroluje hneď a riešenie — metódou z prednášky. Skúste tri úlohy k ukážkovým poznámkam.",
+  "c5_a": "Úlohy",
+  "c5_av": "ľahké, stredné, ťažké · vlastná téma",
+  "c5_b": "Kontrola",
+  "c5_bv": "hneď, s nápovedou a celým riešením",
+  "c5_c": "Skúšobný test",
+  "c5_cv": "formát a body — ako hovoril vyučujúci",
+  "ex": {
+   "task": "Úloha {n} z {m}",
+   "lv": {
+    "easy": "ľahká",
+    "medium": "stredná",
+    "hard": "ťažká"
+   },
+   "from": "z prednášky „{c}“",
+   "hint": "Nápoveda",
+   "check": "Skontrolovať",
+   "sol": "Podrobné riešenie",
+   "next": "Ďalej",
+   "prev": "Späť",
+   "finish": "Výsledok",
+   "ph": "Odpoveď, napr. 1,5 A",
+   "ok": "✓ Správne",
+   "part": "≈ Takmer",
+   "bad": "✗ Zatiaľ nie",
+   "unit": "číslo je správne — doplňte jednotku (A)",
+   "branch": "to je prúd jednej vetvy — sčítajte obe",
+   "wrong": "pozrite sa do nápovedy alebo riešenia",
+   "ans": "Odpoveď:",
+   "sol_h": "Riešenie · metódou z prednášky",
+   "end": "Výsledok: {r} z {m}",
+   "end_all": "Prešli by ste.",
+   "end_some": "Chyby vidíte hneď — tak sa človek učí.",
+   "end_p": "V Tolk Pro máte takéto úlohy z vlastných poznámok: ľahké, stredné aj ťažké, riešené metódou z prednášky, a k tomu skúšobný test.",
+   "go": "Pozrieť Tolk Pro",
+   "again": "Znova",
+   "note": "Príklad: úlohy k ukážkovým poznámkam vyššie. V Tolk odpoveď kontroluje aj Tolk AI."
+  }
  },
  "en": {
   "dl_other": "Other systems:",
@@ -527,15 +735,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, beta. If your Mac won’t open it: Settings → Privacy & Security → “Open Anyway”.",
   "hint_linux": "Beta. Installs without root: sh Tolk-Setup-Linux.run — Tolk appears in your app menu.",
-  "title": "Tolk — translated subtitles for online lectures",
+  "title": "Tolk — lecture translation, notes and exam prep",
   "pair": "SK → EN",
   "nav_dl": "Download",
   "h1": "Understand lectures<br><em>from day one.</em>",
-  "lede": "Tolk translates your lecturer while they speak. Subtitles appear over Teams, Zoom or your browser, and you read them like a film.",
+  "lede": "Tolk translates your lecturer while they speak — subtitles over Teams, Zoom or your browser. After class it writes the notes and gets you ready for the exam: flashcards, problems, a mock exam.",
   "cta_dl": "Download for {os}",
   "cta_buy": "Buy in Telegram",
   "cta_trial": "30 minutes free in Telegram",
-  "fine": "First 30 minutes free, no sign-up",
+  "fine": "30 minutes of Plus free, then Free forever: 30 minutes a day",
   "c1_h": "Choose <em>what to translate.</em>",
   "c1_p": "A browser tab with your lecture, Teams, Zoom or all of your computer's sound. Tolk doesn't hear music or notifications from other apps.",
   "c1_a": "Source",
@@ -547,16 +755,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Gets <em>student slang.</em>",
   "c2_p": "A regular translator trips over slang and abbreviations. Tolk AI knows what “intrák” and “zápočet” mean, and remembers what was said a minute ago.",
   "c3_h": "Wherever <em>suits you.</em>",
-  "c3_p": "Subtitles float above every window. Drag them with the mouse (try it right here) and pick a style:",
+  "c3_p": "Subtitles float above every window. Set them up right here, just like in Tolk: style, size, words per line. Drag the middle to move them, the edges to change the width.",
   "p_k": "Pricing",
   "p_h": "Tolk plans. <em>Everything included.</em>",
-  "p_lede": "All of Tolk plus 30 hours of Tolk AI every 30 days. The longer the plan, the cheaper the month.",
+  "p_lede": "Plus — translation with Tolk AI and no daily limit, plus 30 hours of Tolk AI every 30 days. Pro adds lecture notes and exam prep. The longer the plan, the cheaper the month.",
   "extra": "Need more hours?",
   "pay_line": "Buy in the <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a> bot: Ukrainian card, USDT or TON. No automatic charges.",
   "rates": "Hryvnia and crypto prices follow the current rate, rounded. The exact amount is shown in the bot.",
   "q_k": "FAQ",
   "t_h": "Try it on <em>your own lecture.</em>",
-  "t_fine": "Half an hour of the full version with Tolk AI — no card, no sign-up.",
+  "t_fine": "30 minutes of Tolk Plus free, then Free forever or a subscription. No card.",
   "f1k": "Platform",
   "f1v": "Windows 10 and 11 · macOS 13+ and Linux — beta",
   "f2k": "Purchase and keys",
@@ -567,7 +775,7 @@ window.TOLK_TEXTS = {
   "f6k": "Students",
   "f6v": "University pages",
   "f6s": "Subject terms",
-  "h_k": "Subtitles, translation and notes for lectures",
+  "h_k": "Lecture translation, notes and exam prep",
   "nl1": "How it works",
   "nl2": "Pricing",
   "nl3": "FAQ",
@@ -638,6 +846,14 @@ window.TOLK_TEXTS = {
     "Windows 10 or 11, macOS 13+ or Linux (the last two in beta) and an internet connection for Tolk AI. A graphics card isn't required: Tolk picks a speech-recognition model that suits your computer."
    ],
    [
+    "Is there a free version?",
+    "Yes — Tolk Free, free with no end date: 30 minutes of translation every day. Google translates and speech is recognized on your computer. Tolk AI, lecture recording and exam prep are in Plus and Pro. To try all of Plus, the bot also gives 30 free minutes — once."
+   ],
+   [
+    "How does Tolk help with exams?",
+    "After every class you get notes in the lecture's language with a translation. From them Tolk Pro makes flashcards (Anki export too), problems solved the way your lecturer did it, a mock exam based on what the lecturer said, and a formula sheet. Spaced repetition and words of the day in Telegram are in Plus and Pro."
+   ],
+   [
     "Which languages does it understand?",
     "It recognises 35 spoken languages — Slovak, Czech, English, German, Polish, Ukrainian and more — and translates into 32, including English, Slovak, Ukrainian and Russian."
    ],
@@ -647,7 +863,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "What is Tolk Pro and the notes?",
-    "Tolk Pro is everything in the regular plan plus lecture notes. Press “Record lecture”: Tolk saves the transcript and the on-screen slides, finds the presentation on the department site (e.g. kmti.fei.tuke.sk) or takes your file, and in a minute writes notes: topics, definitions, formulas, deadlines. Before exams — flashcards, problems solved with the lecturer's method, a mock exam in their format, a formula sheet and problems from a photo. Need more notes — a pack of +20 for 30 days for €1.99."
+    "Tolk Pro is everything in Plus plus lecture notes. Press “Record lecture”: Tolk saves the transcript and the on-screen slides, finds the presentation on the department site (e.g. kmti.fei.tuke.sk) or takes your file, and in a minute writes notes: topics, definitions, formulas, deadlines. Before exams — flashcards, problems solved with the lecturer's method, a mock exam in their format, a formula sheet and problems from a photo. Need more notes — a pack of +20 for 30 days for €1.99."
    ],
    [
     "Does it work in any browser?",
@@ -678,14 +894,88 @@ window.TOLK_TEXTS = {
   "c2_note": "Real answers from both translators, September 2026.",
   "c3_k": "Subtitles",
   "drag": "Drag me",
-  "tab_std": "Regular",
+  "tab_std": "Plus",
   "tab_pro": "Pro — with notes",
   "sale_ey": "Limited offer",
   "sale_t": "{d} off Tolk",
   "sale_upto": "up to −{p}%",
   "sale_until": "until {d}",
   "sale_left": "left",
-  "pro_lede": "Everything in the regular plan plus lecture notes: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. Up to 45 notes a month."
+  "pro_lede": "Everything in Plus, plus studying: Tolk records the class, saves the on-screen slides, finds the presentation on the department site and writes notes — topics, definitions, formulas, deadlines. And for exams: flashcards, problems solved the way your lecturer does it, and a mock exam. Up to 45 notes a month.",
+  "fb_ey": "Free · €0 · forever",
+  "fb_t": "30 minutes of translation every day — free.",
+  "fb_s": "Translation only: Google and on-device speech recognition. Tolk AI, lecture recording and exam prep are in Plus and Pro.",
+  "fb_go": "Get Free in the bot",
+  "nl4": "Mini exam",
+  "x_hint": "Spin it with the mouse",
+  "x_hint_t": "Spin it with your finger",
+  "x_open": "Take apart",
+  "x_close": "Put together",
+  "sb_style": "Style",
+  "sb_size": "Size",
+  "sb_words": "Words per line",
+  "sb_auto": "by width",
+  "sb_n": "up to {n}",
+  "sb_engine": "Translator",
+  "sb_orig": "Original",
+  "sb_note": "The lines are real answers from Google and Tolk AI. The look matches Tolk's settings.",
+  "c5_k": "Exam",
+  "c5_h": "Test yourself <em>in a minute.</em>",
+  "c5_p": "This is how Tolk Pro gets you ready for exams: problems from your notes, answers checked right away, and solutions worked the way your lecturer did it. Try three problems for the sample notes.",
+  "c5_a": "Problems",
+  "c5_av": "easy, medium, hard · your own topic",
+  "c5_b": "Checking",
+  "c5_bv": "instant, with a hint and a full solution",
+  "c5_c": "Mock exam",
+  "c5_cv": "format and points — as the lecturer described",
+  "ex": {
+   "task": "Problem {n} of {m}",
+   "lv": {
+    "easy": "easy",
+    "medium": "medium",
+    "hard": "hard"
+   },
+   "from": "from “{c}”",
+   "hint": "Hint",
+   "check": "Check",
+   "sol": "Full solution",
+   "next": "Next",
+   "prev": "Back",
+   "finish": "Results",
+   "ph": "Answer, e.g. 1.5 A",
+   "ok": "✓ Correct",
+   "part": "≈ Almost",
+   "bad": "✗ Not quite",
+   "unit": "the number is right — add the unit (A)",
+   "branch": "that's the current of one branch — add both",
+   "wrong": "take a look at the hint or the solution",
+   "ans": "Answer:",
+   "sol_h": "Solution · the lecturer's method",
+   "end": "Result: {r} of {m}",
+   "end_all": "You'd pass.",
+   "end_some": "You see the mistakes right away — that's how you learn.",
+   "end_p": "In Tolk Pro you get problems like these from your own notes: easy, medium and hard, solved the way your lecturer did it, plus a mock exam.",
+   "go": "See Tolk Pro",
+   "again": "Try again",
+   "note": "Example: problems for the sample notes above. In Tolk, Tolk AI checks answers too."
+  },
+  "ex_tr": {
+   "meth": "Method: Ohm's law, as in the lecture",
+   "items": [
+    {
+     "q": "We apply 5 V across a 20 Ω resistor. What current flows through it?",
+     "h": "Ohm's law: I = U / R."
+    },
+    {
+     "q": "Resistors of 30 Ω and 60 Ω are connected in series to 9 V. What current flows in the circuit?",
+     "h": "In series, resistances add up."
+    },
+    {
+     "q": "The same 30 Ω and 60 Ω resistors are connected in parallel to 12 V. What total current does the circuit draw?",
+     "h": "In parallel, both resistors have the same voltage across them."
+    }
+   ]
+  }
  },
  "pl": {
   "dl_other": "Inne systemy:",
@@ -693,15 +983,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, beta. Jeśli Mac nie chce otworzyć: Ustawienia → Prywatność i ochrona → „Otwórz mimo to”.",
   "hint_linux": "Beta. Instalacja bez roota: sh Tolk-Setup-Linux.run — Tolk pojawi się w menu aplikacji.",
-  "title": "Tolk — napisy z tłumaczeniem do wykładów online",
+  "title": "Tolk — tłumaczenie zajęć, notatki i nauka do egzaminów",
   "pair": "SK → EN",
   "nav_dl": "Pobierz",
   "h1": "Rozumiej wykłady<br><em>od pierwszego dnia.</em>",
-  "lede": "Tolk tłumaczy wykładowcę na bieżąco. Napisy pojawiają się nad Teams, Zoomem albo przeglądarką, a ty czytasz je jak w filmie.",
+  "lede": "Tolk tłumaczy wykładowcę na bieżąco — napisami nad Teams, Zoomem albo przeglądarką. A po zajęciach pisze notatki i przygotowuje do egzaminu: fiszki, zadania, egzamin próbny.",
   "cta_dl": "Pobierz na {os}",
   "cta_buy": "Kup w Telegramie",
   "cta_trial": "30 minut za darmo w Telegramie",
-  "fine": "Pierwsze 30 minut za darmo, bez rejestracji",
+  "fine": "30 minut Plus za darmo, potem Free na zawsze: 30 minut dziennie",
   "c1_h": "Wybierz, <em>co tłumaczyć.</em>",
   "c1_p": "Kartę przeglądarki z wykładem, Teams, Zoom albo cały dźwięk komputera. Tolk nie słyszy muzyki ani powiadomień z innych aplikacji.",
   "c1_a": "Źródło",
@@ -713,16 +1003,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Rozumie <em>studencki slang.</em>",
   "c2_p": "Zwykły tłumacz potyka się na slangu i skrótach. Tolk AI wie, co znaczy „intrák” i „zápočet”, i pamięta, co padło minutę temu.",
   "c3_h": "Tam, gdzie <em>ci wygodnie.</em>",
-  "c3_p": "Napisy wiszą nad każdym oknem. Przeciągnij je myszką (spróbuj tutaj) i wybierz styl:",
+  "c3_p": "Napisy wiszą nad każdym oknem. Ustaw je tutaj — tak jak w Tolk: styl, rozmiar, ile słów w wierszu. Przeciągnij za środek, żeby przesunąć, za krawędzie — żeby zmienić szerokość.",
   "p_k": "Ceny",
   "p_h": "Plany Tolk. <em>Wszystko w cenie.</em>",
-  "p_lede": "Cały Tolk i 30 godzin Tolk AI co 30 dni. Im dłuższy plan, tym tańszy miesiąc.",
+  "p_lede": "Plus — tłumaczenie siecią neuronową Tolk AI bez dziennego limitu i 30 godzin Tolk AI co 30 dni. Pro — do tego notatki i przygotowanie do egzaminu. Im dłuższy plan, tym tańszy miesiąc.",
   "extra": "Potrzebujesz więcej godzin?",
   "pay_line": "Kupisz w bocie <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: ukraińska karta, USDT albo TON. Bez automatycznych obciążeń.",
   "rates": "Ceny w hrywnach i krypto liczone po bieżącym kursie i zaokrąglone. Dokładną kwotę pokaże bot.",
   "q_k": "Pytania",
   "t_h": "Sprawdź na <em>swoim wykładzie.</em>",
-  "t_fine": "Pół godziny pełnej wersji z Tolk AI — bez karty i rejestracji.",
+  "t_fine": "30 minut Tolk Plus za darmo, potem Free na zawsze albo subskrypcja. Bez karty.",
   "f1k": "Platforma",
   "f1v": "Windows 10 i 11 · macOS 13+ i Linux — beta",
   "f2k": "Zakup i klucze",
@@ -733,7 +1023,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studenci",
   "f6v": "Strony uczelni",
   "f6s": "Terminy przedmiotów",
-  "h_k": "Napisy, tłumaczenie i notatki do wykładów",
+  "h_k": "Tłumaczenie zajęć, notatki i nauka do egzaminów",
   "nl1": "Jak to działa",
   "nl2": "Ceny",
   "nl3": "Pytania",
@@ -804,6 +1094,14 @@ window.TOLK_TEXTS = {
     "Windows 10 albo 11, macOS 13+ albo Linux (dwa ostatnie — beta) i internetu dla Tolk AI. Karta graficzna nie jest potrzebna: Tolk sam dobierze model rozpoznawania mowy do twojego komputera."
    ],
    [
+    "Jest darmowa wersja?",
+    "Tak — Tolk Free, za darmo i bez terminu: 30 minut tłumaczenia każdego dnia. Tłumaczy Google, a mowa jest rozpoznawana na komputerze. Sieć neuronowa Tolk AI, nagrywanie wykładów i przygotowanie do egzaminu są w Plus i Pro. A żeby wypróbować cały Plus, w bocie jest 30 darmowych minut — jeden raz."
+   ],
+   [
+    "Jak Tolk pomaga w nauce do egzaminów?",
+    "Po każdych zajęciach dostajesz notatki w języku wykładu z tłumaczeniem. Z nich Tolk Pro robi fiszki (też do Anki), zadania rozwiązane metodą z zajęć, egzamin próbny według tego, co mówił prowadzący, i ściągę ze wzorami. Powtórki według planu i słowa dnia w Telegramie są w Plus i Pro."
+   ],
+   [
     "Jakie języki rozumie?",
     "Rozpoznaje 35 języków mówionych — słowacki, czeski, angielski, niemiecki, polski, ukraiński i inne — a tłumaczy na 32, w tym na angielski, polski, ukraiński i rosyjski."
    ],
@@ -813,7 +1111,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Czym jest Tolk Pro i notatki?",
-    "Tolk Pro to wszystko, co w zwykłym planie, plus notatki z wykładów. Naciśnij „Nagraj wykład”: Tolk zapisze transkrypcję i slajdy z ekranu, znajdzie prezentację na stronie katedry (np. kmti.fei.tuke.sk) albo weźmie twój plik i w minutę napisze notatki: tematy, definicje, wzory, terminy. Przed sesją — fiszki, zadania rozwiązane metodą wykładowcy, egzamin próbny w jego formacie, ściąga wzorów i zadania ze zdjęcia. Za mało notatek — pakiet +20 na 30 dni za 1,99 €."
+    "Tolk Pro to wszystko, co w Plus, plus notatki z wykładów. Naciśnij „Nagraj wykład”: Tolk zapisze transkrypcję i slajdy z ekranu, znajdzie prezentację na stronie katedry (np. kmti.fei.tuke.sk) albo weźmie twój plik i w minutę napisze notatki: tematy, definicje, wzory, terminy. Przed sesją — fiszki, zadania rozwiązane metodą wykładowcy, egzamin próbny w jego formacie, ściąga wzorów i zadania ze zdjęcia. Za mało notatek — pakiet +20 na 30 dni za 1,99 €."
    ],
    [
     "Działa w każdej przeglądarce?",
@@ -844,14 +1142,88 @@ window.TOLK_TEXTS = {
   "c2_note": "Prawdziwe odpowiedzi obu tłumaczy, wrzesień 2026.",
   "c3_k": "Napisy",
   "drag": "Przeciągnij mnie",
-  "tab_std": "Zwykły",
+  "tab_std": "Plus",
   "tab_pro": "Pro — z notatkami",
   "sale_ey": "Oferta ograniczona",
   "sale_t": "{d} na Tolk",
   "sale_upto": "do −{p}%",
   "sale_until": "do {d}",
   "sale_left": "zostało",
-  "pro_lede": "Wszystko, co w zwykłym planie, plus notatki z wykładów: Tolk nagrywa zajęcia, zapisuje slajdy z ekranu, znajduje prezentację na stronie katedry i pisze notatki — tematy, definicje, wzory, terminy. Do 45 notatek miesięcznie."
+  "pro_lede": "Wszystko, co w Plus, i do tego nauka: Tolk nagrywa zajęcia, zapisuje slajdy z ekranu, znajduje prezentację na stronie katedry i pisze notatki — tematy, definicje, wzory, terminy. A na sesję — fiszki, zadania rozwiązane metodą z zajęć i egzamin próbny. Do 45 notatek miesięcznie.",
+  "fb_ey": "Free · 0 € · na zawsze",
+  "fb_t": "30 minut tłumaczenia każdego dnia — za darmo.",
+  "fb_s": "Tylko tłumaczenie: Google i rozpoznawanie mowy na komputerze. Sieć neuronowa Tolk AI, nagrywanie wykładów i przygotowanie do egzaminu — w Plus i Pro.",
+  "fb_go": "Odbierz Free w bocie",
+  "nl4": "Mini-egzamin",
+  "x_hint": "Obróć myszką",
+  "x_hint_t": "Obróć palcem",
+  "x_open": "Rozłóż okno",
+  "x_close": "Złóż okno",
+  "sb_style": "Styl",
+  "sb_size": "Rozmiar",
+  "sb_words": "Słów w wierszu",
+  "sb_auto": "wg szerokości",
+  "sb_n": "do {n}",
+  "sb_engine": "Tłumacz",
+  "sb_orig": "Oryginał",
+  "sb_note": "Zdania to prawdziwe odpowiedzi Google i Tolk AI. Wygląd — jak w ustawieniach Tolk.",
+  "c5_k": "Egzamin",
+  "c5_h": "Sprawdź się <em>w minutę.</em>",
+  "c5_p": "Tak Tolk Pro przygotowuje do sesji: zadania z twoich notatek, odpowiedź sprawdzana od razu, a rozwiązanie — metodą z zajęć. Spróbuj trzech zadań do przykładowych notatek.",
+  "c5_a": "Zadania",
+  "c5_av": "łatwe, średnie, trudne · własny temat",
+  "c5_b": "Sprawdzanie",
+  "c5_bv": "od razu, z podpowiedzią i pełnym rozwiązaniem",
+  "c5_c": "Egzamin próbny",
+  "c5_cv": "format i punkty — jak mówił prowadzący",
+  "ex": {
+   "task": "Zadanie {n} z {m}",
+   "lv": {
+    "easy": "łatwe",
+    "medium": "średnie",
+    "hard": "trudne"
+   },
+   "from": "z zajęć „{c}”",
+   "hint": "Podpowiedź",
+   "check": "Sprawdź",
+   "sol": "Pełne rozwiązanie",
+   "next": "Dalej",
+   "prev": "Wstecz",
+   "finish": "Wynik",
+   "ph": "Odpowiedź, np. 1,5 A",
+   "ok": "✓ Dobrze",
+   "part": "≈ Prawie",
+   "bad": "✗ Jeszcze nie",
+   "unit": "liczba się zgadza — dopisz jednostkę (A)",
+   "branch": "to prąd jednej gałęzi — dodaj obie",
+   "wrong": "zajrzyj do podpowiedzi albo rozwiązania",
+   "ans": "Odpowiedź:",
+   "sol_h": "Rozwiązanie · metodą z zajęć",
+   "end": "Wynik: {r} z {m}",
+   "end_all": "Zdajesz.",
+   "end_some": "Błędy widać od razu — tak uczy się najlepiej.",
+   "end_p": "W Tolk Pro takie zadania powstają z twoich notatek: łatwe, średnie i trudne, rozwiązane metodą z zajęć, do tego egzamin próbny.",
+   "go": "Zobacz Tolk Pro",
+   "again": "Jeszcze raz",
+   "note": "Przykład: zadania do przykładowych notatek wyżej. W Tolk odpowiedź sprawdza też Tolk AI."
+  },
+  "ex_tr": {
+   "meth": "Metoda: prawo Ohma, jak na zajęciach",
+   "items": [
+    {
+     "q": "Do rezystora o oporze 20 Ω przykładamy napięcie 5 V. Jaki prąd przez niego płynie?",
+     "h": "Prawo Ohma: I = U / R."
+    },
+    {
+     "q": "Rezystory 30 Ω i 60 Ω połączono szeregowo i podłączono do 9 V. Jaki prąd płynie w obwodzie?",
+     "h": "Przy połączeniu szeregowym opory się sumują."
+    },
+    {
+     "q": "Te same rezystory 30 Ω i 60 Ω łączymy równolegle i podłączamy do 12 V. Jaki całkowity prąd pobiera obwód?",
+     "h": "Przy połączeniu równoległym na obu rezystorach jest to samo napięcie."
+    }
+   ]
+  }
  },
  "cs": {
   "dl_other": "Jiné systémy:",
@@ -859,15 +1231,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, beta. Pokud ho Mac nechce otevřít: Nastavení → Soukromí a zabezpečení → „Přesto otevřít“.",
   "hint_linux": "Beta. Instalace bez rootu: sh Tolk-Setup-Linux.run — Tolk se objeví v nabídce aplikací.",
-  "title": "Tolk — titulky s překladem k online přednáškám",
+  "title": "Tolk — překlad přednášek, poznámky a příprava na zkoušky",
   "pair": "SK → EN",
   "nav_dl": "Stáhnout",
   "h1": "Rozumějte přednáškám<br><em>od prvního dne.</em>",
-  "lede": "Tolk překládá vyučujícího, zatímco mluví. Titulky se objeví nad Teams, Zoomem nebo prohlížečem a čtete je jako u filmu.",
+  "lede": "Tolk překládá vyučujícího, zatímco mluví — titulky nad Teams, Zoomem nebo prohlížečem. A po přednášce napíše poznámky a připraví vás na zkoušku: kartičky, úlohy, zkušební test.",
   "cta_dl": "Stáhnout pro {os}",
   "cta_buy": "Koupit v Telegramu",
   "cta_trial": "30 minut zdarma v Telegramu",
-  "fine": "Prvních 30 minut zdarma, bez registrace",
+  "fine": "30 minut Plus zdarma, potom Free navždy: 30 minut denně",
   "c1_h": "Vyberte, <em>co překládat.</em>",
   "c1_p": "Kartu prohlížeče s přednáškou, Teams, Zoom nebo celý zvuk počítače. Tolk neslyší hudbu ani oznámení z jiných aplikací.",
   "c1_a": "Zdroj",
@@ -879,16 +1251,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Rozumí <em>studentskému slangu.</em>",
   "c2_p": "Běžný překladač zakopává o slang a zkratky. Tolk AI ví, co znamená „intrák“ a „zápočet“, a pamatuje si, co zaznělo před minutou.",
   "c3_h": "Tam, kde <em>se vám to hodí.</em>",
-  "c3_p": "Titulky visí nad každým oknem. Přetáhněte je myší (zkuste to tady) a vyberte styl:",
+  "c3_p": "Titulky visí nad každým oknem. Nastavte si je přímo tady — jako v Tolk: styl, velikost, kolik slov na řádek. Tažením za střed je přesunete, za okraje změníte šířku.",
   "p_k": "Ceny",
   "p_h": "Tarify Tolk. <em>Vše v ceně.</em>",
-  "p_lede": "Celý Tolk a 30 hodin Tolk AI každých 30 dní. Čím delší tarif, tím levnější měsíc.",
+  "p_lede": "Plus — překlad neuronovou sítí Tolk AI bez denního limitu a 30 hodin Tolk AI každých 30 dní. Pro — navíc poznámky a příprava na zkoušku. Čím delší tarif, tím levnější měsíc.",
   "extra": "Potřebujete víc hodin?",
   "pay_line": "Koupíte v botovi <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: ukrajinská karta, USDT nebo TON. Žádné automatické platby.",
   "rates": "Ceny v hřivnách a kryptu se počítají podle aktuálního kurzu a zaokrouhlují. Přesnou částku ukáže bot.",
   "q_k": "Otázky",
   "t_h": "Vyzkoušejte na <em>své přednášce.</em>",
-  "t_fine": "Půl hodiny plné verze s Tolk AI — bez karty a registrace.",
+  "t_fine": "30 minut Tolk Plus zdarma, potom Free navždy nebo předplatné. Bez karty.",
   "f1k": "Platforma",
   "f1v": "Windows 10 a 11 · macOS 13+ a Linux — beta",
   "f2k": "Nákup a klíče",
@@ -899,7 +1271,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studenti",
   "f6v": "Stránky vysokých škol",
   "f6s": "Pojmy předmětů",
-  "h_k": "Titulky, překlad a poznámky k přednáškám",
+  "h_k": "Překlad přednášek, poznámky a příprava na zkoušky",
   "nl1": "Jak to funguje",
   "nl2": "Ceny",
   "nl3": "Otázky",
@@ -970,6 +1342,14 @@ window.TOLK_TEXTS = {
     "Windows 10 nebo 11, macOS 13+ nebo Linux (poslední dva — beta) a internet pro Tolk AI. Grafická karta není potřeba: Tolk sám vybere model rozpoznávání řeči, který váš počítač zvládne."
    ],
    [
+    "Je k dispozici bezplatná verze?",
+    "Ano — Tolk Free, zdarma a bez omezení: 30 minut překladu každý den. Překládá Google a řeč se rozpoznává v počítači. Neuronová síť Tolk AI, nahrávání přednášek a příprava na zkoušku jsou v Plus a Pro. A pokud si chcete vyzkoušet celý Plus, v botovi je 30 minut zdarma — jednou."
+   ],
+   [
+    "Jak Tolk pomáhá s přípravou na zkoušky?",
+    "Po každé přednášce máte poznámky v jazyce přednášky s překladem. Z nich Tolk Pro udělá kartičky (i do Anki), úlohy s řešením metodou z přednášky, zkušební test podle toho, co říkal vyučující, a tahák se vzorci. Opakování podle plánu a slova dne v Telegramu jsou v Plus i Pro."
+   ],
+   [
     "Jakým jazykům rozumí?",
     "Rozpoznává 35 mluvených jazyků — slovenštinu, češtinu, angličtinu, němčinu, polštinu, ukrajinštinu a další — a překládá do 32, mezi nimi do angličtiny, češtiny, ukrajinštiny a ruštiny."
    ],
@@ -979,7 +1359,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Co je Tolk Pro a poznámky?",
-    "Tolk Pro je vše z běžného tarifu a navíc poznámky z přednášek. Stiskněte „Nahrát přednášku“: Tolk uloží přepis a slajdy z obrazovky, najde prezentaci na webu katedry (např. kmti.fei.tuke.sk) nebo vezme váš soubor a za minutu napíše poznámky: témata, definice, vzorce, termíny. Před zkouškami — kartičky, úlohy řešené metodou vyučujícího, zkušební test v jeho formátu, tahák vzorců a úlohy z fotky. Málo poznámek — balíček +20 na 30 dní za 1,99 €."
+    "Tolk Pro je vše z Plus a navíc poznámky z přednášek. Stiskněte „Nahrát přednášku“: Tolk uloží přepis a slajdy z obrazovky, najde prezentaci na webu katedry (např. kmti.fei.tuke.sk) nebo vezme váš soubor a za minutu napíše poznámky: témata, definice, vzorce, termíny. Před zkouškami — kartičky, úlohy řešené metodou vyučujícího, zkušební test v jeho formátu, tahák vzorců a úlohy z fotky. Málo poznámek — balíček +20 na 30 dní za 1,99 €."
    ],
    [
     "Funguje v každém prohlížeči?",
@@ -1010,14 +1390,88 @@ window.TOLK_TEXTS = {
   "c2_note": "Skutečné odpovědi obou překladačů, září 2026.",
   "c3_k": "Titulky",
   "drag": "Přetáhněte mě",
-  "tab_std": "Běžný",
+  "tab_std": "Plus",
   "tab_pro": "Pro — s poznámkami",
   "sale_ey": "Omezená nabídka",
   "sale_t": "{d} na Tolk",
   "sale_upto": "až −{p} %",
   "sale_until": "do {d}",
   "sale_left": "zbývá",
-  "pro_lede": "Vše z běžného tarifu a navíc poznámky z přednášek: Tolk nahraje výuku, uloží slajdy z obrazovky, najde prezentaci na webu katedry a napíše poznámky — témata, definice, vzorce, termíny. Až 45 poznámek měsíčně."
+  "pro_lede": "Vše z Plus a k tomu studium: Tolk nahraje výuku, uloží slajdy z obrazovky, najde prezentaci na webu katedry a napíše poznámky — témata, definice, vzorce, termíny. A na zkouškové — kartičky, úlohy řešené metodou z přednášek a zkušební zkouška. Až 45 poznámek měsíčně.",
+  "fb_ey": "Free · 0 € · navždy",
+  "fb_t": "30 minut překladu každý den — zdarma.",
+  "fb_s": "Jen překlad: Google a rozpoznávání v počítači. Neuronová síť Tolk AI, nahrávání přednášek a příprava na zkoušku — v Plus a Pro.",
+  "fb_go": "Získat Free v botovi",
+  "nl4": "Mini zkouška",
+  "x_hint": "Otočte myší",
+  "x_hint_t": "Otočte prstem",
+  "x_open": "Rozložit okno",
+  "x_close": "Složit okno",
+  "sb_style": "Styl",
+  "sb_size": "Velikost",
+  "sb_words": "Slov na řádek",
+  "sb_auto": "podle šířky",
+  "sb_n": "až {n}",
+  "sb_engine": "Překladač",
+  "sb_orig": "Originál",
+  "sb_note": "Věty jsou skutečné odpovědi Googlu a Tolk AI. Vzhled — jako v nastavení Tolk.",
+  "c5_k": "Zkouška",
+  "c5_h": "Vyzkoušejte se <em>za minutu.</em>",
+  "c5_p": "Takhle Tolk Pro připravuje na zkouškové: úlohy z vašich poznámek, odpověď se kontroluje hned a řešení — metodou z přednášky. Zkuste tři úlohy k ukázkovým poznámkám.",
+  "c5_a": "Úlohy",
+  "c5_av": "lehké, střední, těžké · vlastní téma",
+  "c5_b": "Kontrola",
+  "c5_bv": "hned, s nápovědou a celým řešením",
+  "c5_c": "Zkušební test",
+  "c5_cv": "formát a body — jak říkal vyučující",
+  "ex": {
+   "task": "Úloha {n} z {m}",
+   "lv": {
+    "easy": "lehká",
+    "medium": "střední",
+    "hard": "těžká"
+   },
+   "from": "z přednášky „{c}“",
+   "hint": "Nápověda",
+   "check": "Zkontrolovat",
+   "sol": "Podrobné řešení",
+   "next": "Dál",
+   "prev": "Zpět",
+   "finish": "Výsledek",
+   "ph": "Odpověď, např. 1,5 A",
+   "ok": "✓ Správně",
+   "part": "≈ Skoro",
+   "bad": "✗ Zatím ne",
+   "unit": "číslo je správně — doplňte jednotku (A)",
+   "branch": "to je proud jedné větve — sečtěte obě",
+   "wrong": "podívejte se do nápovědy nebo řešení",
+   "ans": "Odpověď:",
+   "sol_h": "Řešení · metodou z přednášky",
+   "end": "Výsledek: {r} z {m}",
+   "end_all": "Prošli byste.",
+   "end_some": "Chyby vidíte hned — tak se člověk učí.",
+   "end_p": "V Tolk Pro máte takové úlohy z vlastních poznámek: lehké, střední i těžké, řešené metodou z přednášky, a k tomu zkušební test.",
+   "go": "Zobrazit Tolk Pro",
+   "again": "Znovu",
+   "note": "Příklad: úlohy k ukázkovým poznámkám výše. V Tolk odpověď kontroluje i Tolk AI."
+  },
+  "ex_tr": {
+   "meth": "Metoda: Ohmův zákon, jako na přednášce",
+   "items": [
+    {
+     "q": "Na rezistor s odporem 20 Ω připojíme napětí 5 V. Jaký proud jím teče?",
+     "h": "Ohmův zákon: I = U / R."
+    },
+    {
+     "q": "Rezistory 30 Ω a 60 Ω jsou zapojeny sériově na napětí 9 V. Jaký proud teče obvodem?",
+     "h": "Při sériovém zapojení se odpory sčítají."
+    },
+    {
+     "q": "Tytéž rezistory 30 Ω a 60 Ω zapojíme paralelně na napětí 12 V. Jaký celkový proud odebírá obvod?",
+     "h": "Při paralelním zapojení je na obou rezistorech stejné napětí."
+    }
+   ]
+  }
  },
  "de": {
   "dl_other": "Andere Systeme:",
@@ -1025,15 +1479,15 @@ window.TOLK_TEXTS = {
   "mac_intel": "Mac (Intel)",
   "hint_mac": "macOS 13+, Beta. Wenn dein Mac das Öffnen blockiert: Einstellungen → Datenschutz & Sicherheit → „Dennoch öffnen“.",
   "hint_linux": "Beta. Installation ohne Root: sh Tolk-Setup-Linux.run — Tolk erscheint im App-Menü.",
-  "title": "Tolk — übersetzte Untertitel für Online-Vorlesungen",
+  "title": "Tolk — Vorlesungen übersetzt, Mitschriften und Prüfungsvorbereitung",
   "pair": "SK → EN",
   "nav_dl": "Download",
   "h1": "Versteh Vorlesungen<br><em>vom ersten Tag an.</em>",
-  "lede": "Tolk übersetzt die Lehrkraft, während sie spricht. Die Untertitel erscheinen über Teams, Zoom oder dem Browser, und du liest sie wie im Film.",
+  "lede": "Tolk übersetzt die Lehrkraft, während sie spricht — als Untertitel über Teams, Zoom oder dem Browser. Nach der Vorlesung schreibt er die Mitschrift und bereitet dich auf die Prüfung vor: Karteikarten, Aufgaben, Probeklausur.",
   "cta_dl": "Für {os} herunterladen",
   "cta_buy": "In Telegram kaufen",
   "cta_trial": "30 Minuten gratis in Telegram",
-  "fine": "Die ersten 30 Minuten gratis, ohne Anmeldung",
+  "fine": "30 Minuten Plus gratis, danach Free für immer: 30 Minuten am Tag",
   "c1_h": "Wähle, <em>was übersetzt wird.</em>",
   "c1_p": "Einen Browser-Tab mit der Vorlesung, Teams, Zoom oder den ganzen Ton deines Computers. Musik und Benachrichtigungen anderer Apps hört Tolk nicht.",
   "c1_a": "Quelle",
@@ -1045,16 +1499,16 @@ window.TOLK_TEXTS = {
   "c2_h": "Versteht <em>Studi-Slang.</em>",
   "c2_p": "Ein normaler Übersetzer stolpert über Slang und Abkürzungen. Tolk AI weiß, was „intrák“ und „zápočet“ heißen, und erinnert sich, was vor einer Minute gesagt wurde.",
   "c3_h": "Da, wo es <em>dir passt.</em>",
-  "c3_p": "Die Untertitel schweben über jedem Fenster. Zieh sie mit der Maus (probier es hier aus) und wähle einen Stil:",
+  "c3_p": "Die Untertitel schweben über jedem Fenster. Stell sie hier ein, genau wie in Tolk: Stil, Größe, Wörter pro Zeile. In der Mitte ziehen verschiebt sie, an den Rändern ändert die Breite.",
   "p_k": "Preise",
   "p_h": "Tolk-Tarife. <em>Alles inklusive.</em>",
-  "p_lede": "Ganz Tolk plus 30 Stunden Tolk AI alle 30 Tage. Je länger der Tarif, desto günstiger der Monat.",
+  "p_lede": "Plus — Übersetzung mit Tolk AI ohne Tageslimit und 30 Stunden Tolk AI alle 30 Tage. Pro bringt dazu Mitschriften und Prüfungsvorbereitung. Je länger der Tarif, desto günstiger der Monat.",
   "extra": "Brauchst du mehr Stunden?",
   "pay_line": "Kauf im Bot <a class=\"link js-buy\" href=\"https://t.me/TolkShopBot\">@TolkShopBot</a>: ukrainische Karte, USDT oder TON. Keine automatischen Abbuchungen.",
   "rates": "Preise in Hrywnja und Krypto folgen dem aktuellen Kurs, gerundet. Den genauen Betrag zeigt der Bot.",
   "q_k": "Fragen",
   "t_h": "Probier es in <em>deiner Vorlesung.</em>",
-  "t_fine": "Eine halbe Stunde Vollversion mit Tolk AI — ohne Karte, ohne Anmeldung.",
+  "t_fine": "30 Minuten Tolk Plus gratis, danach Free für immer oder ein Abo. Ohne Karte.",
   "f1k": "Plattform",
   "f1v": "Windows 10 und 11 · macOS 13+ und Linux — Beta",
   "f2k": "Kauf und Schlüssel",
@@ -1065,7 +1519,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studium",
   "f6v": "Seiten der Hochschulen",
   "f6s": "Fachbegriffe",
-  "h_k": "Untertitel, Übersetzung und Mitschriften für Vorlesungen",
+  "h_k": "Vorlesungen übersetzt, Mitschriften und Prüfungsvorbereitung",
   "nl1": "So funktioniert’s",
   "nl2": "Preise",
   "nl3": "Fragen",
@@ -1136,6 +1590,14 @@ window.TOLK_TEXTS = {
     "Windows 10 oder 11, macOS 13+ oder Linux (die letzten beiden in der Beta) und Internet für Tolk AI. Eine Grafikkarte ist nicht nötig: Tolk wählt selbst ein Spracherkennungsmodell, das zu deinem Computer passt."
    ],
    [
+    "Gibt es eine Gratisversion?",
+    "Ja — Tolk Free, gratis und ohne Ablaufdatum: 30 Minuten Übersetzung jeden Tag. Google übersetzt, die Sprache wird auf deinem Computer erkannt. Tolk AI, Vorlesungsaufnahme und Prüfungsvorbereitung gibt es in Plus und Pro. Und um Plus komplett auszuprobieren, gibt dir der Bot einmalig 30 Gratis-Minuten."
+   ],
+   [
+    "Wie hilft Tolk bei der Prüfungsvorbereitung?",
+    "Nach jeder Vorlesung bekommst du eine Mitschrift in der Sprache der Vorlesung mit Übersetzung. Daraus macht Tolk Pro Karteikarten (auch für Anki), Aufgaben mit Lösung nach der Methode aus der Vorlesung, eine Probeklausur nach dem, was der Dozent gesagt hat, und einen Formelzettel. Wiederholung nach Plan und Wörter des Tages in Telegram gibt es in Plus und Pro."
+   ],
+   [
     "Welche Sprachen versteht es?",
     "Es erkennt 35 gesprochene Sprachen — Slowakisch, Tschechisch, Englisch, Deutsch, Polnisch, Ukrainisch und mehr — und übersetzt in 32, darunter Englisch, Deutsch, Ukrainisch und Russisch."
    ],
@@ -1145,7 +1607,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Was ist Tolk Pro, und was sind Mitschriften?",
-    "Tolk Pro ist alles aus dem normalen Tarif plus Vorlesungsmitschriften. Drück „Vorlesung aufnehmen“: Tolk speichert das Transkript und die Folien vom Bildschirm, findet die Präsentation auf der Seite des Lehrstuhls (z. B. kmti.fei.tuke.sk) oder nimmt deine Datei und schreibt in einer Minute die Mitschrift: Themen, Definitionen, Formeln, Termine. Vor Prüfungen — Karteikarten, Aufgaben im Lösungsweg der Lehrkraft, eine Probeklausur in ihrem Format, ein Formelblatt und Aufgaben vom Foto. Zu wenig Mitschriften — ein Paket +20 für 30 Tage für 1,99 €."
+    "Tolk Pro ist alles aus Plus plus Vorlesungsmitschriften. Drück „Vorlesung aufnehmen“: Tolk speichert das Transkript und die Folien vom Bildschirm, findet die Präsentation auf der Seite des Lehrstuhls (z. B. kmti.fei.tuke.sk) oder nimmt deine Datei und schreibt in einer Minute die Mitschrift: Themen, Definitionen, Formeln, Termine. Vor Prüfungen — Karteikarten, Aufgaben im Lösungsweg der Lehrkraft, eine Probeklausur in ihrem Format, ein Formelblatt und Aufgaben vom Foto. Zu wenig Mitschriften — ein Paket +20 für 30 Tage für 1,99 €."
    ],
    [
     "Funktioniert es in jedem Browser?",
@@ -1176,13 +1638,87 @@ window.TOLK_TEXTS = {
   "c2_note": "Echte Antworten beider Übersetzer, September 2026.",
   "c3_k": "Untertitel",
   "drag": "Zieh mich",
-  "tab_std": "Normal",
+  "tab_std": "Plus",
   "tab_pro": "Pro — mit Mitschriften",
   "sale_ey": "Begrenztes Angebot",
   "sale_t": "{d} auf Tolk",
   "sale_upto": "bis zu −{p} %",
   "sale_until": "bis {d}",
   "sale_left": "noch",
-  "pro_lede": "Alles aus dem normalen Tarif plus Vorlesungsmitschriften: Tolk nimmt die Vorlesung auf, speichert die Folien vom Bildschirm, findet die Präsentation auf der Seite des Lehrstuhls und schreibt die Mitschrift — Themen, Definitionen, Formeln, Termine. Bis zu 45 Mitschriften im Monat."
+  "pro_lede": "Alles aus Plus und dazu Lernen: Tolk nimmt die Vorlesung auf, speichert die Folien vom Bildschirm, findet die Präsentation auf der Seite des Lehrstuhls und schreibt die Mitschrift — Themen, Definitionen, Formeln, Termine. Und für die Prüfungen: Karteikarten, Aufgaben mit dem Lösungsweg aus der Vorlesung und eine Probeprüfung. Bis zu 45 Mitschriften im Monat.",
+  "fb_ey": "Free · 0 € · für immer",
+  "fb_t": "30 Minuten Übersetzung jeden Tag — gratis.",
+  "fb_s": "Nur Übersetzung: Google und Spracherkennung auf dem Computer. Tolk AI, Vorlesungsaufnahme und Prüfungsvorbereitung gibt es in Plus und Pro.",
+  "fb_go": "Free im Bot holen",
+  "nl4": "Mini-Prüfung",
+  "x_hint": "Mit der Maus drehen",
+  "x_hint_t": "Mit dem Finger drehen",
+  "x_open": "Zerlegen",
+  "x_close": "Zusammensetzen",
+  "sb_style": "Stil",
+  "sb_size": "Größe",
+  "sb_words": "Wörter pro Zeile",
+  "sb_auto": "nach Breite",
+  "sb_n": "bis {n}",
+  "sb_engine": "Übersetzer",
+  "sb_orig": "Original",
+  "sb_note": "Die Sätze sind echte Antworten von Google und Tolk AI. Das Aussehen entspricht den Einstellungen in Tolk.",
+  "c5_k": "Prüfung",
+  "c5_h": "Teste dich <em>in einer Minute.</em>",
+  "c5_p": "So bereitet Tolk Pro auf die Prüfungen vor: Aufgaben aus deinen Mitschriften, die Antwort wird sofort geprüft, die Lösung folgt der Methode aus der Vorlesung. Probier drei Aufgaben zur Beispiel-Mitschrift.",
+  "c5_a": "Aufgaben",
+  "c5_av": "leicht, mittel, schwer · eigenes Thema",
+  "c5_b": "Prüfen",
+  "c5_bv": "sofort, mit Tipp und ausführlicher Lösung",
+  "c5_c": "Probeklausur",
+  "c5_cv": "Format und Punkte — wie vom Dozenten angekündigt",
+  "ex": {
+   "task": "Aufgabe {n} von {m}",
+   "lv": {
+    "easy": "leicht",
+    "medium": "mittel",
+    "hard": "schwer"
+   },
+   "from": "aus „{c}“",
+   "hint": "Tipp",
+   "check": "Prüfen",
+   "sol": "Ausführliche Lösung",
+   "next": "Weiter",
+   "prev": "Zurück",
+   "finish": "Ergebnis",
+   "ph": "Antwort, z. B. 1,5 A",
+   "ok": "✓ Richtig",
+   "part": "≈ Fast",
+   "bad": "✗ Noch nicht",
+   "unit": "die Zahl stimmt — ergänze die Einheit (A)",
+   "branch": "das ist der Strom eines Zweigs — addiere beide",
+   "wrong": "schau dir den Tipp oder die Lösung an",
+   "ans": "Antwort:",
+   "sol_h": "Lösung · Methode aus der Vorlesung",
+   "end": "Ergebnis: {r} von {m}",
+   "end_all": "Bestanden.",
+   "end_some": "Fehler siehst du sofort — so lernt man.",
+   "end_p": "In Tolk Pro bekommst du solche Aufgaben aus deinen Mitschriften: leicht, mittel und schwer, gelöst wie in der Vorlesung, dazu eine Probeklausur.",
+   "go": "Tolk Pro ansehen",
+   "again": "Nochmal",
+   "note": "Beispiel: Aufgaben zur Beispiel-Mitschrift oben. In Tolk prüft auch Tolk AI die Antwort."
+  },
+  "ex_tr": {
+   "meth": "Methode: Ohmsches Gesetz, wie in der Vorlesung",
+   "items": [
+    {
+     "q": "An einen Widerstand von 20 Ω legen wir 5 V an. Welcher Strom fließt hindurch?",
+     "h": "Ohmsches Gesetz: I = U / R."
+    },
+    {
+     "q": "Widerstände von 30 Ω und 60 Ω sind in Reihe an 9 V angeschlossen. Welcher Strom fließt im Stromkreis?",
+     "h": "In Reihe addieren sich die Widerstände."
+    },
+    {
+     "q": "Dieselben Widerstände 30 Ω und 60 Ω schalten wir parallel an 12 V. Welchen Gesamtstrom nimmt die Schaltung auf?",
+     "h": "Parallel liegt an beiden Widerständen dieselbe Spannung."
+    }
+   ]
+  }
  }
 };

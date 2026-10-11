@@ -23,7 +23,7 @@
       your_sub: "Ваша подписка", until: "до {d}", ended: "закончилась {d}", forever: "навсегда", left_days: "осталось {n} дн.",
       ai_left: "Tolk AI · осталось {l} из {t} ч", ai_reset: "обновятся {d}", unl: "Tolk AI без лимита",
       new_1: "Понимайте пары", new_2: "с\u00a0первого дня.",
-      new_sub: "Субтитры с переводом поверх любого окна. 30 минут бесплатно, дальше — от {p} в неделю.",
+      new_sub: "Субтитры с переводом поверх любого окна, а после пары — конспект и подготовка к экзаменам. 30 минут Plus бесплатно, дальше — от {p} в неделю.",
       cta_buy: "Выбрать подписку", cta_renew: "Продлить подписку",
       t_hours: "Часы Tolk AI", t_hours_s: "докупить к ключу", t_keys: "Мои ключи", t_keys_s: "сроки и коды",
       t_gift: "Подарить Tolk", t_gift_s: "открытка с кодом", t_invite: "Пригласить друга", t_invite_s: "+{h} ч вам, +{f} ч другу",
@@ -31,7 +31,7 @@
       sale_eyebrow: "Ограниченное предложение", sale_t: "{d} на Tolk", sale_upto: "до −{p} %", sale_left: "осталось {t}", sale_until: "до {d}", sale_ends: "Цены вернутся {d}", t_promo: "Промокод", t_promo_s: "скидка или часы", pc_have: "Есть промокод?", pc_ph: "Промокод", pc_apply: "Применить", pc_code_t: "−{p} % по промокоду {c}", pc_code_s: "на подписку · до {d}", pr_bad: "Такого промокода нет — проверьте написание", pr_expired: "Срок промокода закончился", pr_full: "Этот промокод уже разобрали", pr_used: "Вы уже вводили этот промокод", pr_nokey: "Часы по промокоду добавляются к действующей подписке — сначала купите её", promo_t: "−{p} % на первую подписку", promo_s: "скидка после пробного · до {d}", l_download: "Скачать Tolk", l_download_s: "Windows, macOS и Linux", l_channel: "Канал Tolk", l_channel_s: "новости и обновления",
       l_support: "Поддержка", l_support_s: "ответим лично", l_lang: "Язык",
       o_wait: "Заказ ждёт оплаты", o_check: "Проверяем оплату",
-      plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Обычная", pro: "Pro · конспекты",
+      plans: "Подписка", gift_a: "Tolk", gift_b: "в подарок", renew: "Продление", std: "Plus", pro: "Pro · конспекты",
       pro_lede: "Всё, что в обычной, плюс конспекты лекций: Tolk запишет пару, снимет слайды и соберёт конспект за минуту. До 45 конспектов в месяц.",
       std_lede: "Весь Tolk и нейросеть Tolk AI. Часы обновляются каждые 30 дней; кончились раньше — Tolk переводит через Google, а часы можно докупить.",
       gift_lede: "После оплаты в чат придёт открытка с кодом — перешлите её другу. Код включается на любом компьютере, срок пойдёт с момента активации.",
@@ -73,7 +73,7 @@
       help_t: "Как начать", h1: "Скачайте Tolk для своей системы (Windows, macOS или Linux) и установите.",
       h2: "Откройте Tolk и вставьте ключ — в окне активации или «Профиль → Ввести ключ». Если покупали из программы, ключ встанет сам.",
       h3: "Выберите, что слушать — вкладку с парой, Zoom, Teams или Webex — и нажмите «Начать перевод».",
-      h_trial: "Первые 30 минут — бесплатно: кнопка «30 минут бесплатно» на главной.", t_trial: "30 минут бесплатно", t_trial_s: "Tolk AI без оплаты — один раз", tr_t: "30 минут *бесплатно*", tr_p: "Всё как в полной версии: нейросеть Tolk AI, вкладки браузера, все языки. Один раз на аккаунт и на компьютер.", tr_btn: "Получить 30 минут", tr_s1: "Нажмите «Получить 30 минут» — появится код.", tr_s2: "Скачайте Tolk и вставьте код при первом запуске.", tr_s3: "На паре или в видео нажмите Alt+Shift+T — субтитры появятся поверх окна.",  tr_applied: "Готово! Tolk на вашем компьютере уже активирован — вернитесь в программу и включите перевод.", tr_code: "Код пробного периода", tr_phone: "Код уже в чате с ботом. Откройте этот чат в Telegram на компьютере — там ссылка «Скачать Tolk»; при первом запуске вставьте код.", tr_how: "Откройте Tolk и вставьте код — в окне активации или в «Профиль → Ввести ключ». Ещё нет Tolk — скачайте его.", tr_used: "Пробный период на этом аккаунте уже был — выберите тариф.", tr_used_pc: "На этом компьютере пробный период уже был — выберите тариф.", tr_busy: "Сегодня пробных запусков уже много — попробуйте завтра.", faq_t: "Вопросы",
+      h_trial: "30 минут Plus — бесплатно, кнопка на главной. А Free — навсегда, с лимитом минут в день.", t_trial: "30 минут Plus бесплатно", t_trial_s: "Tolk AI и всё из Plus — один раз", tr_t: "30 минут Plus *бесплатно*", tr_p: "Всё как в Plus: нейросеть Tolk AI, Tolk AI Live, вопросы к паре, словарь предмета. Один раз на аккаунт и на компьютер.", tr_btn: "Получить 30 минут", tr_s1: "Нажмите «Получить 30 минут» — появится код.", tr_s2: "Скачайте Tolk и вставьте код при первом запуске.", tr_s3: "На паре или в видео нажмите Alt+Shift+T — субтитры появятся поверх окна.",  tr_applied: "Готово! Tolk на вашем компьютере уже активирован — вернитесь в программу и включите перевод.", tr_code: "Код пробного периода", tr_phone: "Код уже в чате с ботом. Откройте этот чат в Telegram на компьютере — там ссылка «Скачать Tolk»; при первом запуске вставьте код.", tr_how: "Откройте Tolk и вставьте код — в окне активации или в «Профиль → Ввести ключ». Ещё нет Tolk — скачайте его.", tr_used: "Пробный период на этом аккаунте уже был — выберите тариф.", tr_used_pc: "На этом компьютере пробный период уже был — выберите тариф.", tr_busy: "Сегодня пробных запусков уже много — попробуйте завтра.", faq_t: "Вопросы",
       f1q: "Что такое часы Tolk AI?",
       f1a: "Время работы нейросети Tolk AI: она дослушивает каждую фразу и переводит точно. В подписке — {m} ч в месяц, часы обновляются каждые 30 дней. Кончились раньше — Tolk переводит через Google, а часы можно докупить.",
       f2q: "Продление не съест оставшиеся дни?", f2a: "Нет. Новый срок начинается после текущего — ни один день не пропадает. Tolk на компьютере подхватит новый ключ сам.",
@@ -117,6 +117,16 @@
       ref_old: "Код друга — только для новых покупателей.",
       ref_many: "Код можно поменять не больше 5 раз.",
       ref_fmt: "3–16 латинских букв или цифр, без пробелов.",
+      t_free: "Free навсегда",
+      t_free_s: "{m} мин перевода в день",
+      fr_t: "Free *навсегда*",
+      fr_p: "Субтитры с переводом поверх любого окна — {m} минут в день, бесплатно и без срока. Распознавание на вашем компьютере, перевод через Google. Tolk AI, конспекты и подготовка к экзаменам — в Plus и Pro.",
+      fr_btn: "Получить Free",
+      fr_applied: "Готово! Tolk Free на вашем компьютере уже включён: {m} минут перевода в день.",
+      fr_code: "Код Tolk Free",
+      fr_how: "Откройте Tolk и вставьте код — в окне активации или в «Профиль → Ввести ключ». Ещё нет Tolk — скачайте его.",
+      fr_phone: "Код уже в чате с ботом. Откройте этот чат в Telegram на компьютере — там ссылка «Скачать Tolk»; при первом запуске вставьте код.",
+      fr_many: "Free на этом аккаунте уже на трёх компьютерах — для ещё одного выберите Plus.",
     },
     uk: {
       out_t: "Відкрийте Tolk у Telegram", out_p: "Цей застосунок працює всередині бота @TolkShopBot.", out_b: "Відкрити бота",
@@ -128,7 +138,7 @@
       your_sub: "Ваша підписка", until: "до {d}", ended: "закінчилася {d}", forever: "назавжди", left_days: "залишилось {n} дн.",
       ai_left: "Tolk AI · залишилось {l} з {t} год", ai_reset: "оновляться {d}", unl: "Tolk AI без ліміту",
       new_1: "Розумійте пари", new_2: "з\u00a0першого дня.",
-      new_sub: "Субтитри з перекладом поверх будь-якого вікна. 30 хвилин безкоштовно, далі — від {p} на тиждень.",
+      new_sub: "Субтитри з перекладом поверх будь-якого вікна, а після пари — конспект і підготовка до іспитів. 30 хвилин Plus безкоштовно, далі — від {p} на тиждень.",
       cta_buy: "Обрати підписку", cta_renew: "Продовжити підписку",
       t_hours: "Години Tolk AI", t_hours_s: "докупити до ключа", t_keys: "Мої ключі", t_keys_s: "строки й коди",
       t_gift: "Подарувати Tolk", t_gift_s: "листівка з кодом", t_invite: "Запросити друга", t_invite_s: "+{h} год вам, +{f} год другові",
@@ -136,7 +146,7 @@
       sale_eyebrow: "Обмежена пропозиція", sale_t: "{d} на Tolk", sale_upto: "до −{p} %", sale_left: "залишилось {t}", sale_until: "до {d}", sale_ends: "Ціни повернуться {d}", t_promo: "Промокод", t_promo_s: "знижка або години", pc_have: "Є промокод?", pc_ph: "Промокод", pc_apply: "Застосувати", pc_code_t: "−{p} % за промокодом {c}", pc_code_s: "на підписку · до {d}", pr_bad: "Такого промокоду немає — перевірте написання", pr_expired: "Термін промокоду закінчився", pr_full: "Цей промокод уже розібрали", pr_used: "Ви вже вводили цей промокод", pr_nokey: "Години за промокодом додаються до чинної підписки — спершу купіть її", promo_t: "−{p} % на першу підписку", promo_s: "знижка після пробного · до {d}", l_download: "Завантажити Tolk", l_download_s: "Windows, macOS і Linux", l_channel: "Канал Tolk", l_channel_s: "новини й оновлення",
       l_support: "Підтримка", l_support_s: "відповімо особисто", l_lang: "Мова",
       o_wait: "Замовлення чекає на оплату", o_check: "Перевіряємо оплату",
-      plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Звичайна", pro: "Pro · конспекти",
+      plans: "Підписка", gift_a: "Tolk", gift_b: "у подарунок", renew: "Продовження", std: "Plus", pro: "Pro · конспекти",
       pro_lede: "Усе, що у звичайній, плюс конспекти лекцій: Tolk запише пару, зніме слайди й складе конспект за хвилину. До 45 конспектів на місяць.",
       std_lede: "Увесь Tolk і нейромережа Tolk AI. Години оновлюються кожні 30 днів; скінчилися раніше — Tolk перекладає через Google, а години можна докупити.",
       gift_lede: "Після оплати в чат прийде листівка з кодом — перешліть її другові. Код вмикається на будь-якому комп'ютері, строк піде з моменту активації.",
@@ -178,7 +188,7 @@
       help_t: "Як почати", h1: "Завантажте Tolk для своєї системи (Windows, macOS чи Linux) і встановіть.",
       h2: "Відкрийте Tolk і вставте ключ — у вікні активації або «Профіль → Ввести ключ». Якщо купували з програми, ключ стане сам.",
       h3: "Оберіть, що слухати — вкладку з парою, Zoom, Teams або Webex — і натисніть «Почати переклад».",
-      h_trial: "Перші 30 хвилин — безкоштовно: кнопка «30 хвилин безкоштовно» на головній.", t_trial: "30 хвилин безкоштовно", t_trial_s: "Tolk AI без оплати — один раз", tr_t: "30 хвилин *безкоштовно*", tr_p: "Усе як у повній версії: нейромережа Tolk AI, вкладки браузера, усі мови. Один раз на акаунт і на комп'ютер.", tr_btn: "Отримати 30 хвилин", tr_s1: "Натисніть «Отримати 30 хвилин» — з'явиться код.", tr_s2: "Завантажте Tolk і вставте код під час першого запуску.", tr_s3: "На парі чи у відео натисніть Alt+Shift+T — субтитри з'являться поверх вікна.",  tr_applied: "Готово! Tolk на вашому комп'ютері вже активовано — поверніться в програму й увімкніть переклад.", tr_code: "Код пробного періоду", tr_phone: "Код уже в чаті з ботом. Відкрийте цей чат у Telegram на комп'ютері — там посилання «Завантажити Tolk»; під час першого запуску вставте код.", tr_how: "Відкрийте Tolk і вставте код — у вікні активації або в «Профіль → Ввести ключ». Ще немає Tolk — завантажте його.", tr_used: "Пробний період на цьому акаунті вже був — оберіть тариф.", tr_used_pc: "На цьому комп'ютері пробний період уже був — оберіть тариф.", tr_busy: "Сьогодні пробних запусків уже багато — спробуйте завтра.", faq_t: "Питання",
+      h_trial: "30 хвилин Plus — безкоштовно, кнопка на головній. А Free — назавжди, з лімітом хвилин на день.", t_trial: "30 хвилин Plus безкоштовно", t_trial_s: "Tolk AI і все з Plus — один раз", tr_t: "30 хвилин Plus *безкоштовно*", tr_p: "Усе як у Plus: нейромережа Tolk AI, Tolk AI Live, питання до пари, словник предмета. Один раз на акаунт і на комп'ютер.", tr_btn: "Отримати 30 хвилин", tr_s1: "Натисніть «Отримати 30 хвилин» — з'явиться код.", tr_s2: "Завантажте Tolk і вставте код під час першого запуску.", tr_s3: "На парі чи у відео натисніть Alt+Shift+T — субтитри з'являться поверх вікна.",  tr_applied: "Готово! Tolk на вашому комп'ютері вже активовано — поверніться в програму й увімкніть переклад.", tr_code: "Код пробного періоду", tr_phone: "Код уже в чаті з ботом. Відкрийте цей чат у Telegram на комп'ютері — там посилання «Завантажити Tolk»; під час першого запуску вставте код.", tr_how: "Відкрийте Tolk і вставте код — у вікні активації або в «Профіль → Ввести ключ». Ще немає Tolk — завантажте його.", tr_used: "Пробний період на цьому акаунті вже був — оберіть тариф.", tr_used_pc: "На цьому комп'ютері пробний період уже був — оберіть тариф.", tr_busy: "Сьогодні пробних запусків уже багато — спробуйте завтра.", faq_t: "Питання",
       f1q: "Що таке години Tolk AI?",
       f1a: "Час роботи нейромережі Tolk AI: вона дослуховує кожну фразу й перекладає точно. У підписці — {m} год на місяць, години оновлюються кожні 30 днів. Скінчилися раніше — Tolk перекладає через Google, а години можна докупити.",
       f2q: "Продовження не з'їсть решту днів?", f2a: "Ні. Новий строк починається після поточного — жоден день не пропадає. Tolk на комп'ютері підхопить новий ключ сам.",
@@ -222,6 +232,16 @@
       ref_old: "Код друга — лише для нових покупців.",
       ref_many: "Код можна змінити не більше 5 разів.",
       ref_fmt: "3–16 латинських літер або цифр, без пробілів.",
+      t_free: "Free назавжди",
+      t_free_s: "{m} хв перекладу на день",
+      fr_t: "Free *назавжди*",
+      fr_p: "Субтитри з перекладом поверх будь-якого вікна — {m} хвилин на день, безкоштовно й без терміну. Розпізнавання на вашому комп'ютері, переклад через Google. Tolk AI, конспекти й підготовка до іспитів — у Plus і Pro.",
+      fr_btn: "Отримати Free",
+      fr_applied: "Готово! Tolk Free на вашому комп'ютері вже ввімкнено: {m} хвилин перекладу на день.",
+      fr_code: "Код Tolk Free",
+      fr_how: "Відкрийте Tolk і вставте код — у вікні активації або в «Профіль → Ввести ключ». Ще немає Tolk — завантажте його.",
+      fr_phone: "Код уже в чаті з ботом. Відкрийте цей чат у Telegram на комп'ютері — там посилання «Завантажити Tolk»; під час першого запуску вставте код.",
+      fr_many: "Free на цьому акаунті вже на трьох комп'ютерах — для ще одного оберіть Plus.",
     },
     sk: {
       out_t: "Otvorte Tolk v Telegrame", out_p: "Táto aplikácia funguje vnútri bota @TolkShopBot.", out_b: "Otvoriť bota",
@@ -233,7 +253,7 @@
       your_sub: "Vaše predplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zostáva {n} dní",
       ai_left: "Tolk AI · zostáva {l} z {t} h", ai_reset: "obnovia sa {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumejte prednáškam", new_2: "od prvého dňa.",
-      new_sub: "Titulky s prekladom nad akýmkoľvek oknom. 30 minút zadarmo, potom od {p} týždenne.",
+      new_sub: "Titulky s prekladom nad akýmkoľvek oknom a po prednáške poznámky a príprava na skúšky. 30 minút Plus zadarmo, potom od {p} týždenne.",
       cta_buy: "Vybrať predplatné", cta_renew: "Predĺžiť predplatné",
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokúpiť ku kľúču", t_keys: "Moje kľúče", t_keys_s: "platnosť a kódy",
       t_gift: "Darovať Tolk", t_gift_s: "pohľadnica s kódom", t_invite: "Pozvať kamaráta", t_invite_s: "+{h} h vám, +{f} h kamarátovi",
@@ -241,7 +261,7 @@
       sale_eyebrow: "Limitovaná ponuka", sale_t: "{d} na Tolk", sale_upto: "až −{p} %", sale_left: "zostáva {t}", sale_until: "do {d}", sale_ends: "Ceny sa vrátia {d}", t_promo: "Promo kód", t_promo_s: "zľava alebo hodiny", pc_have: "Máte promo kód?", pc_ph: "Promo kód", pc_apply: "Použiť", pc_code_t: "−{p} % s promo kódom {c}", pc_code_s: "na predplatné · do {d}", pr_bad: "Taký promo kód neexistuje — skontrolujte ho", pr_expired: "Platnosť promo kódu skončila", pr_full: "Tento promo kód je už vyčerpaný", pr_used: "Tento promo kód ste už zadali", pr_nokey: "Hodiny z promo kódu sa pridávajú k platnému predplatnému — najprv si ho kúpte", promo_t: "−{p} % na prvé predplatné", promo_s: "zľava po skúšobnej dobe · do {d}", l_download: "Stiahnuť Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizácie",
       l_support: "Podpora", l_support_s: "odpovieme osobne", l_lang: "Jazyk",
       o_wait: "Objednávka čaká na platbu", o_check: "Kontrolujeme platbu",
-      plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Bežné", pro: "Pro · poznámky",
+      plans: "Predplatné", gift_a: "Tolk", gift_b: "ako darček", renew: "Predĺženie", std: "Plus", pro: "Pro · poznámky",
       pro_lede: "Všetko z bežného a navyše poznámky z prednášok: Tolk nahrá prednášku, zachytí slajdy a za minútu zostaví poznámky. Do 45 poznámok mesačne.",
       std_lede: "Celý Tolk aj neurónová sieť Tolk AI. Hodiny sa obnovujú každých 30 dní; ak sa minú skôr, Tolk prekladá cez Google a hodiny si môžete dokúpiť.",
       gift_lede: "Po zaplatení príde do chatu pohľadnica s kódom — prepošlite ju kamarátovi. Kód funguje na akomkoľvek počítači, predplatné začne plynúť od aktivácie.",
@@ -283,7 +303,7 @@
       help_t: "Ako začať", h1: "Stiahnite si Tolk pre svoj systém (Windows, macOS alebo Linux) a nainštalujte ho.",
       h2: "Otvorte Tolk a vložte kľúč — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ak ste kupovali z programu, kľúč sa nastaví sám.",
       h3: "Vyberte, čo počúvať — kartu s prednáškou, Zoom, Teams alebo Webex — a stlačte „Spustiť preklad“.",
-      h_trial: "Prvých 30 minút je zadarmo: tlačidlo „30 minút zadarmo“ na úvode.", t_trial: "30 minút zadarmo", t_trial_s: "Tolk AI bez platby — raz", tr_t: "30 minút *zadarmo*", tr_p: "Všetko ako v plnej verzii: neurónová sieť Tolk AI, karty prehliadača, všetky jazyky. Raz na účet a na počítač.", tr_btn: "Získať 30 minút", tr_s1: "Ťuknite na „Získať 30 minút“ — zobrazí sa kód.", tr_s2: "Stiahnite si Tolk a pri prvom spustení vložte kód.", tr_s3: "Na prednáške alebo pri videu stlačte Alt+Shift+T — titulky sa zobrazia nad oknom.",  tr_applied: "Hotovo! Tolk na vašom počítači je už aktivovaný — vráťte sa do programu a zapnite preklad.", tr_code: "Kód skúšobnej doby", tr_phone: "Kód je už v chate s botom. Otvorte tento chat v Telegrame na počítači — je tam odkaz „Stiahnuť Tolk“; pri prvom spustení vložte kód.", tr_how: "Otvorte Tolk a vložte kód — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ešte nemáte Tolk? Stiahnite si ho.", tr_used: "Skúšobná doba na tomto účte už bola — vyberte si tarif.", tr_used_pc: "Na tomto počítači skúšobná doba už bola — vyberte si tarif.", tr_busy: "Dnes je skúšobných spustení už veľa — skúste to zajtra.", faq_t: "Otázky",
+      h_trial: "30 minút Plus — zadarmo, tlačidlo na úvode. A Free — navždy, s denným limitom minút.", t_trial: "30 minút Plus zadarmo", t_trial_s: "Tolk AI a všetko z Plus — raz", tr_t: "30 minút Plus *zadarmo*", tr_p: "Všetko ako v Plus: neurónová sieť Tolk AI, Tolk AI Live, otázky k prednáške, slovník predmetu. Raz na účet a na počítač.", tr_btn: "Získať 30 minút", tr_s1: "Ťuknite na „Získať 30 minút“ — zobrazí sa kód.", tr_s2: "Stiahnite si Tolk a pri prvom spustení vložte kód.", tr_s3: "Na prednáške alebo pri videu stlačte Alt+Shift+T — titulky sa zobrazia nad oknom.",  tr_applied: "Hotovo! Tolk na vašom počítači je už aktivovaný — vráťte sa do programu a zapnite preklad.", tr_code: "Kód skúšobnej doby", tr_phone: "Kód je už v chate s botom. Otvorte tento chat v Telegrame na počítači — je tam odkaz „Stiahnuť Tolk“; pri prvom spustení vložte kód.", tr_how: "Otvorte Tolk a vložte kód — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ešte nemáte Tolk? Stiahnite si ho.", tr_used: "Skúšobná doba na tomto účte už bola — vyberte si tarif.", tr_used_pc: "Na tomto počítači skúšobná doba už bola — vyberte si tarif.", tr_busy: "Dnes je skúšobných spustení už veľa — skúste to zajtra.", faq_t: "Otázky",
       f1q: "Čo sú hodiny Tolk AI?",
       f1a: "Čas práce neurónovej siete Tolk AI: dopočúva každú vetu a prekladá presne. V predplatnom je {m} h mesačne, hodiny sa obnovujú každých 30 dní. Ak sa minú skôr, Tolk prekladá cez Google a hodiny si môžete dokúpiť.",
       f2q: "Neprepadne predĺžením zvyšok dní?", f2a: "Nie. Nové obdobie začne po aktuálnom — neprepadne ani jeden deň. Tolk v počítači si nový kľúč vezme sám.",
@@ -327,6 +347,16 @@
       ref_old: "Kód kamaráta je len pre nových zákazníkov.",
       ref_many: "Kód sa dá zmeniť najviac 5-krát.",
       ref_fmt: "3–16 latinských písmen alebo číslic, bez medzier.",
+      t_free: "Free navždy",
+      t_free_s: "{m} min prekladu denne",
+      fr_t: "Free *navždy*",
+      fr_p: "Titulky s prekladom nad akýmkoľvek oknom — {m} minút denne, zadarmo a bez obmedzenia platnosti. Rozpoznávanie na vašom počítači, preklad cez Google. Tolk AI, poznámky a príprava na skúšky — v Plus a Pro.",
+      fr_btn: "Získať Free",
+      fr_applied: "Hotovo! Tolk Free na vašom počítači je už zapnutý: {m} minút prekladu denne.",
+      fr_code: "Kód Tolk Free",
+      fr_how: "Otvorte Tolk a vložte kód — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ešte nemáte Tolk? Stiahnite si ho.",
+      fr_phone: "Kód je už v chate s botom. Otvorte tento chat v Telegrame na počítači — je tam odkaz „Stiahnuť Tolk“; pri prvom spustení vložte kód.",
+      fr_many: "Free je na tomto účte už na troch počítačoch — pre ďalší si vyberte Plus.",
     },
     en: {
       out_t: "Open Tolk in Telegram", out_p: "This app works inside the @TolkShopBot bot.", out_b: "Open the bot",
@@ -338,7 +368,7 @@
       your_sub: "Your subscription", until: "until {d}", ended: "ended {d}", forever: "forever", left_days: "{n} days left",
       ai_left: "Tolk AI · {l} of {t} h left", ai_reset: "refills {d}", unl: "Unlimited Tolk AI",
       new_1: "Understand lectures", new_2: "from day one.",
-      new_sub: "Translated subtitles on top of any window. 30 minutes free, then from {p} a week.",
+      new_sub: "Translated subtitles on top of any window, and after class — notes and exam prep. 30 minutes of Plus free, then from {p} a week.",
       cta_buy: "Choose a subscription", cta_renew: "Renew subscription",
       t_hours: "Tolk AI hours", t_hours_s: "top up your key", t_keys: "My keys", t_keys_s: "dates and codes",
       t_gift: "Give Tolk", t_gift_s: "a gift card with a code", t_invite: "Invite a friend", t_invite_s: "+{h} h for you, +{f} h for them",
@@ -346,7 +376,7 @@
       sale_eyebrow: "Limited offer", sale_t: "{d} off Tolk", sale_upto: "up to −{p}%", sale_left: "{t} left", sale_until: "until {d}", sale_ends: "Prices go back up {d}", t_promo: "Promo code", t_promo_s: "discount or hours", pc_have: "Have a promo code?", pc_ph: "Promo code", pc_apply: "Apply", pc_code_t: "−{p}% with code {c}", pc_code_s: "on a subscription · until {d}", pr_bad: "No such promo code — check the spelling", pr_expired: "This promo code has expired", pr_full: "This promo code has been used up", pr_used: "You have already used this promo code", pr_nokey: "Promo hours go onto an active subscription — buy one first", promo_t: "−{p}% off your first subscription", promo_s: "after-trial discount · until {d}", l_download: "Download Tolk", l_download_s: "Windows, macOS and Linux", l_channel: "Tolk channel", l_channel_s: "news and updates",
       l_support: "Support", l_support_s: "we reply personally", l_lang: "Language",
       o_wait: "Order awaiting payment", o_check: "Checking your payment",
-      plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Standard", pro: "Pro · lecture notes",
+      plans: "Subscription", gift_a: "Tolk", gift_b: "as a gift", renew: "Renewal", std: "Plus", pro: "Pro · lecture notes",
       pro_lede: "Everything in Standard plus lecture notes: Tolk records the lecture, captures the slides and writes notes in a minute. Up to 45 notes a month.",
       std_lede: "All of Tolk and the Tolk AI translator. Hours refill every 30 days; if they run out early, Tolk translates via Google and you can top up.",
       gift_lede: "After payment you'll get a gift card with a code in the chat — forward it to your friend. The code works on any computer; the subscription starts when it's activated.",
@@ -388,7 +418,7 @@
       help_t: "Getting started", h1: "Download Tolk for your system (Windows, macOS or Linux) and install it.",
       h2: "Open Tolk and paste your key — in the activation window or in Profile → Enter key. If you bought from the app, the key is set automatically.",
       h3: "Pick what to listen to — the lecture tab, Zoom, Teams or Webex — and press Start translation.",
-      h_trial: "The first 30 minutes are free: tap “30 minutes free” on the home screen.", t_trial: "30 minutes free", t_trial_s: "Tolk AI with no payment — once", tr_t: "30 minutes *free*", tr_p: "Everything as in the full version: Tolk AI, browser tabs, every language. Once per account and per computer.", tr_btn: "Get 30 minutes", tr_s1: "Tap “Get 30 minutes” — you get a code.", tr_s2: "Download Tolk and paste the code on first launch.", tr_s3: "In class or a video, press Alt+Shift+T — subtitles appear on top of the window.",  tr_applied: "Done! Tolk on your computer is already activated — go back to the app and turn translation on.", tr_code: "Trial code", tr_phone: "The code is already in your chat with the bot. Open this chat in Telegram on your computer — there’s a “Download Tolk” link; paste the code on first launch.", tr_how: "Open Tolk and paste the code — in the activation window or in Profile → Enter key. No Tolk yet? Download it.", tr_used: "This account has already had a trial — pick a plan.", tr_used_pc: "This computer has already had a trial — pick a plan.", tr_busy: "Too many trials today — please try tomorrow.", faq_t: "Questions",
+      h_trial: "30 minutes of Plus are free — the button is on the home screen. And Free is forever, with a daily limit of minutes.", t_trial: "30 minutes of Plus free", t_trial_s: "Tolk AI and all of Plus — once", tr_t: "30 minutes of Plus *free*", tr_p: "Everything in Plus: Tolk AI, Tolk AI Live, questions to the lecture, the course glossary. Once per account and per computer.", tr_btn: "Get 30 minutes", tr_s1: "Tap “Get 30 minutes” — you get a code.", tr_s2: "Download Tolk and paste the code on first launch.", tr_s3: "In class or a video, press Alt+Shift+T — subtitles appear on top of the window.",  tr_applied: "Done! Tolk on your computer is already activated — go back to the app and turn translation on.", tr_code: "Trial code", tr_phone: "The code is already in your chat with the bot. Open this chat in Telegram on your computer — there’s a “Download Tolk” link; paste the code on first launch.", tr_how: "Open Tolk and paste the code — in the activation window or in Profile → Enter key. No Tolk yet? Download it.", tr_used: "This account has already had a trial — pick a plan.", tr_used_pc: "This computer has already had a trial — pick a plan.", tr_busy: "Too many trials today — please try tomorrow.", faq_t: "Questions",
       f1q: "What are Tolk AI hours?",
       f1a: "Time the Tolk AI translator works: it re-listens to every phrase and translates precisely. A subscription has {m} h a month, refilled every 30 days. If they run out early, Tolk translates via Google and you can top up.",
       f2q: "Does renewing waste the days I have left?", f2a: "No. The new period starts after the current one — you don't lose a single day. Tolk on your computer picks up the new key itself.",
@@ -432,6 +462,16 @@
       ref_old: "A friend's code is for new customers only.",
       ref_many: "The code can be changed up to 5 times.",
       ref_fmt: "3–16 Latin letters or digits, no spaces.",
+      t_free: "Free forever",
+      t_free_s: "{m} min of translation a day",
+      fr_t: "Free *forever*",
+      fr_p: "Translated subtitles over any window — {m} minutes a day, free and with no end date. Speech is recognised on your computer, translated by Google. Tolk AI, notes and exam prep are in Plus and Pro.",
+      fr_btn: "Get Free",
+      fr_applied: "Done! Tolk Free is already on on your computer: {m} minutes of translation a day.",
+      fr_code: "Tolk Free code",
+      fr_how: "Open Tolk and paste the code — in the activation window or in Profile → Enter key. No Tolk yet? Download it.",
+      fr_phone: "The code is already in your chat with the bot. Open this chat in Telegram on your computer — there’s a “Download Tolk” link; paste the code on first launch.",
+      fr_many: "This account already has Free on three computers — for another one, pick Plus.",
     },
     pl: {
       out_t: "Otwórz Tolk w Telegramie", out_p: "Ta aplikacja działa wewnątrz bota @TolkShopBot.", out_b: "Otwórz bota",
@@ -443,7 +483,7 @@
       your_sub: "Twoja subskrypcja", until: "do {d}", ended: "wygasła {d}", forever: "na zawsze", left_days: "pozostało dni: {n}",
       ai_left: "Tolk AI · zostało {l} z {t} godz.", ai_reset: "odnowią się {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumiej wykłady", new_2: "od pierwszego dnia.",
-      new_sub: "Napisy z tłumaczeniem nad każdym oknem. 30 minut za darmo, potem od {p} tygodniowo.",
+      new_sub: "Napisy z tłumaczeniem nad każdym oknem, a po zajęciach notatki i nauka do egzaminów. 30 minut Plus za darmo, potem od {p} tygodniowo.",
       cta_buy: "Wybierz subskrypcję", cta_renew: "Przedłuż subskrypcję",
       t_hours: "Godziny Tolk AI", t_hours_s: "dokup do klucza", t_keys: "Moje klucze", t_keys_s: "daty i kody",
       t_gift: "Podaruj Tolk", t_gift_s: "kartka z kodem", t_invite: "Zaproś znajomego", t_invite_s: "+{h} godz. dla ciebie, +{f} godz. dla znajomego",
@@ -451,7 +491,7 @@
       sale_eyebrow: "Oferta ograniczona", sale_t: "{d} na Tolk", sale_upto: "do −{p}%", sale_left: "zostało {t}", sale_until: "do {d}", sale_ends: "Ceny wrócą {d}", t_promo: "Kod promocyjny", t_promo_s: "zniżka albo godziny", pc_have: "Masz kod promocyjny?", pc_ph: "Kod promocyjny", pc_apply: "Zastosuj", pc_code_t: "−{p}% z kodem {c}", pc_code_s: "na subskrypcję · do {d}", pr_bad: "Nie ma takiego kodu — sprawdź pisownię", pr_expired: "Ten kod promocyjny wygasł", pr_full: "Ten kod promocyjny został już wykorzystany", pr_used: "Ten kod promocyjny jest już wykorzystany na twoim koncie", pr_nokey: "Godziny z kodu dodaje się do aktywnej subskrypcji — najpierw ją kup", promo_t: "−{p}% na pierwszą subskrypcję", promo_s: "zniżka po okresie próbnym · do {d}", l_download: "Pobierz Tolk", l_download_s: "Windows, macOS i Linux", l_channel: "Kanał Tolk", l_channel_s: "nowości i aktualizacje",
       l_support: "Wsparcie", l_support_s: "odpowiadamy osobiście", l_lang: "Język",
       o_wait: "Zamówienie czeka na płatność", o_check: "Sprawdzamy płatność",
-      plans: "Subskrypcja", gift_a: "Tolk", gift_b: "w prezencie", renew: "Przedłużenie", std: "Zwykła", pro: "Pro · notatki",
+      plans: "Subskrypcja", gift_a: "Tolk", gift_b: "w prezencie", renew: "Przedłużenie", std: "Plus", pro: "Pro · notatki",
       pro_lede: "Wszystko, co w zwykłej, plus notatki z wykładów: Tolk nagrywa wykład, zbiera slajdy i w minutę układa notatki. Do 45 notatek miesięcznie.",
       std_lede: "Cały Tolk i tłumacz Tolk AI. Godziny odnawiają się co 30 dni; jeśli skończą się wcześniej, Tolk tłumaczy przez Google, a godziny można dokupić.",
       gift_lede: "Po płatności na czat przyjdzie kartka z kodem — prześlij ją znajomemu. Kod działa na każdym komputerze, a subskrypcja zaczyna się od aktywacji.",
@@ -493,7 +533,7 @@
       help_t: "Jak zacząć", h1: "Pobierz Tolk na swój system (Windows, macOS albo Linux) i zainstaluj.",
       h2: "Otwórz Tolk i wklej klucz — w oknie aktywacji albo w „Profil → Wpisz klucz”. Jeśli kupujesz z programu, klucz ustawi się sam.",
       h3: "Wybierz, czego słuchać — kartę z wykładem, Zoom, Teams albo Webex — i naciśnij „Zacznij tłumaczyć”.",
-      h_trial: "Pierwsze 30 minut jest za darmo: przycisk „30 minut za darmo” na ekranie startowym.", t_trial: "30 minut za darmo", t_trial_s: "Tolk AI bez płatności — raz", tr_t: "30 minut *za darmo*", tr_p: "Wszystko jak w pełnej wersji: Tolk AI, karty przeglądarki, wszystkie języki. Raz na konto i na komputer.", tr_btn: "Odbierz 30 minut", tr_s1: "Dotknij „Odbierz 30 minut” — pojawi się kod.", tr_s2: "Pobierz Tolk i wklej kod przy pierwszym uruchomieniu.", tr_s3: "Na zajęciach albo przy filmie naciśnij Alt+Shift+T — napisy pojawią się nad oknem.",  tr_applied: "Gotowe! Tolk na twoim komputerze jest już aktywowany — wróć do programu i włącz tłumaczenie.", tr_code: "Kod okresu próbnego", tr_phone: "Kod jest już na czacie z botem. Otwórz ten czat w Telegramie na komputerze — jest tam link „Pobierz Tolk”; przy pierwszym uruchomieniu wklej kod.", tr_how: "Otwórz Tolk i wklej kod — w oknie aktywacji albo w „Profil → Wpisz klucz”. Nie masz jeszcze Tolk? Pobierz go.", tr_used: "Na tym koncie okres próbny już był — wybierz plan.", tr_used_pc: "Na tym komputerze okres próbny już był — wybierz plan.", tr_busy: "Dziś jest już za dużo okresów próbnych — spróbuj jutro.", faq_t: "Pytania",
+      h_trial: "30 minut Plus — za darmo, przycisk na ekranie startowym. A Free — na zawsze, z dziennym limitem minut.", t_trial: "30 minut Plus za darmo", t_trial_s: "Tolk AI i cały Plus — raz", tr_t: "30 minut Plus *za darmo*", tr_p: "Wszystko jak w Plus: Tolk AI, Tolk AI Live, pytania do wykładu, słownik przedmiotu. Raz na konto i na komputer.", tr_btn: "Odbierz 30 minut", tr_s1: "Dotknij „Odbierz 30 minut” — pojawi się kod.", tr_s2: "Pobierz Tolk i wklej kod przy pierwszym uruchomieniu.", tr_s3: "Na zajęciach albo przy filmie naciśnij Alt+Shift+T — napisy pojawią się nad oknem.",  tr_applied: "Gotowe! Tolk na twoim komputerze jest już aktywowany — wróć do programu i włącz tłumaczenie.", tr_code: "Kod okresu próbnego", tr_phone: "Kod jest już na czacie z botem. Otwórz ten czat w Telegramie na komputerze — jest tam link „Pobierz Tolk”; przy pierwszym uruchomieniu wklej kod.", tr_how: "Otwórz Tolk i wklej kod — w oknie aktywacji albo w „Profil → Wpisz klucz”. Nie masz jeszcze Tolk? Pobierz go.", tr_used: "Na tym koncie okres próbny już był — wybierz plan.", tr_used_pc: "Na tym komputerze okres próbny już był — wybierz plan.", tr_busy: "Dziś jest już za dużo okresów próbnych — spróbuj jutro.", faq_t: "Pytania",
       f1q: "Czym są godziny Tolk AI?",
       f1a: "To czas pracy tłumacza Tolk AI: dosłuchuje każdą frazę i tłumaczy dokładnie. W subskrypcji jest {m} godz. miesięcznie, odnawianych co 30 dni. Jeśli skończą się wcześniej, Tolk tłumaczy przez Google, a godziny można dokupić.",
       f2q: "Czy przedłużenie zabiera resztę dni?", f2a: "Nie. Nowy okres zaczyna się po obecnym — nie przepada ani jeden dzień. Tolk na komputerze sam pobierze nowy klucz.",
@@ -537,6 +577,16 @@
       ref_old: "Kod znajomego jest tylko dla nowych klientów.",
       ref_many: "Kod można zmienić najwyżej 5 razy.",
       ref_fmt: "3–16 liter łacińskich albo cyfr, bez spacji.",
+      t_free: "Free na zawsze",
+      t_free_s: "{m} min tłumaczenia dziennie",
+      fr_t: "Free *na zawsze*",
+      fr_p: "Napisy z tłumaczeniem nad każdym oknem — {m} minut dziennie, za darmo i bez terminu. Rozpoznawanie mowy na twoim komputerze, tłumaczenie przez Google. Tolk AI, notatki i przygotowanie do egzaminów — w Plus i Pro.",
+      fr_btn: "Odbierz Free",
+      fr_applied: "Gotowe! Tolk Free na twoim komputerze już działa: {m} minut tłumaczenia dziennie.",
+      fr_code: "Kod Tolk Free",
+      fr_how: "Otwórz Tolk i wklej kod — w oknie aktywacji albo w „Profil → Wpisz klucz”. Nie masz jeszcze Tolk? Pobierz go.",
+      fr_phone: "Kod jest już na czacie z botem. Otwórz ten czat w Telegramie na komputerze — jest tam link „Pobierz Tolk”; przy pierwszym uruchomieniu wklej kod.",
+      fr_many: "To konto ma już Free na trzech komputerach — na kolejny wybierz Plus.",
     },
     cs: {
       out_t: "Otevřete Tolk v Telegramu", out_p: "Tato aplikace funguje uvnitř bota @TolkShopBot.", out_b: "Otevřít bota",
@@ -548,7 +598,7 @@
       your_sub: "Vaše předplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zbývá dní: {n}",
       ai_left: "Tolk AI · zbývá {l} z {t} h", ai_reset: "obnoví se {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumějte přednáškám", new_2: "od prvního dne.",
-      new_sub: "Titulky s překladem nad jakýmkoli oknem. 30 minut zdarma, pak od {p} týdně.",
+      new_sub: "Titulky s překladem nad jakýmkoli oknem a po přednášce poznámky a příprava na zkoušky. 30 minut Plus zdarma, pak od {p} týdně.",
       cta_buy: "Vybrat předplatné", cta_renew: "Prodloužit předplatné",
       t_hours: "Hodiny Tolk AI", t_hours_s: "dokoupit ke klíči", t_keys: "Moje klíče", t_keys_s: "platnost a kódy",
       t_gift: "Darovat Tolk", t_gift_s: "přání s kódem", t_invite: "Pozvat kamaráda", t_invite_s: "+{h} h vám, +{f} h kamarádovi",
@@ -556,7 +606,7 @@
       sale_eyebrow: "Omezená nabídka", sale_t: "{d} na Tolk", sale_upto: "až −{p} %", sale_left: "zbývá {t}", sale_until: "do {d}", sale_ends: "Ceny se vrátí {d}", t_promo: "Promo kód", t_promo_s: "sleva nebo hodiny", pc_have: "Máte promo kód?", pc_ph: "Promo kód", pc_apply: "Použít", pc_code_t: "−{p} % s promo kódem {c}", pc_code_s: "na předplatné · do {d}", pr_bad: "Takový promo kód neexistuje — zkontrolujte ho", pr_expired: "Platnost promo kódu skončila", pr_full: "Tento promo kód je už vyčerpaný", pr_used: "Tento promo kód jste už použili", pr_nokey: "Hodiny z promo kódu se přidávají k platnému předplatnému — nejdřív si ho kupte", promo_t: "−{p} % na první předplatné", promo_s: "sleva po zkušební době · do {d}", l_download: "Stáhnout Tolk", l_download_s: "Windows, macOS a Linux", l_channel: "Kanál Tolk", l_channel_s: "novinky a aktualizace",
       l_support: "Podpora", l_support_s: "odpovídáme osobně", l_lang: "Jazyk",
       o_wait: "Objednávka čeká na platbu", o_check: "Ověřujeme platbu",
-      plans: "Předplatné", gift_a: "Tolk", gift_b: "jako dárek", renew: "Prodloužení", std: "Běžné", pro: "Pro · poznámky",
+      plans: "Předplatné", gift_a: "Tolk", gift_b: "jako dárek", renew: "Prodloužení", std: "Plus", pro: "Pro · poznámky",
       pro_lede: "Vše z běžného a navíc poznámky z přednášek: Tolk nahraje přednášku, zachytí slajdy a za minutu sestaví poznámky. Až 45 poznámek měsíčně.",
       std_lede: "Celý Tolk i překladač Tolk AI. Hodiny se obnovují každých 30 dní; když dojdou dřív, Tolk překládá přes Google a hodiny si můžete dokoupit.",
       gift_lede: "Po zaplacení přijde do chatu přání s kódem — přepošlete ho kamarádovi. Kód funguje na jakémkoli počítači, předplatné začne běžet od aktivace.",
@@ -598,7 +648,7 @@
       help_t: "Jak začít", h1: "Stáhněte si Tolk pro svůj systém (Windows, macOS nebo Linux) a nainstalujte ho.",
       h2: "Otevřete Tolk a vložte klíč — v okně aktivace nebo v „Profil → Zadat klíč“. Pokud kupujete z programu, klíč se nastaví sám.",
       h3: "Vyberte, co poslouchat — kartu s přednáškou, Zoom, Teams nebo Webex — a stiskněte „Spustit překlad“.",
-      h_trial: "Prvních 30 minut je zdarma: tlačítko „30 minut zdarma“ na úvodní obrazovce.", t_trial: "30 minut zdarma", t_trial_s: "Tolk AI bez platby — jednou", tr_t: "30 minut *zdarma*", tr_p: "Vše jako v plné verzi: překladač Tolk AI, karty prohlížeče, všechny jazyky. Jednou na účet a na počítač.", tr_btn: "Získat 30 minut", tr_s1: "Klepněte na „Získat 30 minut“ — zobrazí se kód.", tr_s2: "Stáhněte si Tolk a při prvním spuštění vložte kód.", tr_s3: "Na přednášce nebo u videa stiskněte Alt+Shift+T — titulky se zobrazí nad oknem.",  tr_applied: "Hotovo! Tolk na vašem počítači je už aktivovaný — vraťte se do programu a zapněte překlad.", tr_code: "Kód zkušební doby", tr_phone: "Kód už je v chatu s botem. Otevřete tento chat v Telegramu na počítači — je tam odkaz „Stáhnout Tolk“; při prvním spuštění vložte kód.", tr_how: "Otevřete Tolk a vložte kód — v okně aktivace nebo v „Profil → Zadat klíč“. Ještě nemáte Tolk? Stáhněte si ho.", tr_used: "Zkušební doba na tomto účtu už byla — vyberte si tarif.", tr_used_pc: "Na tomto počítači zkušební doba už byla — vyberte si tarif.", tr_busy: "Dnes je zkušebních spuštění příliš mnoho — zkuste to zítra.", faq_t: "Otázky",
+      h_trial: "30 minut Plus — zdarma, tlačítko na úvodní obrazovce. A Free — navždy, s denním limitem minut.", t_trial: "30 minut Plus zdarma", t_trial_s: "Tolk AI a vše z Plus — jednou", tr_t: "30 minut Plus *zdarma*", tr_p: "Vše jako v Plus: překladač Tolk AI, Tolk AI Live, otázky k přednášce, slovník předmětu. Jednou na účet a na počítač.", tr_btn: "Získat 30 minut", tr_s1: "Klepněte na „Získat 30 minut“ — zobrazí se kód.", tr_s2: "Stáhněte si Tolk a při prvním spuštění vložte kód.", tr_s3: "Na přednášce nebo u videa stiskněte Alt+Shift+T — titulky se zobrazí nad oknem.",  tr_applied: "Hotovo! Tolk na vašem počítači je už aktivovaný — vraťte se do programu a zapněte překlad.", tr_code: "Kód zkušební doby", tr_phone: "Kód už je v chatu s botem. Otevřete tento chat v Telegramu na počítači — je tam odkaz „Stáhnout Tolk“; při prvním spuštění vložte kód.", tr_how: "Otevřete Tolk a vložte kód — v okně aktivace nebo v „Profil → Zadat klíč“. Ještě nemáte Tolk? Stáhněte si ho.", tr_used: "Zkušební doba na tomto účtu už byla — vyberte si tarif.", tr_used_pc: "Na tomto počítači zkušební doba už byla — vyberte si tarif.", tr_busy: "Dnes je zkušebních spuštění příliš mnoho — zkuste to zítra.", faq_t: "Otázky",
       f1q: "Co jsou hodiny Tolk AI?",
       f1a: "Čas práce překladače Tolk AI: doposlouchá každou větu a překládá přesně. V předplatném je {m} h měsíčně, hodiny se obnovují každých 30 dní. Když dojdou dřív, Tolk překládá přes Google a hodiny si můžete dokoupit.",
       f2q: "Nepropadne prodloužením zbytek dní?", f2a: "Ne. Nové období začne po aktuálním — nepropadne ani jeden den. Tolk v počítači si nový klíč vezme sám.",
@@ -642,6 +692,16 @@
       ref_old: "Kód kamaráda je jen pro nové zákazníky.",
       ref_many: "Kód lze změnit nejvýš 5krát.",
       ref_fmt: "3–16 latinských písmen nebo číslic, bez mezer.",
+      t_free: "Free navždy",
+      t_free_s: "{m} min překladu denně",
+      fr_t: "Free *navždy*",
+      fr_p: "Titulky s překladem nad jakýmkoli oknem — {m} minut denně, zdarma a bez omezení platnosti. Rozpoznávání na vašem počítači, překlad přes Google. Tolk AI, poznámky a příprava na zkoušky — v Plus a Pro.",
+      fr_btn: "Získat Free",
+      fr_applied: "Hotovo! Tolk Free na vašem počítači už běží: {m} minut překladu denně.",
+      fr_code: "Kód Tolk Free",
+      fr_how: "Otevřete Tolk a vložte kód — v okně aktivace nebo v „Profil → Zadat klíč“. Ještě nemáte Tolk? Stáhněte si ho.",
+      fr_phone: "Kód už je v chatu s botem. Otevřete tento chat v Telegramu na počítači — je tam odkaz „Stáhnout Tolk“; při prvním spuštění vložte kód.",
+      fr_many: "Tento účet má Free už na třech počítačích — pro další vyberte Plus.",
     },
     de: {
       out_t: "Öffne Tolk in Telegram", out_p: "Diese App läuft im Bot @TolkShopBot.", out_b: "Bot öffnen",
@@ -653,7 +713,7 @@
       your_sub: "Dein Abo", until: "bis {d}", ended: "abgelaufen am {d}", forever: "für immer", left_days: "verbleibende Tage: {n}",
       ai_left: "Tolk AI · noch {l} von {t} Std.", ai_reset: "neue Stunden am {d}", unl: "Tolk AI ohne Limit",
       new_1: "Versteh Vorlesungen", new_2: "vom ersten Tag an.",
-      new_sub: "Übersetzte Untertitel über jedem Fenster. 30 Minuten gratis, danach ab {p} pro Woche.",
+      new_sub: "Übersetzte Untertitel über jedem Fenster, nach der Vorlesung Mitschrift und Prüfungsvorbereitung. 30 Minuten Plus gratis, danach ab {p} pro Woche.",
       cta_buy: "Abo wählen", cta_renew: "Abo verlängern",
       t_hours: "Tolk-AI-Stunden", t_hours_s: "für deinen Schlüssel aufladen", t_keys: "Meine Schlüssel", t_keys_s: "Laufzeit und Codes",
       t_gift: "Tolk verschenken", t_gift_s: "Geschenkkarte mit Code", t_invite: "Freunde einladen", t_invite_s: "+{h} Std. für dich, +{f} Std. für sie",
@@ -661,7 +721,7 @@
       sale_eyebrow: "Begrenztes Angebot", sale_t: "{d} auf Tolk", sale_upto: "bis zu −{p} %", sale_left: "noch {t}", sale_until: "bis {d}", sale_ends: "Die Preise steigen wieder am {d}", t_promo: "Promo-Code", t_promo_s: "Rabatt oder Stunden", pc_have: "Hast du einen Promo-Code?", pc_ph: "Promo-Code", pc_apply: "Einlösen", pc_code_t: "−{p} % mit Code {c}", pc_code_s: "auf ein Abo · bis {d}", pr_bad: "Diesen Promo-Code gibt es nicht — prüf die Schreibweise", pr_expired: "Dieser Promo-Code ist abgelaufen", pr_full: "Dieser Promo-Code ist aufgebraucht", pr_used: "Du hast diesen Promo-Code schon benutzt", pr_nokey: "Stunden aus dem Code kommen zu einem aktiven Abo — kauf zuerst eins", promo_t: "−{p} % auf dein erstes Abo", promo_s: "Rabatt nach der Testphase · bis {d}", l_download: "Tolk herunterladen", l_download_s: "Windows, macOS und Linux", l_channel: "Tolk-Kanal", l_channel_s: "News und Updates",
       l_support: "Support", l_support_s: "wir antworten persönlich", l_lang: "Sprache",
       o_wait: "Bestellung wartet auf Zahlung", o_check: "Wir prüfen deine Zahlung",
-      plans: "Abo", gift_a: "Tolk", gift_b: "verschenken", renew: "Verlängerung", std: "Standard", pro: "Pro · Mitschriften",
+      plans: "Abo", gift_a: "Tolk", gift_b: "verschenken", renew: "Verlängerung", std: "Plus", pro: "Pro · Mitschriften",
       pro_lede: "Alles aus Standard plus Vorlesungsmitschriften: Tolk nimmt die Vorlesung auf, erfasst die Folien und schreibt in einer Minute die Mitschrift. Bis zu 45 Mitschriften im Monat.",
       std_lede: "Ganz Tolk und der Übersetzer Tolk AI. Die Stunden erneuern sich alle 30 Tage; sind sie früher aufgebraucht, übersetzt Tolk über Google, und du kannst nachkaufen.",
       gift_lede: "Nach der Zahlung kommt eine Geschenkkarte mit Code in den Chat — leite sie an deine Freundin oder deinen Freund weiter. Der Code funktioniert auf jedem Computer; das Abo startet mit der Aktivierung.",
@@ -703,7 +763,7 @@
       help_t: "So fängst du an", h1: "Lade Tolk für dein System herunter (Windows, macOS oder Linux) und installiere es.",
       h2: "Öffne Tolk und füg deinen Schlüssel ein — im Aktivierungsfenster oder unter „Profil → Schlüssel eingeben“. Wenn du aus dem Programm kaufst, wird der Schlüssel automatisch gesetzt.",
       h3: "Wähle, was du hören willst — den Tab mit der Vorlesung, Zoom, Teams oder Webex — und drück „Übersetzung starten“.",
-      h_trial: "Die ersten 30 Minuten sind gratis: Tipp auf „30 Minuten gratis“ auf dem Startbildschirm.", t_trial: "30 Minuten gratis", t_trial_s: "Tolk AI ohne Zahlung — einmalig", tr_t: "30 Minuten *gratis*", tr_p: "Alles wie in der Vollversion: Tolk AI, Browser-Tabs, alle Sprachen. Einmal pro Konto und pro Computer.", tr_btn: "30 Minuten holen", tr_s1: "Tipp auf „30 Minuten holen“ — du bekommst einen Code.", tr_s2: "Lade Tolk herunter und füg den Code beim ersten Start ein.", tr_s3: "In der Vorlesung oder beim Video drückst du Alt+Shift+T — die Untertitel erscheinen über dem Fenster.",  tr_applied: "Fertig! Tolk auf deinem Computer ist schon aktiviert — geh zurück ins Programm und schalte die Übersetzung ein.", tr_code: "Testcode", tr_phone: "Der Code ist schon in deinem Chat mit dem Bot. Öffne diesen Chat in Telegram auf dem Computer — dort ist ein Link „Tolk herunterladen“; füg den Code beim ersten Start ein.", tr_how: "Öffne Tolk und füg den Code ein — im Aktivierungsfenster oder unter „Profil → Schlüssel eingeben“. Noch kein Tolk? Lade es herunter.", tr_used: "Mit diesem Konto gab es schon einen Test — wähle einen Tarif.", tr_used_pc: "Auf diesem Computer gab es schon einen Test — wähle einen Tarif.", tr_busy: "Heute gab es schon zu viele Tests — versuch es morgen.", faq_t: "Fragen",
+      h_trial: "30 Minuten Plus sind gratis — der Button ist auf dem Startbildschirm. Und Free gibt es für immer, mit einem Tageslimit.", t_trial: "30 Minuten Plus gratis", t_trial_s: "Tolk AI und ganz Plus — einmalig", tr_t: "30 Minuten Plus *gratis*", tr_p: "Alles wie in Plus: Tolk AI, Tolk AI Live, Fragen an die Vorlesung, das Fachglossar. Einmal pro Konto und pro Computer.", tr_btn: "30 Minuten holen", tr_s1: "Tipp auf „30 Minuten holen“ — du bekommst einen Code.", tr_s2: "Lade Tolk herunter und füg den Code beim ersten Start ein.", tr_s3: "In der Vorlesung oder beim Video drückst du Alt+Shift+T — die Untertitel erscheinen über dem Fenster.",  tr_applied: "Fertig! Tolk auf deinem Computer ist schon aktiviert — geh zurück ins Programm und schalte die Übersetzung ein.", tr_code: "Testcode", tr_phone: "Der Code ist schon in deinem Chat mit dem Bot. Öffne diesen Chat in Telegram auf dem Computer — dort ist ein Link „Tolk herunterladen“; füg den Code beim ersten Start ein.", tr_how: "Öffne Tolk und füg den Code ein — im Aktivierungsfenster oder unter „Profil → Schlüssel eingeben“. Noch kein Tolk? Lade es herunter.", tr_used: "Mit diesem Konto gab es schon einen Test — wähle einen Tarif.", tr_used_pc: "Auf diesem Computer gab es schon einen Test — wähle einen Tarif.", tr_busy: "Heute gab es schon zu viele Tests — versuch es morgen.", faq_t: "Fragen",
       f1q: "Was sind Tolk-AI-Stunden?",
       f1a: "Die Zeit, in der der Übersetzer Tolk AI arbeitet: Er hört jeden Satz zu Ende und übersetzt genau. Im Abo sind {m} Std. im Monat, alle 30 Tage neu. Sind sie früher aufgebraucht, übersetzt Tolk über Google, und du kannst nachkaufen.",
       f2q: "Gehen beim Verlängern die restlichen Tage verloren?", f2a: "Nein. Der neue Zeitraum beginnt nach dem aktuellen — kein Tag geht verloren. Tolk auf dem Computer holt sich den neuen Schlüssel selbst.",
@@ -747,9 +807,19 @@
       ref_old: "Ein Freundescode ist nur für Neukunden.",
       ref_many: "Der Code kann höchstens 5-mal geändert werden.",
       ref_fmt: "3–16 lateinische Buchstaben oder Ziffern, ohne Leerzeichen.",
+      t_free: "Free für immer",
+      t_free_s: "{m} Min. Übersetzung am Tag",
+      fr_t: "Free *für immer*",
+      fr_p: "Übersetzte Untertitel über jedem Fenster — {m} Minuten am Tag, gratis und ohne Ablaufdatum. Die Spracherkennung läuft auf deinem Computer, übersetzt wird mit Google. Tolk AI, Mitschriften und Prüfungsvorbereitung gibt es in Plus und Pro.",
+      fr_btn: "Free holen",
+      fr_applied: "Fertig! Tolk Free läuft schon auf deinem Computer: {m} Minuten Übersetzung am Tag.",
+      fr_code: "Tolk-Free-Code",
+      fr_how: "Öffne Tolk und füg den Code ein — im Aktivierungsfenster oder unter „Profil → Schlüssel eingeben“. Noch kein Tolk? Lade es herunter.",
+      fr_phone: "Der Code ist schon in deinem Chat mit dem Bot. Öffne diesen Chat in Telegram auf dem Computer — dort ist ein Link „Tolk herunterladen“; füg den Code beim ersten Start ein.",
+      fr_many: "Dieses Konto hat Free schon auf drei Computern — für einen weiteren wähle Plus.",
     },
   };
-  const LANGS = [["ru", "Русский"], ["uk", "Українська"], ["sk", "Slovenčina"], ["en", "English"], ["pl", "Polski"], ["cs", "Čeština"], ["de", "Deutsch"]];
+  const LANGS = [["ru", "Русский"], ["uk", "Українська"], ["en", "English"], ["pl", "Polski"], ["de", "Deutsch"], ["cs", "Čeština"], ["sk", "Slovenčina"]];
   const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const t = (k, v = {}) => String((T[L] && T[L][k]) ?? T.en[k] ?? T.ru[k] ?? k).replace(/\{(\w+)\}/g, (m, n) => (v[n] == null ? "" : String(v[n])));
 
@@ -1031,6 +1101,7 @@
     if (k && k.usage) tiles.push(tile("clock", t("t_hours"), t("t_hours_s"), () => go("hours", { serial: k.serial })));
     if (k && k.pro && k.usage && (S.shop.notes || []).length) tiles.push(tile("notes", t("t_notes"), t("t_notes_s"), () => go("notes", { serial: k.serial })));
     if (S.trial && S.trial.can) tiles.push(tile("clock", t("t_trial"), t("t_trial_s"), () => go("trial"), true));
+    if (!k && S.free && !S.free.have) tiles.push(tile("clock", t("t_free"), t("t_free_s", { m: S.free.minutes }), () => go("free")));
     tiles.push(tile("key", t("t_keys"), t("t_keys_s"), () => go("keys")));
     tiles.push(tile("gift", t("t_gift"), t("t_gift_s"), () => go("plans", { gift: true })));
     if (S.ref && S.ref.on) tiles.push(tile("users", t("t_invite"), t("t_invite_s", { h: num(S.ref.hours), f: num(S.ref.friend) }), () => go("invite")));
@@ -1571,6 +1642,32 @@
     return { node: [head, h("p.note", { text: t(msg) })], main: { text: t("cta_buy"), fn: () => go("plans") } };
   };
 
+  // Free навсегда: только перевод (Google), минуты в день; ключ — сам в Tolk (пришли из программы) или код
+  VIEWS.free = async (p) => {
+    const fr = S.free || { minutes: 30 };
+    const res = p.res || (fr.code ? { code: fr.code } : null);
+    const [t1, t2] = t("fr_t").split("*");
+    const head = hero("menu", title2(t1.trim(), t2));
+    if (!res) {
+      return { node: [head, h("p.lede", { text: t("fr_p", { m: fr.minutes }) })],
+        main: { text: t("fr_btn"), fn: async () => {
+          const r = await api("free");
+          if (r && (r.ok || r.error)) {
+            S.free = { ...fr, have: true, code: r.code || fr.code || null };
+            p.res = r;
+            rerender();
+          }
+        } } };
+    }
+    if (res.applied) return { node: [head, h("p.note", { text: t("fr_applied", { m: fr.minutes }) })], main: { text: t("home"), fn: home } };
+    if (res.code) {
+      const phone = tg && /^(android|ios)$/.test(tg.platform || "");
+      return { node: [head, h("div.sec", null, copyRow(t("fr_code"), res.code)), h("p.note", { text: t(phone ? "fr_phone" : "fr_how") })],
+        main: phone ? { text: t("home"), fn: home } : { text: t("download"), fn: () => openLink(S.links.site) } };
+    }
+    return { node: [head, h("p.note", { text: t(res.error === "free_many" ? "fr_many" : "err_any") })], main: { text: t("cta_buy"), fn: () => go("plans") } };
+  };
+
   VIEWS.help = async () => ({
     node: [hero("help", h("h1", null, h("em", { text: t("help_t") }))),
       h("ol.how", null, h("li", { text: t("h1") }), h("li", { text: t("h2") }), h("li", { text: t("h3") })),
@@ -1630,7 +1727,7 @@
     else if (a === "gift") add("plans", { gift: true });
     else if (a === "item" && b) add(S.shop.topups.some((x) => x.id === b) ? "hours" : (S.shop.notes || []).some((x) => x.id === b) ? "notes" : "plans",
       { item: b, pro: /^pro_/.test(b) || undefined });
-    else if (["keys", "invite", "review", "help", "lang", "trial"].includes(a)) add(a);
+    else if (["keys", "invite", "review", "help", "lang", "trial", "free"].includes(a)) add(a);
     else if (a === "order" && S.order) add("pay", { id: S.order.id, order: S.order });
     render();
   }
