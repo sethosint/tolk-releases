@@ -389,6 +389,49 @@ main { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) { .js [data-rise] { transform: translateY(10px); transition-duration: .6s; } }
 
 /* ---------------------------------------------------------------- узкие экраны */
+/* ПК: первый экран закреплён, прокрутка ведёт по шагам 01–04 (site.js → pinScroll); шаги — на месте текста слева */
+.steps-x { display: none; }
+@media (min-width: 1101px) and (min-height: 640px) {
+  .hero-pin .hero { display: block; height: 320vh; min-height: 0; padding: 0; }
+  .hero-pin .hero > .wrap { position: sticky; top: 0; height: 100vh; height: 100svh; align-content: center; box-sizing: border-box;
+    padding: clamp(5.5rem, 12vh, 7.5rem) 0 clamp(2.5rem, 6vh, 4rem); }
+  .hero-pin .hero-copy, .hero-pin .steps-x { grid-column: 1; grid-row: 1; }
+  .hero-pin .hero-copy { transition: opacity .55s var(--ease), transform .8s var(--ease); }
+  .hero-pin .hero:not([data-step="0"]) .hero-copy { opacity: 0; transform: translateY(-2.2rem); pointer-events: none; visibility: hidden;
+    transition: opacity .45s var(--ease), transform .8s var(--ease), visibility 0s .45s; }
+  .hero-pin .steps-x { display: grid; gap: 1.6rem; align-content: center; opacity: 0; transform: translateY(2rem); pointer-events: none;
+    visibility: hidden; transition: opacity .5s var(--ease), transform .9s var(--ease), visibility 0s .5s; }
+  .hero-pin .hero:not([data-step="0"]) .steps-x { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: .12s, .12s, 0s; }
+  .steps-x ol { display: grid; border-bottom: 1px solid var(--line); }
+  .steps-x li { border-top: 1px solid var(--line); }
+  .steps-x li > button { position: relative; display: grid; grid-template-columns: 2.6rem 1fr; align-items: baseline; width: 100%; padding: 1.05rem 0;
+    text-align: left; color: var(--ink-3); cursor: pointer; transition: color .4s var(--ease); background: none; border: 0; border-radius: 0;
+    font: inherit; -webkit-appearance: none; appearance: none; }
+  .steps-x li > button:hover { color: var(--ink-2); }
+  .steps-x .n { font: 500 .68rem/1 var(--mono); letter-spacing: .16em; color: inherit; transition: color .4s; }
+  .steps-x .t { display: grid; }
+  .steps-x b { font: 600 clamp(1.5rem, 2.1vw, 1.9rem)/1.05 var(--display); letter-spacing: -.005em; transition: font-size .5s var(--ease), color .4s; }
+  .steps-x .d { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .6s var(--ease), opacity .4s, margin .6s var(--ease); }
+  .steps-x .d > * { min-height: 0; }
+  .steps-x .d { font-size: 1.02rem; line-height: 1.55; color: var(--ink-2); max-width: 30rem; }
+  .steps-x .d { overflow: hidden; }
+  .steps-x li.on > button { color: var(--ink); cursor: default; }
+  .steps-x li.on .n { color: var(--accent); }
+  .steps-x li.on b { font-size: clamp(2.6rem, 4vw, 3.9rem); }
+  .steps-x li.on .d { grid-template-rows: 1fr; opacity: 1; margin-top: .8rem; }
+  .steps-x .d .link { white-space: nowrap; }
+  .steps-x .sp { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--accent); transform-origin: 0 50%;
+    transform: scaleX(0); pointer-events: none; }
+  .steps-x li.on .sp { transform: scaleX(var(--sp, 0)); }
+  .steps-x .btn { justify-self: start; height: 2.9rem; font-size: .9rem; }
+  .hero-pin .hero:not([data-step="0"]) .callouts, .hero-pin .hero:not([data-step="0"]) .x-ctl,
+  .hero-pin .hero:not([data-step="0"]) .xray figcaption { opacity: 0 !important; pointer-events: none; }
+  .hero-pin .xray[data-focus] .layer { opacity: .14; filter: saturate(.4) blur(.5px); }
+  .hero-pin .xray[data-focus="sub"] .l-sub, .hero-pin .xray[data-focus="win"] .l-win,
+  .hero-pin .xray[data-focus="notes"] .l-notes { opacity: 1; filter: none; }
+  .hero-pin .xray .stage { transform-origin: 50% 50%; will-change: transform; }
+}
+
 @media (max-width: 1100px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .xray { max-width: 46rem; margin: 0 auto; }

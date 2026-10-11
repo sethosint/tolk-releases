@@ -318,6 +318,8 @@
     hx: 0, vhx: 0, hy: 0, vhy: 0, hxT: 0, hyT: 0,  // наклон за курсором
     lift: { notes: 0, win: 0, sub: 0 }, vl: { notes: 0, win: 0, sub: 0 }, focus: "",
     drag: null, raf: 0, last: 0, seen: true, t: 0,
+    cz: 1, vcz: 0, cx: 0, vcx: 0, cy: 0, vcy: 0, czT: 1, cxT: 0, cyT: 0,   // «камера» закреплённого экрана (ПК)
+    pin: false, step: 0,
   };
   const pt = (el, box) => { const r = el.getBoundingClientRect(); return [r.left - box.left, r.top - box.top]; };
   const corners = (el) => ["tl", "tr", "br", "bl"].map((k) => $(":scope > .c." + k, el));
@@ -346,7 +348,7 @@
         const a = corners(up), b = corners(fp);
         a.forEach((c, k) => { const [x1, y1] = pt(c, box), [x2, y2] = pt(b[k], box); d += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; });
       });
-      if (!small) {
+      if (!small && !(X.pin && X.step)) {
         $$(".callouts li", fig).forEach((li) => {
           const r = li.getBoundingClientRect(), x1 = r.left - box.left - 4, y1 = r.top - box.top + 16;
           const [x2, y2] = pt($(":scope > .c.mr", L[li.dataset.for]), box);
@@ -356,6 +358,19 @@
     }
     wires.innerHTML = d;
     wires.style.opacity = Math.min(1, ec).toFixed(3);
+    stage.style.transform = X.pin && (Math.abs(X.cz - 1) > 0.001 || Math.abs(X.cx) + Math.abs(X.cy) > 0.3)
+      ? `translate(${X.cx.toFixed(1)}px, ${X.cy.toFixed(1)}px) scale(${X.cz.toFixed(4)})` : "";
+    camTarget(box);
+  }
+  // приближение к слою шага: где слой на экране без текущего приближения → сдвиг и масштаб, чтобы он встал в центр окна справа
+  function camTarget(f) {
+    if (!X.pin || !X.focus) { X.czT = 1; X.cxT = 0; X.cyT = 0; return; }
+    const r = L[X.focus].getBoundingClientRect();
+    const fx = f.left + f.width / 2, fy = f.top + f.height / 2;
+    const lx = fx + (r.left + r.width / 2 - fx - X.cx) / X.cz, ly = fy + (r.top + r.height / 2 - fy - X.cy) / X.cz;
+    const w = r.width / X.cz, hh = r.height / X.cz;
+    const z = Math.max(1, Math.min(X.focus === "sub" ? 1.9 : 1.55, f.width * 0.86 / w, f.height * 0.74 / hh));
+    X.czT = z; X.cxT = -z * (lx - fx); X.cyT = -z * (ly - fy);
   }
   function xstep(now) {
     X.raf = 0;
@@ -369,9 +384,13 @@
     [X.hx, X.vhx] = spring(X.hx, X.vhx, X.hxT, 40, 12, dt);
     [X.hy, X.vhy] = spring(X.hy, X.vhy, X.hyT, 40, 12, dt);
     Object.keys(X.lift).forEach((k) => { [X.lift[k], X.vl[k]] = spring(X.lift[k], X.vl[k], X.focus === k ? 1 : 0, 60, 13, dt); });
+    [X.cz, X.vcz] = spring(X.cz, X.vcz, X.czT, 26, 9.5, dt);
+    [X.cx, X.vcx] = spring(X.cx, X.vcx, X.cxT, 26, 9.5, dt);
+    [X.cy, X.vcy] = spring(X.cy, X.vcy, X.cyT, 26, 9.5, dt);
     xpaint();
     const moving = Math.abs(X.e - X.eT) + Math.abs(X.ve) + Math.abs(X.rx) + Math.abs(X.rz) + Math.abs(X.vrx) + Math.abs(X.vrz)
-      + Math.abs(X.hx - X.hxT) + Math.abs(X.hy - X.hyT) + Object.keys(X.lift).reduce((a, k) => a + Math.abs(X.lift[k] - (X.focus === k ? 1 : 0)), 0) > 0.002;
+      + Math.abs(X.hx - X.hxT) + Math.abs(X.hy - X.hyT) + Object.keys(X.lift).reduce((a, k) => a + Math.abs(X.lift[k] - (X.focus === k ? 1 : 0)), 0)
+      + Math.abs(X.cz - X.czT) * 40 + (Math.abs(X.cx - X.cxT) + Math.abs(X.cy - X.cyT)) / 20 + Math.abs(X.vcz) + Math.abs(X.vcx) / 50 > 0.002;
     const floating = !gentle && !narrow.matches && X.e > 0.5;
     if (X.seen && !document.hidden && (moving || floating || X.drag)) X.raf = requestAnimationFrame(xstep);
     else X.last = 0;
@@ -440,6 +459,54 @@
     if (!gentle) setTimeout(() => { X.eT = 1; xkick(); }, 650);
     X.eT = gentle ? 1 : 0;
     xkick();
+  }
+
+  // --- ПК: первый экран закреплён на ~2 экрана прокрутки. Шаги: 0 — окно в разборе (как было), 1 — субтитры, 2 — окно перевода,
+  // 3 — конспект (слой приближается, остальные гаснут), 4 — окно собирается; слева вместо заголовка — шаги 01–04.
+  // Телефон, планшет, низкий экран и «меньше движения» — как раньше, без закрепления.
+  const heroEl = $("#hero"), stepsEl = $(".js-steps");
+  const pinMQ = matchMedia("(min-width: 1101px) and (min-height: 640px)");
+  const STEP_AT = [0, 0.08, 0.31, 0.54, 0.77];              // где начинается шаг (доля прокрутки закреплённого экрана)
+  function pinSpan() { return Math.max(1, heroEl.offsetHeight - innerHeight); }
+  function pinSetup() {
+    const on = Boolean(fig && heroEl && stepsEl && pinMQ.matches && !gentle);
+    if (on === X.pin) { pinScroll(); return; }
+    X.pin = on;
+    document.documentElement.classList.toggle("hero-pin", on);
+    if (!on) { pinStep(0); stage.style.transform = ""; X.cz = 1; X.cx = X.cy = 0; }
+    pinScroll();
+  }
+  function pinScroll() {
+    if (!X.pin) return;
+    const p = Math.max(0, Math.min(1, -heroEl.getBoundingClientRect().top / pinSpan()));
+    let s = 0;
+    STEP_AT.forEach((at, i) => { if (p >= at) s = i; });
+    const end = s < 4 ? STEP_AT[s + 1] : 1;
+    stepsEl.style.setProperty("--sp", s ? Math.min(1, (p - STEP_AT[s]) / (end - STEP_AT[s])).toFixed(3) : "0");
+    if (s !== X.step) pinStep(s);
+  }
+  function pinStep(s) {
+    X.step = s;
+    heroEl.dataset.step = String(s);
+    $$("li", stepsEl).forEach((li) => li.classList.toggle("on", Number(li.dataset.s) === s));
+    const k = ["", "sub", "win", "notes", ""][s];
+    X.focus = k;
+    if (k) fig.dataset.focus = k; else delete fig.dataset.focus;
+    $$(".callouts li", fig).forEach((li) => li.classList.toggle("on", li.dataset.for === k));
+    if (s) { X.eT = s === 4 ? 0 : 1; $(".js-x-label", fig).textContent = tx(X.eT ? "x_close" : "x_open"); }
+    stepsEl.setAttribute("aria-hidden", s ? "false" : "true");
+    $$("button, a", stepsEl).forEach((el) => { el.tabIndex = s ? 0 : -1; });
+    xkick();
+  }
+  function initPin() {
+    if (!fig || !heroEl || !stepsEl) return;
+    $$("li > button", stepsEl).forEach((b) => b.addEventListener("click", (e) => {      // шаг — прокрутить к нему
+      if (e.target.closest("a")) return;
+      const i = Number(b.parentElement.dataset.s);
+      scrollTo({ top: heroEl.offsetTop + pinSpan() * (STEP_AT[i] + 0.04), behavior: gentle ? "auto" : "smooth" });
+    }));
+    pinMQ.addEventListener("change", pinSetup);
+    pinSetup();
   }
 
   // --- 05 мини-экзамен: три задачи к конспекту-примеру «Ohmov zákon» (как «Задачи для практики» в Tolk Pro) --------------------
@@ -672,6 +739,7 @@
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
     nav.classList.toggle("scrolled", y > 20);
+    pinScroll();
     const c = $(".js-cmp").getBoundingClientRect();
     cmpActive = c.top < innerHeight * 0.85 && c.bottom > innerHeight * 0.15;
   }
@@ -774,14 +842,15 @@
   renderExam();
   renderFaq();
   renderPrices();
-  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts, .exam").forEach(typograph);
+  $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts, .steps-x, .exam").forEach(typograph);
   $$(".display").forEach(split);
   rise();
   intro();
   initXray();
+  initPin();
   lively();
   addEventListener("scroll", kick, { passive: true });
-  addEventListener("resize", () => { if (fig) xpaint(); sbFont(); });
+  addEventListener("resize", () => { if (fig) { xpaint(); pinScroll(); } sbFont(); });
   narrow.addEventListener("change", () => { if (fig) xpaint(); });
   $$(".js-xray img").forEach((im) => im.addEventListener("load", () => { if (fig) xpaint(); }));
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (fig) xpaint(); });
