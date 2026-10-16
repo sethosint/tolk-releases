@@ -20,7 +20,7 @@
       err_rate: "Курс этой валюты сейчас недоступен — выберите другой способ.", err_stale: "Данные устарели — откройте экран заново.",
       err_any: "Что-то пошло не так — попробуйте ещё раз.", err_big: "Файл больше 10 МБ.", err_type: "Нужен скриншот, фото или PDF.",
       err_nokey: "Сначала оформите подписку — часы добавляются к ней.", retry: "Повторить",
-      your_sub: "Ваша подписка", until: "до {d}", ended: "закончилась {d}", forever: "навсегда", left_days: "осталось {n} дн.",
+      your_sub: "Ваша подписка", streak: "🔥 Серия: {n}", streak_best: " · рекорд {n}", streak_today: " · сегодня — ещё нет", until: "до {d}", ended: "закончилась {d}", forever: "навсегда", left_days: "осталось {n} дн.",
       ai_left: "Tolk AI · осталось {l} из {t} ч", ai_reset: "обновятся {d}", unl: "Tolk AI без лимита",
       new_1: "Понимайте пары", new_2: "с\u00a0первого дня.",
       new_sub: "Субтитры с переводом поверх любого окна, а после пары — конспект и подготовка к экзаменам. 30 минут Plus бесплатно, дальше — от {p} в неделю.",
@@ -136,7 +136,7 @@
       err_rate: "Курс цієї валюти зараз недоступний — оберіть інший спосіб.", err_stale: "Дані застаріли — відкрийте екран знову.",
       err_any: "Щось пішло не так — спробуйте ще раз.", err_big: "Файл більший за 10 МБ.", err_type: "Потрібен скриншот, фото або PDF.",
       err_nokey: "Спершу оформіть підписку — години додаються до неї.", retry: "Повторити",
-      your_sub: "Ваша підписка", until: "до {d}", ended: "закінчилася {d}", forever: "назавжди", left_days: "залишилось {n} дн.",
+      your_sub: "Ваша підписка", streak: "🔥 Серія: {n}", streak_best: " · рекорд {n}", streak_today: " · сьогодні — ще ні", until: "до {d}", ended: "закінчилася {d}", forever: "назавжди", left_days: "залишилось {n} дн.",
       ai_left: "Tolk AI · залишилось {l} з {t} год", ai_reset: "оновляться {d}", unl: "Tolk AI без ліміту",
       new_1: "Розумійте пари", new_2: "з\u00a0першого дня.",
       new_sub: "Субтитри з перекладом поверх будь-якого вікна, а після пари — конспект і підготовка до іспитів. 30 хвилин Plus безкоштовно, далі — від {p} на тиждень.",
@@ -252,7 +252,7 @@
       err_rate: "Kurz tejto meny je teraz nedostupný — vyberte iný spôsob.", err_stale: "Údaje sú neaktuálne — otvorte obrazovku znova.",
       err_any: "Niečo sa pokazilo — skúste to znova.", err_big: "Súbor má viac ako 10 MB.", err_type: "Treba snímku obrazovky, fotku alebo PDF.",
       err_nokey: "Najprv si kúpte predplatné — hodiny sa pripisujú k nemu.", retry: "Skúsiť znova",
-      your_sub: "Vaše predplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zostáva {n} dní",
+      your_sub: "Vaše predplatné", streak: "🔥 Séria: {n}", streak_best: " · rekord {n}", streak_today: " · dnes ešte nie", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zostáva {n} dní",
       ai_left: "Tolk AI · zostáva {l} z {t} h", ai_reset: "obnovia sa {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumejte prednáškam", new_2: "od prvého dňa.",
       new_sub: "Titulky s prekladom nad akýmkoľvek oknom a po prednáške poznámky a príprava na skúšky. 30 minút Plus zadarmo, potom od {p} týždenne.",
@@ -368,7 +368,7 @@
       err_rate: "This currency's rate is unavailable right now — pick another method.", err_stale: "This data is out of date — reopen the screen.",
       err_any: "Something went wrong — please try again.", err_big: "The file is larger than 10 MB.", err_type: "Please use a screenshot, photo or PDF.",
       err_nokey: "Get a subscription first — hours are added to it.", retry: "Try again",
-      your_sub: "Your subscription", until: "until {d}", ended: "ended {d}", forever: "forever", left_days: "{n} days left",
+      your_sub: "Your subscription", streak: "🔥 Streak: {n}", streak_best: " · best {n}", streak_today: " · not yet today", until: "until {d}", ended: "ended {d}", forever: "forever", left_days: "{n} days left",
       ai_left: "Tolk AI · {l} of {t} h left", ai_reset: "refills {d}", unl: "Unlimited Tolk AI",
       new_1: "Understand lectures", new_2: "from day one.",
       new_sub: "Translated subtitles on top of any window, and after class — notes and exam prep. 30 minutes of Plus free, then from {p} a week.",
@@ -484,7 +484,7 @@
       err_rate: "Kurs tej waluty jest teraz niedostępny — wybierz inny sposób.", err_stale: "Dane są nieaktualne — otwórz ekran ponownie.",
       err_any: "Coś poszło nie tak — spróbuj jeszcze raz.", err_big: "Plik ma ponad 10 MB.", err_type: "Potrzebny jest zrzut ekranu, zdjęcie albo PDF.",
       err_nokey: "Najpierw kup subskrypcję — godziny dodaje się do niej.", retry: "Spróbuj ponownie",
-      your_sub: "Twoja subskrypcja", until: "do {d}", ended: "wygasła {d}", forever: "na zawsze", left_days: "pozostało dni: {n}",
+      your_sub: "Twoja subskrypcja", streak: "🔥 Seria: {n}", streak_best: " · rekord {n}", streak_today: " · dziś jeszcze nie", until: "do {d}", ended: "wygasła {d}", forever: "na zawsze", left_days: "pozostało dni: {n}",
       ai_left: "Tolk AI · zostało {l} z {t} godz.", ai_reset: "odnowią się {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumiej wykłady", new_2: "od pierwszego dnia.",
       new_sub: "Napisy z tłumaczeniem nad każdym oknem, a po zajęciach notatki i nauka do egzaminów. 30 minut Plus za darmo, potem od {p} tygodniowo.",
@@ -600,7 +600,7 @@
       err_rate: "Kurz této měny teď není k dispozici — vyberte jiný způsob.", err_stale: "Údaje jsou zastaralé — otevřete obrazovku znovu.",
       err_any: "Něco se pokazilo — zkuste to znovu.", err_big: "Soubor má víc než 10 MB.", err_type: "Je potřeba snímek obrazovky, fotka nebo PDF.",
       err_nokey: "Nejdřív si kupte předplatné — hodiny se připisují k němu.", retry: "Zkusit znovu",
-      your_sub: "Vaše předplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zbývá dní: {n}",
+      your_sub: "Vaše předplatné", streak: "🔥 Série: {n}", streak_best: " · rekord {n}", streak_today: " · dnes ještě ne", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zbývá dní: {n}",
       ai_left: "Tolk AI · zbývá {l} z {t} h", ai_reset: "obnoví se {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumějte přednáškám", new_2: "od prvního dne.",
       new_sub: "Titulky s překladem nad jakýmkoli oknem a po přednášce poznámky a příprava na zkoušky. 30 minut Plus zdarma, pak od {p} týdně.",
@@ -716,7 +716,7 @@
       err_rate: "Der Kurs dieser Währung ist gerade nicht verfügbar — wähle eine andere Zahlungsart.", err_stale: "Die Daten sind veraltet — öffne den Bildschirm neu.",
       err_any: "Etwas ist schiefgelaufen — versuch es noch einmal.", err_big: "Die Datei ist größer als 10 MB.", err_type: "Bitte einen Screenshot, ein Foto oder ein PDF.",
       err_nokey: "Hol dir zuerst ein Abo — die Stunden kommen dazu.", retry: "Erneut versuchen",
-      your_sub: "Dein Abo", until: "bis {d}", ended: "abgelaufen am {d}", forever: "für immer", left_days: "verbleibende Tage: {n}",
+      your_sub: "Dein Abo", streak: "🔥 Serie: {n}", streak_best: " · Rekord {n}", streak_today: " · heute noch nicht", until: "bis {d}", ended: "abgelaufen am {d}", forever: "für immer", left_days: "verbleibende Tage: {n}",
       ai_left: "Tolk AI · noch {l} von {t} Std.", ai_reset: "neue Stunden am {d}", unl: "Tolk AI ohne Limit",
       new_1: "Versteh Vorlesungen", new_2: "vom ersten Tag an.",
       new_sub: "Übersetzte Untertitel über jedem Fenster, nach der Vorlesung Mitschrift und Prüfungsvorbereitung. 30 Minuten Plus gratis, danach ab {p} pro Woche.",
@@ -1093,6 +1093,9 @@
       head.push(h("p.eyebrow", { text: t("your_sub") }), h("h1", { text: k.title }), h("p.sub", { text: keyStatus(k) + days }));
       if (k.usage) head.push(meter(k.usage));
       else if (k.unl) head.push(h("p.sub", { text: t("unl") }));
+      const sk = S.streak;                                     // серия дней с Tolk — с двух дней подряд
+      if (sk && sk.cur >= 2) head.push(h("p.streak", { text: t("streak", { n: sk.cur }) +
+        (sk.best > sk.cur ? t("streak_best", { n: sk.best }) : "") + (sk.today ? "" : t("streak_today")) }));
     } else {
       head.push(title2(t("new_1"), t("new_2")), h("p.sub", { text: t("new_sub", { p: minPrice() }) }));
     }
