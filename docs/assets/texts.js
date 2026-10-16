@@ -163,7 +163,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Работает в любом браузере?",
-    "Да: Chrome, Edge, Opera, Brave, Vivaldi, Firefox и другие. На Windows 11 расширение не нужно — выберите в Tolk браузер, и он услышит его звук. Расширение Tolk пригодится, если в браузере звучит несколько вкладок, а переводить нужно одну, — и на Windows 10."
+    "Да: Chrome, Edge, Opera, Brave, Vivaldi, Firefox и другие. На Windows 11 расширение не нужно — выберите в Tolk браузер, и он услышит его звук. Расширение Tolk пригодится, если в браузере звучит несколько вкладок, а переводить нужно одну, — и на Windows 10. <a class=\"link\" href=\"extension.html\">Как поставить расширение →</a>"
    ],
    [
     "Tolk слушает микрофон? Куда уходит звук?",
@@ -296,6 +296,7 @@ window.TOLK_TEXTS = {
   "f6k": "Студентам",
   "f6v": "Сторінки вишів",
   "f6s": "Терміни предметів",
+  "f6e": "Розширення для браузера",
   "h_k": "Переклад пар, конспекти й підготовка до іспитів",
   "nl1": "Як це працює",
   "nl2": "Ціни",
@@ -395,7 +396,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Працює в будь-якому браузері?",
-    "Так: Chrome, Edge, Opera, Brave, Vivaldi, Firefox та інші. На Windows 11 розширення не потрібне — оберіть у Tolk браузер, і він почує його звук. Розширення Tolk знадобиться, якщо в браузері звучить кілька вкладок, а перекладати треба одну, — і на Windows 10."
+    "Так: Chrome, Edge, Opera, Brave, Vivaldi, Firefox та інші. На Windows 11 розширення не потрібне — оберіть у Tolk браузер, і він почує його звук. Розширення Tolk знадобиться, якщо в браузері звучить кілька вкладок, а перекладати треба одну, — і на Windows 10. <a class=\"link\" href=\"extension.html\">Як поставити розширення →</a>"
    ],
    [
     "Tolk слухає мікрофон? Куди йде звук?",
@@ -552,6 +553,7 @@ window.TOLK_TEXTS = {
   "f6k": "Študentom",
   "f6v": "Stránky univerzít",
   "f6s": "Termíny predmetov",
+  "f6e": "Rozšírenie pre prehliadač",
   "h_k": "Preklad prednášok, poznámky a príprava na skúšky",
   "nl1": "Ako to funguje",
   "nl2": "Ceny",
@@ -651,7 +653,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Funguje v každom prehliadači?",
-    "Áno: Chrome, Edge, Opera, Brave, Vivaldi, Firefox a ďalšie. Vo Windows 11 rozšírenie netreba — vyberte v Tolku prehliadač a Tolk bude počuť jeho zvuk. Rozšírenie Tolk sa hodí, keď v prehliadači hrá viac kariet a prekladať treba jednu, — a vo Windows 10."
+    "Áno: Chrome, Edge, Opera, Brave, Vivaldi, Firefox a ďalšie. Vo Windows 11 rozšírenie netreba — vyberte v Tolku prehliadač a Tolk bude počuť jeho zvuk. Rozšírenie Tolk sa hodí, keď v prehliadači hrá viac kariet a prekladať treba jednu, — a vo Windows 10. <a class=\"link\" href=\"extension.html\">Ako nainštalovať rozšírenie →</a>"
    ],
    [
     "Počúva Tolk mikrofón? Kam ide zvuk?",
@@ -791,6 +793,7 @@ window.TOLK_TEXTS = {
   "f6k": "Students",
   "f6v": "University pages",
   "f6s": "Subject terms",
+  "f6e": "Browser extension",
   "h_k": "Lecture translation, notes and exam prep",
   "nl1": "How it works",
   "nl2": "Pricing",
@@ -890,7 +893,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Does it work in any browser?",
-    "Yes: Chrome, Edge, Opera, Brave, Vivaldi, Firefox and others. On Windows 11 you don't need the extension — pick your browser in Tolk and it hears its sound. The Tolk extension helps when several tabs play at once and you need just one — and on Windows 10."
+    "Yes: Chrome, Edge, Opera, Brave, Vivaldi, Firefox and others. On Windows 11 you don't need the extension — pick your browser in Tolk and it hears its sound. The Tolk extension helps when several tabs play at once and you need just one — and on Windows 10. <a class=\"link\" href=\"extension.html\">How to install the extension →</a>"
    ],
    [
     "Does Tolk listen to my mic? Where does the audio go?",
@@ -1047,6 +1050,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studenci",
   "f6v": "Strony uczelni",
   "f6s": "Terminy przedmiotów",
+  "f6e": "Rozszerzenie do przeglądarki",
   "h_k": "Tłumaczenie zajęć, notatki i nauka do egzaminów",
   "nl1": "Jak to działa",
   "nl2": "Ceny",
@@ -1146,7 +1150,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Działa w każdej przeglądarce?",
-    "Tak: Chrome, Edge, Opera, Brave, Vivaldi, Firefox i inne. W Windows 11 rozszerzenie nie jest potrzebne — wybierz przeglądarkę w Tolk, a usłyszy jej dźwięk. Rozszerzenie Tolk pomaga, gdy gra kilka kart naraz, a potrzebna jest jedna — i w Windows 10."
+    "Tak: Chrome, Edge, Opera, Brave, Vivaldi, Firefox i inne. W Windows 11 rozszerzenie nie jest potrzebne — wybierz przeglądarkę w Tolk, a usłyszy jej dźwięk. Rozszerzenie Tolk pomaga, gdy gra kilka kart naraz, a potrzebna jest jedna — i w Windows 10. <a class=\"link\" href=\"extension.html\">Jak zainstalować rozszerzenie →</a>"
    ],
    [
     "Czy Tolk słucha mojego mikrofonu? Dokąd trafia dźwięk?",
@@ -1303,6 +1307,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studenti",
   "f6v": "Stránky vysokých škol",
   "f6s": "Pojmy předmětů",
+  "f6e": "Rozšíření pro prohlížeč",
   "h_k": "Překlad přednášek, poznámky a příprava na zkoušky",
   "nl1": "Jak to funguje",
   "nl2": "Ceny",
@@ -1402,7 +1407,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Funguje v každém prohlížeči?",
-    "Ano: Chrome, Edge, Opera, Brave, Vivaldi, Firefox a další. Ve Windows 11 rozšíření nepotřebujete — vyberte prohlížeč v Tolku a uslyší jeho zvuk. Rozšíření Tolk pomůže, když hraje víc karet najednou a potřebujete jen jednu — a ve Windows 10."
+    "Ano: Chrome, Edge, Opera, Brave, Vivaldi, Firefox a další. Ve Windows 11 rozšíření nepotřebujete — vyberte prohlížeč v Tolku a uslyší jeho zvuk. Rozšíření Tolk pomůže, když hraje víc karet najednou a potřebujete jen jednu — a ve Windows 10. <a class=\"link\" href=\"extension.html\">Jak nainstalovat rozšíření →</a>"
    ],
    [
     "Poslouchá Tolk můj mikrofon? Kam jde zvuk?",
@@ -1559,6 +1564,7 @@ window.TOLK_TEXTS = {
   "f6k": "Studium",
   "f6v": "Seiten der Hochschulen",
   "f6s": "Fachbegriffe",
+  "f6e": "Browser-Erweiterung",
   "h_k": "Vorlesungen übersetzt, Mitschriften und Prüfungsvorbereitung",
   "nl1": "So funktioniert’s",
   "nl2": "Preise",
@@ -1658,7 +1664,7 @@ window.TOLK_TEXTS = {
    ],
    [
     "Funktioniert es in jedem Browser?",
-    "Ja: Chrome, Edge, Opera, Brave, Vivaldi, Firefox und andere. Unter Windows 11 brauchst du keine Erweiterung — wähle deinen Browser in Tolk, und es hört seinen Ton. Die Tolk-Erweiterung hilft, wenn mehrere Tabs gleichzeitig spielen und du nur einen brauchst — und unter Windows 10."
+    "Ja: Chrome, Edge, Opera, Brave, Vivaldi, Firefox und andere. Unter Windows 11 brauchst du keine Erweiterung — wähle deinen Browser in Tolk, und es hört seinen Ton. Die Tolk-Erweiterung hilft, wenn mehrere Tabs gleichzeitig spielen und du nur einen brauchst — und unter Windows 10. <a class=\"link\" href=\"extension.html\">So installierst du die Erweiterung →</a>"
    ],
    [
     "Hört Tolk mein Mikrofon ab? Wohin geht der Ton?",

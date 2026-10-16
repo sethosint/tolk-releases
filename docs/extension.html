@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-O1YsEJinIKtH6R1tqk8c/Ng5fpggbk+AdaaQHjzstyI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolk — расширение для браузера</title>
+<meta name="description" content="Расширение Tolk: перевод звука одной вкладки браузера. Скачать для Chrome, Edge, Opera, Brave, Яндекс и Firefox и установить по шагам со снимками.">
+<meta name="theme-color" content="#f2eee6">
+<meta property="og:title" content="Расширение Tolk — перевод одной вкладки">
+<meta property="og:description" content="Скачать и установить по шагам со снимками: Chrome, Edge, Opera, Brave, Яндекс, Firefox.">
+<meta property="og:image" content="https://sethosint.github.io/tolk-releases/img/og.jpg">
+<link rel="icon" type="image/png" sizes="64x64" href="img/tolk-mark-64.png">
+<script>
+  (function () { try { var t = localStorage.getItem("tolk-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400..700&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=64">
+<style>
+  .ext .lede { margin-bottom: 1rem; }
+  .ext h1 em { font-style: normal; color: var(--accent); }
+  .ext .safe { font-size: .92rem; }
+  .ext-tabs { margin: 2.2rem 0 1.6rem; }
+  .ext-tabs button { padding: .8rem 1rem; }
+  .ext-dl { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.2rem; margin-bottom: 2.4rem; }
+  .ext-dl .note { margin: 0; }
+  .ext-steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  .page .ext-steps > li { counter-increment: s; position: relative; padding: 0 0 2.6rem 3.3rem; margin: 0; }
+  .ext-steps > li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: .25rem; font: 500 .7rem/1 var(--mono); letter-spacing: .14em; color: var(--accent); }
+  .ext-steps > li::after { content: ""; position: absolute; left: .55rem; top: 1.5rem; bottom: .8rem; width: 1px; background: var(--line); }
+  .ext-steps > li:last-child::after { display: none; }
+  .page .ext-steps h2 { font: 600 1.32rem/1.2 var(--display); margin: 0 0 .45rem; color: var(--ink); }
+  .ext-steps p { max-width: 38rem; }
+  .ext-steps b, .ext .faq b { color: var(--ink); font-weight: 560; }
+  .ext-shot { display: block; margin: 1.1rem 0 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff;
+    box-shadow: 0 18px 50px -30px rgba(0, 0, 0, .45); }
+  .ext-shot img { display: block; width: 100%; height: auto; }
+  .ext-addr { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; }
+  .ext-addr button { display: inline-flex; align-items: baseline; gap: .55rem; border: 1px solid var(--line); background: transparent; color: var(--ink-2);
+    padding: .5rem .7rem; cursor: pointer; font: 400 .66rem/1.2 var(--mono); letter-spacing: .04em; transition: border-color .3s, color .3s; }
+  .ext-addr button:hover { border-color: var(--ink-3); color: var(--ink); }
+  .ext-addr button b { font-weight: 500; color: var(--ink); letter-spacing: .12em; text-transform: uppercase; font-size: .58rem; }
+  .ext-addr button.done { border-color: var(--accent); color: var(--accent); }
+  .ext .tip { margin-top: .4rem; padding: 1.1rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .95rem; }
+  .ext .faq { display: block; margin-top: .4rem; border-top: 1px solid var(--line); }
+  .ext .faq summary { font-size: 1.08rem; }
+  .ext .faq .a { padding: 0 0 1.2rem; }
+  .ext .faq .ext-shot { max-width: 34rem; }
+  .ext-langs { margin-left: auto; display: flex; flex-wrap: wrap; gap: .2rem .8rem; }
+  .ext-langs button { background: none; border: 0; padding: .2rem 0; cursor: pointer; font: 400 .64rem/1 var(--mono); letter-spacing: .2em; color: var(--ink-3); }
+  .ext-langs button:hover, .ext-langs button[aria-pressed="true"] { color: var(--ink); }
+  @media (max-width: 560px) { .page .ext-steps > li { padding-left: 2.4rem; } .ext-steps > li::after { left: .45rem; }
+    .ext-steps .ext-shot { margin-left: -2.4rem; } .ext-tabs button { flex: 1 1 auto; } }
+</style>
+</head>
+<body>
+<div class="dots" aria-hidden="true"></div>
+<header class="page-nav">
+  <a class="brand" href="./"><span class="mark" aria-hidden="true"></span>Tolk</a>
+  <div class="ext-langs" role="group" aria-label="Язык">
+    <button data-lang="ru">RU</button><button data-lang="uk">UK</button><button data-lang="en">EN</button><button data-lang="pl">PL</button><button data-lang="de">DE</button><button data-lang="cs">CS</button><button data-lang="sk">SK</button>
+  </div>
+</header>
+
+<main class="page ext">
+  <div class="wrap">
+    <p class="eyebrow"><span class="mark" aria-hidden="true"></span><span data-t="k">Расширение для браузера</span></p>
+    <h1 data-t="h1">Переводите <em>одну вкладку.</em></h1>
+    <p class="lede" data-t="lede">Нажмите значок Tolk на вкладке с лекцией — и Tolk переводит только её звук. Музыка и другие вкладки не мешают.</p>
+    <p class="safe" data-t="safe">Бесплатно. Ничего не уходит в интернет: звук идёт только в программу Tolk на этом компьютере.</p>
+    <div class="box"><p data-t="need">Нужна программа Tolk — она должна быть запущена. Ещё нет? <a class="link" href="./">Скачать Tolk</a></p></div>
+
+    <div class="seg ext-tabs" role="group">
+      <button type="button" data-b="ch" aria-pressed="true" data-t="tab_ch">Chrome, Edge, Opera, Brave, Яндекс</button>
+      <button type="button" data-b="ff" aria-pressed="false">Firefox</button>
+    </div>
+
+    <section data-pane="ch">
+      <div class="ext-dl">
+        <a class="btn" href="ext/tolk-chrome.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+          <span data-t="dl_ch">Скачать расширение</span></a>
+        <p class="note">tolk-chrome.zip</p>
+      </div>
+      <ol class="ext-steps">
+        <li>
+          <h2 data-t="c1h">Распакуйте архив</h2>
+          <p data-t="c1p">Windows: правой кнопкой по архиву → «Извлечь все». Mac: двойной щелчок. Получится папка <b>tolk-chrome</b> — оставьте её на месте, например в «Документах»: браузер берёт расширение из неё.</p>
+        </li>
+        <li>
+          <h2 data-t="c2h">Откройте страницу расширений</h2>
+          <p data-t="c2p">Скопируйте адрес своего браузера, вставьте его в адресную строку ① и нажмите Enter. Справа вверху включите «Режим разработчика» ② (в Edge он слева, в меню).</p>
+          <div class="ext-addr">
+            <button type="button" data-copy="chrome://extensions"><b>Chrome</b>chrome://extensions</button>
+            <button type="button" data-copy="edge://extensions"><b>Edge</b>edge://extensions</button>
+            <button type="button" data-copy="opera://extensions"><b>Opera</b>opera://extensions</button>
+            <button type="button" data-copy="brave://extensions"><b>Brave</b>brave://extensions</button>
+            <button type="button" data-copy="browser://extensions"><b data-t="yandex">Яндекс</b>browser://extensions</button>
+            <button type="button" data-copy="vivaldi://extensions"><b>Vivaldi</b>vivaldi://extensions</button>
+          </div>
+          <a class="ext-shot" href="img/ext/ru/c1.webp" target="_blank"><img data-img="c1" src="img/ext/ru/c1.webp" width="1044" height="150" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="c3h">Загрузите папку Tolk</h2>
+          <p data-t="c3p">Нажмите «Загрузить распакованное расширение» и выберите папку <b>tolk-chrome</b> — ту, в которой лежит файл manifest.json.</p>
+          <a class="ext-shot" href="img/ext/ru/c2.webp" target="_blank"><img data-img="c2" src="img/ext/ru/c2.webp" width="900" height="250" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="c4h">Готово — расширение стоит</h2>
+          <p data-t="c4p">Появится карточка «Tolk — перевод вкладки». Если вместо неё ошибка — смотрите вопросы ниже.</p>
+          <a class="ext-shot" href="img/ext/ru/c3.webp" target="_blank"><img data-img="c3" src="img/ext/ru/c3.webp" width="900" height="540" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="c5h">Закрепите значок</h2>
+          <p data-t="c5p">Значок пазла ① → три точки у Tolk ② → «Закрепить на панели инструментов» ③. Теперь значок Tolk всегда под рукой.</p>
+          <a class="ext-shot" href="img/ext/ru/c4.webp" target="_blank"><img data-img="c4" src="img/ext/ru/c4.webp" width="800" height="470" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="on_h">Включите на лекции</h2>
+          <p data-t="on_p">Запустите Tolk, откройте вкладку с лекцией или созвоном и нажмите значок Tolk. Появится <b>ON</b> — перевод начнётся сам. Нажмёте ещё раз — выключится.</p>
+          <a class="ext-shot" href="img/ext/ru/c5.webp" target="_blank"><img data-img="c5" src="img/ext/ru/c5.webp" width="1040" height="620" alt="" loading="lazy"></a>
+        </li>
+      </ol>
+    </section>
+
+    <section data-pane="ff" hidden>
+      <div class="ext-dl">
+        <a class="btn" href="ext/tolk-firefox.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></svg>
+          <span data-t="dl_ff">Скачать для Firefox</span></a>
+        <p class="note" data-t="ff_nozip">tolk-firefox.zip · распаковывать не нужно</p>
+      </div>
+      <ol class="ext-steps">
+        <li>
+          <h2 data-t="f1h">Откройте страницу дополнений</h2>
+          <p data-t="f1p">Скопируйте адрес, вставьте его в адресную строку ① и нажмите Enter. Затем нажмите «Загрузить временное дополнение…» ②.</p>
+          <div class="ext-addr"><button type="button" data-copy="about:debugging#/runtime/this-firefox"><b>Firefox</b>about:debugging#/runtime/this-firefox</button></div>
+          <a class="ext-shot" href="img/ext/ff-ru/f1.webp" target="_blank"><img data-ff="f1" src="img/ext/ff-ru/f1.webp" width="1000" height="360" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="f2h">Выберите скачанный архив</h2>
+          <p data-t="f2p">Выберите <b>tolk-firefox.zip</b> — появится карточка «Tolk — перевод вкладки».</p>
+          <a class="ext-shot" href="img/ext/ff-ru/f2.webp" target="_blank"><img data-ff="f2" src="img/ext/ff-ru/f2.webp" width="1000" height="680" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="c5h">Закрепите значок</h2>
+          <p data-t="f3p">Значок пазла ① → «⋯» у Tolk ② → «Закрепить на панели инструментов» ③.</p>
+          <a class="ext-shot" href="img/ext/ff-ru/f3.webp" target="_blank"><img data-ff="f3" src="img/ext/ff-ru/f3.webp" width="800" height="400" alt="" loading="lazy"></a>
+        </li>
+        <li>
+          <h2 data-t="on_h">Включите на лекции</h2>
+          <p data-t="on_p">Запустите Tolk, откройте вкладку с лекцией или созвоном и нажмите значок Tolk. Появится <b>ON</b> — перевод начнётся сам. Нажмёте ещё раз — выключится.</p>
+          <a class="ext-shot" href="img/ext/ff-ru/f4.webp" target="_blank"><img data-ff="f4" src="img/ext/ff-ru/f4.webp" width="1000" height="600" alt="" loading="lazy"></a>
+        </li>
+      </ol>
+      <p data-t="ff_temp">Firefox убирает такое дополнение после перезапуска — тогда повторите шаги 1–2, это полминуты. Скоро Tolk появится в каталоге дополнений Firefox и будет ставиться насовсем.</p>
+    </section>
+
+    <p class="tip" data-t="tip">Проще всего — из программы: Tolk → «Перевод и звук» → «Одна вкладка браузера» → «Подключить». Tolk сам скопирует адреса и путь к папке и отметит готовые шаги.</p>
+
+    <h2 data-t="q_h">Если что-то не так</h2>
+    <div class="faq">
+      <details><summary data-t="q1">Ошибка «Файл манифеста отсутствует»</summary><div class="a">
+        <p data-t="a1">Выбран сам архив или не та папка. Сначала распакуйте архив, потом выберите папку <b>tolk-chrome</b> — прямо в ней должен лежать файл manifest.json.</p>
+        <span class="ext-shot"><img data-img="cerr" src="img/ext/ru/cerr.webp" width="840" height="230" alt="" loading="lazy"></span></div></details>
+      <details><summary data-t="q2">На значке «!»</summary><div class="a">
+        <p data-t="a2">Tolk не запущен на компьютере. Откройте программу и нажмите значок ещё раз.</p></div></details>
+      <details><summary data-t="q3">Как обновить расширение?</summary><div class="a">
+        <p data-t="a3">Если ставили из программы — Tolk обновляет его сам. Иначе скачайте архив заново, замените файлы в папке tolk-chrome и нажмите ↻ у Tolk на странице расширений. В Firefox — просто загрузите новый архив.</p></div></details>
+      <details><summary data-t="q4">А Safari?</summary><div class="a">
+        <p data-t="a4">Расширения для Safari пока нет. Без расширения Tolk тоже переводит: в Tolk → «Что слушать» выберите браузер или звук компьютера.</p></div></details>
+      <details><summary data-t="q5">Это безопасно?</summary><div class="a">
+        <p data-t="a5">Расширение включается только по щелчку на значке и отдаёт звук этой вкладки только программе Tolk на этом же компьютере. Оно не собирает историю и данные и ничего не отправляет в интернет. Подробнее — <a class="link" href="privacy.html">конфиденциальность</a>.</p></div></details>
+    </div>
+  </div>
+</main>
+
+<footer class="page-foot">
+  <a class="link" href="./">Tolk</a><a class="link" href="https://t.me/TolkShopBot">Telegram · @TolkShopBot</a><a class="link" href="https://t.me/sethosint" data-t="help">Помощь · @sethosint</a><span>© 2026 Tolk</span>
+</footer>
+<script src="assets/ext.js?v=1" defer></script>
+</body>
+</html>
