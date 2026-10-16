@@ -2,7 +2,7 @@
 // приглашения, отзывы, помощь и панель продавца. Сервер — /mini/* (вход по подписанным Telegram данным initData).
 (() => {
   "use strict";
-  const API = "https://tolk-shop.seth-gamingmain.workers.dev";
+  const API = /(^|\.)tolk-shop\.app$|\.workers\.dev$/.test(location.hostname) ? location.origin : "https://tolk-shop.seth-gamingmain.workers.dev";   // tolk-shop.app — тот же адрес
   const tg = window.Telegram && window.Telegram.WebApp;
   const $app = document.getElementById("app");
   const TMARK = (document.getElementById("tmark") || {}).innerHTML || "";

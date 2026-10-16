@@ -9,8 +9,8 @@
   const LANGS = ["ru", "uk", "en", "pl", "de", "cs", "sk"];
   const SHOT_LANGS = ["ru", "uk", "sk", "en"];           // субтитры и конспект-пример; для pl/cs/de — английские (окно — на всех, data-all)
   const BOT = "TolkShopBot";
-  const SHOP = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8787"
-    ? location.origin : "https://tolk-shop.seth-gamingmain.workers.dev";
+  const SHOP = (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8787") || /(^|\.)tolk-shop\.app$|\.workers\.dev$/.test(location.hostname)
+    ? location.origin : "https://tolk-shop.seth-gamingmain.workers.dev";     // на tolk-shop.app сервер — тот же адрес
   const root = document.documentElement;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
