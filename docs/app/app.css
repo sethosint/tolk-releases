@@ -51,8 +51,6 @@ img { display: block; max-width: 100%; }
 .hero h1 { font: 600 34px/1.02 var(--display); letter-spacing: -.02em; }
 .hero h1 em { font-style: normal; color: #e3bd76; }
 .hero .sub { color: rgba(244, 241, 234, .74); font-size: 14px; }
-.hero .streak { align-self: flex-start; margin-top: 12px; padding: 6px 11px; border-radius: 999px; font-size: 13px; color: #f4f1ea;
-  background: rgba(227, 189, 118, .16); border: 1px solid rgba(227, 189, 118, .38); }
 .hero .meter { margin-top: 10px; }
 .meter .bar { height: 5px; border-radius: 3px; background: rgba(244, 241, 234, .14); overflow: hidden; }
 .meter .bar i { display: block; height: 100%; border-radius: 3px; background: #e3bd76; transition: width .8s var(--ease); }
@@ -326,3 +324,43 @@ ol.how li::before { content: counter(h); position: absolute; left: 0; top: -2px;
 .badge.hot { background: color-mix(in srgb, #f08a4b 22%, transparent); color: var(--hot); border-color: transparent; }
 .opt .pr b.hot { color: var(--hot); }
 @media (prefers-reduced-motion: reduce) { .sale::after { animation: none; } }
+
+/* ---------------------------------------------------------------- Толик (3D-фенек Tolk) */
+.tolik { --tolik-bg: var(--card); --tolik-fg: var(--ink); --tolik-line: var(--line); --tolik-font: var(--sans); }
+.tk-card { display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; padding: 6px 14px 6px 6px; text-align: left;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r); }
+.tk-card .tx { flex: 1; min-width: 0; }
+.tk-card .tx b { display: block; font: 600 17px/1.15 var(--display); }
+.tk-card .tx small { display: block; color: var(--ink-3); font-size: 12.5px; line-height: 1.35; }
+.tk-card .chev { color: var(--ink-3); width: 16px; height: 16px; flex: none; }
+.tk-stage.sm { width: 74px; height: 86px; flex: none; }
+.tk-stage.sm .tolik-say { display: none; }
+.tk-top { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 74px; }
+.tk-stage.big { width: 230px; height: 260px; }
+.tk-top h1 { font: 700 28px/1.05 var(--display); margin-top: 2px; }
+.tk-top .sub { color: var(--ink-3); font-size: 13px; }
+.tk-top .tk-l { color: var(--ink-2); margin-top: 6px; }
+.tk-seg { display: flex; gap: 4px; padding: 4px; margin: 14px 0 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.tk-seg button { flex: 1; padding: 9px; border: 0; background: none; border-radius: 10px; color: var(--ink-2); font-size: 14px; }
+.tk-seg button.on { background: var(--ink); color: var(--bg); }
+.tk-log { display: flex; flex-direction: column; gap: 8px; max-height: 46vh; overflow-y: auto; padding: 2px; }
+.tk-msg { max-width: 86%; padding: 9px 12px; font-size: 14.5px; line-height: 1.42; border: 1px solid var(--line); border-radius: 16px; white-space: pre-wrap; }
+.tk-msg.him { align-self: flex-start; background: var(--card); border-top-left-radius: 5px; }
+.tk-msg.me { align-self: flex-end; background: var(--card-2); border-top-right-radius: 5px; }
+.tk-msg.wait { opacity: .55; }
+.tk-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.tk-chips button { padding: 7px 11px; border: 1px solid var(--line); background: var(--card); border-radius: 999px; font-size: 13px; color: var(--ink-2); }
+.tk-in { display: flex; gap: 8px; }
+.tk-in input { flex: 1; min-width: 0; height: 46px; padding: 0 14px; border: 1px solid var(--line); background: var(--card); border-radius: 14px; outline: none; }
+.tk-in input:focus { border-color: var(--accent); }
+.tk-in .btn { width: 46px; height: 46px; padding: 0; display: grid; place-items: center; }
+.tk-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tk-item { display: grid; justify-items: center; gap: 2px; padding: 12px 4px 10px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.tk-item.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tk-item.locked { opacity: .5; }
+.tk-item.locked .e { filter: grayscale(1); }
+.tk-item .e { font-size: 26px; line-height: 1.15; }
+.tk-item .n { font-size: 12.5px; text-align: center; line-height: 1.2; }
+.tk-item small { font: 500 10px/1.2 var(--mono); color: var(--ink-3); text-transform: uppercase; letter-spacing: .03em; }
+.tk-item.on small { color: var(--accent); }
+.tk-items + .muted { margin-top: 12px; }

@@ -20,7 +20,7 @@
       err_rate: "Курс этой валюты сейчас недоступен — выберите другой способ.", err_stale: "Данные устарели — откройте экран заново.",
       err_any: "Что-то пошло не так — попробуйте ещё раз.", err_big: "Файл больше 10 МБ.", err_type: "Нужен скриншот, фото или PDF.",
       err_nokey: "Сначала оформите подписку — часы добавляются к ней.", retry: "Повторить",
-      your_sub: "Ваша подписка", streak: "🔥 Серия: {n}", streak_best: " · рекорд {n}", streak_today: " · сегодня — ещё нет", until: "до {d}", ended: "закончилась {d}", forever: "навсегда", left_days: "осталось {n} дн.",
+      your_sub: "Ваша подписка", until: "до {d}", ended: "закончилась {d}", forever: "навсегда", left_days: "осталось {n} дн.",
       ai_left: "Tolk AI · осталось {l} из {t} ч", ai_reset: "обновятся {d}", unl: "Tolk AI без лимита",
       new_1: "Понимайте пары", new_2: "с\u00a0первого дня.",
       new_sub: "Субтитры с переводом поверх любого окна, а после пары — конспект и подготовка к экзаменам. 30 минут Plus бесплатно, дальше — от {p} в неделю.",
@@ -128,6 +128,9 @@
       fr_how: "Откройте Tolk и вставьте код — в окне активации или в «Профиль → Ввести ключ». Ещё нет Tolk — скачайте его.",
       fr_phone: "Код уже в чате с ботом. Откройте этот чат в Telegram на компьютере — там ссылка «Скачать Tolk»; при первом запуске вставьте код.",
       fr_many: "Free на этом аккаунте уже на трёх компьютерах — для ещё одного выберите Plus.",
+      tk_name: "Толик", tk_sub: "фенек Tolk · слышит каждое слово", tk_line: "Переведено {w} слов · до «{i}» ещё {n}", tk_all: "Переведено {w} слов · открыто всё!", tk_sleep: "Толик спит — проснётся в Plus и Pro", tk_nokey: "Поставь Tolk на компьютер — я буду копить вещи за переведённые слова.", tk_chat: "Поговорить", tk_wear: "Гардероб", tk_ph: "Спроси Толика…", tk_hi: "Привет, {name}! Спрашивай про учёбу или Tolk — отвечу коротко.", tk_wake: "Разбудить Толика", tk_sleep_p: "Толик просыпается в Plus и Pro: поговорит, объяснит термин, подбодрит перед экзаменом. Вещи копятся уже сейчас.",
+      tk_err: "Не получилось — попробуй ещё раз.", tk_on: "надето", tk_put: "надеть", tk_words: "{n} слов", tk_same: "Тот же наряд — у Толика в программе Tolk на компьютере.", tk_st: "Стикеры Толика", tk_st_s: "добавить в Telegram", tk_c1: "Объясни термин простыми словами", tk_c2: "Подбодри перед экзаменом", tk_c3: "Чем Plus отличается от Pro?", tk_i_headphones: "Наушники", tk_i_glasses: "Очки",
+      tk_i_scarf: "Шарф", tk_i_beanie: "Шапка", tk_i_hoodie: "Худи Tolk", tk_i_backpack: "Рюкзак", tk_i_bowtie: "Бабочка", tk_i_gradcap: "Шапочка выпускника", tk_i_sunglasses: "Тёмные очки", tk_i_crown: "Корона", tk_pet: "Фыр! Ещё погладь 🦊"
     },
     uk: {
       out_t: "Відкрийте Tolk у Telegram", out_p: "Цей застосунок працює всередині бота @TolkShopBot.", out_b: "Відкрити бота",
@@ -136,7 +139,7 @@
       err_rate: "Курс цієї валюти зараз недоступний — оберіть інший спосіб.", err_stale: "Дані застаріли — відкрийте екран знову.",
       err_any: "Щось пішло не так — спробуйте ще раз.", err_big: "Файл більший за 10 МБ.", err_type: "Потрібен скриншот, фото або PDF.",
       err_nokey: "Спершу оформіть підписку — години додаються до неї.", retry: "Повторити",
-      your_sub: "Ваша підписка", streak: "🔥 Серія: {n}", streak_best: " · рекорд {n}", streak_today: " · сьогодні — ще ні", until: "до {d}", ended: "закінчилася {d}", forever: "назавжди", left_days: "залишилось {n} дн.",
+      your_sub: "Ваша підписка", until: "до {d}", ended: "закінчилася {d}", forever: "назавжди", left_days: "залишилось {n} дн.",
       ai_left: "Tolk AI · залишилось {l} з {t} год", ai_reset: "оновляться {d}", unl: "Tolk AI без ліміту",
       new_1: "Розумійте пари", new_2: "з\u00a0першого дня.",
       new_sub: "Субтитри з перекладом поверх будь-якого вікна, а після пари — конспект і підготовка до іспитів. 30 хвилин Plus безкоштовно, далі — від {p} на тиждень.",
@@ -244,6 +247,9 @@
       fr_how: "Відкрийте Tolk і вставте код — у вікні активації або в «Профіль → Ввести ключ». Ще немає Tolk — завантажте його.",
       fr_phone: "Код уже в чаті з ботом. Відкрийте цей чат у Telegram на комп'ютері — там посилання «Завантажити Tolk»; під час першого запуску вставте код.",
       fr_many: "Free на цьому акаунті вже на трьох комп'ютерах — для ще одного оберіть Plus.",
+      tk_name: "Толік", tk_sub: "фенек Tolk · чує кожне слово", tk_line: "Перекладено {w} слів · до «{i}» ще {n}", tk_all: "Перекладено {w} слів · відкрито все!", tk_sleep: "Толік спить — прокинеться в Plus і Pro", tk_nokey: "Встанови Tolk на комп'ютер — я збиратиму речі за перекладені слова.", tk_chat: "Поговорити", tk_wear: "Гардероб", tk_ph: "Запитай Толіка…", tk_hi: "Привіт, {name}! Питай про навчання або Tolk — відповім коротко.", tk_wake: "Розбудити Толіка", tk_sleep_p: "Толік прокидається в Plus і Pro: поговорить, пояснить термін, підбадьорить перед іспитом. Речі накопичуються вже зараз.",
+      tk_err: "Не вийшло — спробуй ще раз.", tk_on: "вдягнено", tk_put: "вдягнути", tk_words: "{n} слів", tk_same: "Той самий наряд — у Толіка в програмі Tolk на комп'ютері.", tk_st: "Стікери Толіка", tk_st_s: "додати в Telegram", tk_c1: "Поясни термін простими словами", tk_c2: "Підбадьор перед іспитом", tk_c3: "Чим Plus відрізняється від Pro?", tk_i_headphones: "Навушники", tk_i_glasses: "Окуляри",
+      tk_i_scarf: "Шарф", tk_i_beanie: "Шапка", tk_i_hoodie: "Худі Tolk", tk_i_backpack: "Рюкзак", tk_i_bowtie: "Метелик", tk_i_gradcap: "Шапочка випускника", tk_i_sunglasses: "Сонцезахисні окуляри", tk_i_crown: "Корона", tk_pet: "Фир! Ще погладь 🦊"
     },
     sk: {
       out_t: "Otvorte Tolk v Telegrame", out_p: "Táto aplikácia funguje vnútri bota @TolkShopBot.", out_b: "Otvoriť bota",
@@ -252,7 +258,7 @@
       err_rate: "Kurz tejto meny je teraz nedostupný — vyberte iný spôsob.", err_stale: "Údaje sú neaktuálne — otvorte obrazovku znova.",
       err_any: "Niečo sa pokazilo — skúste to znova.", err_big: "Súbor má viac ako 10 MB.", err_type: "Treba snímku obrazovky, fotku alebo PDF.",
       err_nokey: "Najprv si kúpte predplatné — hodiny sa pripisujú k nemu.", retry: "Skúsiť znova",
-      your_sub: "Vaše predplatné", streak: "🔥 Séria: {n}", streak_best: " · rekord {n}", streak_today: " · dnes ešte nie", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zostáva {n} dní",
+      your_sub: "Vaše predplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zostáva {n} dní",
       ai_left: "Tolk AI · zostáva {l} z {t} h", ai_reset: "obnovia sa {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumejte prednáškam", new_2: "od prvého dňa.",
       new_sub: "Titulky s prekladom nad akýmkoľvek oknom a po prednáške poznámky a príprava na skúšky. 30 minút Plus zadarmo, potom od {p} týždenne.",
@@ -360,6 +366,9 @@
       fr_how: "Otvorte Tolk a vložte kód — v okne aktivácie alebo v „Profil → Zadať kľúč“. Ešte nemáte Tolk? Stiahnite si ho.",
       fr_phone: "Kód je už v chate s botom. Otvorte tento chat v Telegrame na počítači — je tam odkaz „Stiahnuť Tolk“; pri prvom spustení vložte kód.",
       fr_many: "Free je na tomto účte už na troch počítačoch — pre ďalší si vyberte Plus.",
+      tk_name: "Tolik", tk_sub: "fenek Tolku · počuje každé slovo", tk_line: "Preložených {w} slov · do „{i}“ ešte {n}", tk_all: "Preložených {w} slov · odomknuté všetko!", tk_sleep: "Tolik spí — zobudí sa v Plus a Pro", tk_nokey: "Nainštaluj si Tolk do počítača — budem zbierať veci za preložené slová.", tk_chat: "Pokecať", tk_wear: "Šatník", tk_ph: "Opýtaj sa Tolika…", tk_hi: "Ahoj, {name}! Pýtaj sa na školu alebo Tolk — odpoviem stručne.", tk_wake: "Zobudiť Tolika", tk_sleep_p: "Tolik sa zobudí v Plus a Pro: pokecá, vysvetlí pojem, povzbudí pred skúškou. Veci sa zbierajú už teraz.",
+      tk_err: "Nevyšlo to — skús ešte raz.", tk_on: "oblečené", tk_put: "obliecť", tk_words: "{n} slov", tk_same: "Rovnaký outfit má Tolik aj v programe Tolk v počítači.", tk_st: "Nálepky Tolika", tk_st_s: "pridať do Telegramu", tk_c1: "Vysvetli pojem jednoducho", tk_c2: "Povzbuď ma pred skúškou", tk_c3: "Aký je rozdiel medzi Plus a Pro?", tk_i_headphones: "Slúchadlá", tk_i_glasses: "Okuliare",
+      tk_i_scarf: "Šál", tk_i_beanie: "Čiapka", tk_i_hoodie: "Mikina Tolk", tk_i_backpack: "Batoh", tk_i_bowtie: "Motýlik", tk_i_gradcap: "Promočná čiapka", tk_i_sunglasses: "Slnečné okuliare", tk_i_crown: "Koruna", tk_pet: "Fŕŕ! Ešte ma pohlaď 🦊"
     },
     en: {
       out_t: "Open Tolk in Telegram", out_p: "This app works inside the @TolkShopBot bot.", out_b: "Open the bot",
@@ -368,7 +377,7 @@
       err_rate: "This currency's rate is unavailable right now — pick another method.", err_stale: "This data is out of date — reopen the screen.",
       err_any: "Something went wrong — please try again.", err_big: "The file is larger than 10 MB.", err_type: "Please use a screenshot, photo or PDF.",
       err_nokey: "Get a subscription first — hours are added to it.", retry: "Try again",
-      your_sub: "Your subscription", streak: "🔥 Streak: {n}", streak_best: " · best {n}", streak_today: " · not yet today", until: "until {d}", ended: "ended {d}", forever: "forever", left_days: "{n} days left",
+      your_sub: "Your subscription", until: "until {d}", ended: "ended {d}", forever: "forever", left_days: "{n} days left",
       ai_left: "Tolk AI · {l} of {t} h left", ai_reset: "refills {d}", unl: "Unlimited Tolk AI",
       new_1: "Understand lectures", new_2: "from day one.",
       new_sub: "Translated subtitles on top of any window, and after class — notes and exam prep. 30 minutes of Plus free, then from {p} a week.",
@@ -476,6 +485,9 @@
       fr_how: "Open Tolk and paste the code — in the activation window or in Profile → Enter key. No Tolk yet? Download it.",
       fr_phone: "The code is already in your chat with the bot. Open this chat in Telegram on your computer — there’s a “Download Tolk” link; paste the code on first launch.",
       fr_many: "This account already has Free on three computers — for another one, pick Plus.",
+      tk_name: "Tolik", tk_sub: "Tolk's fennec · hears every word", tk_line: "{w} words translated · {i} in {n} more", tk_all: "{w} words translated · everything unlocked!", tk_sleep: "Tolik is asleep — wakes up in Plus and Pro", tk_nokey: "Install Tolk on your computer — I'll collect items for translated words.", tk_chat: "Chat", tk_wear: "Wardrobe", tk_ph: "Ask Tolik…", tk_hi: "Hi, {name}! Ask me about studying or Tolk — I'll keep it short.", tk_wake: "Wake Tolik up", tk_sleep_p: "Tolik wakes up in Plus and Pro: he'll chat, explain a term, cheer you up before an exam. Items are collecting already.",
+      tk_err: "That didn't work — try again.", tk_on: "wearing", tk_put: "wear", tk_words: "{n} words", tk_same: "Same outfit for Tolik in the Tolk app on your computer.", tk_st: "Tolik stickers", tk_st_s: "add to Telegram", tk_c1: "Explain a term simply", tk_c2: "Cheer me up before the exam", tk_c3: "What's the difference between Plus and Pro?", tk_i_headphones: "Headphones", tk_i_glasses: "Glasses",
+      tk_i_scarf: "Scarf", tk_i_beanie: "Beanie", tk_i_hoodie: "Tolk hoodie", tk_i_backpack: "Backpack", tk_i_bowtie: "Bow tie", tk_i_gradcap: "Graduation cap", tk_i_sunglasses: "Sunglasses", tk_i_crown: "Crown", tk_pet: "Yip! More pets please 🦊"
     },
     pl: {
       out_t: "Otwórz Tolk w Telegramie", out_p: "Ta aplikacja działa wewnątrz bota @TolkShopBot.", out_b: "Otwórz bota",
@@ -484,7 +496,7 @@
       err_rate: "Kurs tej waluty jest teraz niedostępny — wybierz inny sposób.", err_stale: "Dane są nieaktualne — otwórz ekran ponownie.",
       err_any: "Coś poszło nie tak — spróbuj jeszcze raz.", err_big: "Plik ma ponad 10 MB.", err_type: "Potrzebny jest zrzut ekranu, zdjęcie albo PDF.",
       err_nokey: "Najpierw kup subskrypcję — godziny dodaje się do niej.", retry: "Spróbuj ponownie",
-      your_sub: "Twoja subskrypcja", streak: "🔥 Seria: {n}", streak_best: " · rekord {n}", streak_today: " · dziś jeszcze nie", until: "do {d}", ended: "wygasła {d}", forever: "na zawsze", left_days: "pozostało dni: {n}",
+      your_sub: "Twoja subskrypcja", until: "do {d}", ended: "wygasła {d}", forever: "na zawsze", left_days: "pozostało dni: {n}",
       ai_left: "Tolk AI · zostało {l} z {t} godz.", ai_reset: "odnowią się {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumiej wykłady", new_2: "od pierwszego dnia.",
       new_sub: "Napisy z tłumaczeniem nad każdym oknem, a po zajęciach notatki i nauka do egzaminów. 30 minut Plus za darmo, potem od {p} tygodniowo.",
@@ -592,6 +604,9 @@
       fr_how: "Otwórz Tolk i wklej kod — w oknie aktywacji albo w „Profil → Wpisz klucz”. Nie masz jeszcze Tolk? Pobierz go.",
       fr_phone: "Kod jest już na czacie z botem. Otwórz ten czat w Telegramie na komputerze — jest tam link „Pobierz Tolk”; przy pierwszym uruchomieniu wklej kod.",
       fr_many: "To konto ma już Free na trzech komputerach — na kolejny wybierz Plus.",
+      tk_name: "Tolik", tk_sub: "fenek Tolka · słyszy każde słowo", tk_line: "Przetłumaczono {w} słów · do „{i}” jeszcze {n}", tk_all: "Przetłumaczono {w} słów · wszystko odblokowane!", tk_sleep: "Tolik śpi — obudzi się w Plus i Pro", tk_nokey: "Zainstaluj Tolk na komputerze — będę zbierać rzeczy za przetłumaczone słowa.", tk_chat: "Pogadać", tk_wear: "Garderoba", tk_ph: "Zapytaj Tolika…", tk_hi: "Cześć, {name}! Pytaj o naukę albo Tolk — odpowiem krótko.", tk_wake: "Obudź Tolika", tk_sleep_p: "Tolik budzi się w Plus i Pro: pogada, wyjaśni termin, doda otuchy przed egzaminem. Rzeczy zbierają się już teraz.",
+      tk_err: "Nie wyszło — spróbuj jeszcze raz.", tk_on: "założone", tk_put: "załóż", tk_words: "{n} słów", tk_same: "Ten sam strój ma Tolik w programie Tolk na komputerze.", tk_st: "Naklejki Tolika", tk_st_s: "dodaj do Telegrama", tk_c1: "Wyjaśnij termin prosto", tk_c2: "Dodaj mi otuchy przed egzaminem", tk_c3: "Czym Plus różni się od Pro?", tk_i_headphones: "Słuchawki", tk_i_glasses: "Okulary",
+      tk_i_scarf: "Szalik", tk_i_beanie: "Czapka", tk_i_hoodie: "Bluza Tolk", tk_i_backpack: "Plecak", tk_i_bowtie: "Muszka", tk_i_gradcap: "Czapka absolwenta", tk_i_sunglasses: "Okulary przeciwsłoneczne", tk_i_crown: "Korona", tk_pet: "Fyr! Pogłaszcz jeszcze 🦊"
     },
     cs: {
       out_t: "Otevřete Tolk v Telegramu", out_p: "Tato aplikace funguje uvnitř bota @TolkShopBot.", out_b: "Otevřít bota",
@@ -600,7 +615,7 @@
       err_rate: "Kurz této měny teď není k dispozici — vyberte jiný způsob.", err_stale: "Údaje jsou zastaralé — otevřete obrazovku znovu.",
       err_any: "Něco se pokazilo — zkuste to znovu.", err_big: "Soubor má víc než 10 MB.", err_type: "Je potřeba snímek obrazovky, fotka nebo PDF.",
       err_nokey: "Nejdřív si kupte předplatné — hodiny se připisují k němu.", retry: "Zkusit znovu",
-      your_sub: "Vaše předplatné", streak: "🔥 Série: {n}", streak_best: " · rekord {n}", streak_today: " · dnes ještě ne", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zbývá dní: {n}",
+      your_sub: "Vaše předplatné", until: "do {d}", ended: "skončilo {d}", forever: "navždy", left_days: "zbývá dní: {n}",
       ai_left: "Tolk AI · zbývá {l} z {t} h", ai_reset: "obnoví se {d}", unl: "Tolk AI bez limitu",
       new_1: "Rozumějte přednáškám", new_2: "od prvního dne.",
       new_sub: "Titulky s překladem nad jakýmkoli oknem a po přednášce poznámky a příprava na zkoušky. 30 minut Plus zdarma, pak od {p} týdně.",
@@ -708,6 +723,9 @@
       fr_how: "Otevřete Tolk a vložte kód — v okně aktivace nebo v „Profil → Zadat klíč“. Ještě nemáte Tolk? Stáhněte si ho.",
       fr_phone: "Kód už je v chatu s botem. Otevřete tento chat v Telegramu na počítači — je tam odkaz „Stáhnout Tolk“; při prvním spuštění vložte kód.",
       fr_many: "Tento účet má Free už na třech počítačích — pro další vyberte Plus.",
+      tk_name: "Tolik", tk_sub: "fenek Tolku · slyší každé slovo", tk_line: "Přeloženo {w} slov · do „{i}“ ještě {n}", tk_all: "Přeloženo {w} slov · odemčeno všechno!", tk_sleep: "Tolik spí — probudí se v Plus a Pro", tk_nokey: "Nainstaluj si Tolk do počítače — budu sbírat věci za přeložená slova.", tk_chat: "Pokecat", tk_wear: "Šatník", tk_ph: "Zeptej se Tolika…", tk_hi: "Ahoj, {name}! Ptej se na studium nebo Tolk — odpovím stručně.", tk_wake: "Probudit Tolika", tk_sleep_p: "Tolik se probudí v Plus a Pro: pokecá, vysvětlí pojem, povzbudí před zkouškou. Věci se sbírají už teď.",
+      tk_err: "Nevyšlo to — zkus to znovu.", tk_on: "oblečeno", tk_put: "obléct", tk_words: "{n} slov", tk_same: "Stejný outfit má Tolik i v programu Tolk v počítači.", tk_st: "Samolepky Tolika", tk_st_s: "přidat do Telegramu", tk_c1: "Vysvětli pojem jednoduše", tk_c2: "Povzbuď mě před zkouškou", tk_c3: "Jaký je rozdíl mezi Plus a Pro?", tk_i_headphones: "Sluchátka", tk_i_glasses: "Brýle",
+      tk_i_scarf: "Šála", tk_i_beanie: "Čepice", tk_i_hoodie: "Mikina Tolk", tk_i_backpack: "Batoh", tk_i_bowtie: "Motýlek", tk_i_gradcap: "Absolventská čepice", tk_i_sunglasses: "Sluneční brýle", tk_i_crown: "Koruna", tk_pet: "Frr! Ještě pohlaď 🦊"
     },
     de: {
       out_t: "Öffne Tolk in Telegram", out_p: "Diese App läuft im Bot @TolkShopBot.", out_b: "Bot öffnen",
@@ -716,7 +734,7 @@
       err_rate: "Der Kurs dieser Währung ist gerade nicht verfügbar — wähle eine andere Zahlungsart.", err_stale: "Die Daten sind veraltet — öffne den Bildschirm neu.",
       err_any: "Etwas ist schiefgelaufen — versuch es noch einmal.", err_big: "Die Datei ist größer als 10 MB.", err_type: "Bitte einen Screenshot, ein Foto oder ein PDF.",
       err_nokey: "Hol dir zuerst ein Abo — die Stunden kommen dazu.", retry: "Erneut versuchen",
-      your_sub: "Dein Abo", streak: "🔥 Serie: {n}", streak_best: " · Rekord {n}", streak_today: " · heute noch nicht", until: "bis {d}", ended: "abgelaufen am {d}", forever: "für immer", left_days: "verbleibende Tage: {n}",
+      your_sub: "Dein Abo", until: "bis {d}", ended: "abgelaufen am {d}", forever: "für immer", left_days: "verbleibende Tage: {n}",
       ai_left: "Tolk AI · noch {l} von {t} Std.", ai_reset: "neue Stunden am {d}", unl: "Tolk AI ohne Limit",
       new_1: "Versteh Vorlesungen", new_2: "vom ersten Tag an.",
       new_sub: "Übersetzte Untertitel über jedem Fenster, nach der Vorlesung Mitschrift und Prüfungsvorbereitung. 30 Minuten Plus gratis, danach ab {p} pro Woche.",
@@ -824,6 +842,9 @@
       fr_how: "Öffne Tolk und füg den Code ein — im Aktivierungsfenster oder unter „Profil → Schlüssel eingeben“. Noch kein Tolk? Lade es herunter.",
       fr_phone: "Der Code ist schon in deinem Chat mit dem Bot. Öffne diesen Chat in Telegram auf dem Computer — dort ist ein Link „Tolk herunterladen“; füg den Code beim ersten Start ein.",
       fr_many: "Dieses Konto hat Free schon auf drei Computern — für einen weiteren wähle Plus.",
+      tk_name: "Tolik", tk_sub: "Tolks Fennek · hört jedes Wort", tk_line: "{w} Wörter übersetzt · bis „{i}“ noch {n}", tk_all: "{w} Wörter übersetzt · alles freigeschaltet!", tk_sleep: "Tolik schläft — wacht in Plus und Pro auf", tk_nokey: "Installier Tolk auf deinem Computer — ich sammle Sachen für übersetzte Wörter.", tk_chat: "Plaudern", tk_wear: "Kleiderschrank", tk_ph: "Frag Tolik…", tk_hi: "Hi, {name}! Frag mich übers Studium oder Tolk — ich antworte kurz.", tk_wake: "Tolik aufwecken", tk_sleep_p: "Tolik wacht in Plus und Pro auf: plaudert, erklärt Begriffe, macht dir vor der Prüfung Mut. Sachen sammeln sich schon jetzt.",
+      tk_err: "Hat nicht geklappt — versuch's nochmal.", tk_on: "an", tk_put: "anziehen", tk_words: "{n} Wörter", tk_same: "Dasselbe Outfit trägt Tolik in Tolk auf deinem Computer.", tk_st: "Tolik-Sticker", tk_st_s: "zu Telegram hinzufügen", tk_c1: "Erklär einen Begriff einfach", tk_c2: "Mach mir Mut vor der Prüfung", tk_c3: "Was ist der Unterschied zwischen Plus und Pro?", tk_i_headphones: "Kopfhörer", tk_i_glasses: "Brille",
+      tk_i_scarf: "Schal", tk_i_beanie: "Mütze", tk_i_hoodie: "Tolk-Hoodie", tk_i_backpack: "Rucksack", tk_i_bowtie: "Fliege", tk_i_gradcap: "Doktorhut", tk_i_sunglasses: "Sonnenbrille", tk_i_crown: "Krone", tk_pet: "Fiep! Mehr streicheln 🦊"
     },
   };
   const LANGS = [["ru", "Русский"], ["uk", "Українська"], ["en", "English"], ["pl", "Polski"], ["de", "Deutsch"], ["cs", "Čeština"], ["sk", "Slovenčina"]];
@@ -976,7 +997,9 @@
     const out = await (VIEWS[cur.v] || VIEWS.home)(cur.p);
     if (my !== gen || !out) return;                                   // пока ждали сервер, ушли на другой экран
     const y = window.scrollY;
+    tolikDrop();
     $app.replaceChildren(h("div.view", null, out.node));
+    tolikMountAll();
     window.scrollTo(0, keep ? y : 0);
     setMain(out.main || null);
   }
@@ -1082,8 +1105,124 @@
     setTimeout(() => { try { tg.close(); } catch (e) { /* в браузере закрывать нечего */ } }, 700);
   }
 
+  // ------------------------------------------------------------------------------------------- Толик
+  // 3D-фенек (../assets/tolik.js — тот же, что на сайте и в программе) грузится, только когда он на экране. Вещи — за
+  // слова, переведённые в программе (сервер знает число от неё); наряд общий с программой.
+  let tolikLib = null, tolikLive = [], tolikWant = [], tolikChat = [];
+  const loadTolik = () => tolikLib || (tolikLib = new Promise((ok, bad) => {
+    const sc = document.createElement("script");
+    sc.src = "../assets/tolik.js?v=1";
+    sc.onload = () => ok(window.Tolik);
+    sc.onerror = bad;
+    document.head.appendChild(sc);
+  }));
+  const tolikStage = (opts, cls = "") => {                        // место под Толика: сам он появится после отрисовки экрана
+    const el = h("div.tk-stage" + cls);
+    tolikWant.push([el, opts]);
+    return el;
+  };
+  function tolikMountAll() {
+    const want = tolikWant;
+    tolikWant = [];
+    if (!want.length) return;
+    loadTolik().then((T) => {
+      for (const [el, o] of want) {
+        if (!el.isConnected) continue;
+        const m = T.mount(el, { outfit: (S.tolik && S.tolik.outfit) || [], sleeping: !(S.tolik && S.tolik.awake), fps: 40, still: "../img/tolik/tolik.png",
+          onPoke: (w) => { haptic(w === "double" ? "success" : "light"); if (o.onPoke) o.onPoke(w, m); },
+          onPet: () => { haptic("success"); m.say(t("tk_pet"), 2200); } });
+        tolikLive.push(m);
+        if (o.ready) o.ready(m);
+      }
+    }).catch(() => {});
+  }
+  function tolikDrop() { tolikLive.forEach((m) => { try { m.destroy(); } catch (e) { /* уже убран */ } }); tolikLive = []; }
+  const tolikNum = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+  const tolikLine = (k) => {
+    if (!k.has_key) return t("tk_nokey");
+    if (!k.awake) return t("tk_sleep");
+    return k.next ? t("tk_line", { w: tolikNum(k.words), i: t("tk_i_" + k.next.id), n: tolikNum(k.next.words - k.words) }) : t("tk_all", { w: tolikNum(k.words) });
+  };
+  // карточка на главной: маленький Толик + сколько до следующей вещи
+  function tolikCard() {
+    const k = S.tolik;
+    if (!k) return null;
+    return h("button.tk-card", { type: "button", on: tap(() => go("tolik")) },
+      tolikStage({ onPoke: () => go("tolik") }, ".sm"),
+      h("span.tx", null, h("b", { text: t("tk_name") }), h("small", { text: tolikLine(k) })), h("span.chev", { html: icon("chev") }));
+  }
+
   // ------------------------------------------------------------------------------------------- экраны покупателя
   const VIEWS = {};
+
+  VIEWS.tolik = async (p) => {
+    const k = S.tolik || { words: 0, outfit: [], unlocked: [], items: [], awake: false };
+    const tab = p.tab || (k.awake ? "chat" : "wear");
+    let big = null;
+    const stage = tolikStage({ ready: (m) => {
+      big = m;
+      if (k.awake && !p.greeted) { p.greeted = true; m.emote("wave"); m.say(t("tk_hi", { name: S.name || "" }).replace(", !", "!"), 4200); }
+    } }, ".big");
+    const seg = h("div.tk-seg", null, [["chat", t("tk_chat")], ["wear", t("tk_wear")]].map(([v, label]) =>
+      h("button" + (v === tab ? ".on" : ""), { type: "button", on: tap(() => { p.tab = v; rerender(); }) }, label)));
+    const bits = [h("section.tk-top", null, stage, h("h1", { text: t("tk_name") }), h("p.sub", { text: t("tk_sub") }), h("p.sub.tk-l", { text: tolikLine(k) })), seg];
+    if (tab === "chat") {
+      if (!k.awake) {
+        bits.push(h("div.card", null, h("p", { text: t("tk_sleep_p") })));
+        return { node: bits, main: { text: t("tk_wake"), fn: () => go("plans") } };
+      }
+      const log = h("div.tk-log");
+      const add = (who, text) => { log.append(h("div.tk-msg." + who, { text })); log.scrollTop = log.scrollHeight; };
+      tolikChat.forEach(([q, a]) => { add("me", q); add("him", a); });
+      const input = h("input", { type: "text", placeholder: t("tk_ph"), maxlength: 600, enterkeyhint: "send", autocomplete: "off" });
+      let busy = false;
+      const send = async (text) => {
+        text = String(text || input.value).trim();
+        if (!text || busy) return;
+        busy = true;
+        input.value = "";
+        add("me", text);
+        if (big) big.emote("think", 30);
+        const wait = h("div.tk-msg.him.wait", { text: "…" });
+        log.append(wait);
+        const r = await api("tolik/ask", { text, prev: tolikChat.slice(-6) });
+        wait.remove();
+        busy = false;
+        if (!r || r.error || !r.say) { haptic("error"); add("him", t("tk_err")); if (big) big.emote("sad"); return; }
+        haptic("light");
+        add("him", r.say);
+        tolikChat = [...tolikChat, [text, r.say]].slice(-12);
+        if (big) { big.emote(r.emote || "happy"); big.say(r.say.length > 110 ? r.say.slice(0, 107) + "…" : r.say, 5000); }
+      };
+      input.addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
+      const chips = h("div.tk-chips", null, ["tk_c1", "tk_c2", "tk_c3"].map((c) => h("button", { type: "button", on: tap(() => send(t(c))) }, t(c))));
+      bits.push(log, chips, h("div.tk-in", null, input, h("button.btn", { type: "button", on: tap(() => send()) }, ic("send"))));
+      return { node: bits };
+    }
+    // гардероб
+    let outfit = (k.outfit || []).slice();
+    const grid = h("div.tk-items");
+    const paint = () => {
+      grid.replaceChildren(...(k.items || []).map((it) => {
+        const open = k.words >= it.words, on = outfit.includes(it.id);
+        return h("button.tk-item" + (on ? ".on" : "") + (open ? "" : ".locked"), { type: "button", disabled: !open || !k.awake || null,
+          on: tap(async () => {
+            outfit = on ? outfit.filter((x) => x !== it.id) : [...outfit.filter((x) => ((k.items || []).find((y) => y.id === x) || {}).slot !== it.slot), it.id];
+            paint();
+            if (big) { big.setOutfit(outfit); big.emote(on ? "giggle" : "happy"); }
+            const r = await api("tolik/outfit", { outfit });
+            if (r && r.outfit) { k.outfit = r.outfit; S.tolik.outfit = r.outfit; }
+          }) },
+          h("span.e", { text: { headphones: "🎧", glasses: "👓", scarf: "🧣", beanie: "🧢", hoodie: "🧥", backpack: "🎒", bowtie: "🎀",
+                                gradcap: "🎓", sunglasses: "🕶️", crown: "👑" }[it.id] || "✨" }),
+          h("span.n", { text: t("tk_i_" + it.id) }), h("small", { text: !open ? t("tk_words", { n: tolikNum(it.words) }) : on ? t("tk_on") : t("tk_put") }));
+      }));
+    };
+    paint();
+    bits.push(grid, h("p.muted.small", { text: k.awake ? t("tk_same") : t("tk_sleep_p") }));
+    if (S.tolik.stickers) bits.push(h("div.sec", null, li("star", t("tk_st"), t("tk_st_s"), () => openTg(S.tolik.stickers))));
+    return { node: bits, main: k.awake ? null : { text: t("tk_wake"), fn: () => go("plans") } };
+  };
 
   VIEWS.home = async () => {
     const k = S.key, o = S.order;
@@ -1093,13 +1232,12 @@
       head.push(h("p.eyebrow", { text: t("your_sub") }), h("h1", { text: k.title }), h("p.sub", { text: keyStatus(k) + days }));
       if (k.usage) head.push(meter(k.usage));
       else if (k.unl) head.push(h("p.sub", { text: t("unl") }));
-      const sk = S.streak;                                     // серия дней с Tolk — с двух дней подряд
-      if (sk && sk.cur >= 2) head.push(h("p.streak", { text: t("streak", { n: sk.cur }) +
-        (sk.best > sk.cur ? t("streak_best", { n: sk.best }) : "") + (sk.today ? "" : t("streak_today")) }));
     } else {
       head.push(title2(t("new_1"), t("new_2")), h("p.sub", { text: t("new_sub", { p: minPrice() }) }));
     }
     const bits = [hero("menu", ...head)];
+    const tc = tolikCard();
+    if (tc) bits.push(tc);
     const sb = saleBanner(() => go("plans"));
     if (sb) bits.push(sb);
     const ready = !k && (S.keys || []).find((c) => !c.serial && !c.used && !c.gift && c.kind === "plan");
@@ -1761,7 +1899,7 @@
     else if (a === "gift") add("plans", { gift: true });
     else if (a === "item" && b) add(S.shop.topups.some((x) => x.id === b) ? "hours" : (S.shop.notes || []).some((x) => x.id === b) ? "notes" : "plans",
       { item: b, pro: /^pro_/.test(b) || undefined });
-    else if (["keys", "invite", "review", "help", "lang", "trial", "free"].includes(a)) add(a);
+    else if (["keys", "invite", "review", "help", "lang", "trial", "free", "tolik"].includes(a)) add(a);
     else if (a === "order" && S.order) add("pay", { id: S.order.id, order: S.order });
     render();
   }

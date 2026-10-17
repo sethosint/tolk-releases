@@ -844,6 +844,21 @@
   renderPrices();
   $$(".display, .lede, .body, .faq, .fine, .os-hint, .pay-notes, .spec dd, .callouts, .steps-x, .exam").forEach(typograph);
   $$(".display").forEach(split);
+  // крупный заголовок на узком телефоне: пара слов с неразрывным пробелом («od pierwszego») шире экрана — уменьшаем шрифт,
+  // пока строка не влезет (иначе страница уезжает вбок)
+  function fitDisplay() {
+    const vw = document.documentElement.clientWidth;
+    $$(".display").forEach((el) => {
+      el.style.fontSize = "";
+      const room = () => Math.min(el.clientWidth || vw, vw - Math.max(0, el.getBoundingClientRect().left) - 12);
+      const widest = () => Math.max(0, ...$$(".w", el).map((w) => w.getBoundingClientRect().width));
+      let fs = parseFloat(getComputedStyle(el).fontSize), guard = 0;
+      while (widest() > room() + 1 && fs > 22 && guard++ < 50) { fs -= 1.5; el.style.fontSize = fs + "px"; }
+    });
+  }
+  fitDisplay();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitDisplay);
+  addEventListener("resize", () => requestAnimationFrame(fitDisplay));
   rise();
   intro();
   initXray();
