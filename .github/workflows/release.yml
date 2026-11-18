@@ -1,15 +1,15 @@
-# Выпуск Tolk — собирается здесь, в открытом sethosint/tolk-releases: у открытых репозиториев минуты GitHub Actions бесплатны
+# Выпуск Tolk AI — собирается здесь, в открытом sethosint/tolk-releases: у открытых репозиториев минуты GitHub Actions бесплатны
 # (Windows и Mac тоже). Код программы остаётся закрытым: каждая сборка скачивает его из sethosint/tolk по секрету RELEASES_TOKEN
 # только на время работы и нигде не выкладывает — наружу выходят лишь установщики (они и так лежат в релизах), журналы сборки
 # видны всем, но в них нет ни кода, ни ключей (секреты GitHub скрывает сам).
 #
 # Источник этого файла — packaging/public-ci/release.yml в sethosint/tolk; сюда его кладёт tools/publish_site.py.
 # Запуск: сам раз в 30 минут смотрит release/request.json в main закрытого репозитория — версии ещё нет в релизах → выпуск;
-# или Actions → «Выпуск Tolk» → Run workflow.
+# или Actions → «Выпуск Tolk AI» → Run workflow.
 # Секреты здесь (Settings → Secrets and variables → Actions), один раз:
 #   SELLER_PRIVATE_KEY — содержимое seller/private_key.txt (gh secret set SELLER_PRIVATE_KEY -R sethosint/tolk-releases < seller/private_key.txt)
 #   RELEASES_TOKEN     — токен GitHub владельца с доступом к sethosint/tolk (gh auth token | gh secret set RELEASES_TOKEN -R sethosint/tolk-releases)
-name: Выпуск Tolk
+name: Выпуск Tolk AI
 
 on:
   schedule:
@@ -147,7 +147,7 @@ jobs:
       matrix:
         include:
           - { os: ubuntu-22.04, script: build_linux.sh }
-          - { os: macos-14, script: build_macos.sh }          # Apple M
+          - { os: macos-15, script: build_macos.sh }          # Apple M (macos-14 GitHub убрал 11.2026)
           - { os: macos-15-intel, script: build_macos.sh }    # Intel
     runs-on: ${{ matrix.os }}
     steps:
